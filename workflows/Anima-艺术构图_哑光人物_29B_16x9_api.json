@@ -1,0 +1,389 @@
+{
+ "1": {
+  "inputs": {
+   "unet_name": "Anima\\anima29B_v10_bf16.safetensors",
+   "weight_dtype": "default"
+  },
+  "class_type": "UNETLoader",
+  "_meta": {
+   "title": "UNet · anima29B_v10_bf16"
+  }
+ },
+ "2": {
+  "inputs": {
+   "clip_name": "Anima\\qwen_3_06b_base.safetensors",
+   "type": "stable_diffusion",
+   "device": "default"
+  },
+  "class_type": "CLIPLoader",
+  "_meta": {
+   "title": "CLIP · qwen_3_06b_base"
+  }
+ },
+ "3": {
+  "inputs": {
+   "vae_name": "Qwen\\qwen_image_vae.safetensors"
+  },
+  "class_type": "VAELoader",
+  "_meta": {
+   "title": "VAE · qwen_image_vae"
+  }
+ },
+ "5": {
+  "inputs": {
+   "preset": "comfy kitchen attention",
+   "model": [
+    "19",
+    0
+   ]
+  },
+  "class_type": "XB_SageAttentionAccelerator",
+  "_meta": {
+   "title": "加速 · comfy kitchen attention"
+  }
+ },
+ "6": {
+  "inputs": {
+   "nsfw_level": "sfw",
+   "seed": 880200,
+   "tag_cap": "48",
+   "base_prob": 0.65,
+   "disabled_sections": "",
+   "lock_fields": "",
+   "force_role": "",
+   "weights_json": "{\n \"sections\": {\n  \"cloth_sfw\": 1.0\n },\n \"fields\": {\n  \"n_canon\": 3\n },\n \"options\": {\n  \"n_canon\": {\n   \"c1\": 0,\n   \"c2\": 0,\n   \"c3\": 0,\n   \"c4\": 0,\n   \"c5\": 0,\n   \"c6\": 0,\n   \"c7\": 0,\n   \"c8\": 0,\n   \"c9\": 0,\n   \"c10\": 0,\n   \"c11\": 0,\n   \"c12\": 0,\n   \"c13\": 0,\n   \"c14\": 0,\n   \"sc_rain_street_lookback\": 0,\n   \"sc_classroom_chin_rest\": 0,\n   \"sc_rooftop_stretch\": 0,\n   \"sc_library_quiet\": 0,\n   \"sc_cafe_window_rain\": 0,\n   \"sc_shrine_walk\": 0,\n   \"sc_beach_midsummer\": 0,\n   \"sc_stairwell_up\": 0,\n   \"sc_morning_window\": 0,\n   \"sc_onsen_steam\": 0,\n   \"sc_pov_hands_selfie\": 0,\n   \"sc_train_home\": 0,\n   \"sc_snow_field_scarf\": 0,\n   \"sc_fisheye_room\": 0,\n   \"sc_dutch_alley_night\": 0,\n   \"sc_mirror_dressing\": 0,\n   \"sc_panorama_park\": 0,\n   \"sc_ccc_plain_daily\": 0,\n   \"sc_ccc_ntr_phone\": 0,\n   \"sc_ccc_ntr_window\": 0,\n   \"sc_ccc_bdsm_shibari\": 0,\n   \"sc_ccc_bdsm_gag\": 0,\n   \"sc_ccc_rbq_wall\": 0,\n   \"sc_ccc_tentacle\": 0,\n   \"sc_ccc_pet_play\": 0,\n   \"sc_ccc_coerce_wall\": 0,\n   \"sc_ccc_voyeur_cam\": 0,\n   \"sc_ccc_afterglow\": 0,\n   \"sc_ccc_hidden_sex\": 0,\n   \"sc_ccc_mating_press\": 0,\n   \"sc_ccc_dp_group\": 0,\n   \"sc_ccc_pov_crotch_self\": 0,\n   \"sc_classroom_afterschool\": 0,\n   \"sc_office_overtime\": 0,\n   \"sc_convenience_night\": 0,\n   \"sc_balcony_night\": 0,\n   \"sc_changing_room\": 0,\n   \"sc_fitting_room\": 0,\n   \"sc_elevator_ride\": 0,\n   \"sc_car_ride\": 0,\n   \"sc_flower_field\": 0,\n   \"sc_movie_theater\": 0,\n   \"sc_amusement_night\": 0,\n   \"sc_forest_fog\": 0,\n   \"sc_poolside_summer\": 0,\n   \"sc_bathroom_mirror\": 0,\n   \"sc_under_shower\": 0,\n   \"sc_ccc_missionary\": 0,\n   \"sc_ccc_doggystyle\": 0,\n   \"sc_ccc_cowgirl\": 0,\n   \"sc_ccc_stand_carry\": 0,\n   \"sc_ccc_clothed_sex\": 0,\n   \"sc_ccc_footjob\": 0,\n   \"sc_ccc_paizuri\": 0,\n   \"sc_ccc_facesitting\": 0,\n   \"sc_ccc_anal\": 0,\n   \"sc_ccc_ntr_split\": 0,\n   \"sc_ccc_bdsm_pillory\": 0,\n   \"sc_ccc_rbq_after\": 0,\n   \"sc_ccc_femdom_reverse\": 0,\n   \"sc_ccc_pov_oral\": 0,\n   \"sc_ccc_pov_cowgirl\": 0,\n   \"sc_poolside_microbikini\": 0,\n   \"sc_offshoulder_night\": 0,\n   \"sc_msb_panties_aside\": 0,\n   \"sc_msb_skirt_vacuum\": 0,\n   \"sc_msb_mirror_check\": 0,\n   \"sc_msb_bath_recline\": 0,\n   \"sc_msb_sofa_pull\": 0,\n   \"sc_msb_office_night\": 0,\n   \"sc_msb_fingers_bed\": 0,\n   \"sc_msb_dildo_ride\": 0,\n   \"sc_msb_vibrator_covers\": 0,\n   \"sc_msb_mirror_watch\": 0,\n   \"sc_msb_pov_self\": 0,\n   \"sc_msb_clothed\": 0,\n   \"sc_msb_bathtub_water\": 0,\n   \"sc_msb_shower_stand\": 0,\n   \"sc_msb_plug_rear\": 0,\n   \"sc_msb_toys_show\": 0,\n   \"sc_msb_continuous\": 0,\n   \"sc_msb_blindfold_toy\": 0,\n   \"sc_msb_mutual\": 0,\n   \"sc_msb_squirt_fingers\": 0,\n   \"sc_msb_squirt_dildo\": 0,\n   \"sc_msb_squirt_after\": 0,\n   \"sc_changing_room_peek\": 0,\n   \"sc_bedroom_sleepshirt\": 0,\n   \"sc_bath_towel\": 0,\n   \"sc_balcony_laundry\": 0,\n   \"sc_rain_wetshirt\": 0,\n   \"sc_sofa_catnap\": 0,\n   \"sc_konbini_midnight\": 0,\n   \"sc_kitchen_apron\": 0,\n   \"sc_skirt_wind\": 0,\n   \"sc_hotel_mirror\": 0,\n   \"sc_beach_volley\": 0,\n   \"sc_pool_ladder\": 0,\n   \"sc_surf_board\": 0,\n   \"sc_float_ring\": 0,\n   \"sc_shower_peek\": 0,\n   \"sc_watergun_fight\": 0,\n   \"sc_ol_overtime\": 0,\n   \"sc_maid_serving\": 0,\n   \"sc_nurse_rounds\": 0,\n   \"sc_classroom_openwin\": 0,\n   \"sc_jk_bike_ride\": 0,\n   \"sc_yoga_mat\": 0,\n   \"sc_gym_mirror\": 0,\n   \"sc_gymnastics_split\": 0,\n   \"sc_jog_rest\": 0,\n   \"sc_cam_wide_low_side\": 0,\n   \"sc_cam_med_high_kneel\": 0,\n   \"sc_cam_fisheye_squat\": 0,\n   \"sc_cam_bird_lying\": 0,\n   \"sc_cam_pov_stand\": 0,\n   \"sc_cam_low_stretch\": 0,\n   \"sc_cam_side_hairflip\": 0,\n   \"sc_cam_dutch_wall\": 0,\n   \"sc_cam_ots_lookback\": 0,\n   \"sc_cam_worm_sit\": 0,\n   \"sc_near_face_classroom\": 0,\n   \"sc_near_face_backlight\": 0,\n   \"sc_near_face_rain\": 0,\n   \"sc_near_face_mirror\": 0,\n   \"sc_near_face_lowgaze\": 0,\n   \"sc_near_face_tears\": 0,\n   \"sc_near_face_smile\": 0,\n   \"sc_near_face_bed\": 0,\n   \"sc_near_eye_single\": 0,\n   \"sc_near_eye_lash\": 0,\n   \"sc_near_lip_micro\": 0,\n   \"sc_near_lip_bite\": 0,\n   \"sc_near_collar_top\": 0,\n   \"sc_near_back_shoulder\": 0,\n   \"sc_near_towel_after\": 0,\n   \"sc_near_hand_cover\": 0,\n   \"sc_near_wet_cloth\": 0,\n   \"sc_near_shoulder_line\": 0,\n   \"sc_near_hand_lap\": 0,\n   \"sc_near_hand_lip\": 0,\n   \"sc_near_leg_thighhigh\": 0,\n   \"sc_near_leg_crossed\": 0,\n   \"sc_near_leg_kneel\": 0,\n   \"sc_near_leg_hem\": 0,\n   \"sc_near_leg_stand\": 0,\n   \"sc_near_leg_side\": 0,\n   \"sc_near_foot_bare\": 0,\n   \"sc_near_foot_sock\": 0,\n   \"sc_near_foot_heel\": 0,\n   \"sc_near_foot_curl\": 0,\n   \"sc_near_hip_back_stand\": 0,\n   \"sc_near_hip_seiza_back\": 0,\n   \"sc_near_hip_bent\": 0,\n   \"sc_near_hip_kneel_arch\": 0,\n   \"sc_near_hip_bare\": 0,\n   \"sc_near_hip_sheer\": 0,\n   \"sc_near_leg_sit_chair\": 0,\n   \"sc_near_leg_sit_floor\": 0,\n   \"sc_near_leg_bed_edge\": 0,\n   \"sc_near_leg_sofa_cross\": 0,\n   \"sc_near_leg_side_raise\": 0,\n   \"sc_near_leg_supine_reach\": 0,\n   \"sc_near_nsfw_cleavage\": 0,\n   \"sc_near_nsfw_garter\": 0,\n   \"sc_near_nsfw_tongue\": 0,\n   \"sc_near_nsfw_soles\": 0,\n   \"sc_near_nsfw_nipple\": 0,\n   \"sc_near_nsfw_panties\": 0,\n   \"sc_near_nsfw_sheer\": 0,\n   \"sc_near_nsfw_thighs\": 0,\n   \"sc_near_nsfw_allfours\": 0,\n   \"sc_near_nsfw_fellatio\": 0,\n   \"sc_near_nsfw_cunnilingus\": 0,\n   \"sc_near_nsfw_cum\": 0,\n   \"sc_near_nsfw_breast_massage\": 0,\n   \"sc_near_nsfw_nipple_suck\": 0,\n   \"sc_near_nsfw_breast_suck\": 0,\n   \"sc_near_nsfw_lactation\": 0,\n   \"sc_near_soft_breast_massage\": 0,\n   \"sc_near_soft_breast_hug\": 0,\n   \"sc_pose_seiza_front\": 0,\n   \"sc_pose_seiza_side\": 0,\n   \"sc_pose_seiza_lookback\": 0,\n   \"sc_pose_seiza_bow\": 0,\n   \"sc_pose_wariza\": 0,\n   \"sc_pose_indian\": 0,\n   \"sc_pose_on_floor\": 0,\n   \"sc_pose_one_knee\": 0,\n   \"sc_pose_kneeling_back\": 0,\n   \"sc_pose_all_fours\": 0,\n   \"sc_pose_squat\": 0,\n   \"sc_pose_crossed_ankles\": 0,\n   \"sc_pose_fetal\": 0,\n   \"sc_pose_one_leg_stand\": 0,\n   \"sc_pose_apartment_seiza\": 0,\n   \"sc_pose_shrine_kneel\": 0,\n   \"sc_pose_bed_kneel\": 0,\n   \"sc_pose_library_floor\": 0,\n   \"sc_pose_flowerfield_seiza\": 0,\n   \"sc_pose_poolside_kneel\": 0,\n   \"sc_pose_stage_one_knee\": 0,\n   \"sc_pose_rooftop_squat\": 0,\n   \"sc_pose_onsen_seiza\": 0,\n   \"sc_pose_classroom_sit\": 0,\n   \"sc_pose_standing_split\": 0,\n   \"sc_pose_standing_split_front\": 0,\n   \"sc_pose_standing_split_back\": 0,\n   \"sc_pose_against_wall\": 0,\n   \"sc_pose_contrapposto\": 0,\n   \"sc_pose_hands_on_knees\": 0,\n   \"sc_pose_head_rest\": 0,\n   \"sc_pose_legs_apart\": 0,\n   \"sc_pose_lying_prone\": 0,\n   \"sc_pose_bed_on_back\": 0,\n   \"sc_pose_tiptoes_stretch\": 0,\n   \"sc_pose_hug_knees\": 0,\n   \"sc_ccc_pov_self_body\": 0,\n   \"sc_wide_hill_sunset\": 0,\n   \"sc_wide_lake_mist\": 0,\n   \"sc_wide_bridge_night\": 0,\n   \"sc_wide_beach_dusk\": 0,\n   \"sc_wide_forest_path\": 0,\n   \"sc_wide_rain_street\": 0,\n   \"sc_wide_lighthouse\": 0,\n   \"sc_wide_ruins_beam\": 0,\n   \"sc_wide_snow_field\": 0,\n   \"sc_wide_flower_wind\": 0,\n   \"sc_wide_rooftop_twilight\": 0,\n   \"sc_wide_shrine_sakura\": 0,\n   \"sc_wide_mountain_lookback\": 0,\n   \"sc_wide_alley_lookback\": 0,\n   \"sc_wide_crosswalk_lookback\": 0,\n   \"sc_wide_river_lookback\": 0,\n   \"sc_les_sm_suspension_pair\": 0,\n   \"sc_les_sm_suspension_twine\": 0,\n   \"sc_les_sm_chair_machine\": 0,\n   \"sc_les_sm_wax_bound\": 0,\n   \"sc_les_sm_mutual_rope\": 0,\n   \"sc_les_sm_backtoback\": 0,\n   \"sc_les_sm_pet_leash\": 0,\n   \"sc_les_sm_collar_hold\": 0,\n   \"sc_les_sm_enema_bound\": 0,\n   \"sc_les_sm_clamp_pull\": 0,\n   \"sc_les_sm_anal_beads\": 0,\n   \"sc_les_sm_wooden_horse\": 0,\n   \"sc_les_sm_chastity_key\": 0,\n   \"sc_les_sm_clamp_weight\": 0,\n   \"sc_pose_skirt_lift_disdain\": 0,\n   \"sc_pose_sole_stomp_disdain\": 0,\n   \"sc_sock_office_elevator\": 0,\n   \"sc_sock_class_desk\": 0,\n   \"sc_sock_cafe_crossed\": 0,\n   \"sc_sock_home_sofa\": 0,\n   \"sc_sock_change_legup\": 0,\n   \"sc_sock_library_tiptoe\": 0,\n   \"sc_sock_stair_torn\": 0,\n   \"sc_sock_rain_wet\": 0,\n   \"sc_sock_hallway_nopanty\": 0,\n   \"sc_sock_shibari_room\": 0,\n   \"sc_pose_wind_hold_skirt\": 0,\n   \"sc_pose_seiza_rear_low\": 0,\n   \"sc_duo_hand_in_hand\": 0,\n   \"sc_duo_back_hug\": 0,\n   \"sc_duo_selfie\": 0,\n   \"sc_duo_lap_pillow\": 0,\n   \"sc_duo_feeding\": 0,\n   \"sc_duo_hair_braid\": 0,\n   \"sc_sakura_street_lookback\": 0,\n   \"sc_wedding_bouquet_wait\": 0,\n   \"sc_msb_suspension_dildo\": 0,\n   \"sc_art_hourglass\": 3.0,\n   \"sc_art_birdcage\": 0,\n   \"sc_art_type_wall\": 0,\n   \"sc_art_vinyl_arch\": 0,\n   \"sc_art_paper_lantern\": 0,\n   \"sc_art_piano_stairs\": 0,\n   \"sc_art_clock_hand\": 0,\n   \"sc_art_umbrella_sky\": 0,\n   \"sc_art_specimen_case\": 0,\n   \"sc_art_zipper_wall\": 0,\n   \"sc_art_envelope\": 0,\n   \"sc_art_filmstrip_ring\": 0,\n   \"sc_art_aquarium\": 0,\n   \"sc_art_mirror_corridor\": 0,\n   \"sc_art_gear_wheel\": 0,\n   \"sc_art_rose_window\": 0,\n   \"sc_art_impossible_stairs\": 0,\n   \"sc_art_dandelion\": 0,\n   \"sc_art_torn_paper\": 0,\n   \"sc_art_keyhole\": 0,\n   \"sc_art_mirror_frame\": 0,\n   \"sc_art_giant_book\": 0,\n   \"sc_art_black_hourglass\": 0,\n   \"sc_art_black_type_wall\": 0,\n   \"sc_art_black_gear_wheel\": 0,\n   \"sc_art_black_keyhole\": 0,\n   \"sc_art_navy_clock\": 0,\n   \"sc_art_navy_filmstrip\": 0,\n   \"sc_art_navy_aquarium\": 0,\n   \"sc_art_navy_mirror_corridor\": 0,\n   \"sc_art_crimson_zipper\": 0,\n   \"sc_art_crimson_birdcage\": 0,\n   \"sc_art_crimson_rose_window\": 0,\n   \"sc_art_crimson_envelope\": 0,\n   \"sc_art_emerald_dandelion\": 0,\n   \"sc_art_emerald_impossible_stairs\": 0,\n   \"sc_art_emerald_umbrella_sky\": 0,\n   \"sc_art_emerald_piano_stairs\": 0,\n   \"sc_art_gold_vinyl_arch\": 0,\n   \"sc_art_gold_specimen_case\": 0,\n   \"sc_art_gold_torn_paper\": 0,\n   \"sc_art_gold_mirror_frame\": 0,\n   \"sc_art_gold_worm_hourglass\": 0,\n   \"sc_art_crimson_dutch_typewall\": 0,\n   \"sc_art_navy_ots_clock\": 0,\n   \"sc_art_white_framed_mirror\": 0,\n   \"sc_art_emerald_fisheye_gear\": 0,\n   \"sc_art_black_persp_stairs\": 0,\n   \"sc_art_crimson_pano_zipper\": 0,\n   \"sc_art_navy_mirror_aquarium\": 0,\n   \"sc_art_black_ub_dutch_umbrella\": 0,\n   \"sc_art_gold_cowboy_worm_clock\": 0,\n   \"sc_art_crimson_profile_rosewin\": 0,\n   \"sc_art_black_ub_framed_keyhole\": 0,\n   \"sc_art_emerald_bokeh_dandelion\": 0,\n   \"sc_art_navy_cowboy_vignette_vinyl\": 0,\n   \"sc_art_white_ub_birdseye_book\": 0,\n   \"sc_art_emerald_cowboy_fisheye_cage\": 0,\n   \"sc_art_piano_giant\": 0,\n   \"sc_art_cello_giant\": 0,\n   \"sc_art_harp_giant\": 0,\n   \"sc_art_organ_giant\": 0,\n   \"sc_art_violin_giant\": 0,\n   \"sc_art_drums_giant\": 0,\n   \"sc_art_guitar_giant\": 0,\n   \"sc_art_flute_giant\": 0,\n   \"sc_art_erhu_giant\": 0,\n   \"sc_art_xylophone_giant\": 0,\n   \"sc_art_piano\": 0,\n   \"sc_art_violin\": 0,\n   \"sc_art_cello\": 0,\n   \"sc_art_harp\": 0,\n   \"sc_art_accordion\": 0,\n   \"sc_art_trumpet\": 0,\n   \"sc_art_guqin\": 0,\n   \"sc_art_drumkit\": 0,\n   \"sc_art_musicbox\": 0,\n   \"sc_art_shamisen\": 0,\n   \"sc_art_ub_gpiano_key\": 0,\n   \"sc_art_ub_accordion\": 0,\n   \"sc_art_ub_mallet\": 0,\n   \"sc_art_cu_strings\": 0,\n   \"sc_art_cu_bow\": 0,\n   \"sc_art_cu_flute\": 0,\n   \"sc_art_cu_bubbles\": 0,\n   \"sc_art_ub_teacup\": 0,\n   \"sc_art_ub_bookpage\": 0,\n   \"sc_art_ub_calligraphy\": 0,\n   \"sc_art_ub_umbrella\": 0,\n   \"sc_art_ub_candle\": 0\n  },\n  \"count\": {\n   \"1girl, solo\": 3\n  },\n  \"makeup\": {\n   \"glossy lips\": 0,\n   \"blush\": 0,\n   \"eyeliner\": 0,\n   \"eyeshadow\": 0,\n   \"mole under eye\": 0,\n   \"red lipstick\": 0,\n   \"black lipstick\": 0,\n   \"nail polish\": 0,\n   \"red nail polish\": 0,\n   \"eyebags, blush, eyeliner, glossy lips\": 0,\n   \"blush, half-closed eyes, eyeliner\": 0,\n   \"mole under eye, blush, glossy lips\": 0,\n   \"pale skin, black lipstick, eyeshadow\": 0\n  },\n  \"nails\": {\n   \"nail polish\": 0,\n   \"red nail polish\": 0\n  },\n  \"skin_detail\": {\n   \"glistening skin\": 0,\n   \"mole under eye\": 0\n  },\n  \"hair_fx\": {\n   \"wet hair\": 0,\n   \"wet hair, hair over eyes\": 0,\n   \"glossy hair\": 0\n  },\n  \"leg\": {\n   \"long legs\": 0\n  },\n  \"figure\": {\n   \"voluptuous\": 0\n  },\n  \"skin\": {\n   \"tanlines\": 0,\n   \"pale skin\": 0\n  },\n  \"emotion\": {\n   \"embarrassed, blush\": 0\n  },\n  \"mouth\": {\n   \"parted lips\": 0\n  }\n },\n \"_ui\": {\n  \"tab\": \"scenes\",\n  \"openSecs\": [\n   \"count\",\n   \"hair\",\n   \"face\"\n  ],\n  \"sceneOpen\": {\n   \"sc_art_piano_stairs\": false\n  },\n  \"sceneGroup\": \"art\",\n  \"sceneQuery\": \"\",\n  \"sceneAspect\": \"all\",\n  \"sceneTheme\": \"\",\n  \"sceneThemeAll\": false,\n  \"sceneThemeOpen\": true,\n  \"nearPartOpen\": true,\n  \"sceneFavOnly\": false,\n  \"sceneFavOpen\": false,\n  \"sceneTipOpen\": false,\n  \"sceneCompact\": false,\n  \"sceneClosed\": {},\n  \"nearPart\": \"\",\n  \"charWork\": \"blue_archive\",\n  \"charQuery\": \"\",\n  \"charTraits\": [],\n  \"charTraitOpen\": false,\n  \"scroll\": {\n   \"left\": 0,\n   \"right\": 0\n  }\n }\n}",
+   "extra_body": "",
+   "appearance_follow": true,
+   "selected_roles": "souryuu_asuka_langley",
+   "big_breasts": false,
+   "role_works": "",
+   "breast_size": "不指定",
+   "outfit_style": "随机",
+   "role_fav_only": false,
+   "hair_follow": true,
+   "hair_len_pick": "角色标签发型",
+   "hair_tie_pick": "角色标签发型",
+   "hair_curl_pick": "角色标签发型",
+   "hair_acc_pick": "角色标签发型",
+   "role_pick": true,
+   "scene_pick": false,
+   "⚙ 打开随机面板": null,
+   "🔁 换种子": null,
+   "🎲 每次重抽": null,
+   "🧹 清空权重": null
+  },
+  "class_type": "AnimaV6RandomPrompt",
+  "_meta": {
+   "title": "Anima 提示词 · 哑光艺术构图"
+  },
+  "is_changed": [
+   "seed:880200"
+  ]
+ },
+ "7": {
+  "class_type": "Prompt (LoraManager)",
+  "inputs": {
+   "text": [
+    "6",
+    0
+   ],
+   "clip": [
+    "19",
+    1
+   ],
+   "trigger_words1": [
+    "19",
+    2
+   ]
+  },
+  "_meta": {
+   "title": "正向提示词 · 自动前置触发词"
+  }
+ },
+ "8": {
+  "inputs": {
+   "text": "worst quality, low quality, score_1, score_2, score_3, lowres, jpeg artifacts, blurry, bad anatomy, extra limbs, deformed hands, extra digits, close-up, portrait, text, watermark, signature, glossy skin, shiny skin, oily skin, glistening, wet look, sweaty skin, glossy lips, wet hair, heavy makeup, oil painting style",
+   "clip": [
+    "19",
+    1
+   ]
+  },
+  "class_type": "CLIPTextEncode",
+  "_meta": {
+   "title": "负向词 · 艺术构图 + 压油光"
+  }
+ },
+ "9": {
+  "inputs": {
+   "aspect_ratio": "16:9",
+   "width": 1536,
+   "height": 864,
+   "batch_size": 1,
+   "strength_float": 1.0,
+   "strength_int": 1
+  },
+  "class_type": "XB_ImageParamsMaster",
+  "_meta": {
+   "title": "图片参数 · 1536×864 (16:9)"
+  }
+ },
+ "10": {
+  "inputs": {
+   "width": [
+    "9",
+    0
+   ],
+   "height": [
+    "9",
+    1
+   ],
+   "batch_size": [
+    "9",
+    2
+   ]
+  },
+  "class_type": "EmptyLatentImage",
+  "_meta": {
+   "title": "空Latent图像"
+  }
+ },
+ "11": {
+  "inputs": {
+   "seed": 265521198872240,
+   "steps": 16,
+   "cfg": 2.0,
+   "sampler": "er_sde",
+   "scheduler": "beta",
+   "denoise": 1.0,
+   "cleanup": "不做任何清理",
+   "model": [
+    "5",
+    0
+   ],
+   "positive": [
+    "7",
+    0
+   ],
+   "negative": [
+    "8",
+    0
+   ],
+   "latent": [
+    "10",
+    0
+   ]
+  },
+  "class_type": "XB_ROCmKSampler",
+  "_meta": {
+   "title": "采样器 · 16 步（艺术构图基线）"
+  }
+ },
+ "12": {
+  "inputs": {
+   "tile": 320,
+   "overlap": 32,
+   "cleanup": "不做任何清理",
+   "samples": [
+    "11",
+    0
+   ],
+   "vae": [
+    "3",
+    0
+   ]
+  },
+  "class_type": "XB_ROCmVAEDecode",
+  "_meta": {
+   "title": "VAE 解码 · 2304x1296 首采直出"
+  }
+ },
+ "13": {
+  "inputs": {
+   "filename_prefix": "图片/艺术构图_哑光/_改造验收/sc_art_hourglass_",
+   "images": [
+    "18",
+    0
+   ]
+  },
+  "class_type": "SaveImage",
+  "_meta": {
+   "title": "保存图像"
+  }
+ },
+ "14": {
+  "class_type": "ImageScaleBy",
+  "inputs": {
+   "image": [
+    "12",
+    0
+   ],
+   "upscale_method": "lanczos",
+   "scale_by": 1.5
+  },
+  "_meta": {
+   "title": "像素放大 x1.5 · lanczos"
+  }
+ },
+ "15": {
+  "class_type": "VAEEncodeTiled",
+  "inputs": {
+   "pixels": [
+    "14",
+    0
+   ],
+   "vae": [
+    "3",
+    0
+   ],
+   "tile_size": 512,
+   "overlap": 64,
+   "temporal_size": 4096,
+   "temporal_overlap": 8
+  },
+  "_meta": {
+   "title": "VAE编码（分块）"
+  }
+ },
+ "16": {
+  "class_type": "XB_ROCmKSampler",
+  "inputs": {
+   "seed": 265521198872241,
+   "steps": 6,
+   "cfg": 2.0,
+   "sampler": "er_sde",
+   "scheduler": "beta",
+   "denoise": 0.2,
+   "cleanup": "不做任何清理",
+   "model": [
+    "5",
+    0
+   ],
+   "positive": [
+    "7",
+    0
+   ],
+   "negative": [
+    "8",
+    0
+   ],
+   "latent": [
+    "15",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "二采 · 6 步 denoise 0.20（像素域）"
+  }
+ },
+ "17": {
+  "class_type": "XB_ROCmVAEDecode",
+  "inputs": {
+   "samples": [
+    "16",
+    0
+   ],
+   "vae": [
+    "3",
+    0
+   ],
+   "tile": 320,
+   "overlap": 32,
+   "cleanup": "不做任何清理"
+  },
+  "_meta": {
+   "title": "VAE解码 · 二采"
+  }
+ },
+ "18": {
+  "class_type": "LazySwitchKJ",
+  "inputs": {
+   "switch": true,
+   "on_false": [
+    "12",
+    0
+   ],
+   "on_true": [
+    "17",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "二采开关（关=只出首采原图）"
+  }
+ },
+ "19": {
+  "class_type": "Lora Loader (LoraManager)",
+  "inputs": {
+   "model": [
+    "1",
+    0
+   ],
+   "clip": [
+    "2",
+    0
+   ],
+   "text": "<lora:anima-turbo-lora-v0.2:0.85> <lora:anima-base-1-light-concepts-v31:0.3>",
+   "loras": {
+    "__value__": [
+     {
+      "name": "anima-turbo-lora-v0.2",
+      "strength": 0.85,
+      "active": true,
+      "expanded": false,
+      "clipStrength": 0.85,
+      "selected": true,
+      "locked": false
+     },
+     {
+      "name": "anima-base-1-light-concepts-v31",
+      "strength": 0.3,
+      "active": true,
+      "expanded": false,
+      "clipStrength": 0.3,
+      "selected": true,
+      "locked": false
+     },
+     {
+      "name": "anima-base-1-masterpiece-v51",
+      "strength": 0.6,
+      "active": false,
+      "expanded": false,
+      "clipStrength": 0.6,
+      "selected": false,
+      "locked": false
+     },
+     {
+      "name": "gouache_AN2.9B_v1",
+      "strength": 0.9,
+      "active": false,
+      "expanded": false,
+      "clipStrength": 0.9,
+      "selected": false,
+      "locked": false
+     },
+     {
+      "name": "mona_watercolor_anima_v2",
+      "strength": 1.0,
+      "active": false,
+      "expanded": false,
+      "clipStrength": 1.0,
+      "selected": false,
+      "locked": false
+     },
+     {
+      "name": "anima-highres-aesthetic-boost",
+      "strength": 0.5,
+      "active": false,
+      "expanded": false,
+      "clipStrength": 0.5,
+      "selected": false,
+      "locked": false
+     }
+    ]
+   }
+  },
+  "_meta": {
+   "title": "LoRA 管理 · LoraManager（带触发词）"
+  }
+ }
+}

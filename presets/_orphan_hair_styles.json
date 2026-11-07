@@ -1,0 +1,44 @@
+{
+ "_meta": {
+  "source": "char_hair_style.json",
+  "reason": "key 不在角色库里（死数据），2026-11-07 审查清理",
+  "count": 11
+ },
+ "styles": {
+  "araragi_koyomi": {
+   "hair_len": "long hair"
+  },
+  "ashido_mina": {
+   "hair_len": "short hair"
+  },
+  "asui_tsuyu": {
+   "hair_len": "long hair"
+  },
+  "doraemon_(character)": {
+   "hair_len": "short hair"
+  },
+  "hadou_nejire": {
+   "hair_len": "very long hair"
+  },
+  "jirou_kyouka": {
+   "hair_len": "short hair"
+  },
+  "mirko": {
+   "hair_len": "very long hair"
+  },
+  "toga_himiko": {
+   "hair_curl": "messy hair",
+   "hair_len": "short hair",
+   "hair_tie": "double bun"
+  },
+  "uesugi_fuutarou": {
+   "hair_len": "short hair"
+  },
+  "uraraka_ochako": {
+   "hair_len": "short hair"
+  },
+  "yaoyorozu_momo": {
+   "hair_len": "long hair"
+  }
+ }
+}

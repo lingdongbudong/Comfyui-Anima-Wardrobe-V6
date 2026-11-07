@@ -1,0 +1,1215 @@
+{
+ "_meta": {
+  "schema": "anima-wardrobe-v4/manual-characters@1",
+  "why": "联网构建覆盖不到的作品，手工补录。build_characters.py 的 render() 会合并本表，所以重跑构建不会丢。tag / trigger 必须是 danbooru 真实写法（姓在前、空格分隔）。",
+  "works": {
+   "persona 5: the phantom x": "女神异闻录：夜幕魅影",
+   "ai assistant": "AI 拟人",
+   "fx senshi kurumi-chan": "FX战士久留美",
+   "arknights: endfield": "明日方舟：终末地"
+  },
+  "added_at": "2026-10-31",
+  "source": "用户自建（2026-10-28 联网核实），2026-10-31 姓名顺序改为 danbooru 写法"
+ },
+ "characters": [
+  {
+   "tag": "arai_motoha",
+   "name": "arai motoha",
+   "zh": "荒井萌",
+   "work": "persona 5: the phantom x",
+   "trigger": "arai motoha, persona 5: the phantom x",
+   "pop": 0,
+   "hair": "blonde",
+   "eyes": "blue",
+   "tags": [
+    "1girl",
+    "blonde hair",
+    "short hair",
+    "blue eyes"
+   ],
+   "src": "manual",
+   "thumb": "arai_motoha"
+  },
+  {
+   "tag": "tanemura_riko",
+   "name": "tanemura riko",
+   "zh": "多祢村理子",
+   "work": "persona 5: the phantom x",
+   "trigger": "tanemura riko, persona 5: the phantom x",
+   "pop": 0,
+   "hair": "black",
+   "eyes": "brown",
+   "tags": [
+    "1girl",
+    "black hair",
+    "long hair",
+    "blunt bangs",
+    "brown eyes"
+   ],
+   "src": "manual",
+   "thumb": "tanemura_riko"
+  },
+  {
+   "tag": "kotone_montagne",
+   "name": "kotone_montagne",
+   "zh": "琴音·蒙塔涅",
+   "work": "persona 5: the phantom x",
+   "trigger": "kotone_montagne, persona 5: the phantom x",
+   "pop": 0,
+   "hair": "silver",
+   "eyes": "blue",
+   "tags": [
+    "1girl",
+    "silver hair",
+    "long hair",
+    "braid",
+    "blue eyes"
+   ],
+   "src": "manual",
+   "thumb": "kotone_montagne"
+  },
+  {
+   "tag": "fujikawa_yukimi",
+   "name": "fujikawa yukimi",
+   "zh": "藤川雪实",
+   "work": "persona 5: the phantom x",
+   "trigger": "fujikawa yukimi, persona 5: the phantom x",
+   "pop": 0,
+   "hair": "silver",
+   "eyes": "blue",
+   "tags": [
+    "1girl",
+    "silver hair",
+    "short hair",
+    "blue eyes"
+   ],
+   "src": "manual",
+   "thumb": "fujikawa_yukimi"
+  },
+  {
+   "tag": "noge_tomoko",
+   "name": "noge tomoko",
+   "zh": "野毛朋子",
+   "work": "persona 5: the phantom x",
+   "trigger": "noge tomoko, persona 5: the phantom x",
+   "pop": 0,
+   "hair": "black",
+   "eyes": "grey",
+   "tags": [
+    "1girl",
+    "black hair",
+    "twintails",
+    "glasses",
+    "grey eyes"
+   ],
+   "src": "manual",
+   "thumb": "noge_tomoko"
+  },
+  {
+   "tag": "li_yaoling",
+   "name": "li yaoling",
+   "zh": "李瑶铃",
+   "work": "persona 5: the phantom x",
+   "trigger": "li yaoling, persona 5: the phantom x",
+   "pop": 0,
+   "hair": "black",
+   "eyes": "brown",
+   "tags": [
+    "1girl",
+    "black hair",
+    "twintails",
+    "streaked hair",
+    "brown eyes"
+   ],
+   "src": "manual",
+   "thumb": "li_yaoling"
+  },
+  {
+   "tag": "tomiyama_kayo",
+   "name": "tomiyama kayo",
+   "zh": "富山佳代",
+   "work": "persona 5: the phantom x",
+   "trigger": "tomiyama kayo, persona 5: the phantom x",
+   "pop": 0,
+   "hair": "brown",
+   "eyes": "brown",
+   "tags": [
+    "1girl",
+    "brown hair",
+    "brown eyes",
+    "mole under eye"
+   ],
+   "src": "manual",
+   "thumb": "tomiyama_kayo"
+  },
+  {
+   "tag": "sahara_miyu",
+   "name": "sahara miyu",
+   "zh": "佐原海夕",
+   "work": "persona 5: the phantom x",
+   "trigger": "sahara miyu, persona 5: the phantom x",
+   "pop": 0,
+   "hair": "blue",
+   "eyes": "grey",
+   "tags": [
+    "1girl",
+    "blue hair",
+    "medium hair",
+    "blunt bangs",
+    "grey eyes"
+   ],
+   "src": "manual",
+   "thumb": "sahara_miyu"
+  },
+  {
+   "tag": "nishimori_haruna",
+   "name": "nishimori haruna",
+   "zh": "西森阳菜",
+   "work": "persona 5: the phantom x",
+   "trigger": "nishimori haruna, persona 5: the phantom x",
+   "pop": 0,
+   "hair": "black",
+   "eyes": "brown",
+   "tags": [
+    "1girl",
+    "black hair",
+    "short hair",
+    "brown eyes"
+   ],
+   "src": "manual",
+   "thumb": "nishimori_haruna"
+  },
+  {
+   "tag": "yui_(p5x)",
+   "name": "yui (p5x)",
+   "zh": "松方结",
+   "work": "persona 5: the phantom x",
+   "trigger": "yui (p5x), persona 5: the phantom x",
+   "pop": 0,
+   "hair": "turquoise",
+   "eyes": "blue",
+   "tags": [
+    "1girl",
+    "turquoise hair",
+    "twintails",
+    "drill hair",
+    "blue eyes"
+   ],
+   "src": "manual",
+   "thumb": "yui_p5x"
+  },
+  {
+   "tag": "miyashita_minami",
+   "name": "miyashita minami",
+   "zh": "宫下美波",
+   "work": "persona 5: the phantom x",
+   "trigger": "miyashita minami, persona 5: the phantom x",
+   "pop": 0,
+   "hair": "brown",
+   "eyes": "brown",
+   "tags": [
+    "1girl",
+    "brown hair",
+    "ponytail",
+    "brown eyes"
+   ],
+   "src": "manual",
+   "thumb": "miyashita_minami"
+  },
+  {
+   "tag": "nagao_chizuko",
+   "name": "nagao chizuko",
+   "zh": "长尾千津子",
+   "work": "persona 5: the phantom x",
+   "trigger": "nagao chizuko, persona 5: the phantom x",
+   "pop": 0,
+   "hair": "white",
+   "eyes": "red",
+   "tags": [
+    "1girl",
+    "white hair",
+    "short hair",
+    "red eyes",
+    "elderly"
+   ],
+   "src": "manual",
+   "thumb": "nagao_chizuko"
+  },
+  {
+   "tag": "shiina_yumi",
+   "name": "shiina yumi",
+   "zh": "椎名悠美",
+   "work": "persona 5: the phantom x",
+   "trigger": "shiina yumi, persona 5: the phantom x",
+   "pop": 0,
+   "hair": "blonde",
+   "eyes": "green",
+   "tags": [
+    "1girl",
+    "blonde hair",
+    "short hair",
+    "green eyes"
+   ],
+   "src": "manual",
+   "thumb": "shiina_yumi"
+  },
+  {
+   "tag": "sakai_ayaka",
+   "name": "sakai ayaka",
+   "zh": "坂井绫香",
+   "work": "persona 5: the phantom x",
+   "trigger": "sakai ayaka, persona 5: the phantom x",
+   "pop": 0,
+   "hair": "brown",
+   "eyes": "green",
+   "tags": [
+    "1girl",
+    "brown hair",
+    "green eyes"
+   ],
+   "src": "manual",
+   "thumb": "sakai_ayaka"
+  },
+  {
+   "tag": "dogenzaka_runa",
+   "name": "dogenzaka runa",
+   "zh": "道玄坂琉七",
+   "work": "persona 5: the phantom x",
+   "trigger": "dogenzaka runa, persona 5: the phantom x",
+   "pop": 0,
+   "hair": "beige",
+   "eyes": "green",
+   "tags": [
+    "1girl",
+    "beige hair",
+    "short hair",
+    "bob cut",
+    "green eyes"
+   ],
+   "src": "manual",
+   "thumb": "dogenzaka_runa"
+  },
+  {
+   "tag": "natsukawa_mio",
+   "name": "natsukawa mio",
+   "zh": "夏川澪",
+   "work": "persona 5: the phantom x",
+   "trigger": "natsukawa mio, persona 5: the phantom x",
+   "pop": 0,
+   "hair": "black",
+   "eyes": "blue",
+   "tags": [
+    "1girl",
+    "black hair",
+    "ponytail",
+    "blue eyes",
+    "mole under eye"
+   ],
+   "src": "manual",
+   "thumb": "natsukawa_mio"
+  },
+  {
+   "tag": "hashimoto_mayumi",
+   "name": "hashimoto mayumi",
+   "zh": "桥本麻由美",
+   "work": "persona 5: the phantom x",
+   "trigger": "hashimoto mayumi, persona 5: the phantom x",
+   "pop": 0,
+   "hair": "black",
+   "eyes": "blue",
+   "tags": [
+    "1girl",
+    "black hair",
+    "twintails",
+    "streaked hair",
+    "blue eyes"
+   ],
+   "src": "manual",
+   "thumb": "hashimoto_mayumi"
+  },
+  {
+   "tag": "shikano_ichigo",
+   "name": "shikano ichigo",
+   "zh": "鹿野苺",
+   "work": "persona 5: the phantom x",
+   "trigger": "shikano ichigo, persona 5: the phantom x",
+   "pop": 0,
+   "hair": "blue",
+   "eyes": "blue",
+   "tags": [
+    "1girl",
+    "blue hair",
+    "long hair",
+    "hair ribbon",
+    "blue eyes"
+   ],
+   "src": "manual",
+   "thumb": "shikano_ichigo"
+  },
+  {
+   "tag": "nagao_manaka",
+   "name": "nagao manaka",
+   "zh": "长尾爱歌",
+   "work": "persona 5: the phantom x",
+   "trigger": "nagao manaka, persona 5: the phantom x",
+   "pop": 0,
+   "hair": "black",
+   "eyes": "purple",
+   "tags": [
+    "1girl",
+    "black hair",
+    "purple eyes"
+   ],
+   "src": "manual",
+   "thumb": "nagao_manaka"
+  },
+  {
+   "tag": "lillia_greyrat",
+   "name": "lillia greyrat",
+   "zh": "莉莉娅·格雷拉特",
+   "work": "mushoku tensei",
+   "trigger": "lillia greyrat, mushoku tensei",
+   "pop": 109,
+   "hair": "",
+   "eyes": "",
+   "tags": [
+    "1girl",
+    "maid",
+    "long hair",
+    "braid",
+    "hair between eyes"
+   ],
+   "src": "manual",
+   "thumb": "lillia_greyrat"
+  },
+  {
+   "tag": "ghislaine_dedoldia",
+   "name": "ghislaine dedoldia",
+   "zh": "基列奴·德多路迪亚",
+   "work": "mushoku tensei",
+   "trigger": "ghislaine dedoldia, mushoku tensei",
+   "pop": 1108,
+   "hair": "grey",
+   "eyes": "red",
+   "tags": [
+    "1girl",
+    "dark-skinned female",
+    "cat girl",
+    "cat ears",
+    "animal ear fluff",
+    "cat tail",
+    "red eyes",
+    "hair between eyes",
+    "eyepatch",
+    "long hair",
+    "grey hair",
+    "sidelocks",
+    "large breasts"
+   ],
+   "src": "manual",
+   "thumb": "ghislaine_dedoldia"
+  },
+  {
+   "tag": "elinalise_dragonroad",
+   "name": "elinalise dragonroad",
+   "zh": "艾莉娜丽洁·多拉贡罗德",
+   "work": "mushoku tensei",
+   "trigger": "elinalise dragonroad, mushoku tensei",
+   "pop": 168,
+   "hair": "blonde",
+   "eyes": "",
+   "tags": [
+    "1girl",
+    "blonde hair",
+    "very long hair",
+    "drill hair",
+    "pointy ears",
+    "elf",
+    "ahoge",
+    "hair between eyes",
+    "large breasts"
+   ],
+   "src": "manual",
+   "thumb": "elinalise_dragonroad"
+  },
+  {
+   "tag": "zenith_greyrat",
+   "name": "zenith greyrat",
+   "zh": "塞妮丝·格雷拉特",
+   "work": "mushoku tensei",
+   "trigger": "zenith greyrat, mushoku tensei",
+   "pop": 120,
+   "hair": "blonde",
+   "eyes": "blue",
+   "tags": [
+    "1girl",
+    "blonde hair",
+    "blue eyes",
+    "ponytail",
+    "braid",
+    "ahoge",
+    "elf",
+    "pointy ears"
+   ],
+   "src": "manual",
+   "thumb": "zenith_greyrat"
+  },
+  {
+   "tag": "norn_greyrat",
+   "name": "norn greyrat",
+   "zh": "诺伦·格雷拉特",
+   "work": "mushoku tensei",
+   "trigger": "norn greyrat, mushoku tensei",
+   "pop": 241,
+   "hair": "blonde",
+   "eyes": "green",
+   "tags": [
+    "1girl",
+    "blonde hair",
+    "green eyes",
+    "ponytail",
+    "hair flaps",
+    "long hair",
+    "blunt bangs"
+   ],
+   "src": "manual",
+   "thumb": "norn_greyrat"
+  },
+  {
+   "tag": "aisha_greyrat",
+   "name": "aisha greyrat",
+   "zh": "爱夏·格雷拉特",
+   "work": "mushoku tensei",
+   "trigger": "aisha greyrat, mushoku tensei",
+   "pop": 339,
+   "hair": "red",
+   "eyes": "green",
+   "tags": [
+    "1girl",
+    "red hair",
+    "green eyes",
+    "long hair",
+    "ponytail",
+    "medium hair",
+    "ahoge",
+    "hairband"
+   ],
+   "src": "manual",
+   "thumb": "aisha_greyrat"
+  },
+  {
+   "tag": "ariel_anemoi_asura",
+   "name": "ariel anemoi asura",
+   "zh": "爱丽儿·阿涅摩伊·阿斯拉",
+   "work": "mushoku tensei",
+   "trigger": "ariel anemoi asura, mushoku tensei",
+   "pop": 29,
+   "hair": "blonde",
+   "eyes": "blue",
+   "tags": [
+    "1girl",
+    "blonde hair",
+    "blue eyes",
+    "long hair",
+    "pointy ears",
+    "long pointy ears",
+    "elf",
+    "braid",
+    "ahoge"
+   ],
+   "src": "manual",
+   "thumb": "ariel_anemoi_asura"
+  },
+  {
+   "tag": "nanahoshi_shizuka",
+   "name": "nanahoshi shizuka",
+   "zh": "七星静香",
+   "work": "mushoku tensei",
+   "trigger": "nanahoshi shizuka, mushoku tensei",
+   "pop": 141,
+   "hair": "black",
+   "eyes": "black",
+   "tags": [
+    "1girl",
+    "black hair",
+    "black eyes",
+    "long hair",
+    "very long hair"
+   ],
+   "src": "manual",
+   "thumb": "nanahoshi_shizuka"
+  },
+  {
+   "tag": "fukuga_kurumi",
+   "name": "fukuga kurumi",
+   "zh": "福贺久留美",
+   "work": "fx senshi kurumi-chan",
+   "trigger": "fukuga kurumi, fx senshi kurumi-chan",
+   "pop": 23,
+   "hair": "pink",
+   "eyes": "",
+   "tags": [
+    "1girl",
+    "pink hair",
+    "short hair",
+    "hair ribbon",
+    "hair ornament",
+    "hairclip",
+    "white dress",
+    "medium breasts"
+   ],
+   "src": "manual",
+   "thumb": "fukuga_kurumi"
+  },
+  {
+   "tag": "kogane_mochiko",
+   "name": "kogane mochiko",
+   "zh": "小金萌智子",
+   "work": "fx senshi kurumi-chan",
+   "trigger": "kogane mochiko, fx senshi kurumi-chan",
+   "pop": 0,
+   "hair": "",
+   "eyes": "",
+   "tags": [
+    "1girl"
+   ],
+   "src": "manual",
+   "thumb": "kogane_mochiko"
+  },
+  {
+   "tag": "yamashi_mebuki",
+   "name": "yamashi mebuki",
+   "zh": "山师芽吹",
+   "work": "fx senshi kurumi-chan",
+   "trigger": "yamashi mebuki, fx senshi kurumi-chan",
+   "pop": 0,
+   "hair": "",
+   "eyes": "",
+   "tags": [
+    "1girl"
+   ],
+   "src": "manual",
+   "thumb": "yamashi_mebuki"
+  },
+  {
+   "tag": "takane_yasuko",
+   "name": "takane yasuko",
+   "zh": "高根安子",
+   "work": "fx senshi kurumi-chan",
+   "trigger": "takane yasuko, fx senshi kurumi-chan",
+   "pop": 0,
+   "hair": "",
+   "eyes": "",
+   "tags": [
+    "1girl"
+   ],
+   "src": "manual",
+   "thumb": "takane_yasuko"
+  },
+  {
+   "tag": "user_dafiyu",
+   "name": "dafiyu",
+   "zh": "大肥鱼",
+   "work": "ai assistant",
+   "trigger": "dafiyu, original",
+   "pop": 0,
+   "hair": "",
+   "eyes": "",
+   "tags": [
+    "1girl",
+    "fin ears",
+    "blue scales",
+    "blue hair",
+    "long hair",
+    "aqua eyes",
+    "hair between eyes",
+    "ahoge",
+    "chubby",
+    "thick thighs",
+    "navel",
+    "collarbone"
+   ],
+   "src": "manual",
+   "thumb": "user_dafiyu"
+  },
+  {
+   "tag": "user_chatgpt",
+   "name": "chatgpt",
+   "zh": "ChatGPT·白龙",
+   "work": "ai assistant",
+   "trigger": "chatgpt, original",
+   "pop": 0,
+   "hair": "",
+   "eyes": "",
+   "tags": [
+    "1girl",
+    "white hair",
+    "very long hair",
+    "dragon horns",
+    "purple eyes",
+    "pointy ears",
+    "dragon tail"
+   ],
+   "src": "manual",
+   "thumb": "user_chatgpt"
+  },
+  {
+   "tag": "user_claude",
+   "name": "claude",
+   "zh": "Claude·向日葵",
+   "work": "ai assistant",
+   "trigger": "claude, original",
+   "pop": 0,
+   "hair": "",
+   "eyes": "",
+   "tags": [
+    "1girl",
+    "orange hair",
+    "long hair",
+    "wavy hair",
+    "orange eyes",
+    "hair flower",
+    "book"
+   ],
+   "src": "manual",
+   "thumb": "user_claude"
+  },
+  {
+   "tag": "user_gemini",
+   "name": "gemini",
+   "zh": "Gemini·星猫",
+   "work": "ai assistant",
+   "trigger": "gemini, original",
+   "pop": 0,
+   "hair": "",
+   "eyes": "",
+   "tags": [
+    "1girl",
+    "purple hair",
+    "gradient hair",
+    "wavy hair",
+    "cat ears",
+    "amber eyes",
+    "star hair ornament",
+    "hair between eyes"
+   ],
+   "src": "manual",
+   "thumb": "user_gemini"
+  },
+  {
+   "tag": "user_grok",
+   "name": "grok",
+   "zh": "Grok·星冠",
+   "work": "ai assistant",
+   "trigger": "grok, original",
+   "pop": 0,
+   "hair": "",
+   "eyes": "",
+   "tags": [
+    "1girl",
+    "blonde hair",
+    "twintails",
+    "blue eyes",
+    "crown",
+    "star hair ornament",
+    "sharp teeth"
+   ],
+   "src": "manual",
+   "thumb": "user_grok"
+  },
+  {
+   "tag": "user_qwen",
+   "name": "qwen",
+   "zh": "千问·国风",
+   "work": "ai assistant",
+   "trigger": "qwen, original",
+   "pop": 0,
+   "hair": "",
+   "eyes": "",
+   "tags": [
+    "1girl",
+    "blue hair",
+    "long hair",
+    "hair stick",
+    "hair ornament",
+    "folding fan",
+    "chinese clothes"
+   ],
+   "src": "manual",
+   "thumb": "user_qwen"
+  },
+  {
+   "tag": "user_glm",
+   "name": "glm",
+   "zh": "GLM·瞌睡狐",
+   "work": "ai assistant",
+   "trigger": "glm, original",
+   "pop": 0,
+   "hair": "",
+   "eyes": "",
+   "tags": [
+    "1girl",
+    "black hair",
+    "short hair",
+    "fox ears",
+    "fox tail",
+    "eyepatch",
+    "sleepy",
+    "hair between eyes"
+   ],
+   "src": "manual",
+   "thumb": "user_glm"
+  },
+  {
+   "tag": "perlica_(arknights)",
+   "name": "perlica (arknights)",
+   "zh": "佩丽卡",
+   "work": "arknights: endfield",
+   "trigger": "perlica, arknights: endfield",
+   "pop": 0,
+   "hair": "white",
+   "eyes": "blue",
+   "tags": [
+    "1girl",
+    "white hair",
+    "animal ears",
+    "blue eyes",
+    "white dress",
+    "mechanical arms"
+   ],
+   "src": "manual",
+   "thumb": "perlica_arknights"
+  },
+  {
+   "tag": "chen_qianyu",
+   "name": "chen qianyu",
+   "zh": "陈千语",
+   "work": "arknights: endfield",
+   "trigger": "chen qianyu, arknights: endfield",
+   "pop": 0,
+   "hair": "black",
+   "eyes": "red",
+   "tags": [
+    "1girl",
+    "black hair",
+    "very long hair",
+    "red eyes",
+    "hair ornament",
+    "red dress"
+   ],
+   "src": "manual",
+   "thumb": "chen_qianyu"
+  },
+  {
+   "tag": "laevatain_(arknights)",
+   "name": "laevatain (arknights)",
+   "zh": "莱万汀",
+   "work": "arknights: endfield",
+   "trigger": "laevatain, arknights: endfield",
+   "pop": 0,
+   "hair": "blonde",
+   "eyes": "red",
+   "tags": [
+    "1girl",
+    "blonde hair",
+    "long hair",
+    "red eyes",
+    "black coat",
+    "sword"
+   ],
+   "src": "manual",
+   "thumb": "laevatain_arknights"
+  },
+  {
+   "tag": "yvonne_(arknights)",
+   "name": "yvonne (arknights)",
+   "zh": "伊冯",
+   "work": "arknights: endfield",
+   "trigger": "yvonne, arknights: endfield",
+   "pop": 0,
+   "hair": "pink",
+   "eyes": "red",
+   "tags": [
+    "1girl",
+    "pink hair",
+    "long hair",
+    "red eyes",
+    "black dress",
+    "mechanical arms"
+   ],
+   "src": "manual",
+   "thumb": "yvonne_arknights"
+  },
+  {
+   "tag": "gilberta_(arknights)",
+   "name": "gilberta (arknights)",
+   "zh": "洁尔佩塔",
+   "work": "arknights: endfield",
+   "trigger": "gilberta, arknights: endfield",
+   "pop": 0,
+   "hair": "blonde",
+   "eyes": "blue",
+   "tags": [
+    "1girl",
+    "blonde hair",
+    "blue eyes",
+    "blue dress",
+    "white coat"
+   ],
+   "src": "manual",
+   "thumb": "gilberta_arknights"
+  },
+  {
+   "tag": "ardelia_(arknights)",
+   "name": "ardelia (arknights)",
+   "zh": "艾尔黛拉",
+   "work": "arknights: endfield",
+   "trigger": "ardelia, arknights: endfield",
+   "pop": 0,
+   "hair": "blonde",
+   "eyes": "red",
+   "tags": [
+    "1girl",
+    "blonde hair",
+    "red eyes",
+    "black dress",
+    "sword"
+   ],
+   "src": "manual",
+   "thumb": "ardelia_arknights"
+  },
+  {
+   "tag": "ember_(arknights)",
+   "name": "ember (arknights)",
+   "zh": "余烬",
+   "work": "arknights: endfield",
+   "trigger": "ember, arknights: endfield",
+   "pop": 0,
+   "hair": "white",
+   "eyes": "red",
+   "tags": [
+    "1girl",
+    "white hair",
+    "long hair",
+    "red eyes",
+    "black coat",
+    "fire"
+   ],
+   "src": "manual",
+   "thumb": "ember_arknights"
+  },
+  {
+   "tag": "last_rite_(arknights)",
+   "name": "last rite (arknights)",
+   "zh": "别礼",
+   "work": "arknights: endfield",
+   "trigger": "last rite, arknights: endfield",
+   "pop": 0,
+   "hair": "black",
+   "eyes": "red",
+   "tags": [
+    "1girl",
+    "black hair",
+    "red eyes",
+    "black coat",
+    "dual wielding"
+   ],
+   "src": "manual",
+   "thumb": "last_rite_arknights"
+  },
+  {
+   "tag": "arclight_(arknights)",
+   "name": "arclight (arknights)",
+   "zh": "弧光",
+   "work": "arknights: endfield",
+   "trigger": "arclight, arknights: endfield",
+   "pop": 0,
+   "hair": "silver",
+   "eyes": "blue",
+   "tags": [
+    "1girl",
+    "silver hair",
+    "long hair",
+    "blue eyes",
+    "black coat",
+    "ice"
+   ],
+   "src": "manual",
+   "thumb": "arclight_arknights"
+  },
+  {
+   "tag": "avywenna",
+   "name": "avywenna",
+   "zh": "艾维文娜",
+   "work": "arknights: endfield",
+   "trigger": "avywenna, arknights: endfield",
+   "pop": 0,
+   "hair": "blue",
+   "eyes": "blue",
+   "tags": [
+    "1girl",
+    "blue hair",
+    "long hair",
+    "blue eyes",
+    "blue dress",
+    "mechanical"
+   ],
+   "src": "manual",
+   "thumb": "avywenna"
+  },
+  {
+   "tag": "snowshine",
+   "name": "snowshine",
+   "zh": "昼雪",
+   "work": "arknights: endfield",
+   "trigger": "snowshine, arknights: endfield",
+   "pop": 0,
+   "hair": "white",
+   "eyes": "blue",
+   "tags": [
+    "1girl",
+    "white hair",
+    "blue eyes",
+    "blue dress",
+    "ice"
+   ],
+   "src": "manual",
+   "thumb": "snowshine"
+  },
+  {
+   "tag": "xaihi",
+   "name": "xaihi",
+   "zh": "赛希",
+   "work": "arknights: endfield",
+   "trigger": "xaihi, arknights: endfield",
+   "pop": 0,
+   "hair": "white",
+   "eyes": "blue",
+   "tags": [
+    "1girl",
+    "white hair",
+    "blue eyes",
+    "blue dress",
+    "hair ornament"
+   ],
+   "src": "manual",
+   "thumb": "xaihi"
+  },
+  {
+   "tag": "akekuri",
+   "name": "akekuri",
+   "zh": "秋栗",
+   "work": "arknights: endfield",
+   "trigger": "akekuri, arknights: endfield",
+   "pop": 0,
+   "hair": "red",
+   "eyes": "red",
+   "tags": [
+    "1girl",
+    "red hair",
+    "long hair",
+    "red eyes",
+    "mechanical",
+    "gun"
+   ],
+   "src": "manual",
+   "thumb": "akekuri"
+  },
+  {
+   "tag": "estella_(arknights)",
+   "name": "estella (arknights)",
+   "zh": "埃特拉",
+   "work": "arknights: endfield",
+   "trigger": "estella, arknights: endfield",
+   "pop": 0,
+   "hair": "red",
+   "eyes": "red",
+   "tags": [
+    "1girl",
+    "red hair",
+    "long hair",
+    "red eyes",
+    "white dress",
+    "ice"
+   ],
+   "src": "manual",
+   "thumb": "estella_arknights"
+  },
+  {
+   "tag": "fluorite_(arknights)",
+   "name": "fluorite (arknights)",
+   "zh": "萤石",
+   "work": "arknights: endfield",
+   "trigger": "fluorite, arknights: endfield",
+   "pop": 0,
+   "hair": "white",
+   "eyes": "blue",
+   "tags": [
+    "1girl",
+    "white hair",
+    "blue eyes",
+    "white dress",
+    "animal ears"
+   ],
+   "src": "manual",
+   "thumb": "fluorite_arknights"
+  },
+  {
+   "tag": "endministrator_(arknights)",
+   "name": "endministrator (arknights)",
+   "zh": "管理员",
+   "work": "arknights: endfield",
+   "trigger": "endministrator, arknights: endfield",
+   "pop": 0,
+   "hair": "black",
+   "eyes": "red",
+   "tags": [
+    "1girl",
+    "black hair",
+    "red eyes",
+    "white coat",
+    "gold trim"
+   ],
+   "src": "manual",
+   "thumb": "endministrator_arknights"
+  },
+  {
+   "tag": "kochou_kanae",
+   "name": "kochou kanae",
+   "zh": "胡蝶香奈惠",
+   "work": "kimetsu no yaiba",
+   "trigger": "kochou kanae, kimetsu no yaiba",
+   "pop": 0,
+   "hair": "black",
+   "eyes": "purple",
+   "tags": [
+    "1girl",
+    "black hair",
+    "long hair",
+    "purple eyes",
+    "butterfly hair ornament",
+    "haori"
+   ],
+   "src": "manual",
+   "thumb": "kochou_kanae"
+  },
+  {
+   "tag": "tsuyuri_kanao",
+   "name": "tsuyuri kanao",
+   "zh": "栗花落香奈乎",
+   "work": "kimetsu no yaiba",
+   "trigger": "tsuyuri kanao, kimetsu no yaiba",
+   "pop": 0,
+   "hair": "black",
+   "eyes": "purple",
+   "tags": [
+    "1girl",
+    "black hair",
+    "ponytail",
+    "purple eyes",
+    "butterfly hair ornament",
+    "demon slayer uniform"
+   ],
+   "src": "manual",
+   "thumb": "tsuyuri_kanao"
+  },
+  {
+   "tag": "tamayo_(kimetsu_no_yaiba)",
+   "name": "tamayo (kimetsu no yaiba)",
+   "zh": "珠世",
+   "work": "kimetsu no yaiba",
+   "trigger": "tamayo, kimetsu no yaiba",
+   "pop": 0,
+   "hair": "black",
+   "eyes": "purple",
+   "tags": [
+    "1girl",
+    "black hair",
+    "purple eyes",
+    "kimono",
+    "hair bun"
+   ],
+   "src": "manual",
+   "thumb": "tamayo_kimetsu_no_yaiba"
+  },
+  {
+   "tag": "daki_(kimetsu_no_yaiba)",
+   "name": "daki (kimetsu no yaiba)",
+   "zh": "堕姬",
+   "work": "kimetsu no yaiba",
+   "trigger": "daki, kimetsu no yaiba",
+   "pop": 0,
+   "hair": "black",
+   "eyes": "green",
+   "tags": [
+    "1girl",
+    "black hair",
+    "long hair",
+    "green eyes",
+    "kimono",
+    "oiran"
+   ],
+   "src": "manual",
+   "thumb": "daki_kimetsu_no_yaiba"
+  },
+  {
+   "tag": "susamaru",
+   "name": "susamaru",
+   "zh": "朱纱丸",
+   "work": "kimetsu no yaiba",
+   "trigger": "susamaru, kimetsu no yaiba",
+   "pop": 0,
+   "hair": "black",
+   "eyes": "red",
+   "tags": [
+    "1girl",
+    "black hair",
+    "twin tails",
+    "red eyes",
+    "red kimono",
+    "temari"
+   ],
+   "src": "manual",
+   "thumb": "susamaru"
+  },
+  {
+   "tag": "kanzaki_aoi_(kimetsu_no_yaiba)",
+   "name": "kanzaki aoi (kimetsu no yaiba)",
+   "zh": "神崎葵",
+   "work": "kimetsu no yaiba",
+   "trigger": "kanzaki aoi, kimetsu no yaiba",
+   "pop": 0,
+   "hair": "black",
+   "eyes": "purple",
+   "tags": [
+    "1girl",
+    "black hair",
+    "twin tails",
+    "purple eyes",
+    "demon slayer uniform",
+    "white haori"
+   ],
+   "src": "manual",
+   "thumb": "kanzaki_aoi_kimetsu_no_yaiba"
+  },
+  {
+   "tag": "makomo_(kimetsu_no_yaiba)",
+   "name": "makomo (kimetsu no yaiba)",
+   "zh": "真菰",
+   "work": "kimetsu no yaiba",
+   "trigger": "makomo, kimetsu no yaiba",
+   "pop": 0,
+   "hair": "black",
+   "eyes": "blue",
+   "tags": [
+    "1girl",
+    "black hair",
+    "blue eyes",
+    "kimono",
+    "fox mask"
+   ],
+   "src": "manual",
+   "thumb": "makomo_kimetsu_no_yaiba"
+  }
+ ]
+}

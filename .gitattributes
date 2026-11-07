@@ -1,0 +1,25 @@
+# 换行符：源码与本机是混合 CRLF/LF，入库统一成 LF，
+# 这样 diff 干净、跨平台 clone 一致。
+* text=auto eol=lf
+
+# 二进制：不做行尾转换，也不做文本 diff。
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.gif binary
+*.ico binary
+*.zip binary
+*.pyc binary
+
+# 数据文件：文本 diff 有意义（词库/角色库都是 JSON），但**不要**统计成代码语言。
+*.json text eol=lf linguist-language=JSON
+presets/*.json linguist-detectable=false
+tests/fixtures/*.json linguist-detectable=false
+
+# 文档：GitHub 语言统计里排除，避免中文文档把仓库算成"非代码"。
+*.md text eol=lf linguist-documentation
+docs/*.md linguist-documentation
+
+# 工作流：ComfyUI 的 JSON 导出物，同样不参与语言统计。
+workflows/*.json linguist-detectable=false

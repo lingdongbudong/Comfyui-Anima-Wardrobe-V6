@@ -1,0 +1,62 @@
+# Comfyui-Anima-Wardrobe-V6 · 入库边界
+# 原则：仓库里只放「源码 + 运行必需数据 + 文档 + 测试」。
+# 下面每一类被排除的东西都写了理由 —— 想加回来之前先读完。
+
+# ── Python 字节码缓存 ─────────────────────────────────────────────
+# 构建产物，跨 Python 版本不通用，入库只会制造无意义的 diff。
+__pycache__/
+*.py[cod]
+*.pyo
+
+# ── 备份 / 临时目录 ───────────────────────────────────────────────
+# 引擎每次改写 presets 前会落 *_bak_*/ 与 *.bak-YYYYMMDD-HHMMSS-mmm 快照（本地回滚用）。
+# 这些是**单机历史**，不是内容：正式文件只有一份，备份可以有几十份。
+*.bak-*
+*.bak
+*~
+_bak_*/
+_tmp_*/
+
+# ── 缩略图：入库（v6.7.0 开源时决定随仓库分发）────────────────────
+# presets/thumbs/        角色库缩略图，2432 张 / 29 MB / 160×160 webp，
+#   与角色库**一一对应**。全部由作者本地用 Anima 出图后裁切生成
+#   （裁切流程见 tools/make_new_char_thumbs.py：非白包围盒 → 取上部居中裁方
+#   → 缩放 160 → webp）。仅作面板里的角色识别对照，不作他用。
+#   ⚠️ tools/fetch_character_thumbs.py 是给「不想自己出图」的人准备的备用抓取
+#      路径（从 safebooru 镜像抓公开预览图）；用它重建出来的图版权归各自原作者。
+#      仓库自带这批**不是**它抓的。
+# presets/user_thumbs/   9 张作者自定义角色的预览图，一并分发作为
+#   「自定义角色也能有预览图」的示例。
+# ⚠️ 下面这个不入库：它是缩略图重建前的同批备份，多 16 MB 且完全重复。
+presets/thumbs.bak-*/
+# 已退役场景的残留目录。
+presets/_retired/
+
+# ── 建库缓存（约 17 MB / 8300 个文件）──────────────────────────────
+# tools/ 下建角色库时的断点续跑缓存，可随时重建，体积比源码大两个数量级。
+tools/.cache_chars/
+tools/.cache_roles/
+tools/.cache_tags/
+# 抓缩略图时的临时落地目录。
+tools/.thumb_tmp/
+
+# ── 本机运行产物 ─────────────────────────────────────────────────
+# /roll 出错时写的 traceback（含本机绝对路径）。
+_roll_error.log
+*.log
+
+# ── 编辑器 / 系统垃圾 ─────────────────────────────────────────────
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── 用户数据：跟踪的是空模板，往里写的真实数据不要提交 ─────────────
+# presets/user_*.json 这五份**必须入库**（运行必需 + schema 参照），所以下面
+# 不加 pattern —— 加了也没用，gitignore 管不到已跟踪文件。
+# 它们入库时是空骨架（0 条）；你本地跑过之后会变成真实数据：
+# 收藏 / 自定义角色 / 命名预设。**提交前先还原**：
+#   git checkout -- presets/user_characters.json presets/user_favorites.json \
+#                   presets/user_presets.json presets/user_scene_favorites.json \
+#                   presets/user_work_favorites.json

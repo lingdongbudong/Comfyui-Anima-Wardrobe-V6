@@ -1,0 +1,44 @@
+{
+  "_meta": {
+    "schema": "anima-wardrobe/term-hints@1",
+    "why": "复杂动作/主题只靠 tag 串时，模型经常画不出来（实测 8 条完全无效）。在正文结尾补一句英文自然语言，词条命中率从 0/15 提到 10/15。",
+    "how": "引擎在 n_act / n_theme 的选项被点名 3.0 且抽中时，把对应句子拼进 tail_extra（不过 cap、不过互斥）。",
+    "rules": [
+      "用整句自然语言，不要写成 tag 堆；",
+      "主谓宾明确：谁对谁做什么；",
+      "补可见的物理细节（链条、底座、嘴唇贴合的轴）；",
+      "涉及多人的词条必须点出第三者（two men / her lover watches）；",
+      "句子内部尽量不用逗号 —— collect() 会按逗号拆成多个标签，句子被拆碎就退回 tag 堆了，用句号分句。"
+    ]
+  },
+  "n_act": {
+    "irrumatio": "the man stands and holds her head with both hands. he thrusts into her open mouth while she kneels in front of him with tears in her eyes.",
+    "facesitting": "she straddles his face and sits on it. her thighs press around his head and she looks down at him.",
+    "double penetration": "two men penetrate her at the same time. one takes her from the front and one from behind. her body is held up between them.",
+    "intercrural": "he thrusts between her pressed-together thighs from behind. both of them are standing and her legs are held closed.",
+    "blowjob": "she takes his penis into her mouth. her lips are sealed around the shaft and she looks up at his face.",
+    "anilingus": "his tongue licks her anus from behind. her hips are raised high and she looks back over her shoulder.",
+    "sex from behind": "he is behind her and enters her from there. she bends forward with both hands on the wall and pushes her hips back toward him. her back arches and her hair falls forward.",
+    "mating press": "she lies on her back with her knees folded back beside her chest and he is on top of her. he pins her thighs down with both hands so her legs stay folded. her shoulders press into the bed.",
+    "prone bone": "she lies flat on her stomach and he lies on top of her from behind. he enters her with his weight pressing her into the mattress. her face is turned to one side against the sheet.",
+    "leg lock": "her legs are hooked up over his shoulders while they are joined. she squeezes her thighs against his back and holds him close. her feet cross behind his neck.",
+    "anal": "he takes her from behind and enters her anus. she bends forward with her hips pushed back and her own hand reaches back to open herself. her mouth is open.",
+    "sumata": "he lies on his back and she presses his penis between her closed thighs. her thighs squeeze it and slide along it while she holds herself above him with both hands.",
+    "masturbation": "her own hand works between her legs while she lies back. two fingers move inside her and the other hand grips the sheet. her eyes are closed and her mouth hangs open."
+  },
+  "n_theme": {
+    "netorare": "her lover watches from the doorway as another man takes her. she turns her face away in shame.",
+    "netorase": "her partner sits beside them and watches while another man uses her. she looks embarrassed but obedient.",
+    "hypnosis": "her eyes are spiral-shaped and vacant. a pendulum swings in front of her face and she is in a deep trance.",
+    "nipple clamps": "metal clamps with a chain are clamped on her nipples. the chain hangs down and pulls them.",
+    "strap-on": "she wears a black strap-on and pushes it into the other woman. the other woman is on all fours in front of her. the dildo disappears between her partner's legs.",
+    "futanari": "she has a fully erect cock and pushes it into the other woman. the other woman is bent over in front of her. both women are moaning softly.",
+    "gag ball": "a red ball gag is strapped inside her open mouth. saliva drips from her lips.",
+    "collar and leash": "a leather collar is buckled around her neck. a leash from the collar is held in a man's hand.",
+    "threesome": "three people are in the bed together. one woman lies between two men and all three bodies are visible.",
+    "butt plug": "a metal butt plug is inserted in her anus. its round base is visible between her cheeks.",
+    "sex toys": "she holds a vibrating toy pressed against herself while lying back. the toy stays tight between her legs and her hips move with it. her free hand is on her own breast.",
+    "time stop": "she is frozen where she stands with her eyes open and unfocused. dust hangs still in the air and water does not spill from the glass. everything around her has stopped moving.",
+    "foursome": "four people are together on the bed and all four bodies are visible. two men are with two women and they are joined in pairs. hands and legs overlap in the middle of the frame."
+  }
+}

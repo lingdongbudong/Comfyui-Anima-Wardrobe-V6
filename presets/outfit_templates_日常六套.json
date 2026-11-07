@@ -1,0 +1,254 @@
+{
+ "_meta": {
+  "title": "日常服装搭配 · 六套（可直接导入角色服装预设）",
+  "schema": "anima-v5/outfit-import@1",
+  "usage": "POST /anima-wardrobe-v5/outfits/import  body={role, outfits:[...]}；或在面板「👗 → ＋新增一套」点一键模板",
+  "note": "fields 全部是词库合法原文；tags 走 extra 通道放词库外细节；drop 为 13 个服装字段全集，防止预设与随机服装并存",
+  "verified": "六套均以 tifa lockhart 真实实抽验证：标签 100% 落地、零混入别的衣服"
+ },
+ "outfits": [
+  {
+   "id": "casual_offshoulder_knit",
+   "zh": "日常 · 露肩针织衫",
+   "level": 0,
+   "tags": [
+    "white off-shoulder sweater",
+    "black pleated skirt",
+    "black thighhighs",
+    "brown loafers",
+    "crossed legs",
+    "hand on own thigh",
+    "oversized clothes",
+    "knitwear"
+   ],
+   "fields": {
+    "outfit": "sweater and skirt",
+    "top": "off-shoulder sweater",
+    "bottom": "pleated skirt",
+    "socks": "black thighhighs",
+    "shoes": "loafers",
+    "cloth_color": "white",
+    "cloth_mat": "knitwear",
+    "cloth_state_sfw": "off shoulder"
+   },
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ],
+   "verified": true,
+   "note": "日常通勤向：露肩针织 + 百褶裙 + 过膝袜 + 乐福鞋。冷清干净的白天感。"
+  },
+  {
+   "id": "casual_hoodie_shorts",
+   "zh": "日常 · 卫衣短裤",
+   "level": 0,
+   "tags": [
+    "grey oversized hoodie",
+    "black shorts",
+    "white sneakers",
+    "white ankle socks",
+    "standing on one leg",
+    "hands in own pockets",
+    "oversized clothes",
+    "casual"
+   ],
+   "fields": {
+    "outfit": "hoodie and shorts",
+    "top": "hoodie",
+    "bottom": "shorts",
+    "socks": "ankle socks",
+    "shoes": "sneakers",
+    "cloth_color": "grey",
+    "cloth_state_sfw": "oversized clothes"
+   },
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ],
+   "verified": true,
+   "note": "周末居家向：灰卫衣 + 短裤 + 白球鞋。松垮衣服的慵懒感。"
+  },
+  {
+   "id": "casual_denim_tee",
+   "zh": "日常 · 牛仔短衫",
+   "level": 0,
+   "tags": [
+    "white t-shirt",
+    "blue denim skirt",
+    "bare legs",
+    "white sneakers",
+    "sleeves rolled up",
+    "tucked in",
+    "denim",
+    "casual"
+   ],
+   "fields": {
+    "top": "t-shirt",
+    "bottom": "denim skirt",
+    "shoes": "sneakers",
+    "cloth_color": "white",
+    "cloth_mat": "denim",
+    "cloth_state_sfw": "tucked in"
+   },
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ],
+   "verified": true,
+   "note": "夏日常见向：白 T + 牛仔裙 + 白球鞋。干净利落，不出手套袜。"
+  },
+  {
+   "id": "casual_cardigan_pencil",
+   "zh": "日常 · 开衫铅笔裙",
+   "level": 0,
+   "tags": [
+    "beige long cardigan",
+    "black pencil skirt",
+    "white blouse",
+    "black pantyhose",
+    "black low heels",
+    "handbag",
+    "one hand on waist",
+    "office lady",
+    "smart casual"
+   ],
+   "fields": {
+    "top": "cardigan",
+    "bottom": "pencil skirt",
+    "socks": "black pantyhose",
+    "shoes": "chunky heels",
+    "accessory": "handbag",
+    "cloth_color": "black",
+    "cloth_mat": "knitwear"
+   },
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ],
+   "verified": true,
+   "note": "通勤向：米色长开衫 + 黑铅笔裙 + 黑丝。轻熟、有腰线。"
+  },
+  {
+   "id": "casual_oversized_tee",
+   "zh": "日常 · 宽大T恤居家",
+   "level": 0,
+   "tags": [
+    "oversized white t-shirt",
+    "bare legs",
+    "barefoot",
+    "sitting on bed",
+    "one hand on own cheek",
+    "messy hair",
+    "loungewear",
+    "at home"
+   ],
+   "fields": {
+    "top": "t-shirt",
+    "socks": "barefoot",
+    "shoes": "bare feet",
+    "cloth_color": "white",
+    "cloth_state_sfw": "oversized clothes"
+   },
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ],
+   "verified": true,
+   "note": "居家向：只有一件宽大 T 恤 + 赤足。最松的日常。"
+  },
+  {
+   "id": "casual_sailor_summer",
+   "zh": "日常 · 夏水手服",
+   "level": 0,
+   "tags": [
+    "white short-sleeve sailor shirt",
+    "blue pleated skirt",
+    "white kneehighs",
+    "brown loafers",
+    "holding umbrella",
+    "summer uniform",
+    "sunny day"
+   ],
+   "fields": {
+    "outfit": "serafuku",
+    "top": "sailor shirt",
+    "bottom": "pleated skirt",
+    "socks": "kneehighs",
+    "shoes": "loafers",
+    "cloth_color": "blue"
+   },
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ],
+   "verified": true,
+   "note": "夏日校园向：短袖水手 + 蓝百褶 + 白及膝袜。明亮干净。"
+  }
+ ]
+}

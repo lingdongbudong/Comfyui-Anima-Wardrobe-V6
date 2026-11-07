@@ -1,0 +1,28 @@
+{
+ "_meta": {
+  "schema": "anima-wardrobe-v4/char-aliases@1",
+  "why": "角色 tag 改名后的兼容表。角色从「自定义」并进内置库时 tag 会变（user_motoha_arai -> arai_motoha），用户已存的工作流里是旧 tag；expand_roles 先查这张表。",
+  "how": "{旧 tag: 新 tag}，键值都小写；改完必须重启 ComfyUI（进进程缓存）"
+ },
+ "aliases": {
+  "user_motoha_arai": "arai_motoha",
+  "user_riko_tanemura": "tanemura_riko",
+  "user_kotone_montagne": "kotone_montagne",
+  "user_yukimi_fujikawa": "fujikawa_yukimi",
+  "user_tomoko_noge": "noge_tomoko",
+  "user_yaoling_li": "li_yaoling",
+  "user_kayo_tomiyama": "tomiyama_kayo",
+  "user_miyu_sahara": "sahara_miyu",
+  "user_haruna_nishimori": "nishimori_haruna",
+  "user_yui_(persona_5:_the_phantom_x)": "yui_(p5x)",
+  "user_minami_miyashita": "miyashita_minami",
+  "user_chizuko_nagao": "nagao_chizuko",
+  "user_yumi_shiina": "shiina_yumi",
+  "user_ayaka_sakai": "sakai_ayaka",
+  "user_runa_dogenzaka": "dogenzaka_runa",
+  "user_mio_natsukawa": "natsukawa_mio",
+  "user_mayumi_hashimoto": "hashimoto_mayumi",
+  "user_ichigo_shikano": "shikano_ichigo",
+  "user_manaka_nagao": "nagao_manaka"
+ }
+}

@@ -1,0 +1,2106 @@
+{
+ "_meta": {
+  "schema": "anima-v5/scene-aspects@1",
+  "note": "场景推荐画幅：portrait=竖屏 / landscape=横屏 / both=通用。由 tools/build_scene_aspects.py 生成，可手工改 a 与 why；scenes.json 重建不会覆盖本文件。",
+  "generated_by": "tools/build_scene_aspects.py",
+  "count": 524
+ },
+ "aspects": {
+  "sc_rain_street_lookback": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_classroom_chin_rest": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_rooftop_stretch": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_library_quiet": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_cafe_window_rain": {
+   "a": "portrait",
+   "why": "竖:窗边"
+  },
+  "sc_shrine_walk": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_beach_midsummer": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_stairwell_up": {
+   "a": "portrait",
+   "why": "竖:楼梯/stair"
+  },
+  "sc_morning_window": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_onsen_steam": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pov_hands_selfie": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_train_home": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_snow_field_scarf": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_fisheye_room": {
+   "a": "portrait",
+   "why": "竖:wall"
+  },
+  "sc_dutch_alley_night": {
+   "a": "portrait",
+   "why": "竖:靠墙/wall"
+  },
+  "sc_mirror_dressing": {
+   "a": "portrait",
+   "why": "竖:镜前/mirror"
+  },
+  "sc_panorama_park": {
+   "a": "landscape",
+   "why": "wide shot"
+  },
+  "sc_ccc_plain_daily": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_ccc_ntr_phone": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_ccc_ntr_window": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_ccc_bdsm_shibari": {
+   "a": "landscape",
+   "why": "横:on the floor"
+  },
+  "sc_ccc_bdsm_gag": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_ccc_rbq_wall": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_ccc_tentacle": {
+   "a": "portrait",
+   "why": "竖:悬吊/吊起/全身"
+  },
+  "sc_ccc_pet_play": {
+   "a": "landscape",
+   "why": "横:on all fours"
+  },
+  "sc_ccc_coerce_wall": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_ccc_voyeur_cam": {
+   "a": "portrait",
+   "why": "竖:门框/doorway"
+  },
+  "sc_ccc_afterglow": {
+   "a": "portrait",
+   "why": "竖:全身"
+  },
+  "sc_ccc_hidden_sex": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_ccc_mating_press": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_ccc_dp_group": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_ccc_pov_crotch_self": {
+   "a": "landscape",
+   "why": "横:床"
+  },
+  "sc_classroom_afterschool": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_office_overtime": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_convenience_night": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_balcony_night": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_changing_room": {
+   "a": "portrait",
+   "why": "竖:hanging"
+  },
+  "sc_fitting_room": {
+   "a": "portrait",
+   "why": "竖:镜前/mirror"
+  },
+  "sc_elevator_ride": {
+   "a": "portrait",
+   "why": "竖:wall"
+  },
+  "sc_car_ride": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_flower_field": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_movie_theater": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_amusement_night": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_forest_fog": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_poolside_summer": {
+   "a": "both",
+   "why": "横:池边 竖:蹲"
+  },
+  "sc_bathroom_mirror": {
+   "a": "portrait",
+   "why": "竖:镜前/mirror"
+  },
+  "sc_under_shower": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_ccc_missionary": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_ccc_doggystyle": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_ccc_cowgirl": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_ccc_stand_carry": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_ccc_clothed_sex": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_ccc_footjob": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_ccc_paizuri": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_ccc_facesitting": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_ccc_anal": {
+   "a": "landscape",
+   "why": "横:趴/床/on all fours"
+  },
+  "sc_ccc_ntr_split": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_ccc_bdsm_pillory": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_ccc_rbq_after": {
+   "a": "landscape",
+   "why": "横:lying"
+  },
+  "sc_ccc_femdom_reverse": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_ccc_pov_oral": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_ccc_pov_cowgirl": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_poolside_microbikini": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_offshoulder_night": {
+   "a": "portrait",
+   "why": "竖:wall"
+  },
+  "sc_msb_panties_aside": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_msb_skirt_vacuum": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_msb_mirror_check": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_msb_bath_recline": {
+   "a": "landscape",
+   "why": "横:躺/浴缸/bathtub"
+  },
+  "sc_msb_sofa_pull": {
+   "a": "landscape",
+   "why": "横:沙发/couch"
+  },
+  "sc_msb_office_night": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_msb_fingers_bed": {
+   "a": "landscape",
+   "why": "横:躺/床"
+  },
+  "sc_msb_dildo_ride": {
+   "a": "portrait",
+   "why": "竖:绳缚"
+  },
+  "sc_msb_vibrator_covers": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_msb_mirror_watch": {
+   "a": "portrait",
+   "why": "竖:镜前/mirror"
+  },
+  "sc_msb_pov_self": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_msb_clothed": {
+   "a": "portrait",
+   "why": "竖:hanging"
+  },
+  "sc_msb_bathtub_water": {
+   "a": "landscape",
+   "why": "横:浴缸/bathtub"
+  },
+  "sc_msb_shower_stand": {
+   "a": "portrait",
+   "why": "竖:站立/wall"
+  },
+  "sc_msb_plug_rear": {
+   "a": "landscape",
+   "why": "横:四肢着地"
+  },
+  "sc_msb_toys_show": {
+   "a": "both",
+   "why": "横:床 竖:绳缚"
+  },
+  "sc_msb_continuous": {
+   "a": "portrait",
+   "why": "竖:绳缚"
+  },
+  "sc_msb_blindfold_toy": {
+   "a": "portrait",
+   "why": "竖:绳缚"
+  },
+  "sc_msb_mutual": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_msb_squirt_fingers": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_msb_squirt_dildo": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_msb_squirt_after": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_changing_room_peek": {
+   "a": "portrait",
+   "why": "竖:mirror"
+  },
+  "sc_bedroom_sleepshirt": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_bath_towel": {
+   "a": "portrait",
+   "why": "竖:mirror"
+  },
+  "sc_balcony_laundry": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_rain_wetshirt": {
+   "a": "portrait",
+   "why": "竖:mirror"
+  },
+  "sc_sofa_catnap": {
+   "a": "landscape",
+   "why": "横:沙发/sofa"
+  },
+  "sc_konbini_midnight": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_kitchen_apron": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_skirt_wind": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_hotel_mirror": {
+   "a": "portrait",
+   "why": "竖:镜前/mirror"
+  },
+  "sc_beach_volley": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pool_ladder": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_surf_board": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_float_ring": {
+   "a": "landscape",
+   "why": "横:床"
+  },
+  "sc_shower_peek": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_watergun_fight": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_ol_overtime": {
+   "a": "landscape",
+   "why": "横:趴"
+  },
+  "sc_maid_serving": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_nurse_rounds": {
+   "a": "portrait",
+   "why": "竖:走廊"
+  },
+  "sc_classroom_openwin": {
+   "a": "portrait",
+   "why": "竖:窗边"
+  },
+  "sc_jk_bike_ride": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_yoga_mat": {
+   "a": "landscape",
+   "why": "横:on the floor"
+  },
+  "sc_gym_mirror": {
+   "a": "both",
+   "why": "横:on the floor 竖:蹲/镜前"
+  },
+  "sc_gymnastics_split": {
+   "a": "portrait",
+   "why": "竖:站立/standing"
+  },
+  "sc_jog_rest": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_cam_wide_low_side": {
+   "a": "portrait",
+   "why": "竖:standing"
+  },
+  "sc_cam_med_high_kneel": {
+   "a": "landscape",
+   "why": "横:趴/on all fours"
+  },
+  "sc_cam_fisheye_squat": {
+   "a": "portrait",
+   "why": "竖:蹲"
+  },
+  "sc_cam_bird_lying": {
+   "a": "landscape",
+   "why": "横:躺"
+  },
+  "sc_cam_pov_stand": {
+   "a": "portrait",
+   "why": "竖:站立"
+  },
+  "sc_cam_low_stretch": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_cam_side_hairflip": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_cam_dutch_wall": {
+   "a": "portrait",
+   "why": "竖:靠墙/wall"
+  },
+  "sc_cam_ots_lookback": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_cam_worm_sit": {
+   "a": "both",
+   "why": "横:沙发 竖:全身"
+  },
+  "sc_near_face_classroom": {
+   "a": "both",
+   "why": "comp=portrait，但取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_face_backlight": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_face_rain": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_face_mirror": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_face_lowgaze": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_face_tears": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_face_smile": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_face_bed": {
+   "a": "both",
+   "why": "comp=portrait，但取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_eye_single": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_eye_lash": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_lip_micro": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_lip_bite": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_collar_top": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_back_shoulder": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_towel_after": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_hand_cover": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_wet_cloth": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_shoulder_line": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_hand_lap": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_near_hand_lip": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_leg_thighhigh": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_leg_crossed": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_leg_kneel": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_leg_hem": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_leg_stand": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_leg_side": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_foot_bare": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_foot_sock": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_foot_heel": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_foot_curl": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_hip_back_stand": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_hip_seiza_back": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_hip_bent": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_hip_kneel_arch": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_hip_bare": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_hip_sheer": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_leg_sit_chair": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_leg_sit_floor": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_leg_bed_edge": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_leg_sofa_cross": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_leg_side_raise": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_leg_supine_reach": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_nsfw_cleavage": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_nsfw_garter": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_nsfw_tongue": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_nsfw_soles": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_nsfw_nipple": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_nsfw_panties": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_nsfw_sheer": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_nsfw_thighs": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_nsfw_allfours": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_nsfw_fellatio": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_nsfw_cunnilingus": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_near_nsfw_cum": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_nsfw_breast_massage": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_nsfw_nipple_suck": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_nsfw_breast_suck": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_nsfw_lactation": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_soft_breast_massage": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_soft_breast_hug": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_pose_seiza_front": {
+   "a": "portrait",
+   "why": "竖:全身"
+  },
+  "sc_pose_seiza_side": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_seiza_lookback": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_pose_seiza_bow": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_wariza": {
+   "a": "landscape",
+   "why": "横:on the floor"
+  },
+  "sc_pose_indian": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_on_floor": {
+   "a": "landscape",
+   "why": "横:on the floor"
+  },
+  "sc_pose_one_knee": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_kneeling_back": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_all_fours": {
+   "a": "landscape",
+   "why": "横:四肢着地/on all fours"
+  },
+  "sc_pose_squat": {
+   "a": "portrait",
+   "why": "竖:蹲"
+  },
+  "sc_pose_crossed_ankles": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_fetal": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_one_leg_stand": {
+   "a": "portrait",
+   "why": "竖:站立/standing"
+  },
+  "sc_pose_apartment_seiza": {
+   "a": "landscape",
+   "why": "横:地板"
+  },
+  "sc_pose_shrine_kneel": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_bed_kneel": {
+   "a": "landscape",
+   "why": "横:床"
+  },
+  "sc_pose_library_floor": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_flowerfield_seiza": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_poolside_kneel": {
+   "a": "landscape",
+   "why": "横:池边"
+  },
+  "sc_pose_stage_one_knee": {
+   "a": "landscape",
+   "why": "横:on the floor"
+  },
+  "sc_pose_rooftop_squat": {
+   "a": "portrait",
+   "why": "竖:蹲"
+  },
+  "sc_pose_onsen_seiza": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_classroom_sit": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_standing_split": {
+   "a": "portrait",
+   "why": "竖:站立/全身"
+  },
+  "sc_pose_standing_split_front": {
+   "a": "portrait",
+   "why": "竖:站立/standing"
+  },
+  "sc_pose_standing_split_back": {
+   "a": "portrait",
+   "why": "竖:站立"
+  },
+  "sc_pose_against_wall": {
+   "a": "portrait",
+   "why": "竖:站立/靠墙/贴墙"
+  },
+  "sc_pose_contrapposto": {
+   "a": "portrait",
+   "why": "竖:站姿"
+  },
+  "sc_pose_hands_on_knees": {
+   "a": "portrait",
+   "why": "竖:全身"
+  },
+  "sc_pose_head_rest": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_legs_apart": {
+   "a": "portrait",
+   "why": "竖:站姿"
+  },
+  "sc_pose_lying_prone": {
+   "a": "both",
+   "why": "横:趴 竖:全身"
+  },
+  "sc_pose_bed_on_back": {
+   "a": "landscape",
+   "why": "横:躺/床"
+  },
+  "sc_pose_tiptoes_stretch": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_hug_knees": {
+   "a": "portrait",
+   "why": "竖:全身"
+  },
+  "sc_ccc_pov_self_body": {
+   "a": "landscape",
+   "why": "横:床/地板"
+  },
+  "sc_wide_hill_sunset": {
+   "a": "landscape",
+   "why": "wide shot"
+  },
+  "sc_wide_lake_mist": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wide_bridge_night": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wide_beach_dusk": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wide_forest_path": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wide_rain_street": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wide_lighthouse": {
+   "a": "landscape",
+   "why": "wide shot"
+  },
+  "sc_wide_ruins_beam": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wide_snow_field": {
+   "a": "landscape",
+   "why": "wide shot"
+  },
+  "sc_wide_flower_wind": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wide_rooftop_twilight": {
+   "a": "landscape",
+   "why": "wide shot"
+  },
+  "sc_wide_shrine_sakura": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wide_mountain_lookback": {
+   "a": "landscape",
+   "why": "wide shot"
+  },
+  "sc_wide_alley_lookback": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wide_crosswalk_lookback": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wide_river_lookback": {
+   "a": "landscape",
+   "why": "wide shot"
+  },
+  "sc_les_sm_suspension_pair": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_les_sm_suspension_twine": {
+   "a": "portrait",
+   "why": "竖:悬吊/吊起"
+  },
+  "sc_les_sm_chair_machine": {
+   "a": "landscape",
+   "why": "横:躺"
+  },
+  "sc_les_sm_wax_bound": {
+   "a": "landscape",
+   "why": "横:躺/床"
+  },
+  "sc_les_sm_mutual_rope": {
+   "a": "portrait",
+   "why": "竖:悬吊/吊在"
+  },
+  "sc_les_sm_backtoback": {
+   "a": "landscape",
+   "why": "横:趴/床"
+  },
+  "sc_les_sm_pet_leash": {
+   "a": "landscape",
+   "why": "横:四肢着地/on all fours"
+  },
+  "sc_les_sm_collar_hold": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_les_sm_enema_bound": {
+   "a": "landscape",
+   "why": "横:床/on all fours"
+  },
+  "sc_les_sm_clamp_pull": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_les_sm_anal_beads": {
+   "a": "landscape",
+   "why": "横:床/on all fours"
+  },
+  "sc_les_sm_wooden_horse": {
+   "a": "portrait",
+   "why": "竖:吊在"
+  },
+  "sc_les_sm_chastity_key": {
+   "a": "landscape",
+   "why": "横:躺/床"
+  },
+  "sc_les_sm_clamp_weight": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_pose_skirt_lift_disdain": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_sole_stomp_disdain": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_sock_office_elevator": {
+   "a": "portrait",
+   "why": "竖:站姿/standing"
+  },
+  "sc_sock_class_desk": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_sock_cafe_crossed": {
+   "a": "portrait",
+   "why": "竖:窗边"
+  },
+  "sc_sock_home_sofa": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_sock_change_legup": {
+   "a": "portrait",
+   "why": "竖:hanging"
+  },
+  "sc_sock_library_tiptoe": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_sock_stair_torn": {
+   "a": "portrait",
+   "why": "竖:靠墙/楼梯/wall"
+  },
+  "sc_sock_rain_wet": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_sock_hallway_nopanty": {
+   "a": "portrait",
+   "why": "竖:全身/走廊/standing"
+  },
+  "sc_sock_shibari_room": {
+   "a": "both",
+   "why": "横:地毯 竖:绳缚"
+  },
+  "sc_pose_wind_hold_skirt": {
+   "a": "portrait",
+   "why": "竖:站姿/全身"
+  },
+  "sc_pose_seiza_rear_low": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_duo_hand_in_hand": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_duo_back_hug": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_duo_selfie": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_duo_lap_pillow": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_duo_feeding": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_duo_hair_braid": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_sakura_street_lookback": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_wedding_bouquet_wait": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_msb_suspension_dildo": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_art_hourglass": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_birdcage": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_flower_sleep": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_type_wall": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_vinyl_arch": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_paper_lantern": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_piano_stairs": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_clock_hand": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_umbrella_sky": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_specimen_case": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_zipper_wall": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_envelope": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_filmstrip_ring": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_aquarium": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_mirror_corridor": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_gear_wheel": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_rose_window": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_impossible_stairs": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_dandelion": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_torn_paper": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_keyhole": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_mirror_frame": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_giant_book": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_black_hourglass": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_black_type_wall": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_black_gear_wheel": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_black_keyhole": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_navy_clock": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_navy_filmstrip": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_navy_aquarium": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_navy_mirror_corridor": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_crimson_zipper": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_crimson_birdcage": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_crimson_rose_window": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_crimson_envelope": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_emerald_dandelion": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_emerald_impossible_stairs": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_emerald_umbrella_sky": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_emerald_piano_stairs": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_gold_vinyl_arch": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_gold_specimen_case": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_gold_torn_paper": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_gold_mirror_frame": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_gold_worm_hourglass": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_crimson_dutch_typewall": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_navy_ots_clock": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_white_framed_mirror": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_emerald_fisheye_gear": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_black_persp_stairs": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_crimson_pano_zipper": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_navy_mirror_aquarium": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_black_ub_dutch_umbrella": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_gold_cowboy_worm_clock": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_crimson_profile_rosewin": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_black_ub_framed_keyhole": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_emerald_bokeh_dandelion": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_navy_cowboy_vignette_vinyl": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_white_ub_birdseye_book": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_emerald_cowboy_fisheye_cage": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_piano_giant": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_cello_giant": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_harp_giant": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_organ_giant": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_violin_giant": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_drums_giant": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_guitar_giant": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_flute_giant": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_erhu_giant": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_xylophone_giant": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_piano": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_violin": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_cello": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_harp": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_accordion": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_trumpet": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_guqin": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_drumkit": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_musicbox": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_shamisen": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_ub_gpiano_key": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_ub_accordion": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_ub_mallet": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_cu_strings": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_cu_bow": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_cu_flute": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_cu_bubbles": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_ub_teacup": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_ub_bookpage": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_ub_calligraphy": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_ub_umbrella": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_ub_candle": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_duo_hourglass": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_duo_clock": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_duo_filmstrip": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_duo_aquarium": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_duo_birdcage": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_duo_zipper": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_duo_rose_window": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_duo_dandelion": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_duo_stairs": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_duo_giant_book": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_duo_vinyl": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_duo_gear": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_pose_yoga_mountain": {
+   "a": "portrait",
+   "why": "竖:站姿/standing/hanging"
+  },
+  "sc_pose_yoga_tree": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_yoga_warrior_one": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_yoga_warrior_two": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_yoga_warrior_three": {
+   "a": "portrait",
+   "why": "竖:站立"
+  },
+  "sc_pose_yoga_triangle": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_yoga_side_angle": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_yoga_half_moon": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_yoga_eagle": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_yoga_dancer": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_yoga_downward_dog": {
+   "a": "landscape",
+   "why": "横:on all fours"
+  },
+  "sc_pose_yoga_upward_dog": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_yoga_cobra": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_yoga_locust": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_yoga_cat_cow": {
+   "a": "landscape",
+   "why": "横:on all fours"
+  },
+  "sc_pose_yoga_child": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_yoga_pigeon": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_yoga_butterfly": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_yoga_lotus": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_yoga_hero": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_yoga_bridge": {
+   "a": "landscape",
+   "why": "横:on the floor"
+  },
+  "sc_pose_yoga_boat": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_yoga_camel": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_yoga_plow": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_yoga_shoulderstand": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_yoga_wide_fold": {
+   "a": "landscape",
+   "why": "横:on the floor"
+  },
+  "sc_pose_yoga_standing_fold": {
+   "a": "portrait",
+   "why": "竖:站立/standing"
+  },
+  "sc_pose_yoga_seated_fold": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_yoga_side_bend": {
+   "a": "portrait",
+   "why": "竖:站姿"
+  },
+  "sc_pose_yoga_twist": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_yoga_plank": {
+   "a": "portrait",
+   "why": "竖:全身"
+  },
+  "sc_pose_yoga_side_plank": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_stretch_neck": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_stretch_lunge": {
+   "a": "portrait",
+   "why": "竖:直立"
+  },
+  "sc_pose_stretch_figure_four": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_stretch_doorway": {
+   "a": "portrait",
+   "why": "竖:门框/doorway"
+  },
+  "sc_pose_stretch_calf_wall": {
+   "a": "portrait",
+   "why": "竖:靠墙/wall"
+  },
+  "sc_pose_stretch_quad": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_stretch_arms_up": {
+   "a": "portrait",
+   "why": "竖:全身"
+  },
+  "sc_pose_stretch_straddle": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_seated_knees_up": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_pose_supine_legs_camera": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_church_pew": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_cave_pool": {
+   "a": "portrait",
+   "why": "竖:wall"
+  },
+  "sc_garden_arch": {
+   "a": "portrait",
+   "why": "竖:wall"
+  },
+  "sc_desert_dune": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_bar_counter": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_n2_morning_shirt_lift": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_n2_bridge_skirt_lift": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_n2_stair_dress_lift": {
+   "a": "portrait",
+   "why": "竖:楼梯/stair"
+  },
+  "sc_n2_pool_bikini_pull": {
+   "a": "landscape",
+   "why": "横:池边"
+  },
+  "sc_n2_fitting_undressing": {
+   "a": "portrait",
+   "why": "竖:wall/mirror"
+  },
+  "sc_n2_entrance_panty_pull": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_n2_rain_wet_clothes": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_n2_alley_open_jacket": {
+   "a": "portrait",
+   "why": "竖:hanging/wall"
+  },
+  "sc_n2_office_collar_pull": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_n2_hotel_yukata_loose": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_ccc_reverse_cowgirl": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_ccc_prone_bone": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_ccc_leg_lock": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_ccc_sumata": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_ccc_intercrural": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_ccc_upright_straddle": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_duo_library_read": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_duo_umbrella_rain": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_duo_balcony_night": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_duo_onsen_steam": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_duo_sofa_lean": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_duo_hair_dry": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_duo_bath_foam": {
+   "a": "landscape",
+   "why": "多人同框，要横向并排才站得下"
+  },
+  "sc_wp_blade_iaijutsu_low": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_blade_tachi_silhouette": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_blade_greatsword_draw": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_blade_nodachi_turn": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_blade_rapier_dust": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_blade_wakizashi_night": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_gun_pistol_low": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_gun_rifle_silhouette": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_gun_revolver_draw": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_gun_shotgun_turn": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_gun_sniper_dust": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_gun_smg_night": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_bow_yumi_low": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_bow_longbow_silhouette": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_bow_full_draw": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_bow_horsebow_turn": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_bow_crossbow_dust": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_bow_arrow_night": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_pole_naginata_low": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_pole_spear_silhouette": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_pole_halberd_draw": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_pole_scythe_turn": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_pole_staff_dust": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_pole_axe_night": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_shield_kite_low": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_shield_round_silhouette": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_shield_tower_draw": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_shield_buckler_turn": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_shield_wall_dust": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_shield_mirror_night": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_magic_staff_low": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_magic_glyph_silhouette": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_magic_blade_draw": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_magic_grimoire_turn": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_magic_orb_dust": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_magic_sigil_night": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_dual_dualblade_low": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_dual_dualgun_silhouette": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_dual_dagger_draw": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_dual_kunai_turn": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_dual_chain_dust": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_dual_shuriken_night": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_sci_saber_low": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_sci_plasma_silhouette": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_sci_mecharm_draw": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_sci_drone_turn": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_sci_cannon_dust": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_sci_cyberblade_night": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_eva_longinus": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_eva_progknife": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_eva_atfield": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_eva_replica": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_gi_skyward": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_gi_wolfgrave": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_gi_jadespear": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_gi_lostprayer": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_fate_excalibur": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_fate_ea": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_fate_gaebolg": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_fate_avalon": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_kny_nichirin": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_kny_flame": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_kny_dualblade": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_kny_insect": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_nier_virtuous": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_nier_bloodoath": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_nier_pod": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_nier_machinearm": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_hsr_lightcone": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_hsr_cloudspear": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_hsr_destruction": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_hsr_erudition": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_ff_buster": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_ff_masamune": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_ff_gunblade": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_ff_sagestaff": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_cyber_mantis": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_cyber_smartpistol": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_wp_cyber_monowire": {
+   "a": "portrait",
+   "why": "场景自带 comp=portrait"
+  },
+  "sc_wp_cyber_gorilla": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  }
+ }
+}
