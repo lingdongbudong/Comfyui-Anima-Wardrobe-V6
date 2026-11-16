@@ -299,7 +299,7 @@
      "type": "select",
      "tail": false,
      "slot": "clothing",
-     "option_count": 81
+     "option_count": 86
     },
     {
      "key": "sock_color",

@@ -26,9 +26,7 @@ import urllib.request
 BASE = "http://127.0.0.1:8188"
 HERE = os.path.dirname(os.path.abspath(__file__))
 PLUGIN = os.path.dirname(HERE)
-# 工作流：用环境变量 ANIMA_WF_JSON 指定；不指定就用仓库里归档的 8 步版
-WF = os.environ.get("ANIMA_WF_JSON") or os.path.join(
-    PLUGIN, "workflows", "Anima_V6_角色面板_miaomiaoHarem_anima12_8步.json")
+WF = r"C:/Users/VGBFC/Desktop/V5-Anima_miaomiaoHarem_anima12-12步竖屏.json"
 LIB = os.path.join(PLUGIN, "presets", "outfit_library.json")
 
 ROLE = "souryuu_asuka_langley"      # 固定一个角色，只换衣服

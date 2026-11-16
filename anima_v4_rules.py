@@ -52,7 +52,11 @@ def _load_json(path):
 
 
 def pools() -> dict:
-    """词库（零漂移导出物）。只在首次调用时读盘。"""
+    """词库（零漂移导出物）。只在首次调用时读盘。
+
+    ⚠️ 改盘后要生效：走 `clear_cache()`（`POST /outfit-library/scene-override`
+       发同值即可），或重启。
+    """
     if "pools" not in _CACHE:
         _CACHE["pools"] = _load_json(_POOLS_PATH)
     return _CACHE["pools"]
@@ -1216,7 +1220,10 @@ SCENE_FORBIDDEN_FIELDS = frozenset({"count", "role"})
 
 
 def scenes_data() -> dict:
-    """场景搭配预设库原文（缺席时返回空壳，功能优雅降级）。"""
+    """场景搭配预设库原文（缺席时返回空壳，功能优雅降级）。
+
+    ⚠️ 改盘后要生效：`clear_cache()`（HTTP 同值 POST）或重启 —— 见 `pools()`。
+    """
     if "scenes" not in _CACHE:
         data = {"_meta": {}, "groups": [], "scenes": []}
         if os.path.exists(_SCENES_PATH):
@@ -1967,6 +1974,50 @@ def user_pinned_scene(weights: dict, forced=None, locks=None) -> bool:
                for v in (weights["options"].get("n_canon") or {}).values())
 
 
+def pinned_scene_id(weights: dict, forced=None, locks=None, level=None) -> str:
+    """**抽取开始前**就能唯一确定的那条场景 id；不确定时返回 ""。
+
+    为什么需要它（v6.16.0）：`n_canon` 在段序里排**最后**（`canon` 段），
+    而 `outfit` 在 ⑥ `cloth_sfw`、`place` 在 ⑨ `scene` —— 也就是说
+    "抽整套服装"发生时 `state["n_canon"]` **永远是空的**。以前两处想用
+    `st.get("n_canon")` 临时换算锚点的补丁因此全是死代码（`_pre_outfit`
+    那段根本不存在，`_pre_hands` 那段 `key` 只可能是 arms_hands /
+    pose_risque，等值判断恒假）。结果：显式套用「修道院回廊」时，
+    服装锚点算的是**随机预抽的 place**（可能是 beach）→ 泳装硬禁失效。
+
+    判据只看"已经拍板的事实"，不猜：
+      · `forced["n_canon"]`（面板强推 / 勾选池随机）→ 就是它
+      · 权重袋里 `n_canon` 恰好**一个**选项被点到 3.0（面板「套用场景」
+        就是这么写的，见 `user_pinned_scene`）→ 就是它
+      · 其余（`scene_pick` 整库随机 / 一条都不出）→ ""，调用方按
+        "锚点不可知"处理，不许瞎猜。
+
+    `level` 给了就要求该场景**在档**（`canon_level <= level`）—— 否则它会被
+    档位闸门剔出候选、由引擎改抽别的场景，拿它的 place 当锚点反而算错
+    （实测 `sc_ccc_rbq_wall` 是 L4，在 sfw 下实际落地的是泳池场景）。
+    """
+    sid = str((forced or {}).get("n_canon") or "").strip()
+    if sid:
+        sid = sid if sid in scene_index() else ""
+    else:
+        bag = ((weights or {}).get("options") or {}).get("n_canon") or {}
+        hits = [str(k) for k, v in bag.items()
+                if isinstance(v, (int, float)) and float(v) >= WEIGHT_MAX
+                and str(k) in scene_index()]
+        sid = hits[0] if len(hits) == 1 else ""
+    if not sid:
+        return ""
+    if level is not None and int(canon_level(sid)) > int(level):
+        return ""
+    return sid
+
+
+def scene_place(preset_id) -> str:
+    """场景写死的 `place`（没有就返回 ""）。"""
+    rec = scene_index().get(str(preset_id or "")) or {}
+    return str((rec.get("tags") or {}).get("place") or "").strip()
+
+
 def weight_stats(w: dict) -> dict:
     """面板用的计数：调过的段 / 字段 / 选项各几项。"""
     def tuned(bag):
@@ -2606,6 +2657,241 @@ LEVEL_FLOOR_ORDER = ("n_act", "n_pos", "n_orgasm", "n_cum", "n_theme",
                      "n_fabric", "cloth_state_sfw")
 
 
+# ── v6.12.0：姿势库按档内容包（`group=pose` 专属保底）────────────────────
+#
+# 问题（2026-11-12 实测）：姿势库 88 条全是 L0/L1，`n_state` / `n_act` /
+# `n_exposure` / `n_orgasm` / `n_theme` **各 0/88** —— 它只有"姿势 + 构图 + 光影"。
+# 随机路径没事（锁档下 L2+ 的池子里 pose = 0 条），但**手动套用**时保底只补
+# 1 个锚点，补出的是 `n_pos=upright straddle`（和 `pose_base=sitting` 打架）
+# 或 `n_orgasm=squirting`（画面还穿着衣服），`scene_nl` 一字不改 —— 文字说
+# "安静坐着"、标签说"潮吹"，模型只能二选一。
+#
+# 解法：pose 组不再走"补 1 个锚点"，改成**按档补一整套内容包 + 追加一句文案**。
+#   · 姿势/构图不动（`pose_base` 不被改写，避免与场景自带的姿势冲突）；
+#   · 只补"状态 / 露出 / 情绪"层，按档递进；
+#   · 文案用**递进句**写法（"最后一件也褪了"），所以接在任意原句后面都读得通
+#     —— 88 条里有 10 条 `scene_nl` 自带 skirt / swimsuit / towel 之类的服装词，
+#     绝对句（"she is completely bare"）会和它们打架。
+#   · 追加的整句必须登记进 `_nl_dynamic`，否则 `repair` / F11 会把它当
+#     "超长未登记标签"报红（见 nl_sentences 的说明）。
+#   · lv=0 与"已达档"一律不触发 —— SFW 档零漂移。
+# ── v6.13.0：姿势库按档内容包（服装 / 道具 / 行为 / 人数）────────────────
+#
+# v6.12.0 只补"状态 / 露出"，L3/L4 画面仍是单人、无道具、无行为。v6.13.0 起按档递进：
+#   L2 擦边 → 情趣内衣 + 透视 + 露胸 + 自慰
+#   L3 过激 → 吊袜带 + 半脱 + 情趣道具 + **双人正戏**（无合理双人动作的姿势改"局部入镜"）
+#   L4 极端 → 两种走向随机：①全裸 + BDSM 道具 + 正戏 + 潮吹
+#                          ②半脱 + 情趣内衣 + 项圈牵绳 + 潮吹
+#
+# ⚠️ 三条硬约束（改之前必须知道）：
+#   ① `n_state=completely nude` 会被 sanitize 清掉 `n_fabric`（全裸与情趣内衣互斥）
+#      → "全裸"走向不写 n_fabric，两条走向靠随机二选一。
+#   ② 姿势库 88 条全是 `1girl, solo`；带伴侣的 `n_act` 在 solo 下会被人数相容
+#      过滤剔掉（`PARTNER_GATED_FIELDS`）。所以升双人必须**同时**改 `state["count"]`，
+#      只写 n_act 等于白写。
+#   ③ 姿势不能被动作打架：按 `pose_base` 逐条映射兼容动作；映射不到的一律不升双人，
+#      改"局部入镜"（只画他的手，`POSE_PARTIAL_EXTRA`）。
+POSE_ACT_MAP = {
+    # ⚠️ v6.14.0（真机 176 张审查后收缩）：只保留**后排式**双人 ——
+    #    男方在身后、被她的身体挡住，构图最稳。
+    #    面对面 / 交缠类（cowgirl / missionary / mating press / irrumatio）
+    #    在 8 步 + 本 LoRA 下大量出现"男方只剩一个头、两人没有身体接触、
+    #    肢体被裁掉"的结构崩坏，已全部退回「单人 + 道具」。
+    "standing": "standing sex",
+    "standing on one leg": "standing sex",
+    "standing split": "standing sex",
+    "contrapposto": "standing sex",
+    "against wall": "standing sex",
+    "all fours": "doggystyle",
+    "on stomach": "prone bone",
+    "on side": "sex from behind",
+    "on floor": "sex from behind",
+}
+
+# 双人构图：只剩后排式一种写法。
+# ⚠️ 不要再写 "cropped at the chest" / "mostly hidden by her body" ——
+#    实测会把男方画成一个**悬空的头**（L3/L4 共 176 张里最集中的结构问题）。
+#    改成"身体贴着她的背、只露胯和手臂"，让他始终是"一个贴着的人"而不是"被裁掉的半身"。
+POSE_TRI_REAR = ("both of them are inside the frame, the man stands behind her, "
+                 "his body against her back, only his hips and forearms show, "
+                 "she fills most of the frame, faceless male")
+ACT_FRAMING = {
+    "standing sex": POSE_TRI_REAR,
+    "sex from behind": POSE_TRI_REAR,
+    "doggystyle": POSE_TRI_REAR,
+    "prone bone": POSE_TRI_REAR,
+}
+POSE_THEMES_L3 = ("vibrator", "dildo", "butt plug")
+POSE_THEMES_L4 = ("nipple clamps", "sex toys")
+POSE_FABRIC_L4 = ("black silk", "corset", "latex")
+
+# 所有可能追加的整句 —— `nl_sentences()` 必须登记，否则 F11 报"超长未登记标签"。
+POSE_PACK_NL = (
+    "the thin fabric over her chest has gone see through and her nipples show through it.",
+    "he takes her without changing her pose and her breath catches in her throat.",
+    "the toy rests against her thigh without changing her pose.",
+    "the last of her clothes is gone and he takes her without changing her pose.",
+    "the last of her clothes is gone and the toy stays against her thigh.",
+    "the lace is pulled aside and he keeps the collar in his fist.",
+    "the lace is pulled aside and the collar sits tight around her throat.",
+    "her clothes are shoved aside and he takes her without changing her pose.",
+    "her clothes are shoved aside and the toy stays against her thigh.",
+    "her back arches a little and her breathing gets shallow.",
+)
+
+
+def _pose_pick(rng, seq):
+    if rng is None:
+        return seq[0]
+    return seq[min(int(rng.random() * len(seq)), len(seq) - 1)]
+
+
+def _pose_level_plan(lv: int, pose_base: str, rng):
+    """按档给出 (tags, extra, nl, nl_alt, duo)。`nl_alt` 只在 n_state 让位时用。
+
+    ⚠️ 映射不到合理双人动作的姿势（W坐 / 盘腿 / 胎儿 / 交叉脚踝 / 托腮…）
+       一律**保持单人、只加道具**：不画第二个人，也不硬塞自慰动作。
+    """
+    act = POSE_ACT_MAP.get(str(pose_base or ""))
+    duo = bool(act)
+    if lv <= 1:
+        return ({"pose_risque": "arched back"}, "",
+                POSE_PACK_NL[9], "", False)
+    if lv == 2:
+        # ⚠️ 只写两个：solo 的 tag_cap 是 30，L2 场景本身已接近上限
+        #    （实测写 4 个会让 32 个标签越过 F1 上限）。`see-through` 已经
+        #    表达了"透视"，露胸交给随机填充。
+        tags = {"n_fabric": "lingerie", "n_state": "see-through"}
+        return tags, "", POSE_PACK_NL[0], "", False
+    if lv == 3:
+        tags = {"n_fabric": "garter belt", "n_state": "partially undressed",
+                "n_theme": _pose_pick(rng, POSE_THEMES_L3), "n_orgasm": "aroused"}
+        if duo:
+            tags["n_act"] = act
+            return (tags, ACT_FRAMING.get(act, POSE_TRI_REAR),
+                    POSE_PACK_NL[1], "", True)
+        return tags, "", POSE_PACK_NL[2], "", False
+    if rng is None or rng.random() < 0.5:      # L4-A 全裸
+        tags = {"n_state": "completely nude",
+                "n_theme": _pose_pick(rng, POSE_THEMES_L4), "n_orgasm": "squirting"}
+        if duo:
+            tags["n_act"] = act
+            return (tags, ACT_FRAMING.get(act, POSE_TRI_REAR), POSE_PACK_NL[3],
+                    POSE_PACK_NL[7], True)
+        return tags, "", POSE_PACK_NL[4], POSE_PACK_NL[8], False
+    tags = {"n_state": "partially undressed",      # L4-B 半脱 + 情趣服装 + BDSM
+            "n_fabric": _pose_pick(rng, POSE_FABRIC_L4),
+            "n_theme": "collar and leash", "n_orgasm": "squirting"}
+    if duo:
+        tags["n_act"] = act
+        return tags, ACT_FRAMING.get(act, POSE_TRI_REAR), POSE_PACK_NL[5], "", True
+    return tags, "", POSE_PACK_NL[6], "", False
+
+
+def _pose_level_pack(state: dict, lv: int, weights: dict, locks: set,
+                     dropped: set, preset_id: str, rng=None):
+    """姿势库按档内容包。命中返回报告说明，不命中返回 None（交给通用保底）。
+
+    触发条件是「**场景自身档位 < 所选档**」，不看 `effective_level()` ——
+    随机填充可能已经补了个 `n_act` 把数字凑够，但画面还是穿得整整齐齐。
+
+    准入沿用通用保底那套「显式 > 预设 > 随机」：
+    被锁定 / 被闭麦 / 被权重点名 / 场景已写死的字段一律不碰；
+    补的每个值都要过 `_field_ok_under`（档位闸门），不越档。
+    """
+    sc = scene_index().get(str(preset_id or "")) or {}
+    if sc.get("group") != "pose":
+        return None
+    if int(sc.get("level", 0)) >= int(lv):
+        return None
+    pose_base = (sc.get("tags") or {}).get("pose_base")
+    pack_tags, pack_extra, _nl, _alt, duo = _pose_level_plan(lv, pose_base, rng)
+    forced = {f[0] for f in (state.get("_forced_tags") or ())}
+    # ⚠️ 只有**场景自己写死的字段**才不能被覆盖。随机填充写进来的值优先级
+    #    比内容包低 —— 实测（v6.12.0 真机 24 抽）：`n_orgasm` 被随机填成
+    #    `after sex` 后，内容包跳过它 → L4 只补到 `completely nude`（L2）
+    #    + `vibrator`（L3），**整条其实停在 L3**，而追加句却写着"潮吹"。
+    scene_keys = set((sc.get("tags") or {}).keys())
+    wrote = []
+    for k, v in pack_tags.items():
+        if k in scene_keys:
+            continue
+        if k in locks or k in dropped or k in forced:
+            continue
+        if blocked_by_weight(weights, k):
+            continue
+        if not _field_ok_under(k, v, lv):
+            continue
+        state[k] = v
+        wrote.append(k)
+    if not wrote:
+        return None
+    # 双人升级：人数不改，带伴侣的 n_act 会被 sanitize 的人数相容过滤剔掉
+    if duo and "count" not in scene_keys and "count" not in locks \
+            and "count" not in forced and not blocked_by_weight(weights, "count"):
+        state["count"] = "1girl, 1boy, hetero"
+        wrote.append("count")
+    # v6.14.0：L3/L4 让**整套日常服装**闭麦。
+    # ⚠️ 实测（176 张）137 张出现「日常整套 + 情趣内衣/全裸」同框，甚至
+    #    「completely nude + trench coat」—— 根因是服装库整套闸门（weight 3.0）
+    #    优先级高于内容包的 n_fabric / n_state，sanitize 的 yield_random 让它赢。
+    #    姿势库在过激档要的是"情趣服装"，不是"穿着风衣全裸"，所以这里直接清空
+    #    整套服装与上下装（场景自己写死的、被锁定/点名的除外）。
+    if lv >= 2:
+        _cleared_cloth = []
+        for _k in ("outfit", "top", "bottom", "cloth_color", "cloth_mat",
+                   "cloth_state_sfw", "cloth_nsfw"):
+            if _k in scene_keys or _k in locks or _k in forced:
+                continue
+            if str(state.get(_k) or "").strip():
+                state[_k] = ""
+                _cleared_cloth.append(_k)
+        if _cleared_cloth:
+            wrote.append("闭麦·" + "/".join(_cleared_cloth))
+    if pack_extra:
+        base_extra = str(state.get("n_extra") or "").strip().strip(",")
+        state["n_extra"] = (base_extra + ", " + pack_extra).strip(", ") \
+            if base_extra else pack_extra
+    if "n_state" not in wrote and _alt:
+        _nl = _alt
+    if _nl:
+        base = str(state.get("_scene_nl") or "").strip()
+        full = (base + " " + _nl).strip() if base else _nl
+        state["_scene_nl"] = full
+        state["_nl_dynamic"] = set(state.get("_nl_dynamic") or ()) | {full.lower()}
+        # ⚠️ `n_state` 有可能在**这一步之后**才被 sanitize 让位给服装库
+        #    （yield_random 的"固定值留下、随机值退"）。原句与备选句一起记在
+        #    state 里，等 sanitize 跑完再校正一次（见 _pose_nl_resync）。
+        state["_pose_nl_pack"] = {"base": base, "nl": _nl, "alt": _alt}
+    return [f"姿势档位适配：L{lv} 内容包补 {'、'.join(wrote)}"
+            + ("（含文案追加）" if _nl else "")]
+
+
+def _pose_nl_resync(state: dict):
+    """sanitize 之后校正姿势包追加句：`n_state` 被清掉就换成"衣服被推到一边"那版。
+
+    只改姿势包追加的那一句，不碰场景原句。没动过则返回 None。
+    """
+    rec = state.get("_pose_nl_pack")
+    if not isinstance(rec, dict):
+        return None
+    cur = str(rec.get("nl") or "")
+    alt = str(rec.get("alt") or "")
+    if not cur or not alt or cur == alt:
+        return None
+    if state.get("n_state"):
+        return None
+    base = str(rec.get("base") or "").strip()
+    full = (base + " " + alt).strip() if base else alt
+    state["_scene_nl"] = full
+    state["_nl_dynamic"] = set(state.get("_nl_dynamic") or ()) | {full.lower()}
+    rec["nl"] = alt
+    return "姿势档位适配：n_state 让位给服装库，追加句改为「衣物推到一边」版本"
+
+
+
+
+
 def nl_sentences(extra=None) -> set:
     """全部「自然语言整句」的集合（term_hints + 场景 scene_nl，小写去空白）。
 
@@ -2659,6 +2945,19 @@ def nl_sentences(extra=None) -> set:
                 s.add(e)
                 for b in bases:
                     s.add((b + " " + e).strip())
+            # v6.12.0：姿势库按档内容包的追加句。运行时它是接在
+            # 「场景句 + 变体追加句」**后面**的，所以三种拼接串都要登记，
+            # 否则 F11 会把整串当成"超长未登记标签"报红。
+            if (rec or {}).get("group") == "pose":
+                for _t in POSE_PACK_NL:
+                    _t = str(_t or "").strip().lower()
+                    if not _t:
+                        continue
+                    s.add(_t)
+                    for b in bases:
+                        s.add((b + " " + _t).strip())
+                        for e in extras:
+                            s.add((b + " " + e + " " + _t).strip())
         _CACHE["nl_sentences"] = s
     if not extra:
         return _CACHE["nl_sentences"]
@@ -2758,7 +3057,7 @@ def level_floor_candidates(field_key: str, lv: int, state: dict) -> list:
 
 
 def ensure_level_floor(state: dict, lv: int, weights: dict, locks,
-                       preset_id: str, rng) -> list:
+                       preset_id: str, rng, cap=None, cap_auto=False) -> list:
     """抽完之后的高等级保底。返回报告说明（空列表 = 不需要干预）。
 
     `rng` 必须是**派生随机源**（不消耗主随机流），否则 lv=0/已达标的样本
@@ -2766,12 +3065,29 @@ def ensure_level_floor(state: dict, lv: int, weights: dict, locks,
     """
     if lv <= 0:
         return []
-    real = effective_level(state)
-    if real >= lv:
-        return []
     locks = set(locks or ())
     dropped = set((scene_index().get(str(preset_id or "")) or {})
                   .get("drop_fields") or ())
+    # v6.12.0：姿势库走专属内容包（补整套状态/露出 + 追加文案），
+    # 不再走下面"补 1 个锚点"的通用分支 —— 通用分支会补出
+    # `n_pos=upright straddle` 这种与 `pose_base` 打架的姿势。
+    # ⚠️ 位置必须在 `real >= lv` 的早退**之前**：随机填充可能已经补了个
+    #    `n_act` 把档位数字凑够（实测 L2 出现「军装 + dildo riding」），
+    #    但画面还穿着衣服 —— 姿势库要的是"状态层跟着档位走"，不是"数字够"。
+    _pack = _pose_level_pack(state, lv, weights, locks, dropped, preset_id, rng)
+    if _pack:
+        # v6.13.0：姿势包是在 `trim_to_cap` **之后**才写的，容易把标签顶过上限
+        # （实测 60 抽里 6 次只超 1 个 → F1 红）。人数可能刚被改成双人，
+        # 所以上限要按**当前人数**重算，而不是沿用裁剪时的单人上限。
+        if cap:
+            _cap = tag_cap_for(str(state.get("count") or "")) if cap_auto else int(cap)
+            _tr = trim_to_cap(state, _cap, weights)
+            if _tr:
+                _pack.append("姿势包后裁到上限：" + "、".join(_tr))
+        return _pack
+    real = effective_level(state)
+    if real >= lv:
+        return []
     # ⚠️ v4.2.1：**被选项权重点名的字段，保底不得改写**。
     #    实测：点名「交尾压制 = 3」在 L4 下被保底换成了 `double penetration`
     #    （`LEVEL_FLOOR_ORDER` 第一个就是 n_act）—— 用户看到的是"点名了却没出来"。
@@ -3701,6 +4017,103 @@ def library_scene_override() -> bool:
         return bool((library_data().get("meta") or {}).get("scene_override"))
 
 
+def library_pool() -> dict:
+    """服装库池化状态（`_meta.pool` 的规整视图）。
+
+    ⚠️ 走 `library_data()` 而不是 store 直读：items 与 pool 必须来自**同一份快照**，
+       否则"池子里有这套、items 里还没有"会抽到空。归一逻辑只有 store 那一份
+       （`_S.library_pool(meta)` 是纯函数，不读盘），这里不重复实现 —— 两份归一会漂移。
+    """
+    try:
+        from . import anima_v4_store as _S
+        return _S.library_pool(library_data().get("meta") or {})
+    except Exception:
+        return {"on": False, "cats": [], "max_level": 4, "ids": [], "_last": ""}
+
+
+# 泳装词根。判**tags**不判 cat —— `swim` 分类里有情趣内衣（L3 两套），按 cat 会误伤。
+_SWIM_TAG_WORDS = ("bikini", "swimsuit", "one-piece", "swim brief", "monokini")
+
+
+def _is_swim_suit(item) -> bool:
+    blob = " ".join(str(t).lower() for t in (item.get("tags") or []))
+    return any(w in blob for w in _SWIM_TAG_WORDS)
+
+
+def _pool_anchor_not_swim(st, outfit_style="随机") -> bool:
+    """当前锚点是否"非泳装"。拿不到锚点时**按非泳装处理**（保守）。"""
+    if not st:
+        return True
+    try:
+        anchor, _src = OS.anchor_of(st, outfit_style or "随机")
+        return anchor != "swim"
+    except Exception:
+        return True
+
+
+def resolve_library_pick(lv, seed, st=None, outfit_style="随机") -> dict:
+    """v6.23.0：本轮该穿服装库的哪一套（用户 2026-11-14「先做 C」）。
+
+    返回 `{"on": bool, "item": dict, "why": str}`：
+      · `on=False` → 调用方走原路径（`library_active_item()`），**零漂移**；
+      · `on=True, item={}` → 池内没有可用套，**整套让路** —— 绝不回落 active
+        （回流会让"池空"变成"偷偷穿上一套"，最难排查）。
+
+    ⚠️ 三条硬纪律：
+      ① **独立 rng**（`random.Random(seed)`），绝不碰 `pass_rng` —— 主序列零漂移；
+         `seed>=0` 同 seed 同一条（可复现），`seed<0` 每次换；
+      ② 档位闸门**前置**：`_outfit_triplet()` 遇到 lv 不够是"整套不生效"，
+         若不在抽签阶段过滤，用户会看到"抽到了却没穿"；
+      ③ 非泳装锚点剔掉泳装套 —— `style_bans()` 只作用于**字段候选池**，
+         服装库走 `extras` 通道，**天然绕过泳装硬禁**（v6.16.0 那条规则管不到这里）。
+    """
+    pool = library_pool()
+    if not pool.get("on"):
+        return {"on": False, "item": None, "why": ""}
+
+    items = library_data().get("items") or []
+    cap = int(pool.get("max_level", 4))
+    top = min(int(lv), cap)
+    drop_swim = _pool_anchor_not_swim(st, outfit_style)
+    cand = []
+    for o in items:
+        if not isinstance(o, dict):
+            continue
+        if int(o.get("level") or 0) > top:
+            continue
+        if pool.get("ids"):
+            if str(o.get("id") or "") not in pool["ids"]:
+                continue
+        elif pool.get("cats"):
+            try:
+                from . import anima_v4_store as _S
+                if _S.normalize_cat(o.get("cat")) not in pool["cats"]:
+                    continue
+            except Exception:
+                if str(o.get("cat") or "") not in pool["cats"]:
+                    continue
+        if drop_swim and _is_swim_suit(o):
+            continue
+        cand.append(o)
+
+    if not cand:
+        why = ("服装池：该档位/分类无可用套（lv=%d cap=%d）→ 本次不套用服装"
+               % (int(lv), cap))
+        if drop_swim:
+            why += "；已剔除泳装套（当前锚点非泳装）"
+        return {"on": True, "item": {}, "why": why}
+
+    try:
+        rng = random.Random(int(seed)) if (seed is not None and int(seed) >= 0) \
+            else random.Random()
+    except (TypeError, ValueError):
+        rng = random.Random()
+    item = cand[rng.randrange(len(cand))]
+    return {"on": True, "item": item,
+            "why": "服装池 %d 套 → 本次抽到「%s」"
+                   % (len(cand), item.get("zh") or item.get("id"))}
+
+
 def apply_library_overrides(extras, drops, sets):
     """把用户指定的袜子 / 鞋子盖到服装库那套上 → 新的三元组。
 
@@ -3733,22 +4146,26 @@ def apply_library_overrides(extras, drops, sets):
     return extras, drops, sets
 
 
-def library_outfit(lv: int = 99):
-    """服装库启用中的那一套 → `(extra, drop, set)`。没启用 → 空三元组。
+def library_outfit(lv: int = 99, item=None):
+    """服装库那一套 → `(extra, drop, set)`。没启用 → 空三元组。
 
     v5.5.0：再叠一层用户的袜子 / 鞋子覆盖项。
+    v6.23.0：`item` 允许调用方**指定**本轮用哪一套（池化随机）；`None` = 沿用
+      `_meta.active`（旧行为，默认值即兼容）。袜鞋覆盖只在本函数叠一次 ——
+      池化路径也走这里，绝不复制第二份合并逻辑。
     ⚠️ 档位不够时 `_outfit_triplet()` 返回空三元组（整套不生效），
        这时**不能**只盖袜子鞋子 —— 那会变成"衣服随机、袜鞋指定"，
        与"整套闸门"的语义相反。所以先判空。
+       `item={}`（池化池空）同样落到这里 → 空三元组，**不会**回落 active。
     """
-    tri = _outfit_triplet(library_active_item(), lv)
+    tri = _outfit_triplet(library_active_item() if item is None else item, lv)
     if not tri[0] and not tri[1]:
         return tri
     return apply_library_overrides(*tri)
 
 
 def effective_outfit(role_trigger: str, lv: int = 99,
-                     scene_has_outfit: bool = False):
+                     scene_has_outfit: bool = False, pick=None):
     """「这个角色现在穿什么」——角色预设优先，服装库兜底。
 
     ⚠️ 判据是 `outfit_item()` **有没有启用**，不是 `outfit_for()` 返不返东西：
@@ -3763,12 +4180,17 @@ def effective_outfit(role_trigger: str, lv: int = 99,
       · 整套让路包含袜子 / 鞋子覆盖项 —— `library_outfit()` 根本不会被调用，
         不会出现「衣服按场景、袜鞋按服装库」的半套状态；
       · 默认 `False` → 所有旧调用零漂移；开启开关后也与 v5.8.0 逐字节一致。
+    v6.23.0 `pick`：池化随机的解析结果（`resolve_library_pick()` 的返回）。
+      `pick["on"]` 为真时走"指定那一套"；`item={}`（池空）→ 整套让路，
+      **不回落** `_meta.active`。默认 `None` = 旧路径。
     """
     item = outfit_item(role_trigger)
     if item:
         return _outfit_triplet(item, lv)
     if scene_has_outfit and not library_scene_override():
         return [], [], {}
+    if pick and pick.get("on"):
+        return library_outfit(lv, item=pick.get("item") or {})
     return library_outfit(lv)
 
 
@@ -3889,7 +4311,7 @@ def _duo_join(parts, need: int = 2) -> str:
 
 
 def duo_outfit_text(triggers, lv: int = 99,
-                    scene_has_outfit: bool = False) -> str:
+                    scene_has_outfit: bool = False, pick=None) -> str:
     """双人时**各自**的启用服装，写成「谁穿什么」的整句（v5.0.7）。
 
     为什么必须有：`outfit_for()` 是单角色接口，而 `_collect_with_feat` 里那道
@@ -3910,7 +4332,9 @@ def duo_outfit_text(triggers, lv: int = 99,
         # 否则「服装库选了女仆装，单人出女仆、双人出随机」会显得像坏掉。
         # v5.9.0：把「场景带推荐服装」的事实透传下去，双人也得遵守让路开关，
         # 否则会出现「单人按场景穿、双人文案里还在写服装库那套」的 split-brain。
-        _ex, _drop, _set = effective_outfit(t, lv, scene_has_outfit)
+        # v6.23.0：`pick` 也必须透传 —— 三处调用点拿的必须是**同一个**解析结果，
+        # 否则双人句穿 A、单人正文穿 B（设计稿不变式 2）。
+        _ex, _drop, _set = effective_outfit(t, lv, scene_has_outfit, pick)
         bits = [str(x).strip() for x in (_ex or [])[:5] if str(x).strip()]
         if not bits:
             continue
@@ -3920,7 +4344,7 @@ def duo_outfit_text(triggers, lv: int = 99,
 
 
 def duo_feat_text(triggers, seed=None, lv: int = 99,
-                  scene_has_outfit: bool = False) -> str:
+                  scene_has_outfit: bool = False, pick=None) -> str:
     """双人时**各自**的角色固定特征（精灵耳 / 机械眼罩 / 羊角…），同上一套写法。
 
     与服装同一个坑：`char_feat_for()` 也是单角色接口，双人时被整块跳过，
@@ -3936,8 +4360,11 @@ def duo_feat_text(triggers, seed=None, lv: int = 99,
         if not t:
             continue
         _ex, _drop, _set = char_feat_for(t, seed)
+        # v6.23.0：这里的 effective_outfit 只为"排除服装句已写过的标签"，
+        # 但它必须与 `duo_outfit_text` 拿到同一套（否则排重表是另一套的，
+        # 会出现"服装写了两遍"或"该排的没排"）。
         _otags = {str(x).strip().lower()
-                  for x in (effective_outfit(t, lv, scene_has_outfit)[0] or [])}
+                  for x in (effective_outfit(t, lv, scene_has_outfit, pick)[0] or [])}
         bits = [str(x).strip() for x in (_ex or [])[:6]
                 if str(x).strip() and str(x).strip().lower() not in _otags]
         if not bits:
@@ -4494,6 +4921,22 @@ def draw(level="suggestive", seed=None, *, base_prob=DEFAULT_BASE_PROB,
         # 全默认时是空集合，抽取路径与 v4.2.3 逐字节一致。
         _tuned = tuned_weight_fields(weights)
 
+        # ── v6.16.0：显式场景的 `place` ＝ 服装定调的真锚点 ────────────────
+        # `n_canon` 排最后、`outfit` 排第六，抽服装时 state 里根本没有场景 ——
+        # 以前只能拿**随机预抽的 place** 当锚点（抽到 beach 就按泳装定调，
+        # 最后场景再把 place 改成 church，衣服已经错了）。
+        # 这里在抽取开始前把"已经拍板的场景"翻成 place；未知就留空，
+        # `_anchor_st()` 原样返回 state，随机路径逐字节不变（零漂移）。
+        _pinned_place = scene_place(pinned_scene_id(weights, F, locks, lv))
+
+        def _anchor_st(_st):
+            """服装风格判据用的 state 视图：有显式场景就换成场景自带的 place。"""
+            if not _pinned_place:
+                return _st or {}
+            if str((_st or {}).get("place") or "") == _pinned_place:
+                return _st
+            return {**(_st or {}), "place": _pinned_place}
+
         def _pre_place():
             """场景预抽：把 `place` 从场景段里**提前**抽出来。
 
@@ -4616,10 +5059,23 @@ def draw(level="suggestive", seed=None, *, base_prob=DEFAULT_BASE_PROB,
                         # 控件指定了具体风格 → 整套硬收敛（见 OS.allowed_outfit）
                         pool = OS.allowed_outfit(pool, outfit_style)
                     # 风格铁律（硬剔除）—— fail-open：剔光就保留原池
-                    sbans = OS.style_bans(st, key, outfit_style)
+                    # v6.16.0：整套服装走 `_anchor_st()` —— 显式场景的 place
+                    #   才是锚点（抽服装时 state 里还没有 n_canon，见 _anchor_st）。
+                    _ast = _anchor_st(st) if key == "outfit" else st
+                    sbans = OS.style_bans(_ast, key, outfit_style)
                     if sbans:
                         kept = [it for it in pool if it[1] not in sbans]
-                        if kept:
+                        if kept and len(kept) != len(pool):
+                            if key == "outfit":
+                                _n_swim = sum(1 for it in pool
+                                              if it[1] in sbans
+                                              and it[1] in OS._swim_outfits())
+                                if _n_swim and _pinned_place:
+                                    nt.append(
+                                        "场景锚点（%s）→ 整套服装剔除 %d 项泳装"
+                                        "（非泳装场景硬禁）" % (_pinned_place, _n_swim))
+                            pool = kept
+                        elif kept:
                             pool = kept
                 if not pool:
                     continue
@@ -4632,7 +5088,8 @@ def draw(level="suggestive", seed=None, *, base_prob=DEFAULT_BASE_PROB,
                 pick = weighted_pick(
                     pre_rng, _forced or pool,
                     lambda it: (option_weight(weights, key, it[1]) * sw * fw
-                                * OS.style_bias(st, key, it[1], outfit_style)))
+                                * OS.style_bias(_anchor_st(st) if key == "outfit" else st,
+                                                key, it[1], outfit_style)))
                 if pick is None:
                     continue
                 pre[key] = pick
@@ -4693,6 +5150,10 @@ def draw(level="suggestive", seed=None, *, base_prob=DEFAULT_BASE_PROB,
                 _forced = ([] if (role_pick and key in CHAR_APPEAR_FIELDS)
                            else forced_option_pool(pool, key, weights))
                 # 上游字段已占手 → 剔掉自己这边的手部项（fail-open：剔光回原池）
+                # ⚠️ v6.16.0 删掉了这里一段「按场景临时算 place」的补丁：
+                #    本函数只跑 `arms_hands` / `pose_risque`，`key == "outfit"`
+                #    恒假 —— 那段是死代码（当时误以为在 `_pre_outfit` 里）。
+                #    服装锚点现在由 `_anchor_st()` 统一提供，见 `_pre_outfit`。
                 bans = set() if _forced else (
                     L.bans_for(st, key) | OS.style_bans(st, key, outfit_style))
                 if bans:
@@ -4884,7 +5345,11 @@ def draw(level="suggestive", seed=None, *, base_prob=DEFAULT_BASE_PROB,
                 # 场景违和（place × 服装）。表在 anima_v4_link.py。
                 # ⚠️ **fail-open**：全被剔光时保留原池 —— 宁可留一组矛盾，
                 #    也不要让"这个字段整段消失"（用户会以为随机坏了）。
-                bans = L.bans_for(st, key) | OS.style_bans(st, key, outfit_style)
+                # v6.16.0：整套服装走同一个 `_anchor_st()`（显式场景的 place
+                #   为锚点）。旧写法读 `st["n_canon"]` —— `canon` 段在段序末尾，
+                #   抽服装时它永远是空的，等于没生效。
+                _bst2 = _anchor_st(st) if key == "outfit" else st
+                bans = L.bans_for(_bst2, key) | OS.style_bans(_bst2, key, outfit_style)
                 # ── v4.2.1：点名了体位 → 动作必须与它相容 ────────────────
                 # 联动是**单向**的（n_act → n_pos）：n_act 先抽，之后才轮到
                 # n_pos。不这么做的话，先随机到的动作会把用户点名的体位
@@ -4974,6 +5439,8 @@ def draw(level="suggestive", seed=None, *, base_prob=DEFAULT_BASE_PROB,
                 #    仍然调用 weighted_pick（照旧消耗 1 次 rng）：
                 #    有强制项 / 没强制项的 rng 消耗次数必须一致，
                 #    否则这个字段之后的每一个字段都会连锁漂移。
+                # v6.16.0：整套服装的锚点换成显式场景的 place（与剔除同一视图）
+                _sst = _anchor_st(st) if key == "outfit" else st
                 pick = weighted_pick(
                     pass_rng, _forced or pool,
                     lambda it: (option_weight(weights, key, it[1]) * sw * fw
@@ -4981,7 +5448,7 @@ def draw(level="suggestive", seed=None, *, base_prob=DEFAULT_BASE_PROB,
                                 # 权重放大（默认 ×1.0 = 不干预），但**不剥夺**
                                 # 其它选项 —— 泳池边照样可能抽到连衣裙。
                                 * L.bias_for(st, key, it[1])
-                                * OS.style_bias(st, key, it[1], outfit_style)
+                                * OS.style_bias(_sst, key, it[1], outfit_style)
                                 # v3.38.0：选项级风格偏置（目前只服务妆容）——
                                 # 服装走上面那条"锚点+兼容度"，妆容没有锚点，
                                 # 靠 STYLE_MAKEUP 的直方图决定该配哪几种妆。
@@ -5292,6 +5759,17 @@ def draw(level="suggestive", seed=None, *, base_prob=DEFAULT_BASE_PROB,
                 nt.append("性行为已点名必现 → 人数由 `%s`（按角色数改写）抬到 `%s`"
                           % (_c1 or "(空)", _sex_target))
 
+        # ── v6.23.0：服装库池化随机（一次 pass 只解析一次）───────────────
+        # 落点必须在**所有字段抽完之后**：`_anchor_st(st)` / `OS.anchor_of(st)`
+        # 要的是已落定的 place 与 n_canon（v6.16.0「锚点算成随机预抽的 place」
+        # 那个坑的教训）。解析结果存进 st，供 `_collect_with_feat` 里的单人路径
+        # 复用 —— 三处调用点必须共用同一个 pick（设计稿不变式 2）。
+        _lib_pick = resolve_library_pick(lv, seed, st, outfit_style)
+        if _lib_pick.get("on"):
+            st["_lib_pick"] = _lib_pick
+            if _lib_pick.get("why"):
+                nt.append(_lib_pick["why"])
+
         # ── 角色外貌对齐 ──────────────────────────────────────────
         # ⚠️ 只在**单个**角色时做。两位以上各有各的官方发色，
         #    强行对齐其中一位是错的（角色 tag 本身已经带足特征）。
@@ -5327,7 +5805,7 @@ def draw(level="suggestive", seed=None, *, base_prob=DEFAULT_BASE_PROB,
                 # v6.6.1：场景点名闭麦衣物时双人也让路（与单人同一判据）——
                 # 裸体场景里写"谁穿什么"会让模型一半穿衣一半裸。
                 _do = "" if st.get("_scene_no_outfit") else duo_outfit_text(
-                    triggers, lv, bool(st.get("_scene_has_outfit")))
+                    triggers, lv, bool(st.get("_scene_has_outfit")), _lib_pick)
                 if st.get("_scene_no_outfit") \
                         and any(outfit_item(_t) for _t in triggers[:3]) \
                         and not any("角色服装预设让路" in _n for _n in nt):
@@ -5361,7 +5839,7 @@ def draw(level="suggestive", seed=None, *, base_prob=DEFAULT_BASE_PROB,
                               "→ 共享服装字段按随机处理")
                 if appearance_follow:
                     _df = duo_feat_text(triggers, seed, lv,
-                                        bool(st.get("_scene_has_outfit")))
+                                        bool(st.get("_scene_has_outfit")), _lib_pick)
                     if _df:
                         st["_duo_feat"] = _df
                         _dyn.add(_df.strip().lower())
@@ -5553,7 +6031,8 @@ def draw(level="suggestive", seed=None, *, base_prob=DEFAULT_BASE_PROB,
             #   否则"她穿着白背心黑裙"和"completely nude"会同时进正文。
             _oex, _odrop, _oset = effective_outfit(
                 st.get("role") or "", lv,
-                bool(st.get("_scene_has_outfit")))
+                bool(st.get("_scene_has_outfit")),
+                st.get("_lib_pick"))
             if _oex and st.get("_scene_no_outfit"):
                 _oex, _odrop, _oset = [], [], {}
                 # 密度重试每轮都会走到这里 —— 只报一次（按 notes 去重，
@@ -5674,13 +6153,18 @@ def draw(level="suggestive", seed=None, *, base_prob=DEFAULT_BASE_PROB,
     _floor = ensure_level_floor(
         state, lv, weights, set(locks) | set(forced),
         state.get("n_canon") or "",
-        random.Random(derive_seed(_variant_seed, "level_floor", lv)))
+        random.Random(derive_seed(_variant_seed, "level_floor", lv)),
+        cap=cap, cap_auto=auto)
     if _floor:
         notes.extend(_floor)
         # 补进来的锚点自身可能与已抽内容互斥，再过一遍消解（幂等，不会破坏已干净的结果）
         _cleared_f = sanitize(state, weights)
         if _cleared_f:
             notes.append("保底后消解：" + "、".join(_cleared_f))
+        # v6.12.0：姿势包追加句与 `n_state` 的实际去留对齐（见 _pose_nl_resync）
+        _nl_fix = _pose_nl_resync(state)
+        if _nl_fix:
+            notes.append(_nl_fix)
     # ── 权重 0 = 永不出现（v4.3.0）────────────────────────────────────
     # ⚠️ 位置：trim / 保底 / sanitize 之后，collect 之前 —— 这三步都可能
     #    把"用户已经关掉的选项"重新写回 state（场景 tags、保底锚点、互斥改写）。
@@ -5765,6 +6249,16 @@ def draw(level="suggestive", seed=None, *, base_prob=DEFAULT_BASE_PROB,
                          % (len(_dry_removed), _show))
             report["notes"] = notes
     out_text = ", ".join(out_tags)
+    # v6.23.0：记下本轮池化抽到的套（面板"上次抽到：XX"）。
+    # ⚠️ 只写一次、失败静默 —— 这是展示用信息，不能因为它毁掉一次出图；
+    #    值没变时 store 内部不写盘（避免每张图刷 mtime）。
+    try:
+        _lp = (state or {}).get("_lib_pick") or {}
+        if _lp.get("on") and _lp.get("item"):
+            from . import anima_v4_store as _S
+            _S.set_library_pool_last(_lp["item"].get("id"))
+    except Exception:
+        pass
     return {
         "text": out_text,
         "state": state,

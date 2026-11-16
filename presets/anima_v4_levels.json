@@ -1,14 +1,14 @@
 {
  "_meta": {
   "schema": "anima-wardrobe-v4/levels@1",
-  "pools_sha256": "376dc3659887c215974fb02acab1c96a9deb6f007e3ef3acd528c72d29885827",
+  "pools_sha256": "adc4b6df2824a95c7993bbbf417e15f255846c8589eb1f380ab3f337844550b8",
   "nsfw_module": "anima_v4_nsfw.py",
   "generated_by": "tools/classify_v3_levels.py",
   "counters": {
-   "tags": 1171,
+   "tags": 1176,
    "fields": 55,
-   "options_raw": 1134,
-   "options_unique": 1134,
+   "options_raw": 1139,
+   "options_unique": 1139,
    "demoted": 15,
    "raised": 48,
    "max": 4
@@ -96,6 +96,7 @@
   "apron only": 0,
   "aqua": 0,
   "aqua eyes": 0,
+  "aqua gradient thighhighs": 0,
   "aqua hair": 0,
   "aquarium": 0,
   "arched back": 1,
@@ -152,6 +153,7 @@
   "black eyes": 0,
   "black glittery pantyhose": 0,
   "black glittery thighhighs": 0,
+  "black gradient thighhighs": 0,
   "black hair": 0,
   "black lipstick": 0,
   "black pantyhose": 0,
@@ -840,6 +842,7 @@
   "pinafore dress": 0,
   "pink": 0,
   "pink eyes": 0,
+  "pink gradient thighhighs": 0,
   "pink hair": 0,
   "pink pantyhose": 0,
   "pink socks": 0,
@@ -875,6 +878,7 @@
   "pulled by self": 2,
   "purple": 0,
   "purple eyes": 0,
+  "purple gradient thighhighs": 0,
   "purple hair": 0,
   "purple pantyhose": 0,
   "purple socks": 0,
@@ -1193,6 +1197,7 @@
   "white bikini": 0,
   "white glittery pantyhose": 0,
   "white glittery thighhighs": 0,
+  "white gradient thighhighs": 0,
   "white hair": 0,
   "white pantyhose": 0,
   "white socks": 0,
@@ -1865,7 +1870,12 @@
    "white glittery thighhighs, garter straps": 0,
    "pale pink glittery thighhighs, garter straps": 0,
    "lavender glittery thighhighs, garter straps": 0,
-   "pale burgundy glittery thighhighs, garter straps": 0
+   "pale burgundy glittery thighhighs, garter straps": 0,
+   "aqua gradient thighhighs": 0,
+   "black gradient thighhighs": 0,
+   "white gradient thighhighs": 0,
+   "purple gradient thighhighs": 0,
+   "pink gradient thighhighs": 0
   },
   "sock_color": {
    "black": 0,

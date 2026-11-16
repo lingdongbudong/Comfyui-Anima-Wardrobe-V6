@@ -31,13 +31,16 @@ Comfyui-Anima-Wardrobe-V6/
 │   ├── anima_v4_pools.json        词库（零漂移导出物，**真源是 HTML**）
 │   ├── anima_v4_levels.json       每条选项的档位（派生数据）
 │   ├── anima_v4_characters.json   角色库 2432 位（联网构建，**只读**）
-│   ├── anima_v4_scenes.json       场景搭配 524 条（6 组：sfw/near/nsfw/pose/art/weapon）
+│   ├── anima_v4_scenes.json       场景搭配 782 条（6 组：sfw/pose/near/art/nsfw/weapon）
 │   ├── anima_v4_scene_aspects.json 每条场景的画幅（**别写进 scenes.json**）
-│   ├── outfit_library.json        服装库 135 套 / 11 类
-│   ├── character_outfits.json     角色 → 服装预设映射（覆盖 2432 位）
+│   ├── outfit_library.json        服装库 167 套 / 11 类
+│   ├── outfit_library_last.json   池化随机的「上次抽到哪套」游标（**本机生成、不入库**）
+│   ├── character_outfits.json     角色 → 服装预设映射（2447 套 / 覆盖 2434 位）
 │   ├── char_hair_style.json       角色官方发型对齐表
 │   ├── char_output_tags.json      角色输出标签（按 Anima 官方写法核验）
 │   ├── thumbs/                    角色缩略图 2432 张 / 29 MB（与角色 1:1，作者本地生成）
+│   ├── scene_thumbs/              场景预览图 562 张 / 9 MB（**只挂 L0**，与 scenes.json 解耦）
+│   ├── outfit_thumbs/             服装预览图 120 张 / 2.2 MB（**只挂 L0+L1**，与服装库解耦）
 │   ├── user_characters.json       用户角色覆盖层（编辑 + 自定义）—— 入库存空模板
 │   ├── user_thumbs/               自定义角色预览图（仓库里是 9 张示例）
 │   ├── user_presets.json          命名预设（用户数据）—— 入库存空模板
@@ -46,15 +49,16 @@ Comfyui-Anima-Wardrobe-V6/
 │   └── user_work_favorites.json   作品 IP 收藏 —— 入库存空模板
 ├── locales/zh|en/nodeDefs.json    界面中文（显示名 / 控件名 / 下拉值）
 ├── js/anima_wardrobe_v4_studio.js 可视化面板（8 页签）
-├── tools/                   导出 / 分类 / 同步 / 建库 / 抓图 / 迁移 / 建工作流
-├── tests/                   30 个基线脚本 + fixtures/ + run_all.py
+├── tools/                   导出 / 分类 / 同步 / 建库 / 出预览图 / 迁移 / 建工作流
+├── tests/                   32 个基线脚本 + fixtures/ + run_all.py
 └── workflows/               5 份出图工作流（29B 系列 + 12B 角色面板）
 ```
 
-> ⚠️ **缩略图**：2432 张全部由作者本地用 Anima 出图裁切生成，与角色库 1:1，
-> 仅作面板里的角色识别对照。`tools/fetch_character_thumbs.py` 是给
-> 「不想自己出图」的人准备的备用抓取路径，**仓库自带这批不是它抓的**。
-> 缩略图缺席**不阻塞任何功能**，面板退化为首字母色块。
+> ⚠️ **三套预览图**：角色缩略图（2432，全量）**随仓库分发**，与角色库 1:1，
+> 仅作面板里的角色识别对照；场景预览图（562）与服装预览图（120）**只含 L0 / L1 安全档**，
+> L2 及以上一张不提供。三者都与各自的数据文件**解耦** —— 重建库不会抹掉图。
+> `tools/fetch_character_thumbs.py` 是给「不想自己出图」的人准备的备用抓取路径，
+> **仓库自带这批不是它抓的**。缩略图缺席**不阻塞任何功能**，面板退化为首字母色块。
 >
 > ⚠️ `presets/thumbs.bak-*/`（抓图前的同批备份，16 MB）**不入库** —— 完全重复。
 
@@ -63,23 +67,36 @@ Comfyui-Anima-Wardrobe-V6/
 
 ## 二、对外 HTTP 路由
 
+前缀 `/anima-wardrobe-v6/`（v6 + v5 + v4 + v3 **四套挂载同一函数**，旧工作流与缓存里的旧 JS 不会 404）。
+
 | 路由 | 用途 |
 |---|---|
-| `GET /anima-wardrobe-v5/health` | 自检：段数 / 字段数 / 选项数 / 档位列表 |
-| `GET /anima-wardrobe-v5/pools` | 完整词库（含中文名与逐项档位） |
-| `GET /anima-wardrobe-v5/contract` | 段落 / 字段 / 槽位 / 档位契约 |
-| `GET /anima-wardrobe-v5/scenes` | 场景搭配 + 特写搭配（v3.18.0 起每条带 `manual` / `part`，`near_parts` 给出部位顺序） |
-| `GET /anima-wardrobe-v5/characters` | 角色库（作品 + 角色，约 928 KB；含 `trigger` 与 `user` 标记，`tags` 只带前 8 条） |
-| `GET /anima-wardrobe-v5/characters/detail?tag=` | 单个角色**完整**记录 + 内置原始标签（编辑弹窗用） |
-| `GET /anima-wardrobe-v5/thumb/<slug>` | 角色缩略图（**先查 `user_thumbs/` 再查 `thumbs/`**，自动试 webp/jpg/png） |
-| `GET /anima-wardrobe-v5/roll-options` | 随机面板的初值 |
-| `POST /anima-wardrobe-v5/roll` | 跑一次抽取（与节点共用同一套引擎） |
-| `POST /anima-wardrobe-v5/characters/save` | 新增 / 编辑角色（`mode` = `create` / `edit`） |
-| `POST /anima-wardrobe-v5/characters/delete` | 删除自定义角色 |
-| `POST /anima-wardrobe-v5/characters/reset` | 内置角色恢复默认 |
-| `POST /anima-wardrobe-v5/characters/delete` | 删除角色（v3.18.6：**内置也能删**；传 `tags:[...]` 即批量；内置记录先写 tombstone） |
-| `POST /anima-wardrobe-v5/characters/thumb` | 上传预览图（base64 data URL） |
-| `POST /anima-wardrobe-v5/characters/thumb-clear` | 清除自定义预览图 |
+| `GET /health` | 自检：版本 / 段数 / 字段数 / 选项数 / 场景数 / 服装库套数 / 档位列表 |
+| `GET /pools` | 完整词库（含中文名与逐项档位） |
+| `GET /contract` | 段落 / 字段 / 槽位 / 档位契约（前端也读这里的 `near_slim`） |
+| `GET /scenes` | 场景搭配 + 特写搭配 + 武器（每条带 `manual` / `part` / `level` / `thumb`，`near_parts` 给部位顺序） |
+| `GET /characters` | 角色库（作品 + 角色，约 1.1 MB；含 `trigger` 与 `user` 标记，`tags` 只带前 8 条） |
+| `GET /characters/detail?tag=` | 单个角色**完整**记录 + 内置原始标签（编辑弹窗用） |
+| `GET /thumb/{name}` | 角色缩略图（**先查 `user_thumbs/` 再查 `thumbs/`**，自动试 webp/jpg/png） |
+| `GET /scene-thumb/{name}` | 场景预览图（`presets/scene_thumbs/<id>.webp`；路径穿越防护 + `no-cache`） |
+| `GET /outfit-thumb/{name}` | 服装预览图（`presets/outfit_thumbs/<id>.webp`；同上） |
+| `GET /roll-options` | 随机面板的初值 |
+| `POST /roll` | 跑一次抽取（与节点共用同一套引擎） |
+| `GET /presets` · `POST /presets/save` · `POST /presets/delete` | 命名预设 |
+| `GET /favorites` · `POST /favorites/toggle` | 角色收藏 |
+| `GET /scenes/favorites` · `POST /scenes/favorites/toggle` | 场景收藏 |
+| `GET /works/favorites` · `POST /works/favorites/toggle` | 作品 IP 收藏 |
+| `POST /characters/save` · `/delete` · `/reset` · `/thumb` · `/thumb-clear` | 自定义角色 |
+| `GET /outfits` · `POST /outfits/enable` · `/save` · `/delete` · `/import` | **角色服装预设**（按角色存） |
+| `GET /outfit-library` | **全局服装库**载荷（每套带 `level` / `cat` / `thumb`） |
+| `POST /outfit-library/enable` | 钉一套 / 关闭（同值重发可触发 `clear_cache()`） |
+| `POST /outfit-library/pool` | **池化随机**（`{on, cats, max_level, ids}`） |
+| `POST /outfit-library/save` · `/delete` · `/override` | 管理服装库条目 |
+| `POST /outfit-library/scene-override` | 场景优先 / 服装优先开关（**同值重发 = 清缓存**，纯数据改动免重启） |
+
+> ⚠️ **外部脚本改服装库必须走 HTTP**（`POST /outfit-library/enable` 或任意会 `clear_cache()` 的同值请求）：
+> 本地写盘 + 自己进程里 `clear_cache()` 只清脚本进程的缓存，**服务进程仍读旧 `_CACHE`** —— 实测
+> 首轮 14 张图全穿第一套，就是这个原因。
 
 
 ---
@@ -121,14 +138,15 @@ python tools/build_scene_catalog.py --out D:/xxx.html    # 换位置
 
 | 项 | 说明 |
 |---|---|
-| 收录 | **全部 444 条**一条不漏 |
+| 收录 | **全部 782 条**一条不漏 |
 | 卡面 | 中文名 / id / 页签 / 档位 / 题材 / 一句说明 / 人数锁 · 地点 · 景别 |
 | 展开 | 完整 `tags` 表、`extra` 标签、`scene_nl` 正文、变体池与随机字段、闭麦字段、禁用词、元信息 |
 | 成人档 | **L2 及以上的「正文与变体」默认再折叠一层**，点开才显示；顶部有「展开全部成人正文」开关 |
 | 交互 | 全文搜索（中文名/id/题材/tags/正文，空格 = AND）、页签/档位/题材/随机池/变体筛选、6 种排序、统计条与档位分布、重置 |
 | 统计 | 总数 / 页签数 / 随机池 / 仅手动 / 带随机性 / 带变体池 / 题材数 + L0–L4 分布条 |
 
-⚠️ 场景库**没有配图**（只有角色库有缩略图），所以这是文字型目录。
+⚠️ 场景库**本身不带图**（预览图是 v6.19.0 独立加的 `presets/scene_thumbs/`，只挂 L0，
+与 `scenes.json` 解耦），所以这份总览网页是纯文字目录 —— 要图去面板里看。
 ⚠️ 数据变更后**重跑生成脚本**即可刷新，网页本身不会自动更新。
 
 
@@ -158,7 +176,21 @@ python tests/run_all.py 500      # 更狠
 | `check_v3_store.py` | 预设/收藏存储：原子写 · 幂等 · 参数校验 · 坏文件容错 · 上限保护 |
 | `check_v3_userdata.py` | 用户角色覆盖层：原子写 · 参数校验 · 合并正确性（edits/custom/works.count/**tags 整条替换**）· **缓存纪律** · 删除与恢复默认 · 图片落盘与安全 · **特征标签（列表语义 + 校验 + 引擎采用）** · **内置库逐字节零改动** |
 | `check_v3_pngmeta.py` | PNG 元数据注入：**先钉死"病"**（承载位全是空串）· 注入后承载位/终点位/兜底位都写对 · **不越界**（质量词/分隔符/负向/插件自身控件零改动、除文本控件外整份工作流逐字节一致）· 幂等 · **API 只加惰性键且已声明输入零改动** · 异常安全 · 节点接线 |
-| `av3_ui_smoke.mjs` | jsdom 真跑面板：**252 条**断言（权重树 / 角色浏览器 / **🎲 按 IP 随机抽角色** / **🔁 随机池** / **🎬 场景搭配页（档位分组 + **默认折叠** + **全部展开** + **👁 非破坏性预览**）** / 收藏 / 预设 / 免责声明 / 巨乳开关 / **角色编辑与自定义角色** / **特征标签增删改** / **段「本档不参与」判据** / **预演请求带 selected_roles+lock_fields**） |
+| `check_v3_color.py` | 服装智配 + 颜色合成基线（款式 × 色卡的合法组合、上色失败时的回显原因） |
+| `check_v3_hands.py` | 上肢动作**单槽**：`arms_hands` / `pose_risque` / `n_act` 不得双写（F18），且不得缺席 |
+| `check_v3_levelfloor.py` | 高等级保底：到位率 / 不越档 / 人数相容（L3 起双人必须是 `1girl, 1boy, hetero`） |
+| `check_v3_scenelevel.py` | 场景档位分层：命中率 / 不越档 / **显式场景优先于随机填充** |
+| `check_v3_poselevel.py` | 姿势库按档内容包：到位 / **姿势不被动** / 追加文案跟着 `n_state` 实际去留走 |
+| `check_v3_pickpool.py` | 勾选池自动随机：同参可复现 / 特写收紧 / 超档只升不降 / 标签不爆 cap / 指纹纳入 |
+| `check_v3_swimban.py` | **非泳装场景硬禁整套泳装**：`pinned_scene_id` 语义 / 超档不算锚点 / 6 条场景 × 3 档 × 40 抽零泳装 / 随机路径零漂移 |
+| `check_v3_outfitlib.py` | 全局服装库（**69 项**）：套数 / 分类契约 / 档位 `level >= 派生` / 优先级 / 关闭时零影响 |
+| `check_v3_outfitpick.py` | 服装库**池化随机**：关闭零漂移 / 分类与档位过滤 / 泳装剔除 / 与钉一套互斥 / 自动抬档与基线还原 |
+| `check_v3_outfits.py` | 角色服装预设：启用后 13 字段闭麦 / 档位不够留空不回落 / 关闭时零影响 |
+| `check_v3_charfeat.py` | 角色固定特征：特征注入通道 / `body_extra` 拼接 / 关闭时零漂移 |
+| `check_v3_role_output.py` | 角色正文 tag 走官方写法 `texas, arknights`（两个独立 tag、空格、零下划线） |
+| `check_v3_workfav.py` | 作品 IP 收藏：slug 归一 / 上限 / 与角色收藏值域隔离 |
+| `check_v3_duofill.py` | 双女自动补位：同作品优先 / 不乱补 / 关闭时零漂移 |
+| `av3_ui_smoke.mjs` | jsdom 真跑面板：**672 条**断言（权重树 / 角色浏览器 / **🎲 按 IP 随机抽角色** / **🔁 随机池** / **🎬 场景搭配页（档位分组 + **默认折叠** + **全部展开** + **👁 非破坏性预览**）** / 收藏 / 预设 / 免责声明 / 巨乳开关 / **角色编辑与自定义角色** / **特征标签增删改** / **段「本档不参与」判据** / **预演请求带 selected_roles+lock_fields** / **场景与服装预览图挂载与档位闸门** / **池化随机的分类多选与右栏 ✕** / **标题栏五比例按钮 + 画面联动（含 XB 缓存同步、both 不动、无节点降级）**） |
 
 > `av3_ui_smoke.mjs` 的 fetch 桩喂的是 `tools/dump_ui_fixtures.py` 从**真后端**
 > 导出的夹具 —— 接口改了字段名，冒烟立刻红。它抓到过 4 个真 bug：
@@ -170,7 +202,7 @@ python tests/run_all.py 500      # 更狠
 
 ## 六、开发纪律
 
-改这个插件之前，下面六条请当成硬性前提。
+改这个插件之前，下面八条请当成硬性前提。
 
 ### 6.1 零漂移
 
@@ -199,14 +231,27 @@ python tests/run_all.py 500      # 更狠
 
 ### 6.5 测试基线
 
-`tests/run_all.py` **28 项**，其中 2 项是历史红（场景搭配预设 / 角色发型对齐），
-`check_v3_scenes.py` 另有 4 项历史红。**与基线一致就算通过**，不要为了让全绿去改断言。
-UI 冒烟 `tests/av3_ui_smoke.mjs` 约 **609 条**断言。
+`tests/run_all.py` **31 项全绿**（0 失败），UI 冒烟 `tests/av3_ui_smoke.mjs` **672 条**断言。
+**只增不减**：新增功能要补断言，但不许为了让红的变绿去改既有断言
+（历史上有几条断言依赖当时的条数 —— 那种要改成动态口径，并在 CHANGELOG 里写明）。
+`run_all` 默认每档 200 次抽样；`python tests/run_all.py 500` 抽更狠。
 
 ### 6.6 只用 Write/Edit 改文件
 
 批量替换前先判换行（当前所有待改文件是 LF）。
-⚠️ 不要让脚本用 `open(p,'w',newline='
-')` 之类的方式重写含中文的大文件 ——
+⚠️ 不要让脚本用 `open(p, 'w', newline='\n')` 之类的方式重写含中文的大文件 ——
 编码一错就是整份文件重编码，diff 里全是噪声。
-前端改动特别注意：**CSS 在 `const CSS = \`...\`` 模板字符串里，注释写反引号会 `SyntaxError`**。
+前端改动特别注意：**CSS 在 `const CSS = \`...\`` 模板字符串里，注释写反引号会 `SyntaxError`**
+（`node --check` 查不出来，跑冒烟才炸）。
+
+### 6.7 ⚠️ 自定义节点里禁止 `raise SystemExit`
+
+它继承 `BaseException`，节点的 `except Exception` 和 ComfyUI 的 `execution.py` **都接不住**。
+实测后果：8188 端口仍 LISTENING、进程仍在，但**整个 HTTP 服务彻底不响应**，只能重启。
+一律用 `ValueError` 子类，CLI 入口自己兜底。
+
+### 6.8 ⚠️ 写 `XB_ImageParamsMaster` 必须同步它的缓存
+
+XB 节点自带 50ms 轮询（`xb_video.js`），发现 `aspect_ratio` 变了会**按旧宽度**重算高度。
+写完宽高不同步 `node._xb_last_width / _xb_last_height / _xb_last_ratio`，
+`864×1152` 会被算成 `720×960`。冒烟里有一条专门钉这个。

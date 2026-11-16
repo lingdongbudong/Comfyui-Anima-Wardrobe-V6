@@ -2,13 +2,13 @@
  "_meta": {
   "source_file": "ANIMA提示词生成器.html",
   "source_path": "S:/ComfyUI/提示词/ANIMA提示词生成器.html",
-  "source_sha256": "8c94c51dcaacb985f16423387cb6a4d9a4abb1ca7fe6621f2484bab78abf385b",
+  "source_sha256": "04574ae52ece1cc278e973577733157439a5ca224f9b7287b425ba337a244057",
   "schema": "anima-wardrobe-v4/pools@1",
   "generated_by": "tools/export_v3_pools.mjs",
   "counters": {
    "sections": 15,
    "fields": 57,
-   "options": 1134,
+   "options": 1139,
    "roles": 222,
    "appear": 221,
    "canon": 14,
@@ -3203,6 +3203,31 @@
       {
        "zh": "淡酒红亮丝星点吊带袜",
        "en": "pale burgundy glittery thighhighs, garter straps",
+       "level": 0
+      },
+      {
+       "zh": "青绿三段渐变过膝袜",
+       "en": "aqua gradient thighhighs",
+       "level": 0
+      },
+      {
+       "zh": "黑色三段渐变过膝袜",
+       "en": "black gradient thighhighs",
+       "level": 0
+      },
+      {
+       "zh": "白色三段渐变过膝袜",
+       "en": "white gradient thighhighs",
+       "level": 0
+      },
+      {
+       "zh": "紫色三段渐变过膝袜",
+       "en": "purple gradient thighhighs",
+       "level": 0
+      },
+      {
+       "zh": "粉色三段渐变过膝袜",
+       "en": "pink gradient thighhighs",
        "level": 0
       }
      ]
@@ -6410,6 +6435,166 @@
        "level": 0
       },
       {
+       "zh": "夏日祭 · 烟火",
+       "en": "sc_night_matsuri",
+       "level": 0
+      },
+      {
+       "zh": "雪夜 · 街灯",
+       "en": "sc_night_snow_street",
+       "level": 0
+      },
+      {
+       "zh": "湖畔 · 月夜",
+       "en": "sc_night_lake_moon",
+       "level": 0
+      },
+      {
+       "zh": "灯塔 · 夜海",
+       "en": "sc_night_lighthouse",
+       "level": 0
+      },
+      {
+       "zh": "山间 · 银河",
+       "en": "sc_night_milkyway",
+       "level": 0
+      },
+      {
+       "zh": "水族馆 · 暗场蓝光",
+       "en": "sc_night_aquarium",
+       "level": 0
+      },
+      {
+       "zh": "演唱会 · 灯海",
+       "en": "sc_night_concert",
+       "level": 0
+      },
+      {
+       "zh": "摩天轮 · 夜景",
+       "en": "sc_night_ferris",
+       "level": 0
+      },
+      {
+       "zh": "末班电车 · 车窗",
+       "en": "sc_night_last_train",
+       "level": 0
+      },
+      {
+       "zh": "深夜食堂 · 暖帘",
+       "en": "sc_night_izakaya",
+       "level": 0
+      },
+      {
+       "zh": "天台 · 城市灯海",
+       "en": "sc_night_rooftop",
+       "level": 0
+      },
+      {
+       "zh": "酒店高层 · 夜景窗",
+       "en": "sc_night_hotel_window",
+       "level": 0
+      },
+      {
+       "zh": "窗台 · 夜坐",
+       "en": "sc_pose_night_windowsill",
+       "level": 0
+      },
+      {
+       "zh": "夜泳池 · 边坐",
+       "en": "sc_pose_night_poolside",
+       "level": 0
+      },
+      {
+       "zh": "床边 · 夜灯",
+       "en": "sc_pose_night_bedside_lamp",
+       "level": 0
+      },
+      {
+       "zh": "阳台 · 夜倚",
+       "en": "sc_pose_night_balcony_lean",
+       "level": 0
+      },
+      {
+       "zh": "天台 · 夜坐",
+       "en": "sc_pose_night_rooftop_sit",
+       "level": 0
+      },
+      {
+       "zh": "楼梯间 · 夜坐",
+       "en": "sc_pose_night_stairs_sit",
+       "level": 0
+      },
+      {
+       "zh": "霓虹 · 半脸",
+       "en": "sc_near_night_neon_face",
+       "level": 0
+      },
+      {
+       "zh": "烛光 · 低眉",
+       "en": "sc_near_night_candle_eye",
+       "level": 0
+      },
+      {
+       "zh": "月光 · 锁骨",
+       "en": "sc_near_night_moon_collar",
+       "level": 0
+      },
+      {
+       "zh": "霓虹拱门 · 巨拱之下",
+       "en": "sc_art_night_neon_arch",
+       "level": 0
+      },
+      {
+       "zh": "月梯 · 巨梯入月",
+       "en": "sc_art_night_moon_ladder",
+       "level": 0
+      },
+      {
+       "zh": "星海 · 悬空",
+       "en": "sc_art_night_starfield",
+       "level": 0
+      },
+      {
+       "zh": "万灯海 · 舟上",
+       "en": "sc_art_night_lantern_sea",
+       "level": 0
+      },
+      {
+       "zh": "夜 · 酒店落地窗前",
+       "en": "sc_ccc_night_hotel_window",
+       "level": 3
+      },
+      {
+       "zh": "夜 · 车后座",
+       "en": "sc_ccc_night_car",
+       "level": 3
+      },
+      {
+       "zh": "夜 · 帐篷灯影",
+       "en": "sc_ccc_night_tent",
+       "level": 3
+      },
+      {
+       "zh": "夜 · 露天温泉",
+       "en": "sc_ccc_night_onsen",
+       "level": 3
+      },
+      {
+       "zh": "夜 · 加班办公室",
+       "en": "sc_ccc_night_office",
+       "level": 3
+      },
+      {
+       "zh": "夜 · 空海滩",
+       "en": "sc_ccc_night_beach",
+       "level": 3
+      },
+      {
+       "zh": "夜 · 客厅落地灯",
+       "en": "sc_ccc_night_livingroom",
+       "level": 3
+      },
+      {
        "zh": "鱼眼 · 室内广角",
        "en": "sc_fisheye_room",
        "level": 0
@@ -8963,6 +9148,1136 @@
        "zh": "大猩猩义臂 · 烟尘广角",
        "en": "sc_wp_cyber_gorilla",
        "level": 0
+      },
+      {
+       "zh": "夜神社 · 鸟居",
+       "en": "sc_night_shrine_torii",
+       "level": 0
+      },
+      {
+       "zh": "夜神社 · 石灯笼下",
+       "en": "sc_ccc_night_shrine",
+       "level": 3
+      },
+      {
+       "zh": "夜浴 · 一盏暖灯",
+       "en": "sc_night_bath_steam",
+       "level": 0
+      },
+      {
+       "zh": "夜浴 · 水面之上",
+       "en": "sc_ccc_night_bath",
+       "level": 3
+      },
+      {
+       "zh": "夜教室 · 月光",
+       "en": "sc_night_classroom_moon",
+       "level": 0
+      },
+      {
+       "zh": "夜教室 · 课桌",
+       "en": "sc_ccc_night_classroom",
+       "level": 3
+      },
+      {
+       "zh": "深夜咖啡厅 · 打烊后",
+       "en": "sc_night_cafe_closed",
+       "level": 0
+      },
+      {
+       "zh": "深夜咖啡厅 · 窗边",
+       "en": "sc_ccc_night_cafe",
+       "level": 3
+      },
+      {
+       "zh": "夜图书馆 · 单盏台灯",
+       "en": "sc_night_library_lamp",
+       "level": 0
+      },
+      {
+       "zh": "夜图书馆 · 书架之间",
+       "en": "sc_ccc_night_library",
+       "level": 3
+      },
+      {
+       "zh": "夜公园 · 长椅掀裙",
+       "en": "sc_exp_night_park",
+       "level": 2
+      },
+      {
+       "zh": "夜巷 · 靠墙敞开",
+       "en": "sc_exp_night_alley",
+       "level": 2
+      },
+      {
+       "zh": "夜桥 · 迎风掀裙",
+       "en": "sc_exp_night_bridge",
+       "level": 2
+      },
+      {
+       "zh": "夜海滩 · 走入水",
+       "en": "sc_exp_night_beach",
+       "level": 2
+      },
+      {
+       "zh": "深夜街头 · 大衣",
+       "en": "sc_exp_night_street",
+       "level": 2
+      },
+      {
+       "zh": "天台 · 对着灯海",
+       "en": "sc_exp_night_rooftop",
+       "level": 2
+      },
+      {
+       "zh": "夜公园 · 长椅自慰",
+       "en": "sc_exp_night_park_self",
+       "level": 3
+      },
+      {
+       "zh": "夜巷 · 墙角",
+       "en": "sc_exp_night_alley_self",
+       "level": 3
+      },
+      {
+       "zh": "阳台 · 晾衣时撩起上衣（擦边 L2）",
+       "en": "sc_n2_balcony_laundry_lift",
+       "level": 2
+      },
+      {
+       "zh": "浴室 · 湿透的睡裙（擦边 L2）",
+       "en": "sc_n2_bath_wet_nightgown",
+       "level": 2
+      },
+      {
+       "zh": "厨房 · 肩带滑落（擦边 L2）",
+       "en": "sc_n2_kitchen_strap_slip",
+       "level": 2
+      },
+      {
+       "zh": "图书馆 · 书堆压住裙摆（擦边 L2）",
+       "en": "sc_n2_library_stack_hem",
+       "level": 2
+      },
+      {
+       "zh": "电车内 · 坐姿裙摆上移（擦边 L2）",
+       "en": "sc_n2_train_seat_dress_lift",
+       "level": 2
+      },
+      {
+       "zh": "公园长椅 · 换到一半（擦边 L2）",
+       "en": "sc_n2_park_bench_change",
+       "level": 2
+      },
+      {
+       "zh": "海滩 · 沙龙布滑落（擦边 L2）",
+       "en": "sc_n2_beach_sarong_slip",
+       "level": 2
+      },
+      {
+       "zh": "神社 · 浴衣腰带松了（擦边 L2）",
+       "en": "sc_n2_shrine_obi_loose",
+       "level": 2
+      },
+      {
+       "zh": "学校走廊 · 敞开的外套（擦边 L2）",
+       "en": "sc_n2_hallway_cardigan_open",
+       "level": 2
+      },
+      {
+       "zh": "温泉 · 浴衣滑到肘弯（擦边 L2）",
+       "en": "sc_n2_onsen_robe_slip",
+       "level": 2
+      },
+      {
+       "zh": "电影院 · 黑暗里扯住衣领（擦边 L2）",
+       "en": "sc_n2_cinema_collar_pull",
+       "level": 2
+      },
+      {
+       "zh": "森林野餐 · 裙摆提到膝上（擦边 L2）",
+       "en": "sc_n2_forest_picnic_hem",
+       "level": 2
+      },
+      {
+       "zh": "春 · 河畔樱堤",
+       "en": "sc_season_spring_river_walk",
+       "level": 0
+      },
+      {
+       "zh": "春 · 樱下野餐",
+       "en": "sc_season_spring_park_picnic",
+       "level": 0
+      },
+      {
+       "zh": "春 · 花瓣斑马线",
+       "en": "sc_season_spring_crosswalk",
+       "level": 0
+      },
+      {
+       "zh": "春 · 阳台花影",
+       "en": "sc_season_spring_balcony_tea",
+       "level": 0
+      },
+      {
+       "zh": "夏 · 向日葵田",
+       "en": "sc_season_summer_sunflower",
+       "level": 0
+      },
+      {
+       "zh": "夏 · 公交站等车",
+       "en": "sc_season_summer_bus_stop",
+       "level": 0
+      },
+      {
+       "zh": "夏 · 天台阴凉处",
+       "en": "sc_season_summer_rooftop_shade",
+       "level": 0
+      },
+      {
+       "zh": "夏 · 咖啡厅冰饮",
+       "en": "sc_season_summer_cafe_iced",
+       "level": 0
+      },
+      {
+       "zh": "秋 · 落叶街道",
+       "en": "sc_season_autumn_street_leaves",
+       "level": 0
+      },
+      {
+       "zh": "秋 · 神社红叶",
+       "en": "sc_season_autumn_shrine_maple",
+       "level": 0
+      },
+      {
+       "zh": "秋 · 庭园读书",
+       "en": "sc_season_autumn_garden_bench",
+       "level": 0
+      },
+      {
+       "zh": "秋 · 山道回望",
+       "en": "sc_season_autumn_mountain_path",
+       "level": 0
+      },
+      {
+       "zh": "冬 · 雪中长椅",
+       "en": "sc_season_winter_park_snow",
+       "level": 0
+      },
+      {
+       "zh": "冬 · 结冰河岸",
+       "en": "sc_season_winter_river_bank",
+       "level": 0
+      },
+      {
+       "zh": "冬 · 窗边热饮",
+       "en": "sc_season_winter_cafe_window",
+       "level": 0
+      },
+      {
+       "zh": "冬 · 窗台看雪",
+       "en": "sc_season_winter_apartment_sill",
+       "level": 0
+      },
+      {
+       "zh": "电梯 · 停层之间",
+       "en": "sc_ccc_elevator_pin",
+       "level": 3
+      },
+      {
+       "zh": "楼梯间 · 牵绳跪姿",
+       "en": "sc_msb_stairwell_leash",
+       "level": 4
+      },
+      {
+       "zh": "厨房 · 流理台上",
+       "en": "sc_ccc_kitchen_counter",
+       "level": 4
+      },
+      {
+       "zh": "厨房 · 洗碗槽前",
+       "en": "sc_msb_kitchen_toys",
+       "level": 3
+      },
+      {
+       "zh": "更衣室 · 帘后",
+       "en": "sc_ccc_changing_stall",
+       "level": 3
+      },
+      {
+       "zh": "更衣室 · 帘内独自",
+       "en": "sc_msb_fitting_mess",
+       "level": 4
+      },
+      {
+       "zh": "夜泳池 · 池边",
+       "en": "sc_ccc_poolside_night",
+       "level": 4
+      },
+      {
+       "zh": "夜温泉 · 石阶",
+       "en": "sc_msb_onsen_steam",
+       "level": 3
+      },
+      {
+       "zh": "夜公园 · 长椅",
+       "en": "sc_ccc_park_night_bench",
+       "level": 4
+      },
+      {
+       "zh": "夜公园 · 灌木后",
+       "en": "sc_msb_park_night_ground",
+       "level": 3
+      },
+      {
+       "zh": "静谧切片",
+       "en": "sc_k2_still_section",
+       "level": 0
+      },
+      {
+       "zh": "焦散安魂曲",
+       "en": "sc_k2_caustic_requiem",
+       "level": 0
+      },
+      {
+       "zh": "战后空地",
+       "en": "sc_k2_after_field",
+       "level": 0
+      },
+      {
+       "zh": "按阵",
+       "en": "sc_k2_pressing_circle",
+       "level": 0
+      },
+      {
+       "zh": "沙丘脊线",
+       "en": "sc_k2_dune",
+       "level": 0
+      },
+      {
+       "zh": "河上小舟",
+       "en": "sc_k2_river_boat",
+       "level": 0
+      },
+      {
+       "zh": "修道院回廊",
+       "en": "sc_k2_cloister",
+       "level": 0
+      },
+      {
+       "zh": "纸灯灯会",
+       "en": "sc_k2_paper_festival",
+       "level": 0
+      },
+      {
+       "zh": "神庙檐下",
+       "en": "sc_k2_eave",
+       "level": 0
+      },
+      {
+       "zh": "拭刃",
+       "en": "sc_k2_wiping_edge",
+       "level": 0
+      },
+      {
+       "zh": "海景阳台",
+       "en": "sc_k2_coast_balcony",
+       "level": 0
+      },
+      {
+       "zh": "救生塔梯",
+       "en": "sc_k2_coast_lookout",
+       "level": 0
+      },
+      {
+       "zh": "木栈桥",
+       "en": "sc_k2_coast_pier",
+       "level": 0
+      },
+      {
+       "zh": "泳池边",
+       "en": "sc_k2_coast_pool_edge",
+       "level": 0
+      },
+      {
+       "zh": "海边淋浴",
+       "en": "sc_k2_coast_shower",
+       "level": 1
+      },
+      {
+       "zh": "退潮浪线",
+       "en": "sc_k2_coast_surf",
+       "level": 0
+      },
+      {
+       "zh": "退潮潮池",
+       "en": "sc_k2_coast_tide_pool",
+       "level": 0
+      },
+      {
+       "zh": "走廊尽头",
+       "en": "sc_k2_corridor",
+       "level": 0
+      },
+      {
+       "zh": "枯山水",
+       "en": "sc_k2_dry_garden",
+       "level": 0
+      },
+      {
+       "zh": "初雪鸟居",
+       "en": "sc_k2_first_snow",
+       "level": 0
+      },
+      {
+       "zh": "林间石桥",
+       "en": "sc_k2_forest_path",
+       "level": 0
+      },
+      {
+       "zh": "银杏长阶",
+       "en": "sc_k2_ginkgo_walk",
+       "level": 0
+      },
+      {
+       "zh": "玻璃温室",
+       "en": "sc_k2_glass_house",
+       "level": 0
+      },
+      {
+       "zh": "山顶余烬",
+       "en": "sc_k2_hanabi_after",
+       "level": 0
+      },
+      {
+       "zh": "苹果糖摊",
+       "en": "sc_k2_hanabi_apple",
+       "level": 0
+      },
+      {
+       "zh": "河堤望花",
+       "en": "sc_k2_hanabi_bank",
+       "level": 0
+      },
+      {
+       "zh": "团扇",
+       "en": "sc_k2_hanabi_fan",
+       "level": 0
+      },
+      {
+       "zh": "捞金鱼",
+       "en": "sc_k2_hanabi_goldfish",
+       "level": 0
+      },
+      {
+       "zh": "狐狸面具",
+       "en": "sc_k2_hanabi_mask",
+       "level": 0
+      },
+      {
+       "zh": "牵手回眸",
+       "en": "sc_k2_hanabi_pov",
+       "level": 0
+      },
+      {
+       "zh": "崖边草地",
+       "en": "sc_k2_cliff_edge",
+       "level": 0
+      },
+      {
+       "zh": "雨后路缘",
+       "en": "sc_k2_kerb",
+       "level": 0
+      },
+      {
+       "zh": "窑火之歌",
+       "en": "sc_k2_kiln_song",
+       "level": 0
+      },
+      {
+       "zh": "报刊亭",
+       "en": "sc_k2_kiosk",
+       "level": 0
+      },
+      {
+       "zh": "灯潮夜港",
+       "en": "sc_k2_lantern_tide",
+       "level": 0
+      },
+      {
+       "zh": "浴缸",
+       "en": "sc_k2_home_bath",
+       "level": 0
+      },
+      {
+       "zh": "衣帽间",
+       "en": "sc_k2_home_closet",
+       "level": 0
+      },
+      {
+       "zh": "一人晚餐",
+       "en": "sc_k2_home_dinner",
+       "level": 0
+      },
+      {
+       "zh": "玄关换鞋",
+       "en": "sc_k2_home_entry",
+       "level": 0
+      },
+      {
+       "zh": "阳台晾衣",
+       "en": "sc_k2_home_laundry_line",
+       "level": 0
+      },
+      {
+       "zh": "卧室床单",
+       "en": "sc_k2_home_linen",
+       "level": 0
+      },
+      {
+       "zh": "植物角",
+       "en": "sc_k2_home_plants",
+       "level": 0
+      },
+      {
+       "zh": "厨房晨光",
+       "en": "sc_k2_home_stove",
+       "level": 0
+      },
+      {
+       "zh": "停工车间",
+       "en": "sc_k2_idle_works",
+       "level": 0
+      },
+      {
+       "zh": "靛蓝垂布",
+       "en": "sc_k2_indigo_drift",
+       "level": 0
+      },
+      {
+       "zh": "钟楼旋梯",
+       "en": "sc_k2_indus_belltower",
+       "level": 0
+      },
+      {
+       "zh": "炼铁高炉",
+       "en": "sc_k2_indus_blast",
+       "level": 0
+      },
+      {
+       "zh": "干船坞",
+       "en": "sc_k2_indus_dock",
+       "level": 0
+      },
+      {
+       "zh": "教堂中殿",
+       "en": "sc_k2_indus_nave",
+       "level": 0
+      },
+      {
+       "zh": "泵房",
+       "en": "sc_k2_indus_pump",
+       "level": 0
+      },
+      {
+       "zh": "晾衣后巷",
+       "en": "sc_k2_back_alley",
+       "level": 0
+      },
+      {
+       "zh": "面包店",
+       "en": "sc_k2_bakery",
+       "level": 0
+      },
+      {
+       "zh": "理发店",
+       "en": "sc_k2_barber",
+       "level": 0
+      },
+      {
+       "zh": "蓝调窗格",
+       "en": "sc_k2_blue_hour",
+       "level": 0
+      },
+      {
+       "zh": "公交站台",
+       "en": "sc_k2_bus_stop",
+       "level": 0
+      },
+      {
+       "zh": "岩洞天光",
+       "en": "sc_k2_cavern",
+       "level": 0
+      },
+      {
+       "zh": "石阶观花",
+       "en": "sc_k2_hanabi_steps",
+       "level": 0
+      },
+      {
+       "zh": "屋台横丁",
+       "en": "sc_k2_hanabi_yatai",
+       "level": 0
+      },
+      {
+       "zh": "正午蝉声",
+       "en": "sc_k2_high_noon",
+       "level": 0
+      },
+      {
+       "zh": "地下水库",
+       "en": "sc_k2_indus_reservoir",
+       "level": 0
+      },
+      {
+       "zh": "冷却塔",
+       "en": "sc_k2_indus_tower",
+       "level": 0
+      },
+      {
+       "zh": "末班地铁",
+       "en": "sc_k2_last_train",
+       "level": 0
+      },
+      {
+       "zh": "电梯间",
+       "en": "sc_k2_lift_shaft",
+       "level": 0
+      },
+      {
+       "zh": "月下庭院",
+       "en": "sc_k2_moon_court",
+       "level": 0
+      },
+      {
+       "zh": "月洞门",
+       "en": "sc_k2_moon_gate",
+       "level": 0
+      },
+      {
+       "zh": "霓虹横街",
+       "en": "sc_k2_neon_strip",
+       "level": 0
+      },
+      {
+       "zh": "深夜书页",
+       "en": "sc_k2_night_folio",
+       "level": 0
+      },
+      {
+       "zh": "极光木屋",
+       "en": "sc_k2_north_light",
+       "level": 0
+      },
+      {
+       "zh": "立体车库",
+       "en": "sc_k2_parkade",
+       "level": 0
+      },
+      {
+       "zh": "樱线电车",
+       "en": "sc_k2_petal_line",
+       "level": 0
+      },
+      {
+       "zh": "玻璃电话亭",
+       "en": "sc_k2_phone_box",
+       "level": 0
+      },
+      {
+       "zh": "栈桥尽头",
+       "en": "sc_k2_pier_end",
+       "level": 0
+      },
+      {
+       "zh": "雨夜便利店",
+       "en": "sc_k2_rain_mart",
+       "level": 0
+      },
+      {
+       "zh": "雨棚站台",
+       "en": "sc_k2_rain_platform",
+       "level": 0
+      },
+      {
+       "zh": "河谷滩洲",
+       "en": "sc_k2_river_bend",
+       "level": 0
+      },
+      {
+       "zh": "天台水塔",
+       "en": "sc_k2_roof_tank",
+       "level": 0
+      },
+      {
+       "zh": "空教室",
+       "en": "sc_k2_school_class",
+       "level": 0
+      },
+      {
+       "zh": "室外球场",
+       "en": "sc_k2_school_court",
+       "level": 0
+      },
+      {
+       "zh": "体育馆地板",
+       "en": "sc_k2_school_gym",
+       "level": 0
+      },
+      {
+       "zh": "实验室",
+       "en": "sc_k2_school_lab",
+       "level": 0
+      },
+      {
+       "zh": "鞋柜间",
+       "en": "sc_k2_school_lockers",
+       "level": 0
+      },
+      {
+       "zh": "音乐教室",
+       "en": "sc_k2_school_music",
+       "level": 0
+      },
+      {
+       "zh": "泳池看台",
+       "en": "sc_k2_school_pool",
+       "level": 0
+      },
+      {
+       "zh": "楼梯转角",
+       "en": "sc_k2_school_stairs",
+       "level": 0
+      },
+      {
+       "zh": "人行天桥",
+       "en": "sc_k2_skywalk",
+       "level": 0
+      },
+      {
+       "zh": "雪原孤树",
+       "en": "sc_k2_solitary_tree",
+       "level": 0
+      },
+      {
+       "zh": "书库深处",
+       "en": "sc_k2_stack_room",
+       "level": 0
+      },
+      {
+       "zh": "静谧湖岸",
+       "en": "sc_k2_still_lake",
+       "level": 0
+      },
+      {
+       "zh": "潮间滩涂",
+       "en": "sc_k2_tidal_flat",
+       "level": 1
+      },
+      {
+       "zh": "地下通道",
+       "en": "sc_k2_underpass",
+       "level": 0
+      },
+      {
+       "zh": "滚筒之夜",
+       "en": "sc_k2_spin_cycle",
+       "level": 0
+      },
+      {
+       "zh": "山顶星野",
+       "en": "sc_k2_summit_night",
+       "level": 0
+      },
+      {
+       "zh": "线装工坊",
+       "en": "sc_k2_thread_bindery",
+       "level": 0
+      },
+      {
+       "zh": "麦田谷仓",
+       "en": "sc_k2_wheat_field",
+       "level": 0
+      },
+      {
+       "zh": "窗边座",
+       "en": "sc_k2_window_seat",
+       "level": 0
+      },
+      {
+       "zh": "帷幕坠落·上",
+       "en": "sc_art_k2_veil_fall_a",
+       "level": 0
+      },
+      {
+       "zh": "帷幕坠落·下",
+       "en": "sc_art_k2_veil_fall_b",
+       "level": 0
+      },
+      {
+       "zh": "子午切割",
+       "en": "sc_art_k2_meridian_cut",
+       "level": 0
+      },
+      {
+       "zh": "三重套印·上",
+       "en": "sc_art_k2_triple_register_a",
+       "level": 0
+      },
+      {
+       "zh": "三重套印·下",
+       "en": "sc_art_k2_triple_register_b",
+       "level": 0
+      },
+      {
+       "zh": "根秩序",
+       "en": "sc_art_k2_root_register",
+       "level": 0
+      },
+      {
+       "zh": "荚舱分离",
+       "en": "sc_art_k2_pod_separation",
+       "level": 0
+      },
+      {
+       "zh": "脉络投影",
+       "en": "sc_art_k2_vein_projection",
+       "level": 0
+      },
+      {
+       "zh": "花萼长廊",
+       "en": "sc_art_k2_calyx_corridor",
+       "level": 0
+      },
+      {
+       "zh": "花粉风暴",
+       "en": "sc_art_k2_pollen_storm",
+       "level": 0
+      },
+      {
+       "zh": "第二标本",
+       "en": "sc_art_k2_second_specimen",
+       "level": 0
+      },
+      {
+       "zh": "闭册",
+       "en": "sc_art_k2_closing_register",
+       "level": 0
+      },
+      {
+       "zh": "星图长卷",
+       "en": "sc_art_k2_star_chart_roll",
+       "level": 0
+      },
+      {
+       "zh": "天穹花冕",
+       "en": "sc_art_k2_celestial_corolla",
+       "level": 0
+      },
+      {
+       "zh": "零号花园",
+       "en": "sc_art_k2_zero_day_garden",
+       "level": 0
+      },
+      {
+       "zh": "重力培植剧场",
+       "en": "sc_art_k2_gravity_theater",
+       "level": 0
+      },
+      {
+       "zh": "零重力设计场",
+       "en": "sc_art_k2_zero_gravity_field",
+       "level": 0
+      },
+      {
+       "zh": "棱镜潮汐场",
+       "en": "sc_art_k2_prism_tide",
+       "level": 0
+      },
+      {
+       "zh": "螺旋圣咏",
+       "en": "sc_art_k2_helix_choir",
+       "level": 0
+      },
+      {
+       "zh": "枝晶测绘",
+       "en": "sc_art_k2_dendrite_survey",
+       "level": 0
+      },
+      {
+       "zh": "晶雨斜墙",
+       "en": "sc_art_k2_crystal_rain",
+       "level": 0
+      },
+      {
+       "zh": "声子风洞·上",
+       "en": "sc_art_k2_phonon_tunnel_a",
+       "level": 0
+      },
+      {
+       "zh": "声子风洞·下",
+       "en": "sc_art_k2_phonon_tunnel_b",
+       "level": 0
+      },
+      {
+       "zh": "磁写场",
+       "en": "sc_art_k2_magnetic_field",
+       "level": 0
+      },
+      {
+       "zh": "镜羽",
+       "en": "sc_art_k2_mirror_plume",
+       "level": 0
+      },
+      {
+       "zh": "轨道钟琴",
+       "en": "sc_art_k2_orbital_celesta",
+       "level": 0
+      },
+      {
+       "zh": "回声圣典",
+       "en": "sc_art_k2_echo_codex",
+       "level": 0
+      },
+      {
+       "zh": "镜潮歌剧",
+       "en": "sc_art_k2_mirror_tide_opera",
+       "level": 0
+      },
+      {
+       "zh": "沙漏圣所",
+       "en": "sc_art_k2_grain_sanctum",
+       "level": 0
+      },
+      {
+       "zh": "黑体腔",
+       "en": "sc_art_k2_blackbody",
+       "level": 0
+      },
+      {
+       "zh": "器官风琴",
+       "en": "sc_art_k2_organon",
+       "level": 0
+      },
+      {
+       "zh": "雾中记时仪",
+       "en": "sc_art_k2_fog_chronometer",
+       "level": 0
+      },
+      {
+       "zh": "盐潮档案",
+       "en": "sc_art_k2_salt_tide_archive",
+       "level": 0
+      },
+      {
+       "zh": "缚足之阵",
+       "en": "sc_art_k2_ring_bind",
+       "level": 0
+      },
+      {
+       "zh": "破阵",
+       "en": "sc_art_k2_ring_break",
+       "level": 0
+      },
+      {
+       "zh": "阵柱囚笼",
+       "en": "sc_art_k2_ring_cage",
+       "level": 0
+      },
+      {
+       "zh": "起阵",
+       "en": "sc_art_k2_ring_cast",
+       "level": 0
+      },
+      {
+       "zh": "阵心大厅",
+       "en": "sc_art_k2_ring_hall",
+       "level": 0
+      },
+      {
+       "zh": "林间光门",
+       "en": "sc_art_k2_ring_forest",
+       "level": 0
+      },
+      {
+       "zh": "光门回廊",
+       "en": "sc_art_k2_ring_gate",
+       "level": 0
+      },
+      {
+       "zh": "阵裂",
+       "en": "sc_art_k2_ring_rift",
+       "level": 0
+      },
+      {
+       "zh": "雪原烧阵",
+       "en": "sc_art_k2_ring_snow",
+       "level": 0
+      },
+      {
+       "zh": "台上光门",
+       "en": "sc_art_k2_ring_stage",
+       "level": 0
+      },
+      {
+       "zh": "枯井阵底",
+       "en": "sc_art_k2_ring_well",
+       "level": 0
+      },
+      {
+       "zh": "空境施法",
+       "en": "sc_art_k2_spell_void",
+       "level": 0
+      },
+      {
+       "zh": "夜市法阵",
+       "en": "sc_art_k2_market_ring",
+       "level": 0
+      },
+      {
+       "zh": "垂链踮足",
+       "en": "sc_k2_pose_chain_reach",
+       "level": 0
+      },
+      {
+       "zh": "悬阶蹲影",
+       "en": "sc_k2_pose_floating_step",
+       "level": 0
+      },
+      {
+       "zh": "门隙回望",
+       "en": "sc_k2_pose_gate_turn",
+       "level": 0
+      },
+      {
+       "zh": "镜池侧卧",
+       "en": "sc_k2_pose_mirror_ledge",
+       "level": 0
+      },
+      {
+       "zh": "天井仰卧",
+       "en": "sc_k2_pose_oculus",
+       "level": 0
+      },
+      {
+       "zh": "白瓷正坐",
+       "en": "sc_k2_pose_porcelain",
+       "level": 0
+      },
+      {
+       "zh": "石阶小坐",
+       "en": "sc_k2_pose_stone_seat",
+       "level": 0
+      },
+      {
+       "zh": "帷幕倚柱",
+       "en": "sc_k2_pose_veil_column",
+       "level": 0
+      },
+      {
+       "zh": "战斧 · 铸造地",
+       "en": "sc_wp_k2_axe_foundry",
+       "level": 0
+      },
+      {
+       "zh": "长弓 · 满弦",
+       "en": "sc_wp_k2_bow_drawn",
+       "level": 0
+      },
+      {
+       "zh": "晶弓 · 背身满弓",
+       "en": "sc_wp_k2_bow_monolith",
+       "level": 0
+      },
+      {
+       "zh": "断剑 · 废墟",
+       "en": "sc_wp_k2_broken_blade",
+       "level": 0
+      },
+      {
+       "zh": "链锤 · 石室",
+       "en": "sc_wp_k2_chain_flail",
+       "level": 0
+      },
+      {
+       "zh": "长剑 · 脱手",
+       "en": "sc_wp_k2_dropped_blade",
+       "level": 0
+      },
+      {
+       "zh": "巨剑 · 原野",
+       "en": "sc_wp_k2_greatsword_field",
+       "level": 0
+      },
+      {
+       "zh": "长戟 · 塔基",
+       "en": "sc_wp_k2_halberd_tower",
+       "level": 0
+      },
+      {
+       "zh": "晶剑 · 坝顶",
+       "en": "sc_wp_k2_half_sheathed",
+       "level": 0
+      },
+      {
+       "zh": "大剑 · 跪姿",
+       "en": "sc_wp_k2_kneel_blade",
+       "level": 0
+      },
+      {
+       "zh": "短剑 · 反握",
+       "en": "sc_wp_k2_reverse_grip",
+       "level": 0
+      },
+      {
+       "zh": "巨镰 · 拱门",
+       "en": "sc_wp_k2_scythe_gate",
+       "level": 0
+      },
+      {
+       "zh": "巨盾 · 沙地",
+       "en": "sc_wp_k2_shield_wall",
+       "level": 0
+      },
+      {
+       "zh": "长剑 · 扛肩",
+       "en": "sc_wp_k2_shoulder_guard",
+       "level": 0
+      },
+      {
+       "zh": "长枪 · 逼视",
+       "en": "sc_wp_k2_spear_point",
+       "level": 0
+      },
+      {
+       "zh": "晶枪 · 云海",
+       "en": "sc_wp_k2_spear_clouds",
+       "level": 0
+      },
+      {
+       "zh": "晶刃 · 檐下收刃",
+       "en": "sc_wp_k2_sheathing",
+       "level": 0
+      },
+      {
+       "zh": "钢刀 · 雨棚拭刃",
+       "en": "sc_wp_k2_steel_wiped",
+       "level": 0
+      },
+      {
+       "zh": "巨斧 · 插地",
+       "en": "sc_wp_k2_stuck_ground",
+       "level": 0
+      },
+      {
+       "zh": "阔剑 · 垂锋",
+       "en": "sc_wp_k2_tip_down",
+       "level": 0
+      },
+      {
+       "zh": "床沿 · 伸腿微屈",
+       "en": "sc_sink_legs_up",
+       "level": 0
       }
      ]
     },
@@ -10303,6 +11618,839 @@
    ]
   },
   {
+   "id": "sc_art_k2_blackbody",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_calyx_corridor",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_celestial_corolla",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_closing_register",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_crystal_rain",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_art_k2_dendrite_survey",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "texture_fx",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_echo_codex",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_fog_chronometer",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_art_k2_grain_sanctum",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_gravity_theater",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_helix_choir",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_magnetic_field",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_market_ring",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_art_k2_meridian_cut",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_mirror_plume",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_mirror_tide_opera",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_orbital_celesta",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_organon",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_phonon_tunnel_a",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_art_k2_phonon_tunnel_b",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_art_k2_pod_separation",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_pollen_storm",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_art_k2_prism_tide",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_ring_bind",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_ring_break",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_ring_cage",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_ring_cast",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_ring_forest",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_ring_gate",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_ring_hall",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_ring_rift",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_ring_snow",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_art_k2_ring_stage",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_ring_well",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_root_register",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_salt_tide_archive",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_second_specimen",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_spell_void",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_art_k2_star_chart_roll",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_triple_register_a",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_triple_register_b",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_veil_fall_a",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_art_k2_veil_fall_b",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_art_k2_vein_projection",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_zero_day_garden",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_k2_zero_gravity_field",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
    "id": "sc_art_keyhole",
    "level": 0,
    "fields": [
@@ -10484,6 +12632,79 @@
    "id": "sc_art_navy_ots_clock",
    "level": 0,
    "fields": [
+    "arms_hands",
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_night_lantern_sea",
+   "level": 0,
+   "fields": [
+    "arms_hands",
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_night_moon_ladder",
+   "level": 0,
+   "fields": [
+    "arms_hands",
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_night_neon_arch",
+   "level": 0,
+   "fields": [
+    "arms_hands",
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_art_night_starfield",
+   "level": 0,
+   "fields": [
+    "action",
     "arms_hands",
     "comp",
     "dof",
@@ -11355,6 +13576,24 @@
    ]
   },
   {
+   "id": "sc_ccc_changing_stall",
+   "level": 3,
+   "fields": [
+    "emotion",
+    "light_fx",
+    "n_act",
+    "n_extra",
+    "n_orgasm",
+    "n_pos",
+    "n_shoes_keep",
+    "n_state",
+    "place",
+    "prop",
+    "scene_nl",
+    "viewpoint"
+   ]
+  },
+  {
    "id": "sc_ccc_clothed_sex",
    "level": 3,
    "fields": [
@@ -11433,6 +13672,24 @@
     "n_state",
     "place",
     "scene_nl",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_ccc_elevator_pin",
+   "level": 3,
+   "fields": [
+    "dof",
+    "emotion",
+    "mouth",
+    "n_act",
+    "n_extra",
+    "n_orgasm",
+    "n_pos",
+    "n_state",
+    "place",
+    "scene_nl",
+    "shot_size",
     "viewpoint"
    ]
   },
@@ -11516,6 +13773,25 @@
    ]
   },
   {
+   "id": "sc_ccc_kitchen_counter",
+   "level": 4,
+   "fields": [
+    "emotion",
+    "light_fx",
+    "n_act",
+    "n_extra",
+    "n_fluid",
+    "n_orgasm",
+    "n_pos",
+    "n_state",
+    "place",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
    "id": "sc_ccc_leg_lock",
    "level": 3,
    "fields": [
@@ -11565,6 +13841,265 @@
     "scene_nl",
     "shot_size",
     "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_ccc_night_bath",
+   "level": 3,
+   "fields": [
+    "emotion",
+    "light_fx",
+    "n_act",
+    "n_extra",
+    "n_fabric",
+    "n_orgasm",
+    "n_pos",
+    "n_state",
+    "n_theme",
+    "place",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_ccc_night_beach",
+   "level": 3,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_act",
+    "n_extra",
+    "n_fabric",
+    "n_orgasm",
+    "n_pos",
+    "n_state",
+    "n_theme",
+    "place",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_ccc_night_cafe",
+   "level": 3,
+   "fields": [
+    "emotion",
+    "light_fx",
+    "n_act",
+    "n_extra",
+    "n_fabric",
+    "n_orgasm",
+    "n_pos",
+    "n_shoes_keep",
+    "n_state",
+    "n_theme",
+    "place",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_ccc_night_car",
+   "level": 3,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_act",
+    "n_exposure",
+    "n_extra",
+    "n_fabric",
+    "n_orgasm",
+    "n_pos",
+    "n_shoes_keep",
+    "n_state",
+    "n_theme",
+    "place",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_ccc_night_classroom",
+   "level": 3,
+   "fields": [
+    "emotion",
+    "light_fx",
+    "n_act",
+    "n_exposure",
+    "n_extra",
+    "n_fabric",
+    "n_orgasm",
+    "n_pos",
+    "n_state",
+    "n_theme",
+    "place",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_ccc_night_hotel_window",
+   "level": 3,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_act",
+    "n_exposure",
+    "n_extra",
+    "n_fabric",
+    "n_orgasm",
+    "n_pos",
+    "n_shoes_keep",
+    "n_state",
+    "n_theme",
+    "place",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_ccc_night_library",
+   "level": 3,
+   "fields": [
+    "emotion",
+    "light_fx",
+    "n_act",
+    "n_extra",
+    "n_fabric",
+    "n_orgasm",
+    "n_pos",
+    "n_shoes_keep",
+    "n_state",
+    "n_theme",
+    "place",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_ccc_night_livingroom",
+   "level": 3,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_act",
+    "n_extra",
+    "n_fabric",
+    "n_orgasm",
+    "n_pos",
+    "n_shoes_keep",
+    "n_state",
+    "n_theme",
+    "place",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_ccc_night_office",
+   "level": 3,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_act",
+    "n_extra",
+    "n_fabric",
+    "n_orgasm",
+    "n_pos",
+    "n_shoes_keep",
+    "n_state",
+    "n_theme",
+    "place",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_ccc_night_onsen",
+   "level": 3,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_act",
+    "n_exposure",
+    "n_extra",
+    "n_fabric",
+    "n_orgasm",
+    "n_pos",
+    "n_state",
+    "n_theme",
+    "place",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_ccc_night_shrine",
+   "level": 3,
+   "fields": [
+    "emotion",
+    "light_fx",
+    "n_act",
+    "n_extra",
+    "n_fabric",
+    "n_orgasm",
+    "n_pos",
+    "n_state",
+    "n_theme",
+    "place",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_ccc_night_tent",
+   "level": 3,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_act",
+    "n_extra",
+    "n_fabric",
+    "n_orgasm",
+    "n_pos",
+    "n_state",
+    "n_theme",
+    "place",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
    ]
   },
   {
@@ -11632,6 +14167,24 @@
    ]
   },
   {
+   "id": "sc_ccc_park_night_bench",
+   "level": 4,
+   "fields": [
+    "emotion",
+    "light_fx",
+    "n_act",
+    "n_extra",
+    "n_orgasm",
+    "n_pos",
+    "n_state",
+    "n_theme",
+    "place",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
    "id": "sc_ccc_pet_play",
    "level": 4,
    "fields": [
@@ -11660,6 +14213,25 @@
     "pose_base",
     "scene_nl",
     "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_ccc_poolside_night",
+   "level": 4,
+   "fields": [
+    "emotion",
+    "light_fx",
+    "n_act",
+    "n_body",
+    "n_extra",
+    "n_orgasm",
+    "n_pos",
+    "n_state",
+    "place",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
    ]
   },
   {
@@ -12211,6 +14783,148 @@
    ]
   },
   {
+   "id": "sc_exp_night_alley",
+   "level": 2,
+   "fields": [
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_exposure",
+    "n_extra",
+    "n_state",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_exp_night_alley_self",
+   "level": 3,
+   "fields": [
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_act",
+    "n_extra",
+    "n_orgasm",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_exp_night_beach",
+   "level": 2,
+   "fields": [
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "n_state",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_exp_night_bridge",
+   "level": 2,
+   "fields": [
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "n_state",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_exp_night_park",
+   "level": 2,
+   "fields": [
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_exposure",
+    "n_extra",
+    "n_state",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_exp_night_park_self",
+   "level": 3,
+   "fields": [
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_act",
+    "n_exposure",
+    "n_extra",
+    "n_orgasm",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_exp_night_rooftop",
+   "level": 2,
+   "fields": [
+    "arms_hands",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_exposure",
+    "n_extra",
+    "n_state",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_exp_night_street",
+   "level": 2,
+   "fields": [
+    "action",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "n_state",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "weather"
+   ]
+  },
+  {
    "id": "sc_fisheye_room",
    "level": 0,
    "fields": [
@@ -12374,6 +15088,1709 @@
     "pose_risque",
     "scene_nl",
     "top"
+   ]
+  },
+  {
+   "id": "sc_k2_after_field",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_back_alley",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_bakery",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_barber",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_blue_hour",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_bus_stop",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_caustic_requiem",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_cavern",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_cliff_edge",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_cloister",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_k2_coast_balcony",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_coast_lookout",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_coast_pier",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_coast_pool_edge",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_coast_shower",
+   "level": 1,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_coast_surf",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shoes",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_coast_tide_pool",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shoes",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_corridor",
+   "level": 0,
+   "fields": [
+    "comp",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_dry_garden",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_dune",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_eave",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_first_snow",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_forest_path",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_ginkgo_walk",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_glass_house",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_hanabi_after",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "outfit",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_hanabi_apple",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "outfit",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_hanabi_bank",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "outfit",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_hanabi_fan",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "outfit",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_hanabi_goldfish",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "outfit",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_hanabi_mask",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "outfit",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_hanabi_pov",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "outfit",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_hanabi_steps",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "outfit",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_hanabi_yatai",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "outfit",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_high_noon",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_home_bath",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_home_closet",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_home_dinner",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_home_entry",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_home_laundry_line",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_home_linen",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_home_plants",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_home_stove",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_idle_works",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_indigo_drift",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_indus_belltower",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_indus_blast",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_indus_dock",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_indus_nave",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_indus_pump",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_indus_reservoir",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_indus_tower",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_kerb",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_kiln_song",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_kiosk",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_lantern_tide",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_last_train",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_lift_shaft",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_moon_court",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_moon_gate",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_neon_strip",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_night_folio",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_north_light",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_paper_festival",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_parkade",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_petal_line",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_phone_box",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_pier_end",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_pose_chain_reach",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_k2_pose_floating_step",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_pose_gate_turn",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_k2_pose_mirror_ledge",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_pose_oculus",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_pose_porcelain",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_k2_pose_stone_seat",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_k2_pose_veil_column",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_k2_pressing_circle",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_k2_rain_mart",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_rain_platform",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_river_bend",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_river_boat",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "outfit",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_roof_tank",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_school_class",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_school_court",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_school_gym",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_school_lab",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_school_lockers",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_school_music",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_school_pool",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_school_stairs",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_skywalk",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_solitary_tree",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_spin_cycle",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_stack_room",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_still_lake",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_still_section",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_summit_night",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_thread_bindery",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_tidal_flat",
+   "level": 1,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_underpass",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_wheat_field",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_window_seat",
+   "level": 0,
+   "fields": [
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_k2_wiping_edge",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
    ]
   },
   {
@@ -12836,6 +17253,43 @@
    ]
   },
   {
+   "id": "sc_msb_fitting_mess",
+   "level": 4,
+   "fields": [
+    "emotion",
+    "light_fx",
+    "mouth",
+    "n_act",
+    "n_extra",
+    "n_fluid",
+    "n_orgasm",
+    "n_state",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_msb_kitchen_toys",
+   "level": 3,
+   "fields": [
+    "light_fx",
+    "n_act",
+    "n_extra",
+    "n_orgasm",
+    "n_state",
+    "n_theme",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
    "id": "sc_msb_mirror_check",
    "level": 2,
    "fields": [
@@ -12901,6 +17355,25 @@
    ]
   },
   {
+   "id": "sc_msb_onsen_steam",
+   "level": 3,
+   "fields": [
+    "light_fx",
+    "n_act",
+    "n_body",
+    "n_extra",
+    "n_fluid",
+    "n_state",
+    "n_theme",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
    "id": "sc_msb_panties_aside",
    "level": 2,
    "fields": [
@@ -12916,6 +17389,24 @@
     "pose_base",
     "scene_nl",
     "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_msb_park_night_ground",
+   "level": 3,
+   "fields": [
+    "light_fx",
+    "n_act",
+    "n_extra",
+    "n_orgasm",
+    "n_state",
+    "n_theme",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
    ]
   },
   {
@@ -13055,6 +17546,24 @@
    ]
   },
   {
+   "id": "sc_msb_stairwell_leash",
+   "level": 4,
+   "fields": [
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_act",
+    "n_extra",
+    "n_state",
+    "n_theme",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
    "id": "sc_msb_suspension_dildo",
    "level": 4,
    "fields": [
@@ -13125,6 +17634,52 @@
    ]
   },
   {
+   "id": "sc_n2_balcony_laundry_lift",
+   "level": 2,
+   "fields": [
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "pose_risque",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_n2_bath_wet_nightgown",
+   "level": 2,
+   "fields": [
+    "cloth_state_sfw",
+    "dof",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_n2_beach_sarong_slip",
+   "level": 2,
+   "fields": [
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "pose_risque",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
    "id": "sc_n2_bridge_skirt_lift",
    "level": 2,
    "fields": [
@@ -13139,6 +17694,20 @@
     "scene_nl",
     "viewpoint",
     "weather"
+   ]
+  },
+  {
+   "id": "sc_n2_cinema_collar_pull",
+   "level": 2,
+   "fields": [
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "pose_risque",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
    ]
   },
   {
@@ -13174,6 +17743,36 @@
    ]
   },
   {
+   "id": "sc_n2_forest_picnic_hem",
+   "level": 2,
+   "fields": [
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "pose_risque",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_n2_hallway_cardigan_open",
+   "level": 2,
+   "fields": [
+    "cloth_state_sfw",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
    "id": "sc_n2_hotel_yukata_loose",
    "level": 2,
    "fields": [
@@ -13187,6 +17786,36 @@
     "pose_risque",
     "prop",
     "scene_nl",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_n2_kitchen_strap_slip",
+   "level": 2,
+   "fields": [
+    "cloth_state_sfw",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "pose_risque",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_n2_library_stack_hem",
+   "level": 2,
+   "fields": [
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "pose_risque",
+    "scene_nl",
+    "shot_size",
     "viewpoint"
    ]
   },
@@ -13225,6 +17854,36 @@
    ]
   },
   {
+   "id": "sc_n2_onsen_robe_slip",
+   "level": 2,
+   "fields": [
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "pose_risque",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_n2_park_bench_change",
+   "level": 2,
+   "fields": [
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "pose_risque",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
    "id": "sc_n2_pool_bikini_pull",
    "level": 2,
    "fields": [
@@ -13258,6 +17917,21 @@
    ]
   },
   {
+   "id": "sc_n2_shrine_obi_loose",
+   "level": 2,
+   "fields": [
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "pose_risque",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
    "id": "sc_n2_stair_dress_lift",
    "level": 2,
    "fields": [
@@ -13270,6 +17944,21 @@
     "pose_risque",
     "scene_nl",
     "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_n2_train_seat_dress_lift",
+   "level": 2,
+   "fields": [
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "pose_risque",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
    ]
   },
   {
@@ -13742,6 +18431,45 @@
    ]
   },
   {
+   "id": "sc_near_night_candle_eye",
+   "level": 0,
+   "fields": [
+    "dof",
+    "light_fx",
+    "n_extra",
+    "place",
+    "scene_nl",
+    "shot_size",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_near_night_moon_collar",
+   "level": 0,
+   "fields": [
+    "dof",
+    "light_fx",
+    "n_extra",
+    "place",
+    "scene_nl",
+    "shot_size",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_near_night_neon_face",
+   "level": 0,
+   "fields": [
+    "dof",
+    "light_fx",
+    "n_extra",
+    "place",
+    "scene_nl",
+    "shot_size",
+    "weather"
+   ]
+  },
+  {
    "id": "sc_near_nsfw_allfours",
    "level": 3,
    "fields": [
@@ -13997,6 +18725,284 @@
     "cloth_state_sfw",
     "light_fx",
     "n_extra",
+    "scene_nl",
+    "shot_size",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_night_aquarium",
+   "level": 0,
+   "fields": [
+    "arms_hands",
+    "comp",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size"
+   ]
+  },
+  {
+   "id": "sc_night_bath_steam",
+   "level": 0,
+   "fields": [
+    "comp",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_night_cafe_closed",
+   "level": 0,
+   "fields": [
+    "comp",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_night_classroom_moon",
+   "level": 0,
+   "fields": [
+    "comp",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_night_concert",
+   "level": 0,
+   "fields": [
+    "arms_hands",
+    "comp",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size"
+   ]
+  },
+  {
+   "id": "sc_night_ferris",
+   "level": 0,
+   "fields": [
+    "comp",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_night_hotel_window",
+   "level": 0,
+   "fields": [
+    "comp",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_night_izakaya",
+   "level": 0,
+   "fields": [
+    "comp",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_night_lake_moon",
+   "level": 0,
+   "fields": [
+    "comp",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_night_last_train",
+   "level": 0,
+   "fields": [
+    "comp",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_night_library_lamp",
+   "level": 0,
+   "fields": [
+    "comp",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_night_lighthouse",
+   "level": 0,
+   "fields": [
+    "comp",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_night_matsuri",
+   "level": 0,
+   "fields": [
+    "comp",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_night_milkyway",
+   "level": 0,
+   "fields": [
+    "comp",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_night_rooftop",
+   "level": 0,
+   "fields": [
+    "arms_hands",
+    "comp",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_night_shrine_torii",
+   "level": 0,
+   "fields": [
+    "comp",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_night_snow_street",
+   "level": 0,
+   "fields": [
+    "arms_hands",
+    "comp",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
     "scene_nl",
     "shot_size",
     "weather"
@@ -14362,6 +19368,104 @@
     "scene_nl",
     "shot_size",
     "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_pose_night_balcony_lean",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_pose_night_bedside_lamp",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_pose_night_poolside",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_pose_night_rooftop_sit",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_pose_night_stairs_sit",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_pose_night_windowsill",
+   "level": 0,
+   "fields": [
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
    ]
   },
   {
@@ -15238,6 +20342,235 @@
    ]
   },
   {
+   "id": "sc_season_autumn_garden_bench",
+   "level": 0,
+   "fields": [
+    "action",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_season_autumn_mountain_path",
+   "level": 0,
+   "fields": [
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_season_autumn_shrine_maple",
+   "level": 0,
+   "fields": [
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_season_autumn_street_leaves",
+   "level": 0,
+   "fields": [
+    "action",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_season_spring_balcony_tea",
+   "level": 0,
+   "fields": [
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_season_spring_crosswalk",
+   "level": 0,
+   "fields": [
+    "action",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_season_spring_park_picnic",
+   "level": 0,
+   "fields": [
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_season_spring_river_walk",
+   "level": 0,
+   "fields": [
+    "action",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_season_summer_bus_stop",
+   "level": 0,
+   "fields": [
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_season_summer_cafe_iced",
+   "level": 0,
+   "fields": [
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_season_summer_rooftop_shade",
+   "level": 0,
+   "fields": [
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_season_summer_sunflower",
+   "level": 0,
+   "fields": [
+    "accessory",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_season_winter_apartment_sill",
+   "level": 0,
+   "fields": [
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_season_winter_cafe_window",
+   "level": 0,
+   "fields": [
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_season_winter_park_snow",
+   "level": 0,
+   "fields": [
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_season_winter_river_bank",
+   "level": 0,
+   "fields": [
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
    "id": "sc_shower_peek",
    "level": 1,
    "fields": [
@@ -15270,6 +20603,21 @@
    ]
   },
   {
+   "id": "sc_sink_legs_up",
+   "level": 0,
+   "fields": [
+    "comp",
+    "emotion",
+    "light_fx",
+    "n_extra",
+    "place",
+    "pose_base",
+    "prop",
+    "scene_nl",
+    "shot_size"
+   ]
+  },
+  {
    "id": "sc_skirt_wind",
    "level": 0,
    "fields": [
@@ -15289,6 +20637,8 @@
    "fields": [
     "accessory",
     "arms_hands",
+    "bottom",
+    "cloth_mat",
     "comp",
     "emotion",
     "light_fx",
@@ -15296,7 +20646,9 @@
     "place",
     "pose_base",
     "scene_nl",
+    "shoes",
     "shot_size",
+    "socks",
     "viewpoint",
     "weather"
    ]
@@ -16667,6 +22019,372 @@
    ]
   },
   {
+   "id": "sc_wp_k2_axe_foundry",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_wp_k2_bow_drawn",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_wp_k2_bow_monolith",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_wp_k2_broken_blade",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_wp_k2_chain_flail",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_wp_k2_dropped_blade",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_wp_k2_greatsword_field",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_wp_k2_halberd_tower",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_wp_k2_half_sheathed",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_wp_k2_kneel_blade",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_wp_k2_reverse_grip",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_wp_k2_scythe_gate",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_wp_k2_sheathing",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_wp_k2_shield_wall",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_wp_k2_shoulder_guard",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_wp_k2_spear_clouds",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_wp_k2_spear_point",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
+   "id": "sc_wp_k2_steel_wiped",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_wp_k2_stuck_ground",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint",
+    "weather"
+   ]
+  },
+  {
+   "id": "sc_wp_k2_tip_down",
+   "level": 0,
+   "fields": [
+    "comp",
+    "dof",
+    "emotion",
+    "eye_gaze",
+    "light_fx",
+    "mouth",
+    "n_extra",
+    "place",
+    "pose_base",
+    "scene_nl",
+    "shot_size",
+    "viewpoint"
+   ]
+  },
+  {
    "id": "sc_wp_kny_dualblade",
    "level": 0,
    "fields": [
@@ -17228,9 +22946,9 @@
  "counters": {
   "sections": 15,
   "fields": 57,
-  "options": 1134,
+  "options": 1139,
   "roles": 222,
   "appear": 221,
-  "scenes": 524
+  "scenes": 782
  }
 }

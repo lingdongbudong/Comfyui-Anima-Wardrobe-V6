@@ -2,13 +2,13 @@
  "_meta": {
   "source_file": "ANIMA提示词生成器.html",
   "source_path": "S:/ComfyUI/提示词/ANIMA提示词生成器.html",
-  "source_sha256": "8c94c51dcaacb985f16423387cb6a4d9a4abb1ca7fe6621f2484bab78abf385b",
+  "source_sha256": "04574ae52ece1cc278e973577733157439a5ca224f9b7287b425ba337a244057",
   "schema": "anima-wardrobe-v4/pools@1",
   "generated_by": "tools/export_v3_pools.mjs",
   "counters": {
    "sections": 15,
    "fields": 57,
-   "options": 1134,
+   "options": 1139,
    "roles": 222,
    "appear": 221,
    "canon": 14,
@@ -2599,6 +2599,26 @@
       [
        "淡酒红亮丝星点吊带袜",
        "pale burgundy glittery thighhighs, garter straps"
+      ],
+      [
+       "青绿三段渐变过膝袜",
+       "aqua gradient thighhighs"
+      ],
+      [
+       "黑色三段渐变过膝袜",
+       "black gradient thighhighs"
+      ],
+      [
+       "白色三段渐变过膝袜",
+       "white gradient thighhighs"
+      ],
+      [
+       "紫色三段渐变过膝袜",
+       "purple gradient thighhighs"
+      ],
+      [
+       "粉色三段渐变过膝袜",
+       "pink gradient thighhighs"
       ]
      ]
     },

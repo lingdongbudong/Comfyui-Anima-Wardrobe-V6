@@ -3,7 +3,7 @@
   "schema": "anima-v5/scene-aspects@1",
   "note": "场景推荐画幅：portrait=竖屏 / landscape=横屏 / both=通用。由 tools/build_scene_aspects.py 生成，可手工改 a 与 why；scenes.json 重建不会覆盖本文件。",
   "generated_by": "tools/build_scene_aspects.py",
-  "count": 524
+  "count": 782
  },
  "aspects": {
   "sc_rain_street_lookback": {
@@ -56,7 +56,135 @@
   },
   "sc_snow_field_scarf": {
    "a": "portrait",
+   "why": "竖:standing"
+  },
+  "sc_night_matsuri": {
+   "a": "portrait",
    "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_night_snow_street": {
+   "a": "portrait",
+   "why": "竖:站着"
+  },
+  "sc_night_lake_moon": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_night_lighthouse": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_night_milkyway": {
+   "a": "landscape",
+   "why": "wide shot"
+  },
+  "sc_night_aquarium": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_night_concert": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_night_ferris": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_night_last_train": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_night_izakaya": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_night_rooftop": {
+   "a": "landscape",
+   "why": "wide shot"
+  },
+  "sc_night_hotel_window": {
+   "a": "landscape",
+   "why": "横:地板/on the floor"
+  },
+  "sc_pose_night_windowsill": {
+   "a": "portrait",
+   "why": "竖:wall"
+  },
+  "sc_pose_night_poolside": {
+   "a": "landscape",
+   "why": "横:池边"
+  },
+  "sc_pose_night_bedside_lamp": {
+   "a": "landscape",
+   "why": "横:床"
+  },
+  "sc_pose_night_balcony_lean": {
+   "a": "portrait",
+   "why": "竖:wall"
+  },
+  "sc_pose_night_rooftop_sit": {
+   "a": "portrait",
+   "why": "竖:hanging"
+  },
+  "sc_pose_night_stairs_sit": {
+   "a": "portrait",
+   "why": "竖:楼梯/stair"
+  },
+  "sc_near_night_neon_face": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_night_candle_eye": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_near_night_moon_collar": {
+   "a": "both",
+   "why": "取景是特写/上半身，竖横都成立"
+  },
+  "sc_art_night_neon_arch": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_night_moon_ladder": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_night_starfield": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_art_night_lantern_sea": {
+   "a": "landscape",
+   "why": "艺术构图组：巨物主导的横向平面设计，统一 16:9"
+  },
+  "sc_ccc_night_hotel_window": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_ccc_night_car": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_ccc_night_tent": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_ccc_night_onsen": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_ccc_night_office": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_ccc_night_beach": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_ccc_night_livingroom": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
   },
   "sc_fisheye_room": {
    "a": "portrait",
@@ -2099,6 +2227,910 @@
    "why": "场景自带 comp=portrait"
   },
   "sc_wp_cyber_gorilla": {
+   "a": "landscape",
+   "why": "场景自带 comp=landscape"
+  },
+  "sc_night_shrine_torii": {
+   "a": "landscape",
+   "why": "wide shot"
+  },
+  "sc_ccc_night_shrine": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_night_bath_steam": {
+   "a": "both",
+   "why": "横:浴缸 竖:wall"
+  },
+  "sc_ccc_night_bath": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_night_classroom_moon": {
+   "a": "landscape",
+   "why": "wide shot"
+  },
+  "sc_ccc_night_classroom": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_night_cafe_closed": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_ccc_night_cafe": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_night_library_lamp": {
+   "a": "portrait",
+   "why": "人物题材默认竖（无横向证据）"
+  },
+  "sc_ccc_night_library": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_exp_night_park": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_exp_night_alley": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_exp_night_bridge": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_exp_night_beach": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_exp_night_street": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_exp_night_rooftop": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_exp_night_park_self": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_exp_night_alley_self": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_n2_balcony_laundry_lift": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_n2_bath_wet_nightgown": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_n2_kitchen_strap_slip": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_n2_library_stack_hem": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_n2_train_seat_dress_lift": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_n2_park_bench_change": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_n2_beach_sarong_slip": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_n2_shrine_obi_loose": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_n2_hallway_cardigan_open": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_n2_onsen_robe_slip": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_n2_cinema_collar_pull": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_n2_forest_picnic_hem": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_season_spring_river_walk": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_season_spring_park_picnic": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_season_spring_crosswalk": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_season_spring_balcony_tea": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_season_summer_sunflower": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_season_summer_bus_stop": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_season_summer_rooftop_shade": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_season_summer_cafe_iced": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_season_autumn_street_leaves": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_season_autumn_shrine_maple": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_season_autumn_garden_bench": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_season_autumn_mountain_path": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_season_winter_park_snow": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_season_winter_river_bank": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_season_winter_cafe_window": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_season_winter_apartment_sill": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_ccc_elevator_pin": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_msb_stairwell_leash": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_ccc_kitchen_counter": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_msb_kitchen_toys": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_ccc_changing_stall": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_msb_fitting_mess": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_ccc_poolside_night": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_msb_onsen_steam": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_ccc_park_night_bench": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_msb_park_night_ground": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_still_section": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_caustic_requiem": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_after_field": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_pressing_circle": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_dune": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_river_boat": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_cloister": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_paper_festival": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_eave": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_wiping_edge": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_coast_balcony": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_coast_lookout": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_coast_pier": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_coast_pool_edge": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_coast_shower": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_coast_surf": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_coast_tide_pool": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_corridor": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_dry_garden": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_first_snow": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_forest_path": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_ginkgo_walk": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_glass_house": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_hanabi_after": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_hanabi_apple": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_hanabi_bank": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_hanabi_fan": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_hanabi_goldfish": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_hanabi_mask": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_hanabi_pov": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_cliff_edge": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_kerb": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_kiln_song": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_kiosk": {
+   "a": "both",
+   "why": "场景自带 aspect=both"
+  },
+  "sc_k2_lantern_tide": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_home_bath": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_home_closet": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_home_dinner": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_home_entry": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_home_laundry_line": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_home_linen": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_home_plants": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_home_stove": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_idle_works": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_indigo_drift": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_indus_belltower": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_indus_blast": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_indus_dock": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_indus_nave": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_indus_pump": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_back_alley": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_bakery": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_barber": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_blue_hour": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_bus_stop": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_cavern": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_hanabi_steps": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_hanabi_yatai": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_high_noon": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_indus_reservoir": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_indus_tower": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_last_train": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_lift_shaft": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_moon_court": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_moon_gate": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_neon_strip": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_night_folio": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_north_light": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_parkade": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_petal_line": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_phone_box": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_pier_end": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_rain_mart": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_rain_platform": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_river_bend": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_roof_tank": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_school_class": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_school_court": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_school_gym": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_school_lab": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_school_lockers": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_school_music": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_school_pool": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_school_stairs": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_skywalk": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_solitary_tree": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_stack_room": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_still_lake": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_tidal_flat": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_underpass": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_spin_cycle": {
+   "a": "both",
+   "why": "场景自带 aspect=both"
+  },
+  "sc_k2_summit_night": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_thread_bindery": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_wheat_field": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_window_seat": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_art_k2_veil_fall_a": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_veil_fall_b": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_meridian_cut": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_triple_register_a": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_triple_register_b": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_root_register": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_pod_separation": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_vein_projection": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_calyx_corridor": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_pollen_storm": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_second_specimen": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_closing_register": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_star_chart_roll": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_celestial_corolla": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_zero_day_garden": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_gravity_theater": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_zero_gravity_field": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_prism_tide": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_helix_choir": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_dendrite_survey": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_crystal_rain": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_phonon_tunnel_a": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_phonon_tunnel_b": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_magnetic_field": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_mirror_plume": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_orbital_celesta": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_echo_codex": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_mirror_tide_opera": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_grain_sanctum": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_blackbody": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_organon": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_fog_chronometer": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_salt_tide_archive": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_ring_bind": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_ring_break": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_ring_cage": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_ring_cast": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_ring_hall": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_ring_forest": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_ring_gate": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_ring_rift": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_ring_snow": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_ring_stage": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_ring_well": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_spell_void": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_art_k2_market_ring": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_k2_pose_chain_reach": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_pose_floating_step": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_pose_gate_turn": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_pose_mirror_ledge": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_pose_oculus": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_pose_porcelain": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_pose_stone_seat": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_k2_pose_veil_column": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_wp_k2_axe_foundry": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_wp_k2_bow_drawn": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_wp_k2_bow_monolith": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_wp_k2_broken_blade": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_wp_k2_chain_flail": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_wp_k2_dropped_blade": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_wp_k2_greatsword_field": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_wp_k2_halberd_tower": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_wp_k2_half_sheathed": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_wp_k2_kneel_blade": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_wp_k2_reverse_grip": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_wp_k2_scythe_gate": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_wp_k2_shield_wall": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_wp_k2_shoulder_guard": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_wp_k2_spear_point": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_wp_k2_spear_clouds": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_wp_k2_sheathing": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_wp_k2_steel_wiped": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_wp_k2_stuck_ground": {
+   "a": "landscape",
+   "why": "场景自带 aspect=landscape"
+  },
+  "sc_wp_k2_tip_down": {
+   "a": "portrait",
+   "why": "场景自带 aspect=portrait"
+  },
+  "sc_sink_legs_up": {
    "a": "landscape",
    "why": "场景自带 comp=landscape"
   }

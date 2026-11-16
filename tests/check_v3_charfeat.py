@@ -135,7 +135,12 @@ def main():
     ck("扳机 eyes_color 被清空", not str(d["state"].get("eyes_color") or ""),
        repr(d["state"].get("eyes_color")))
     d = draw(HERTA, 31)
-    ck("大黑塔带上 witch hat", "witch hat" in d["tags"], str(d["tags"][:12]))
+    # v6.14.0（用户口径）：巫师帽属于**官方服装**（character_outfits.json 的
+    # 「官方服装」已含 witch hat + black dress + hat flower），不再当人物特征注入 ——
+    # 否则抽到别的衣服也会硬戴帽子。所以这里反过来断言"不带"。
+    ck("大黑塔不再硬戴 witch hat（帽子归官方服装）",
+       "witch hat" not in d["tags"], str(d["tags"][:12]))
+    ck("大黑塔的颈环特征仍在", any("choker" in t for t in d["tags"]), str(d["tags"][:12]))
     d = draw(PHOEBE, 31)
     ck("菲比带上黑蝴蝶结", "black hair bow" in d["tags"], str(d["tags"][:12]))
     ck("菲比瞳色被强盖成紫（APPEAR 表写的是 blue eyes）",

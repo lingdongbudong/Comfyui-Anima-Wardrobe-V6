@@ -395,6 +395,20 @@ USER_CHARS_FILE = os.path.join(PRESET_DIR, "user_characters.json")
 USER_THUMB_DIR = os.path.join(PRESET_DIR, "user_thumbs")
 USER_CHARS_SCHEMA = "anima-wardrobe-v4/user-characters@1"
 
+# 场景预览图目录（v6.19.0）。文件名 = 场景 id（`sc_xxx.webp`）。
+# 唯一真源放这里：路由（__init__.py）与 /scenes 载荷（nodes.py）都读它，
+# 搬目录时只改一行。
+SCENE_THUMB_DIR = os.path.join(PRESET_DIR, "scene_thumbs")
+
+# 服装库预览图目录（v6.21.0）。文件名 = 套装 id（`<id>.webp`）。
+# v6.25.0：挂图闸门放宽到 **L0 + L1**（用户 2026-11-14 16:44「服装库 L1 服装补预览图」）；
+# L2 及以上仍不挂图 —— 再往上是明确露骨内容，面板列表里不需要那样的缩略图。
+# 注意这条与场景预览图口径（L1+ 一概不挂）**故意不同**：场景图是横竖大图，
+# 服装图只是 247×440 的整身穿搭提示，L1 的「露肩 / 吊带 / 短款」恰恰是选款的关键信息。
+# 唯一真源放这里：路由（__init__.py）与 library_payload() 都读它。
+OUTFIT_THUMB_DIR = os.path.join(PRESET_DIR, "outfit_thumbs")
+OUTFIT_THUMB_MAX_LEVEL = 1       # 挂图上限（含）：L0 / L1
+
 EDITABLE_KEYS = ("trigger", "zh", "work", "thumb", "tags", "hair", "eyes")
 
 MAX_USER_CHARS = 500                 # 自定义角色条数上限
@@ -1202,6 +1216,13 @@ def library_payload():
         x = dict(x)
         if "cat" in x:
             x["cat"] = normalize_cat(x.get("cat"))
+        # v6.21.0 起挂预览图；v6.25.0 把闸门从 L0 放宽到 **L0+L1**。判据用 level 不用 cat ——
+        # NSFW 类里也可能有 L0，普通类里也有 L1+。盘上没图就不发 thumb，
+        # 前端连请求都不会发（避免几十次必然 404 的往返）。
+        oid = str(x.get("id") or "")
+        if int(x.get("level") or 0) <= OUTFIT_THUMB_MAX_LEVEL and oid and os.path.isfile(
+                os.path.join(OUTFIT_THUMB_DIR, "%s.webp" % oid)):
+            x["thumb"] = True
         items.append(x)
     active = str(meta.get("active") or "").strip().lower()
     if active and active not in {str(x.get("id") or "") for x in items}:
@@ -1213,10 +1234,15 @@ def library_payload():
     ov = meta.get("overrides")
     if not isinstance(ov, dict):
         ov = {}
+    # v6.23.0：池化随机的状态 + 候选条数（前端拿它直接渲染状态条，不重复过滤逻辑）
+    _pool = library_pool(meta)
+    _pool["count"] = _pool_count(items, _pool)
+    _pool["_last"] = str(_read_pool_last().get("id") or "")
     return {
         "schema": str(meta.get("schema") or LIBRARY_SCHEMA),
         "updated_at": str(meta.get("updated_at") or ""),
         "active": active,
+        "pool": _pool,
         # v5.5.0：袜子 / 鞋子的**覆盖项**（用户 2026-11-05 21:27）
         # `{"socks": "", "shoes": ""}`，空串 = 跟随这套服装自己的搭配。
         # 与 `active` 一样是**全局用户状态**，重跑 build_outfit_library 会保留。
@@ -1233,16 +1259,27 @@ def library_payload():
 
 
 def _library_write(meta, items, active=None):
-    """整份写回。`active` 传 None = 沿用原值（构建/保存条目时用）。"""
+    """整份写回。`active` 传 None = 沿用原值（构建/保存条目时用）。
+
+    v6.23.0：**顺带重算 `counts`**。以前只有 `build_outfit_library.py` 会写它，
+    于是 `save_library_outfit()` 新增一套之后，`_meta.counts` 停在旧值
+    （实测 v6.23.0 种完 9 套：磁盘写着 casual 10，实际 16）。面板读的是
+    动态算出来的那份所以看不出，但任何按 `_meta.counts` 的脚本/文档会一路错下去。
+    """
     meta = dict(meta or {})
     if active is None:
         active = str(meta.get("active") or "")
     ids = {str(x.get("id") or "") for x in items}
     active = active if active in ids else ""
+    counts = {}
+    for x in items:
+        c = normalize_cat(x.get("cat"))
+        counts[c] = counts.get(c, 0) + 1
     meta.update({
         "schema": LIBRARY_SCHEMA,
         "updated_at": _now(),
         "count": len(items),
+        "counts": counts,
         "active": active,
     })
     meta.setdefault("categories", [])
@@ -1288,15 +1325,152 @@ def delete_library_outfit(outfit_id):
 
 
 def set_library_active(outfit_id):
-    """启用 / 停用。空串 = 关闭（回到随机服装）。返回新的 active。"""
+    """启用 / 停用。空串 = 关闭（回到随机服装）。返回新的 active。
+
+    v6.23.0：**与池化互斥** —— 钉一套时把 `_meta.pool.on` 一起关掉。
+    互斥在这里做而不是在路由里做：`set_library_active()` 是唯一写 active 的入口，
+    放这里才能保证「任何路径钉一套之后都不会还开着池」（不变式 12）。
+    """
     oid = _clean_text(outfit_id, 40).strip().lower()
     raw, meta, items = _library_load()
     if oid:
         ids = {str(x.get("id") or "") for x in items}
         if oid not in ids:
             raise ValueError("找不到这套服装：%s" % oid)
+        meta = dict(meta)
+        _p = library_pool(meta)
+        _p["on"] = False
+        meta["pool"] = _p
     _library_write(meta, items, active=oid)
     return oid
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# v6.23.0：服装库「池化随机」（用户 2026-11-14 14:15「先做 C」）
+#
+# 需求背景：144 套只能手动钉一套 → 库再大也用不动。改成"每次运行从子池里抽一套"。
+# 存储口径与 `active` / `overrides` / `scene_override` 同族：**服务端全局态**，
+# 存 `_meta.pool`（不进节点控件，理由见 docs/服装库池化随机_设计稿-v1.md §2 注）。
+#
+#   {"on": false, "cats": [], "max_level": 4, "ids": [], "_last": ""}
+#     on        ：总开关。true 时 active 必须为空（互斥，双向都在本文件保证）
+#     cats      ：参与抽签的分类 id；空 = 全部
+#     max_level ：池内档位上限（0–4），与当前 NSFW 档位取交集
+#     ids       ：逐套池（V2 用）；非空时忽略 cats
+#     _last     ：上一轮实际抽到的套 id（只写不读，面板显示用）
+# ⚠️ 池化态**不写盘的话**节点缓存会把 seed>=0 的结果一直复用；而 `_last` 每次都写
+#    又会把 mtime 一直刷新 —— 所以指纹只取前 4 个键（见 nodes.py `_pool_fp()`）。
+# ══════════════════════════════════════════════════════════════════════════
+POOL_DEFAULTS = {"on": False, "cats": [], "max_level": 4, "ids": [], "_last": ""}
+# 池化"上一轮抽到哪套"。独立文件，理由见 `set_library_pool_last()`。
+POOL_LAST_FILE = os.path.join(PRESET_DIR, "outfit_library_last.json")
+
+
+def library_pool(meta=None):
+    """`_meta.pool` 的规整视图。缺键 / 脏数据一律回落默认值（旧文件零迁移）。"""
+    if meta is None:
+        _raw, meta, _items = _library_load()
+    p = meta.get("pool")
+    if not isinstance(p, dict):
+        return dict(POOL_DEFAULTS)
+    cats = []
+    for c in (p.get("cats") or []):
+        c = normalize_cat(c)
+        if c and c not in cats:
+            cats.append(c)
+    ids = [str(x).strip() for x in (p.get("ids") or []) if str(x).strip()]
+    try:
+        cap = int(p.get("max_level") if p.get("max_level") is not None else 4)
+    except (TypeError, ValueError):
+        cap = 4
+    return {"on": bool(p.get("on")), "cats": cats,
+            "max_level": max(0, min(4, cap)), "ids": ids,
+            "_last": str(p.get("_last") or "")}
+
+
+def _pool_count(items, pool):
+    """池子候选条数（不含运行期档位闸门 —— 那一层要等 draw 的 lv 才知道）。"""
+    cap = int(pool.get("max_level", 4))
+    n = 0
+    for o in items:
+        if int(o.get("level") or 0) > cap:
+            continue
+        if pool["ids"]:
+            if str(o.get("id") or "") not in pool["ids"]:
+                continue
+        elif pool["cats"] and normalize_cat(o.get("cat")) not in pool["cats"]:
+            continue
+        n += 1
+    return n
+
+
+def set_library_pool(on=None, cats=None, max_level=None, ids=None):
+    """改池子。`None` = 该键不动。返回规整后的新池子。
+
+    · cats 先归一（`nsfw` → `nsfw_outfit`）再校验，不在分类表里的直接丢弃；
+    · ids 只保留库里真实存在的套（删过的自动剔除，不会留下死 id）；
+    · `on=True` 时同一次写盘把 active 清空（互斥只写一次，不留中间态）。
+    """
+    _raw, meta, items = _library_load()
+    cur = library_pool(meta)
+    nxt = dict(cur)
+    if on is not None:
+        nxt["on"] = bool(on)
+    if cats is not None:
+        valid = {normalize_cat(c.get("id")) for c in _library_cats(meta)}
+        cl = []
+        for c in (cats or []):
+            c = normalize_cat(c)
+            if c and c in valid and c not in cl:
+                cl.append(c)
+        nxt["cats"] = cl
+    if max_level is not None:
+        try:
+            nxt["max_level"] = max(0, min(4, int(max_level)))
+        except (TypeError, ValueError):
+            pass
+    if ids is not None:
+        known = {str(x.get("id") or "") for x in items}
+        nxt["ids"] = [i for i in (str(x).strip() for x in (ids or [])) if i in known]
+    if nxt["ids"]:
+        nxt["cats"] = []          # ids 模式忽略 cats（设计稿 §3）
+    meta = dict(meta)
+    meta["pool"] = nxt
+    _library_write(meta, items, active=("" if nxt["on"] else None))
+    return library_pool(meta)
+
+
+def set_library_pool_last(outfit_id):
+    """记下这一轮抽到的套（面板显示"上次抽到：XX"）。
+
+    ⚠️ **写独立小文件，不写 outfit_library.json** —— 这是本文件里唯一一处
+       与设计稿不同的实现：节点缓存指纹用的是 `mtime_ns+size`
+       （`nodes.py:_global_state_fingerprint`），它没法"只排除某一个键"。若把
+       `_last` 写进 `_meta.pool`，每张图都会刷新 mtime → **seed 固定也会重抽**，
+       可复现性直接崩。挪出来以后：池子改动照样破缓存（它改的是主文件），
+       而 `_last` 只是个展示值，不进指纹。
+    ⚠️ 只写一次、失败静默：这是展示用信息，不能因为它毁掉一次出图。
+    ⚠️ 值没变就不写。
+    """
+    oid = str(outfit_id or "").strip().lower()
+    if not oid:
+        return ""
+    try:
+        if str(_read_pool_last().get("id") or "") == oid:
+            return oid
+        _atomic_write(POOL_LAST_FILE, {"id": oid, "at": _now()})
+    except Exception:
+        return ""
+    return oid
+
+
+def _read_pool_last():
+    try:
+        with open(POOL_LAST_FILE, "r", encoding="utf-8") as fh:
+            d = json.load(fh) or {}
+    except Exception:
+        return {}
+    return d if isinstance(d, dict) else {}
 
 
 # ══════════════════════════════════════════════════════════════════════════

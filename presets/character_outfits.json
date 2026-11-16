@@ -1532,7 +1532,7 @@
    ]
   },
   "ganyu_(genshin_impact)": {
-   "enabled": "default",
+   "enabled": "",
    "list": [
     {
      "id": "default",
@@ -4459,7 +4459,7 @@
    ]
   },
   "rem_(re:zero)": {
-   "enabled": "default",
+   "enabled": "",
    "list": [
     {
      "id": "default",
@@ -13100,7 +13100,7 @@
    ]
   },
   "kitagawa_marin": {
-   "enabled": "default",
+   "enabled": "",
    "list": [
     {
      "id": "default",

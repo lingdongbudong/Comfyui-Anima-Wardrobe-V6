@@ -36,6 +36,16 @@ v6.0.0 起前缀升为 /anima-wardrobe-v6/，**同时保留 v6 + v5 + v4 + v3 �
     GET  /anima-wardrobe-v6/characters/detail      单个角色完整记录 + 内置标签（v3.5.0）
     GET  /anima-wardrobe-v6/health    自检
 （以上每条都另外挂了一份 /anima-wardrobe-v4/ 与 /anima-wardrobe-v3/ 的同名副本。）
+
+v6 新增的路由（细节与参数见 docs/MAINTAINERS.md「二、对外 HTTP 路由」）：
+    GET  /scene-thumb/{name}                  场景预览图（v6.19.0，只挂 L0）
+    GET  /outfit-thumb/{name}                 服装预览图（v6.21.0，只挂 L0+L1）
+    GET  /outfits  POST /outfits/{enable,save,delete,import}
+                                              角色服装预设（按角色存）
+    GET  /outfit-library                      全局服装库载荷
+    POST /outfit-library/{enable,pool,save,delete,override,scene-override}
+                                              钉一套 / 池化随机 / 场景优先开关
+                                              （同值重发 = clear_cache，纯数据改动免重启）
 """
 from .nodes import (NODE_CLASS_MAPPINGS, NODE_DISPLAY_NAME_MAPPINGS,
                     character_detail_payload, characters_payload,
@@ -47,12 +57,23 @@ WEB_DIRECTORY = "./js"
 
 # 插件版本。改动记在 README 的「版本历史」里，health 路由也会回它 ——
 # 排查"装的是哪一版"时比翻文件可靠。
-__version__ = "6.7.0"
+__version__ = "6.26.0"
 
 # 角色缩略图目录（约 2000 张 webp）。由 tools/fetch_character_thumbs.py 生成，
 # 缺席时面板退化成首字母色块 —— 不阻塞任何功能。
 _THUMB_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                           "presets", "thumbs")
+
+# 场景预览图目录（v6.19.0）。**真源在 anima_v4_store.SCENE_THUMB_DIR** ——
+# 这里只取个短名字给路由用，不另写一份路径（两处各写一份必然漂）。
+# 图由 tools/make_scene_thumbs.py 从批量出图裁切生成：`sc_xxx.webp`，最长边 480、约 3KB/张。
+# 与角色缩略图同一套纪律：缺席 → 面板不显示图，其它一切照常。
+from . import anima_v4_store as _store
+_SCENE_THUMB_DIR = _store.SCENE_THUMB_DIR
+
+# 服装库预览图目录（v6.21.0）。真源同样在 anima_v4_store，这里只取短名字。
+# 与场景图同款纪律：缺席 -> 面板不显示图，其它一切照常。
+_OUTFIT_THUMB_DIR = _store.OUTFIT_THUMB_DIR
 
 __all__ = ["NODE_CLASS_MAPPINGS", "NODE_DISPLAY_NAME_MAPPINGS", "WEB_DIRECTORY"]
 
@@ -222,6 +243,62 @@ def _register_routes():
                         "Content-Type": f"image/{ext}",
                     })
         return _web.Response(status=404)
+
+    @_dual_get("/scene-thumb/{name}")
+    async def _scene_thumb(request):
+        """场景预览图（v6.19.0）。从 presets/scene_thumbs/ 读 `sc_xxx.webp`。
+
+        为什么单独一条路由、不复用 `/thumb/{name}`：
+          · 两张图的服务目录不同（角色 thumbs / 场景 scene_thumbs），混在一起
+            等于每条请求都要多试一个目录；
+          · 场景 id 恒以 `sc_` 开头、没有用户覆盖层（角色有 user_thumbs），
+            id 形态可以卡得更紧；
+          · 将来若要给场景图单独换缓存策略（图大、更新少），改这里就够。
+
+        找不到就回 404 —— 面板把图片元素整个摘掉，退回纯文字卡片，
+        不占位、不留空白框（781 条里必然有还没出图的新场景）。
+        """
+        from aiohttp import web as _web
+        import re as _re
+        sid = request.match_info.get("name", "")
+        # ⚠️ 路径穿越防护：只认 `sc_` + 小写字母数字下划线，长度封顶 80。
+        #    场景 id 最长实测 40 出头，80 够用且不给 `../` 留缝。
+        if not _re.fullmatch(r"sc_[a-z0-9_]{1,80}", sid):
+            return _web.Response(status=400)
+        path = os.path.join(_SCENE_THUMB_DIR, f"{sid}.webp")
+        if not os.path.isfile(path):
+            return _web.Response(status=404)
+        return _web.FileResponse(path, headers={
+            # 与角色缩略图同款：no-cache 让浏览器每次带 ETag 回源，
+            # 内容没变时 aiohttp 自动回 304（几十字节）。重跑补图后立刻生效，
+            # 不用像以前那样靠改版本号硬破缓存。
+            "Cache-Control": "no-cache",
+            # 显式给类型 —— Windows 的 mimetypes 库里没有 webp（同角色缩略图的坑）。
+            "Content-Type": "image/webp",
+        })
+
+    @_dual_get("/outfit-thumb/{name}")
+    async def _outfit_thumb(request):
+        """服装库预览图（v6.21.0）。从 presets/outfit_thumbs/ 读 `<id>.webp`。
+
+        与场景图分开一条路由：服务目录不同、id 形态也不同（套装 id 没有
+        统一前缀，sc_/ol_/tr_/ns_/sw_/hm_ 都有），将来给服装图单独换缓存
+        策略互不牵连。找不到回 404 —— 前端把图片元素整个摘掉，退回纯文字卡片。
+        """
+        from aiohttp import web as _web
+        import re as _re
+        oid = request.match_info.get("name", "")
+        # ⚠️ 路径穿越防护：只认小写字母数字下划线，长度封顶 80。
+        #    套装 id 最长实测 30 出头，且不含 / 与 . 就不给 ../ 留缝。
+        if not _re.fullmatch(r"[a-z0-9_]{1,80}", oid):
+            return _web.Response(status=400)
+        path = os.path.join(_OUTFIT_THUMB_DIR, "%s.webp" % oid)
+        if not os.path.isfile(path):
+            return _web.Response(status=404)
+        return _web.FileResponse(path, headers={
+            "Cache-Control": "no-cache",
+            "Content-Type": "image/webp",
+        })
 
     @_dual_get("/roll-options")
     async def _roll_options(request):
@@ -676,6 +753,28 @@ def _register_routes():
             return web.json_response({"error": str(exc)}, status=400)
         R.clear_cache()
         return web.json_response({"ok": True, "active": active,
+                                  "library": S.library_payload()})
+
+    # ── v6.23.0：服装库池化随机（用户 2026-11-14 14:15「先做 C」）──────
+    # 「每次运行从服装库抽一套」—— 池子存 `_meta.pool`（全局态，不进节点控件）。
+    # 入参全可选：`{}` = 只读回当前池子；`{"on": true}` = 开池化（并清掉 active）。
+    # 校验放在 store（分类表在同一层），这里只负责写后 `clear_cache()` ——
+    # 与 `/enable` 同一条纪律：不清缓存，引擎还会读着旧的 outfit_library 快照。
+    @_dual_post("/outfit-library/pool")
+    async def _library_pool(request):
+        from . import anima_v4_store as S
+        from . import anima_v4_rules as R
+        body = await _json_body(request)
+        try:
+            pool = S.set_library_pool(
+                on=body.get("on", None),
+                cats=body.get("cats", None),
+                max_level=body.get("max_level", None),
+                ids=body.get("ids", None))
+        except ValueError as exc:
+            return web.json_response({"error": str(exc)}, status=400)
+        R.clear_cache()
+        return web.json_response({"ok": True, "pool": pool,
                                   "library": S.library_payload()})
 
     # ── v5.5.0：服装库的袜子 / 鞋子覆盖（用户 2026-11-05 21:27）──────

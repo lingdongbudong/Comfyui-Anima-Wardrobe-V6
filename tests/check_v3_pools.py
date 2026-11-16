@@ -68,7 +68,10 @@ NODE = shutil.which("node") or os.environ.get("AV3_NODE", "node")
 #          避免画面中抽象相机）—— prop 的 `camera`（凭空一台相机）、device 的
 #          `polaroid frame` / `security camera footage` / `webcam footage`
 #          → 1138 → 1134。保留 `selfie`（只是构图角度，不画机身）与 `film grain`。
-EXPECT = {"sections": 15, "fields": 57, "options": 1134, "roles": 222,
+# v6.20.0：socks 补 5 条「三段渐变过膝袜」配色（青绿 aqua / 黑 / 白 / 紫 / 粉，
+#          用户 2026-11-14 实拍图；颜色+款式固化成词条，因为 `colorize()` 对
+#          `gradient thighhighs` 查不到矩阵组合、会跳过上色）→ 1134 → 1139
+EXPECT = {"sections": 15, "fields": 57, "options": 1139, "roles": 222,
           "appear": 221, "canon": 14}
 
 

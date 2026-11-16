@@ -33,16 +33,16 @@ import urllib.request
 
 API = "http://127.0.0.1:8188"
 _HERE = os.path.dirname(os.path.abspath(__file__))
-PLUGIN = os.path.dirname(_HERE)
-# 工作流模板：用环境变量 ANIMA_WF_JSON 指定你自己那份（改了参数直接生效），
-# 不指定就用仓库里归档的副本。
-WF_PATH = os.environ.get("ANIMA_WF_JSON") or os.path.normpath(os.path.join(
-    PLUGIN, "workflows", "Anima_V6_角色面板_miaomiaoHarem_anima12_8步.json"))
+# 工作流模板：优先用用户桌面那份（他改参数后直接生效），找不到就用项目里归档的副本
+WF_PATH = r"C:/Users/VGBFC/Desktop/V5-Anima_miaomiaoHarem_anima12-8步.json"
+if not os.path.exists(WF_PATH):
+    WF_PATH = os.path.normpath(os.path.join(
+        _HERE, "..", "workflows",
+        "Anima_V6_角色面板_miaomiaoHarem_anima12_8步.json"))
+PLUGIN = r"S:/AI_workV5/ComfyUI/custom_nodes/Comfyui-Anima-Wardrobe-V6"
 PRESETS = os.path.join(PLUGIN, "presets")
 THUMBS = os.path.join(PRESETS, "thumbs")
-# 出图落到 ComfyUI 的 output 目录下（插件目录 → custom_nodes → ComfyUI 根）
-OUT_ROOT = os.environ.get("ANIMA_OUT_ROOT") or os.path.normpath(os.path.join(
-    os.path.dirname(PLUGIN), "..", "output", "图片", "角色1比1图片"))
+OUT_ROOT = r"S:/AI_workV5/ComfyUI/output/图片/角色1比1图片"
 LOGP = os.path.join(OUT_ROOT, "_run.log")
 
 # 固定种子：同角色重跑逐字节一致，便于回溯

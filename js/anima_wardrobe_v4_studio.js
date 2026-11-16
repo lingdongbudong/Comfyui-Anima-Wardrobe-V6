@@ -28,6 +28,23 @@ const NS = "anima-wardrobe-v6";
 //    Cache-Control 已经是 no-cache，双保险）。
 const THUMB_VER = "5.0.12";
 const thumbURL = (slug) => `/${NS}/thumb/${slug}?v=${THUMB_VER}`;
+
+/** 场景预览图（v6.19.0）。
+ *
+ *  与角色缩略图**同一套缓存策略**（no-cache + 版本参数），但走独立路由
+ *  `/scene-thumb/{id}` —— 服务目录不同（presets/thumbs/ 存角色，
+ *  presets/scene_thumbs/ 存场景），角色那份还多一层 user_thumbs 覆盖。
+ *
+ *  ⚠️ 版本号独立于 THUMB_VER：两批图各有各的重生成节奏，
+ *     共用一个号会导致「换了场景图，角色图白刷一遍」（2444 张）。
+ */
+const SCENE_THUMB_VER = "6.19.0";
+const sceneThumbURL = (id) => `/${NS}/scene-thumb/${id}?v=${SCENE_THUMB_VER}`;
+
+/* 服装库预览图（v6.21.0）。走独立路由，只在 o.thumb 为真时发请求 ——
+   后端已按 level==0 且盘上有图判定，L1+ 与缺图都不会来这里。 */
+const OUTFIT_THUMB_VER = "6.21.0";
+const outfitThumbURL = (id) => `/${NS}/outfit-thumb/${id}?v=${OUTFIT_THUMB_VER}`;
 const NODE_TYPE = "AnimaV6RandomPrompt";
 
 /** 面板要挂上去的**全部**节点类型名。
@@ -55,6 +72,64 @@ const LEVEL_SHORT = {
   extreme: "4 极端",
   any: "不限",
 };
+
+/* ── v6.26.0：画幅（比例按钮）与工作流联动 ────────────────────────────
+   用户 2026-11-17：「设置面板右上角增加竖屏与横屏比例切换，套用场景时能够
+   根据推荐比例联动工作流自动调整比例」→ 追加「1:1 比例也增加」→ 再追加
+   「直接平铺显示在 UI 这个位置（标题栏右侧空白处），方便直接调整」。
+
+   最终口径（三次当面确认）：
+     · 位置：面板**标题栏右侧**（免责声明左边那片空白），一行平铺、常驻可见；
+     · 形态：**五个比例按钮全平铺** —— 9:16 · 3:4 · 1:1 · 16:9 · 4:3，
+       点哪个就是哪个，不设下拉、不设方向两级；
+     · 像素档 **约 1MP**：9:16=720×1280 / 3:4=864×1152 / 1:1=1024×1024 /
+       16:9=1280×720 / 4:3=1152×864（全部 16 的倍数，比例精确）；
+     · 联动：**只在手动套用场景时**动 —— 推荐 portrait → 回"上次用过的竖比例"
+       （默认 9:16）、landscape → 回"上次用过的横比例"（默认 16:9），
+       推荐 both → 不动（与 v3.23.0 自动抬档同一条纪律：随机抽中不改设置）。
+   ⚠️ 比例值不进正文提示词，只写进 XB_ImageParamsMaster 的控件。 */
+const FRAME_MODES = ["p", "s", "l"];
+const FRAME_LABEL = { p: "竖屏", s: "方形", l: "横屏" };
+/** 每个方向各自的候选比例。数组第一项 = 该方向的默认值。 */
+const FRAME_RATIOS = { p: ["9:16", "3:4"], s: ["1:1"], l: ["16:9", "4:3"] };
+/** 标题栏平铺顺序（= 从竖到横，1:1 在中间）。 */
+const FRAME_RATIOS_ALL = ["9:16", "3:4", "1:1", "16:9", "4:3"];
+const FRAME_PIX = {
+  "9:16": [720, 1280], "3:4": [864, 1152], "1:1": [1024, 1024],
+  "16:9": [1280, 720], "4:3": [1152, 864],
+};
+/** 比例 → 方向（1:1 归方形）。认不出返回空串。 */
+function frameModeOfRatio(r) {
+  const s = String(r || "");
+  for (const m of FRAME_MODES) if (FRAME_RATIOS[m].includes(s)) return m;
+  return "";
+}
+
+/** 读工作流当前画幅（只读，不改）。找不到比例节点返回 null。
+ *  ⚠️ `app.graph._nodes` 是 litegraph 的私有数组，`graph.nodes` 是旧写法；
+ *     两个都没有（比如测试桩）就当没有 —— 绝不能让面板开不起来。 */
+function readGraphFrame() {
+  try {
+    const g = app && app.graph;
+    if (!g) return null;
+    const list = Array.isArray(g._nodes) ? g._nodes
+      : (Array.isArray(g.nodes) ? g.nodes : []);
+    for (const n of list) {
+      const cls = String((n && (n.comfyClass || n.type)) || "");
+      if (!/ImageParamsMaster(Mini)?$/i.test(cls)) continue;
+      const w = (n.widgets || []).find((x) => x.name === "aspect_ratio");
+      const ww = (n.widgets || []).find((x) => x.name === "width");
+      const wh = (n.widgets || []).find((x) => x.name === "height");
+      if (!w) continue;
+      return {
+        ratio: String(w.value || ""),
+        w: ww ? Number(ww.value) : null,
+        h: wh ? Number(wh.value) : null,
+      };
+    }
+  } catch (e) { /* 桩环境 / 图未就绪：当作没有 */ }
+  return null;
+}
 
 /* ── 状态：只放进程内缓存，节点值才是真源 ───────────────────────────── */
 const CACHE = { pools: null, contract: null, loading: null };
@@ -117,6 +192,11 @@ function loadWeights(node) {
       // v3.23.0：等级自动同步的两个附加键（引擎忽略下划线键）
       _autoLevel: typeof d._autoLevel === "boolean" ? d._autoLevel : undefined,
       _levelBase: d._levelBase && typeof d._levelBase === "object" ? d._levelBase : undefined,
+      // v6.25.0：服装库套用时的等级基线。**故意与 _levelBase 分开** ——
+      // 两者各自有"取消时还回去"的路径，共用一个槽会互相覆盖
+      //（先套 L2 服装、再套 L3 场景，取消场景会把服装那次升的档也一起抹掉）。
+      _libLevelBase: d._libLevelBase && typeof d._libLevelBase === "object"
+        ? d._libLevelBase : undefined,
       // v3.25.0：界面记忆（页签 / 滚动 / 展开 / 筛选）。同样挂在 weights_json 里，
       // 随工作流保存；引擎只认 sections/fields/options 与下划线键的白名单，不会把它喂给随机。
       _ui: d._ui && typeof d._ui === "object" ? d._ui : undefined,
@@ -151,6 +231,7 @@ function saveWeights(node, w) {
   // v3.23.0：等级自动同步的开关与撤销基线（引擎忽略下划线键，只占存储）
   if (typeof w._autoLevel === "boolean") out._autoLevel = w._autoLevel;
   if (w._levelBase) out._levelBase = w._levelBase;
+  if (w._libLevelBase) out._libLevelBase = w._libLevelBase;   // v6.25.0
   // v3.25.0：界面记忆
   if (w._ui && typeof w._ui === "object") out._ui = w._ui;
   wset(node, "weights_json", Object.keys(out).length ? JSON.stringify(out, null, 1) : "");
@@ -289,10 +370,15 @@ const CSS = `
 .av3-sec>.hd .av3-sfav:hover{color:#e8c98a;}
 .av3-sec>.hd .av3-sfav.on{color:#f5c451;text-shadow:0 0 6px rgba(245,196,81,.45);}
 /* v5.3.1（用户 2026-11-05 19:23「服装库浏览改为一行两列，方便浏览」）：
-   110 套单列要滚很久，改成两列网格；**展开的卡跨两列**（不然 250px 宽的卡里
-   十几个 chip 会堆成一条长柱，右边还空一大块）。 */
-#av3-outfitlib-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:7px;align-items:start;}
+   110 套单列要滚很久，改成两列网格；**展开的卡跨整行**（不然 250px 宽的卡里
+   十几个 chip 会堆成一条长柱，右边还空一大块）。
+   v6.25.1（用户 2026-11-14 17:07「服装库 UI 卡片显示改为一行 3 列方便预览」）：
+   两列 → **三列**。⚠️ 预览图**不会变小**：.av3-limg img 由 max-height:300px
+   主导（247×440 竖图恒定落在 168×300），三列只是横向多塞一张。
+   标题行本来就有 flex-wrap，229px 宽下「名称 + 分类 + 档位 + 词数」自动折两行。
+   ⚠️ 这段 CSS 在 const CSS = ... 的模板字符串里，注释里**不许出现反引号**（会截断字符串）。 */
+#av3-outfitlib-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:6px;align-items:start;}
 #av3-outfitlib-list>.av3-sec{margin-bottom:0;}
 #av3-outfitlib-list>.av3-sec.open{grid-column:1 / -1;}
 #av3-outfitlib-list>.av3-sec>.hd{padding:6px 8px;gap:5px;flex-wrap:wrap;}
@@ -306,6 +392,16 @@ const CSS = `
 .av3-aspect-portrait{color:#86b7ea;border-color:#31506e;background:rgba(86,150,214,.14);}
 .av3-aspect-landscape{color:#8ed49b;border-color:#2f5238;background:rgba(90,186,120,.14);}
 .av3-aspect-both{color:#b0b0b0;border-color:#4a4a4a;background:rgba(255,255,255,.05);}
+/* v6.19.1：推荐工作流备注（目前只有艺术构图页 → 29B）。
+   一开始做成卡片徽标，结果是 **art 卡的 6 个徽标把名称压成 0 宽**
+   （用户 2026-11-13 20:47 截图：标题整个消失，只剩一排徽标）。
+   改成页面顶部一条常驻说明 —— 需求本来就是"整页推荐哪个工作流"，
+   不是"逐张判断"。 */
+.av3-tplhint{display:flex;align-items:flex-start;gap:6px;margin:0 0 8px;
+  padding:6px 9px;border-radius:6px;line-height:1.55;
+  border:1px solid #5b3f78;background:rgba(150,100,210,.13);
+  color:#c9a6ee;font-size:11.5px;}
+.av3-tplhint b{color:#e0c4ff;font-weight:600;}
 .av3-lvhead{cursor:pointer;user-select:none;}
 .av3-lvhead:hover{color:#f0d9a8;}
 .av3-lvhead.closed{opacity:.72;}
@@ -328,6 +424,36 @@ const CSS = `
 /* ⚠️ 用 auto-fit + minmax(280px,1fr)，**不用 @media**：面板宽度由 litegraph 决定，
    不是视口宽度 —— 媒体查询在这里量的是浏览器窗口，窄面板照样硬排 3 列。
    auto-fit 按容器实际宽度算：~1100px 三列、~700px 两列、再窄一列。 */
+/* ── 场景预览图（v6.19.0）──────────────────────────────────────
+   想解决的问题：781 条场景只能靠名字猜长什么样，要套用再跑一张才知道。
+
+   ⚠️ **v6.19.1 改版**（用户 2026-11-13 看图后定）：「缩略图不裁剪，直接在
+   卡片下面展示」。首版把 44×44 的小图塞在标题行里，object-fit:cover
+   会把竖构图裁成中间一块 —— 场景最要紧的就是构图，裁掉就白做了。
+   ⚠️ 本段在模板字符串里，注释**不能出现反引号**（会把字符串截断）。
+   现在：
+     ① 图放**卡片主体**（标题行之下、动作行之上），宽度自适应、高度封顶
+        300px、**绝不裁剪**（width/height 都 auto + max 限制，浏览器等比缩）；
+        竖图显示为 168×300 居中、横图 300×169 —— 宁可两侧留空，不裁画面。
+     ② 缺图给一块虚线提示条（不是空白）—— 781 条里必然有还没出图的新场景。
+     ③ 关「▣ 预览图」或切「▦ 紧凑」时整条收起（紧凑模式本来就是多扫标题）。 */
+.av3-simg{display:flex;justify-content:center;align-items:center;
+  padding:0 8px 6px;}
+.av3-simg img{max-width:100%;max-height:300px;width:auto;height:auto;
+  border-radius:6px;display:block;cursor:zoom-in;
+  border:1px solid rgba(255,255,255,.07);background:rgba(0,0,0,.25);}
+.av3-simg.miss{margin:0 8px 6px;padding:9px 8px;border-radius:6px;
+  border:1px dashed rgba(255,255,255,.13);background:rgba(255,255,255,.02);
+  color:#7d7d7d;font-size:11px;text-align:center;}
+.av3-sec.notmb .av3-simg{display:none;}
+.av3-sec.compact .av3-simg{display:none;}
+
+.av3-limg{display:flex;justify-content:center;align-items:center;
+  padding:0 8px 6px;}
+.av3-limg img{max-width:100%;max-height:300px;width:auto;height:auto;
+  border-radius:6px;display:block;cursor:zoom-in;
+  border:1px solid rgba(255,255,255,.07);background:rgba(0,0,0,.25);}
+
 .av3-scenegrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
   gap:8px;margin-bottom:8px;align-items:start;}
 /* v6.4.0：姿势库 / 武器场景改一行两列。
@@ -360,6 +486,15 @@ const CSS = `
 .av3-t:disabled{opacity:.35;cursor:not-allowed;}
 .av3-box{background:rgba(255,255,255,.04);border:1px solid var(--border-color,#3a3a3a);border-radius:8px;padding:9px 11px;}
 .av3-box h4{margin:0 0 7px;font-size:12.5px;color:#e8c98a;font-weight:600;}
+/* v6.26.0：标题栏右侧的画幅按钮 —— 五个比例**全平铺**，点一下立刻改工作流。
+   位置就在「⚠ 免责声明」左边那片空白，任何页签下都看得见（不用翻设置框）。 */
+.av3-frames{display:flex;align-items:center;gap:4px;}
+.av3-frames-cap{font-size:11.5px;color:#8f8f8f;margin-right:1px;}
+.av3-frame-btn{border:1px solid var(--border-color,#4a4a4a);background:transparent;
+  color:var(--fg-color,#c8c8c8);border-radius:5px;padding:3px 7px;cursor:pointer;
+  font-size:11.5px;line-height:1.45;font-variant-numeric:tabular-nums;}
+.av3-frame-btn:hover{border-color:#d9b36c;color:#e8c98a;}
+.av3-frame-btn.on{background:#d9b36c;border-color:#d9b36c;color:#241a05;font-weight:600;}
 .av3-out{background:rgba(0,0,0,.32);border:1px solid var(--border-color,#3a3a3a);border-radius:6px;
   padding:9px;min-height:96px;max-height:230px;overflow:auto;line-height:1.66;white-space:pre-wrap;
   word-break:break-word;font-size:12.5px;}
@@ -608,6 +743,26 @@ function buildPanel(node) {
     return OUTFIT_CAT_ALIAS[s] || s;
   }
   const _secIds = new Set(pools.sections.map((s) => s.id));
+  /* v6.26.0：画幅初值 —— 三条取值链：记忆 > 工作流现况 > 默认 9:16。
+     `per` 是"每个方向上次用过的比例"，套用场景时按推荐方向回取；
+     当前这条同时写进它所属方向的记忆（否则第一次点 3:4 后套竖场景会回 9:16）。
+     ⚠️ 必须在 ui 字面量**之前**算出来，不能写成对象里的 IIFE ——
+        两个字段要共用同一个结果。 */
+  const _frameInit = (() => {
+    const g = readGraphFrame();
+    const gr = (g && FRAME_RATIOS_ALL.includes(g.ratio)) ? g.ratio : "";
+    const saved = String(_memo.frameRatio || "");
+    const cur = FRAME_RATIOS_ALL.includes(saved) ? saved : (gr || "9:16");
+    const memo = (_memo.frameMemo && typeof _memo.frameMemo === "object")
+      ? _memo.frameMemo : {};
+    const per = {};
+    for (const m of FRAME_MODES) {
+      per[m] = FRAME_RATIOS[m].includes(String(memo[m] || ""))
+        ? memo[m] : FRAME_RATIOS[m][0];
+    }
+    per[frameModeOfRatio(cur)] = cur;
+    return { cur, per };
+  })();
   const ui = {
     level: String(lsGet(node, "nsfw_level", "sfw")),
     weights: _w0,
@@ -687,10 +842,22 @@ function buildPanel(node) {
     sceneThemeOpen: _memo.sceneThemeOpen !== false,
     sceneFavOnly: _memo.sceneFavOnly === true,
     sceneCompact: _memo.sceneCompact === true,
+    /* v6.19.0：场景预览图开关。
+       ⚠️ 判据是 `!== false` 而不是 `=== true` —— 默认要**开**：
+          老 localStorage 里没有这个键（`undefined`），用 `=== true`
+          会让升级上来的用户全部看不到图，还以为功能没做。 */
+    sceneThumb: _memo.sceneThumb !== false,
+    /* v6.21.0：服装库预览图开关。判据同样是 `!== false`（默认开），
+       老 localStorage 没这个键时不会把升级上来的用户图全藏起来。 */
+    outfitThumb: _memo.outfitThumb !== false,
     // v5.0.1：比例筛选（"all" / "p" = 竖屏·通用 / "l" = 横屏·通用）。
     // 与搜索、收藏、档位分组是 **AND** 叠加 —— 三者可以同时生效。
     sceneAspect: (_memo.sceneAspect === "p" || _memo.sceneAspect === "l")
       ? _memo.sceneAspect : "all",
+    /* v6.26.0：画幅（标题栏那排比例按钮）。frameRatio = 当前这一条；
+       frameMemo = 各方向上次用过的比例，套用场景按推荐方向回取。 */
+    frameRatio: _frameInit.cur,
+    frameMemo: _frameInit.per,
     // v5.0.2：角色服装预设 {role_tag: {enabled, list}}，懒加载后缓存在这里
     outfits: null,
     /* v5.1.0：全局服装库（/outfit-library 整份，懒加载）。
@@ -714,7 +881,15 @@ function buildPanel(node) {
     // 档位分组的折叠态：{"2": true} = L2 收起。空对象 = 全展开。
     sceneClosed: (_memo.sceneClosed && typeof _memo.sceneClosed === "object")
       ? { ..._memo.sceneClosed } : {},
-    sceneLimit: 60,         // 首屏渲染条数（懒加载，滚到底 +60）
+    /* v6.9.4：首屏渲染条数**跟着界面一起记**。
+       ⚠️ 这是「关闭再打开位置不对」的真根因（用户 2026-11-09 报的）：
+         左列是懒加载（首屏 60 条，滚到底 +60）。滚动位置存的是**比例**，
+         而比例只有在"内容总高度相同"时才等价 —— 关闭时已经加载到 120 条
+         （比例 0.41 = 1052/2574），重开却只渲染首屏 60 条（高度只有 1913），
+         同一个 0.41 换算出来就是 430px，正好少了一半的浏览进度。
+         所以把 limit 也存下来：重开时先渲染同样多的卡片，比例才可复现。
+         筛选变化时仍会重置成 60（列表换了，位置本来就该回顶）。 */
+    sceneLimit: Math.max(60, Math.min(2000, Number(_memo.sceneLimit) || 60)),
     _sceneMore: false,      // 本轮还有没有未渲染的卡片（滚动续载用）
     // v3.18.0：「🔍 特写搭配」页的状态 —— 部位筛选 + 套用时关掉的 ③ 段快照
     nearPart: (typeof _memo.nearPart === "string" ? _memo.nearPart : ""),
@@ -732,6 +907,182 @@ function buildPanel(node) {
   for (const sid of String(lsGet(node, "disabled_sections", "")).split(",")) {
     const t = sid.trim();
     if (t && ui.weights.sections[t] === undefined) ui.weights.sections[t] = 0;
+  }
+
+  /* v6.26.0：标题栏画幅按钮的句柄。**必须在建头部之前声明** ——
+     建头部时就会调用 buildFrameBar() 并给它赋值，放在后面声明会掉进
+     TDZ（"Cannot access before initialization"）。 */
+  let frameBarEl = null;
+
+  /* ── v6.26.0：画幅按钮（标题栏右侧平铺）─────────────────────────────
+     用户 2026-11-17：「设置面板右上角增加竖屏与横屏比例切换，套用场景时
+     能够根据推荐比例联动工作流自动调整比例」→「1:1 比例也增加」→
+     「直接平铺显示在 UI 这个位置（标题栏右侧），方便直接调整」。
+     所以最终是**五个比例按钮全平铺**在标题栏、常驻可见，不设下拉。
+
+     为什么放标题栏而不是设置框：它改的是**工作流出的画幅**，任何时候都可能
+     要切（切完马上去点排队），藏在右列滚动区要翻半天。
+     别和左列那条「▣ 竖屏·通用 / 横屏·通用」的**场景筛选**搞混 ——
+     那个只筛列表、不碰节点。
+
+     ⚠️ 三条纪律：
+       ① 只有手动点按钮才改工作流；面板打开、随机抽中一律不碰
+          （否则一开面板就把用户手调的 21:9 冲掉）；
+       ② 找不到比例节点只提示、不乱猜（宁可不动，也别改错节点）；
+       ③ 状态写进 weights_json._ui，按节点、随工作流走 —— 刷新后仍是刚才那条。 */
+  function framePixNow() {
+    return FRAME_PIX[ui.frameRatio] || [720, 1280];
+  }
+
+  /** 取图里的节点数组。litegraph 用 `graph._nodes`，旧写法是 `graph.nodes`；
+   *  测试桩两个都没有 —— 一律当空数组，绝不让面板开不起来。 */
+  function graphNodes() {
+    try {
+      const g = app && app.graph;
+      if (!g) return [];
+      return Array.isArray(g._nodes) ? g._nodes
+        : (Array.isArray(g.nodes) ? g.nodes : []);
+    } catch (e) { return []; }
+  }
+
+  /** 把当前画幅写进工作流。
+   *  ① 首选 `XB_ImageParamsMaster`（本机所有 Anima 工作流的宽高都由它出）；
+   *  ② 没有它才退到 `EmptyLatentImage` 的宽高控件；
+   *  ③ 都没有 → 一个字段都不改，返回 hit=0，由调用方提示。
+   *
+   *  ⚠️⚠️ XB 参数主控有两套自动联动，**都必须让路**，否则写进去的值会被它改掉：
+   *     ① widget callback（`XB_ToolBox/js/xb_video.js` 的 `nodeCreated`）——
+   *        `aspect_ratio` / `width` / `height` 任一变化就按"当前宽度"重算另一个；
+   *        照它自己的顺序写（先宽后高最后比例）会被算成 648×864；
+   *     ② 50ms 轮询 —— 拿 `node._xb_last_*` 跟控件值比，不一致就再算一遍。
+   *  所以写入期间把它的守卫 `node._xb_syncing` 置真（callback 里第一行就
+   *  `if (node._xb_syncing || node._xb_from_polling) return;`），写完把
+   *  `_xb_last_width/height/ratio` 对齐成最终值，轮询就认为"没变化"。
+   *  另外补一次 DOM 值同步：联动被跳过时，Nodes 2.0 的输入框可能还显示旧数字。
+   *  ⚠️ 排除 `Video` 系（视频版也吃 aspect_ratio，但那是视频画幅）。 */
+  function applyFrameToGraph() {
+    const ratio = ui.frameRatio;
+    const px = framePixNow();
+    const nodes = graphNodes();
+    const syncDom = (w) => {
+      try {
+        const el = w.inputEl || w.element;
+        if (el && "value" in el) el.value = String(w.value);
+      } catch (e) { /* 老前端的控件没有 DOM 元素，忽略 */ }
+    };
+    let hit = 0;
+    let via = "";
+    for (const n of nodes) {
+      const cls = String((n && (n.comfyClass || n.type)) || "");
+      if (!/ImageParamsMaster(Mini)?$/i.test(cls) || /Video/i.test(cls)) continue;
+      if (!(n.widgets || []).some((x) => x.name === "aspect_ratio")) continue;
+      n._xb_syncing = true;                 // 让 XB 的 callback 联动整段让路
+      wset(n, "aspect_ratio", ratio);
+      wset(n, "width", px[0]);
+      wset(n, "height", px[1]);
+      n._xb_syncing = false;
+      n._xb_last_ratio = ratio;             // 让 50ms 轮询认为"没变化"
+      n._xb_last_width = px[0];
+      n._xb_last_height = px[1];
+      for (const nm of ["aspect_ratio", "width", "height"]) {
+        const w = (n.widgets || []).find((x) => x.name === nm);
+        if (w) syncDom(w);
+      }
+      hit++; via = cls;
+    }
+    if (!hit) {
+      for (const n of nodes) {
+        const cls = String((n && (n.comfyClass || n.type)) || "");
+        if (!/^Empty\w*LatentImage$/.test(cls)) continue;
+        wset(n, "width", px[0]);
+        wset(n, "height", px[1]);
+        hit++; via = cls;
+      }
+    }
+    if (hit) app.graph.setDirtyCanvas(true, true);
+    return { ratio, w: px[0], h: px[1], hit, via };
+  }
+
+  function frameNote(res) {
+    const tag = `${res.ratio} · ${res.w}×${res.h}`;
+    return res.hit ? tag
+      : `${tag}（工作流里没找到比例节点，只改了面板状态）`;
+  }
+
+  /** 高亮当前比例。五个按钮常驻，只切 .on，不重建 DOM。 */
+  function paintFrameBar() {
+    if (!frameBarEl) return;
+    for (const r of FRAME_RATIOS_ALL) {
+      const b = frameBarEl.btns[r];
+      if (b) b.classList.toggle("on", r === ui.frameRatio);
+    }
+  }
+
+  /** 用户点比例按钮：立刻写工作流 + 记进 _ui（跨刷新保持）+ 状态条回显。 */
+  function setFrame(ratio) {
+    const r = String(ratio || "");
+    if (!FRAME_RATIOS_ALL.includes(r)) return;
+    ui.frameRatio = r;
+    const m = frameModeOfRatio(r);
+    if (m) ui.frameMemo[m] = r;
+    paintFrameBar();
+    rememberUi();
+    persist();
+    const res = applyFrameToGraph();
+    setStatus(`画幅：${frameNote(res)}`, res.hit ? "ok" : "no");
+  }
+
+  /** 平铺的一排比例按钮（标题栏用，挂进 head）。 */
+  function buildFrameBar() {
+    const wrap = document.createElement("div");
+    wrap.className = "av3-frames";
+    wrap.id = "av3-frames";
+    wrap.title = "画幅：点一下立刻改工作流比例，宽高按约 1MP 自动换算"
+      + "（9:16=720×1280 · 3:4=864×1152 · 1:1=1024×1024 · "
+      + "16:9=1280×720 · 4:3=1152×864）";
+    const cap = document.createElement("span");
+    cap.className = "av3-frames-cap";
+    cap.textContent = "画幅";
+    wrap.appendChild(cap);
+    const btns = {};
+    for (const r of FRAME_RATIOS_ALL) {
+      const px = FRAME_PIX[r] || [0, 0];
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "av3-frame-btn";
+      b.dataset.ratio = r;
+      b.textContent = r;
+      b.title = `${FRAME_LABEL[frameModeOfRatio(r)] || ""} ${px[0]}×${px[1]}`;
+      b.onclick = () => setFrame(r);
+      btns[r] = b;
+      wrap.appendChild(b);
+    }
+    frameBarEl = { btns };
+    paintFrameBar();
+    return wrap;
+  }
+
+  /** v6.26.0：套用场景 → 按推荐画幅联动工作流。
+   *  只认 `portrait` / `landscape`；`both`（通用）与没有 aspect 的条目
+   *  一律不动 —— 与 v3.23.0「自动抬档只认手动」同一条纪律。
+   *  竖场景回"上次用过的竖比例"（默认 9:16）、横场景回横比例（默认 16:9），
+   *  这样用户点过 3:4 之后，套竖场景不会被硬拉回 9:16。
+   *  返回给状态条的一句话；没联动或比例本来就对，返回空串。 */
+  function syncAspectFor(sc) {
+    const a = String((sc && sc.aspect) || "");
+    if (a !== "portrait" && a !== "landscape") return "";
+    const m = a === "landscape" ? "l" : "p";
+    const target = FRAME_RATIOS[m].includes(ui.frameMemo[m])
+      ? ui.frameMemo[m] : FRAME_RATIOS[m][0];
+    const changed = target !== ui.frameRatio;
+    ui.frameRatio = target;
+    paintFrameBar();
+    rememberUi();
+    const res = applyFrameToGraph();
+    if (!res.hit) {
+      return `推荐画幅${FRAME_LABEL[m]}，但工作流里没找到比例节点（未改）`;
+    }
+    return changed ? `画幅已切到 ${res.ratio} · ${res.w}×${res.h}` : "";
   }
 
   /* ── 头部 ── */
@@ -759,6 +1110,11 @@ function buildPanel(node) {
       // 否则会带着一个界面上看不见的筛选（列表莫名其妙变短）。
       if (key !== "art") ui.sceneBg = "";
       ui.tab = key;
+      /* v6.9.4：切页签**显式回顶**。
+         页内重绘已经改成保位置（keepLeftTop），若不在这里清零，
+         从「角色库」切到「场景搭配」会带着上一页的 scrollTop，
+         停在中段看着像"列表缺了前半截"。 */
+      left.scrollTop = 0;
       syncTabs();
     };
     tabs.appendChild(b);
@@ -791,6 +1147,10 @@ function buildPanel(node) {
   const spacer = document.createElement("div");
   spacer.style.flex = "1";
   head.appendChild(spacer);
+
+  /* v6.26.0：画幅按钮平铺在标题栏右侧（免责声明左边的空白处）——
+     任何页签下都看得见、点一下直接改工作流比例。 */
+  head.appendChild(buildFrameBar());
 
   // 免责声明入口放头部而不是底部：它得在任何页签下都看得见，
   // 而底部两列都在滚动容器里，会被滚走。
@@ -861,6 +1221,9 @@ function buildPanel(node) {
       // v3.43.0：检索 / 收藏 / 浏览偏好一起记 —— 下次打开还在原处
       sceneQuery: ui.sceneQuery,
       sceneAspect: ui.sceneAspect,
+      // v6.26.0：画幅（当前比例 + 各方向上次用过的比例），按节点随工作流走
+      frameRatio: ui.frameRatio,
+      frameMemo: { ...ui.frameMemo },
       sceneTheme: ui.sceneTheme,
       sceneThemeAll: ui.sceneThemeAll,
       // v3.44.0：两条筛选条的收起态（场景页题材 / 特写页部位）
@@ -870,12 +1233,16 @@ function buildPanel(node) {
       sceneFavOpen: ui.sceneFavOpen,
       sceneTipOpen: ui.sceneTipOpen,
       sceneCompact: ui.sceneCompact,
+      sceneThumb: ui.sceneThumb,
+      outfitThumb: ui.outfitThumb,
       sceneClosed: { ...ui.sceneClosed },
       nearPart: ui.nearPart,
       charWork: ui.charWork,
       charQuery: ui.charQuery,
       charTraits: [...ui.charTraits],
       charTraitOpen: ui.charTraitOpen,
+      // v6.9.4：懒加载条数 —— 与 scroll 比例配套，缺了它比例就换算错（见 ui.sceneLimit 注释）
+      sceneLimit: ui.sceneLimit,
       scroll: { left: _scrollRatio(left), right: _scrollRatio(right) },
     };
   }
@@ -887,10 +1254,51 @@ function buildPanel(node) {
     _applyRatio(left, memo.left);
     _applyRatio(right, memo.right);
     const maxL = left.scrollHeight - left.clientHeight;
-    // 左列还在"正在加载…"占位（高度不够）→ 过一会儿再试，最多约 4 秒
-    if (maxL > 8 || _scrollTries >= 40) { ui._scrollDone = true; return; }
+    /* v6.9.4：重试窗口 4 秒 → 8 秒。
+       场景搭配 JSON 866KB（574 条）+ 收藏接口是两次独立请求，冷启动时
+       「占位 → 数据到位」可能超过 4 秒；一旦超时就 `_scrollDone`，
+       位置回顶且**再也不会还原**（用户 2026-11-09 报的正是这个）。
+       放宽到 80 次只为兜住冷启动，不是要跟用户抢滚动。 */
+    if (maxL > 8 || _scrollTries >= 80) { ui._scrollDone = true; return; }
     _scrollTries += 1;
     setTimeout(restoreUiScroll, 100);
+  }
+
+  /**
+   * v6.9.4：左列「就地重绘保位置」。
+   *
+   * 为什么必须有：场景页 / 特写页的重绘第一行就是 `left.innerHTML = ""`，
+   * 浏览器在**清空的一瞬间**就把 scrollTop 打回 0（jsdom 不排版、不复现，
+   * 所以前端冒烟测不出来，只有真浏览器能看到）。于是：
+   *   · 点「✅ 一键套用」→ `applyScene()` 末尾 `renderScenes()` → 列表跳回顶部，
+   *     用户刚看的那条卡片消失，关闭面板时记下的也已经是"顶部"；
+   *   · 重开面板时 `loadSceneFavs()` 常常晚于 `restoreUiScroll()` 返回，
+   *     它再重绘一次 → 刚还原好的位置又被清零（`_scrollDone` 已是 true，
+   *     不会再纠正）。
+   * 所以凡是"内容变了但用户还在看同一处"的渲染都走这里；
+   * **切页签不在此列** —— 换页应当回顶（见 tab 按钮的 onclick）。
+   */
+  function keepLeftTop(fn) {
+    const top = left.scrollTop || 0;
+    try {
+      return fn();
+    } finally {
+      if (top) left.scrollTop = top;
+    }
+  }
+
+  /** 场景组（scenes / pose / art / weapon）按当前页签重绘，保位置。 */
+  function repaintScenesKeepTop() {
+    const r = keepLeftTop(() => {
+      if (ui.tab === "near") renderNear();
+      else if (ui.tab === "scenes" || ui.tab === "art"
+               || ui.tab === "pose" || ui.tab === "weapon") renderScenes();
+    });
+    /* v6.9.4：数据 / 收藏晚到，列表刚渲染出来 —— 立刻补一次还原，
+       不用等 restoreUiScroll 的 100ms 轮询（那是给"占位期"用的）。
+       少了这一句，重开后光标会在顶部停留最多 100ms 再跳回去。 */
+    if (!ui._scrollDone) restoreUiScroll();
+    return r;
   }
 
   /* ── 底部条：胸部大小等级（v3.17.0，取代巨乳开关）────────────────
@@ -1017,6 +1425,10 @@ function buildPanel(node) {
   let presetsSeq = 0;
   let favSeq = 0;
   let workFavSeq = 0;   // v5.0.4：作品 IP 收藏的请求序号（与角色收藏互不干扰）
+  /* v6.7.1：作品行点击的「就地刷新器」。
+     由 renderChars() 每次重绘时重新赋值（闭包里有 renderGrid / workBox），
+     作用是**不整列重建**地切换作品筛选 —— 见 buildWorkList 里 row.onclick 的说明。 */
+  let workPickHandler = null;
   function setStatus(text, cls) {
     if (!statEl) return;
     statEl.className = "av3-meta " + (cls === "ok" ? "av3-ok"
@@ -1162,6 +1574,13 @@ function buildPanel(node) {
    */
   function buildWorkList(box, d) {
     const wf = ui.workFav || new Set();
+    // ⚠️ v6.7.1：重建前记住滚动位置，建完还原。
+    //    作品列表 289 行、可视高度只有 520px，`innerHTML = ""` 会把 scrollTop
+    //    打回 0 —— 用户 2026-11-08 报的「点下面的作品 IP 会强制跳回置顶 IP」
+    //    就是这个（顶部恰好是「全部作品 / ⭐我的收藏 / 收藏置顶的作品」）。
+    //    行点击已经改成就地刷新（见 row.onclick），这条保底覆盖**收藏 ☆
+    //    触发的原地重填**，以及 loadWorkFavorites 晚到时的重填。
+    const keepTop = box.scrollTop || 0;
     box.innerHTML = "";
     const mkWork = (id, label, count, fav, togglable) => {
       const row = document.createElement("div");
@@ -1190,7 +1609,13 @@ function buildPanel(node) {
       row.onclick = () => {
         ui.charWork = id;
         ui.charLimit = 96;
-        renderChars();
+        /* ⚠️ v6.7.1 BUG 修复（用户 2026-11-08「点下面的作品 IP 会强制显示到
+           置顶 IP 作品」）：这里**不能再调 renderChars()**。
+           它会 `left.innerHTML = ""` 整列重画，作品列表的 scrollTop 跟着归零，
+           看上去就是"列表自己跳回顶部那几个置顶收藏 IP"。
+           就地改选中态 + 只重绘网格即可（与特征面板同一套思路，见 2561 行注释）。 */
+        if (workPickHandler) workPickHandler(id);
+        else renderChars();          // 兜底：极端情况下没有刷新器才整列重画
       };
       return row;
     };
@@ -1210,6 +1635,8 @@ function buildPanel(node) {
     all.filter((w) => !wf.has(w.id))
        .forEach((w) => box.appendChild(
          mkWork(w.id, w.zh || w.en, w.count, false, true)));
+
+    box.scrollTop = keepTop;    // v6.7.1：还原滚动位置（见函数头注释）
   }
 
   /**
@@ -2501,6 +2928,13 @@ function buildPanel(node) {
       return;
     }
 
+    /* v6.7.1：整列重画前记住作品列表的滚动位置，建完还原。
+       行点击已经走 workPickHandler（就地刷新）了，这里保底覆盖其余会
+       整列重建的路径：特征筛选开关 / 清除已选角色 / 多选点卡片 /
+       切页签回来 —— 否则每次都会"跳回置顶 IP"。 */
+    const _prevWorks = left.querySelector(".av3-works");
+    const keepWorkTop = _prevWorks ? (_prevWorks.scrollTop || 0) : 0;
+
     left.innerHTML = "";
     left.classList.add("charmode");   // v6.1.0：网格撑满剩余高度（见 .av3-left.charmode）
     const sel = selectedList();
@@ -2988,6 +3422,7 @@ function buildPanel(node) {
 
     /* 作品列表（v5.0.4 起抽成 buildWorkList：收藏的 IP 置顶 + 行尾 ★） */
     buildWorkList(workBox, d);
+    workBox.scrollTop = keepWorkTop;   // v6.7.1：见上面 keepWorkTop 的说明
 
     /* 角色网格 */
     const cardEls = new Map();
@@ -3311,6 +3746,28 @@ function buildPanel(node) {
       }
     }
 
+    /* ── v6.7.1：作品行点击的就地刷新器 ──────────────────────────────
+       定义在 renderChars 闭包里才拿得到 workBox / gridBox / renderGrid；
+       每次重绘重新赋值，不残留指向脱离文档的旧节点。
+       做三件事，**不重建左栏**（重建=滚动归零=用户看到的"跳回置顶 IP"）：
+         ① 就地切换 .av3-work 的 on 类；
+         ② 特征面板开着的话重建它（命中数是按当前作品范围算的，不重建就是旧数字）；
+         ③ 重绘网格（内容变了，网格自然回到顶部，这是对的）。
+       注：paintChips/paintPool 不依赖 charWork，已选角色与随机池都不受影响。 */
+    workPickHandler = (id) => {
+      for (const el of workBox.querySelectorAll(".av3-work")) {
+        el.classList.toggle("on", (el.dataset.work || "") === id);
+      }
+      if (ui.charTraitOpen) {
+        const old = left.querySelector(".av3-traitpanel");
+        const fresh = buildTraitPanel();
+        if (old) old.replaceWith(fresh);
+        else left.appendChild(fresh);
+      }
+      gridBox.scrollTop = 0;
+      renderGrid();
+    };
+
     paintChips();
     paintPool();
     renderGrid();
@@ -3398,10 +3855,9 @@ function buildPanel(node) {
         ui.scenesLoading = false;
         // ⚠️ v5.1.0："pose" 也必须在这里重绘 —— 少了它，切到姿势库后数据回来了
         //    界面却永远停在「正在加载姿势库…」（前端冒烟抓到的真 bug）。
-        if (ui.tab === "scenes" || ui.tab === "art" || ui.tab === "pose"
-            || ui.tab === "weapon") {
-          renderScenes();
-        } else if (ui.tab === "near") renderNear();
+        // v6.9.4：改走 repaintScenesKeepTop —— 数据晚到时别把已经还原好的
+        //    滚动位置冲掉（面板重开时它常常晚于 restoreUiScroll）。
+        repaintScenesKeepTop();
       })
       .catch((e) => {
         ui.scenesLoading = false;
@@ -3465,7 +3921,14 @@ function buildPanel(node) {
     } else {
       setStatus("已关闭勾选池自动随机：场景恢复成不自动套用", "warn");
     }
-    repaintScenePage(ui.tab === "near" ? "near" : "scenes");
+    /* v6.22.0：只在场景类页签重绘左列。
+       以前无条件重绘 —— 从右栏「已套用」的 ✕ 关掉时，当前可能停在角色库 /
+       服装库 / 词库，重绘会把左列刷成场景列表，页签与内容当场对不上。 */
+    if (["scenes", "pose", "art", "weapon", "near"].includes(ui.tab)) {
+      repaintScenePage(ui.tab === "near" ? "near" : "scenes");
+    }
+    // v6.22.0：右栏「已套用」里那行「🎯 勾选池随机」跟着开关走
+    refreshApplied();
   }
 
   /** 只更新工具条的计数与按钮可用性 —— 不重画整页，勾选时滚动位置不跳。 */
@@ -3842,8 +4305,10 @@ function buildPanel(node) {
     return ui.weights._autoLevel !== false;
   }
 
-  /** 把等级抬到场景档位（只升不降）。返回提示文案，空串 = 没动。 */
-  function syncLevelFor(sc) {
+  /** 把等级抬到该条目的档位（只升不降）。返回提示文案，空串 = 没动。
+   *  `baseKey` 决定撤销基线写进哪个槽：场景/特写用 `_levelBase`，
+   *  服装库用 `_libLevelBase`（v6.25.0）—— 两条「取消时还回去」的路径互不覆盖。 */
+  function syncLevelFor(sc, baseKey) {
     if (!autoLevelOn()) return "";
     const want = Math.max(0, Math.min(4, Number(sc.level ?? 0)));
     const cur = LEVEL_KEYS.indexOf(String(lsGet(node, "nsfw_level", "sfw")));
@@ -3852,10 +4317,26 @@ function buildPanel(node) {
     wset(node, "nsfw_level", LEVEL_KEYS[want]);
     ui.level = LEVEL_KEYS[want];
     // 记下这次自动调整：取消套用时，只有"等级还停在自动升上去的那档"才还回去
-    ui.weights._levelBase = {
+    ui.weights[baseKey || "_levelBase"] = {
       from: LEVEL_KEYS[cur], to: LEVEL_KEYS[want], at: sc.id,
     };
     return `等级已自动从「${LEVEL_SHORT[LEVEL_KEYS[cur]]}」升到「${LEVEL_SHORT[LEVEL_KEYS[want]]}」`;
+  }
+
+  /** v6.25.0：停用服装库时把自动升过的等级还回去。
+   *  判据同场景：**只在等级还停在"它自己升上去"的那一档**时才还原 ——
+   *  用户手动改过（比如又调到 extreme）就不许撤销动作吃掉他的选择。 */
+  function restoreLibLevel() {
+    const lb = ui.weights._libLevelBase;
+    if (!lb) return "";
+    delete ui.weights._libLevelBase;
+    if (String(lsGet(node, "nsfw_level", "")) !== lb.to) {
+      // 等级已被用户改过 → 只丢掉基线，不动档位
+      return "";
+    }
+    wset(node, "nsfw_level", lb.from);
+    ui.level = lb.from;
+    return `等级还原为「${LEVEL_SHORT[lb.from] || lb.from}」`;
   }
 
   /** 一键套用：字段必现 + 其它预设归零 + 本预设命中。 */
@@ -3940,12 +4421,15 @@ function buildPanel(node) {
     }
     // v3.23.0：等级同步（只升不降，见 syncLevelFor 的说明）
     const lvNote = syncLevelFor(sc);
+    // v6.26.0：画幅联动（推荐 portrait/landscape 才动，both 保持不动）
+    const aspNote = syncAspectFor(sc);
     persist();
     if (ui.tab === "weights") renderTree();
     else if (ui.tab === "chars") renderChars();
-    else if (ui.tab === "near") renderNear();
-    else if (ui.tab === "scenes" || ui.tab === "art" || ui.tab === "pose"
-             || ui.tab === "weapon") renderScenes();
+    /* v6.9.4：套用后**留在原处**。以前这里直接 renderScenes()，
+       `left.innerHTML = ""` 会让浏览器把 scrollTop 归零 ——
+       用户刚点的卡片当场"消失"，关闭面板时记下的也是顶部。 */
+    else repaintScenesKeepTop();
     if (prof) {
       const parts = [];
       if (prof.sections.length) parts.push(`关 ${prof.sections.length} 段`);
@@ -3963,16 +4447,19 @@ function buildPanel(node) {
       setStatus(`已套用「${sc.zh}」：字段已固定；并按「${sc.part}」收紧取景`
         + `（${parts.join(" · ")}）`
         + (lvNote ? `；${lvNote}` : "")
+        + (aspNote ? `；${aspNote}` : "")
         + "，取消套用时全部恢复", "ok");
     } else if (noRole) {
       setStatus(`已套用「${sc.zh}」：这些字段被固定，不再参与随机`
         + "；本场景画框里没有脸 → 已清空角色并锁住 role（角色名会把镜头拉回面部）"
         + (roleUnlocked ? "；已解除残留的 role 锁" : "")
         + (lvNote ? `；${lvNote}` : "")
+        + (aspNote ? `；${aspNote}` : "")
         + "，取消套用时全部恢复", "ok");
     } else {
       setStatus(`已套用「${sc.zh}」：这些字段被固定，不再参与随机`
-        + (lvNote ? `；${lvNote}` : ""), "ok");
+        + (lvNote ? `；${lvNote}` : "")
+        + (aspNote ? `；${aspNote}` : ""), "ok");
     }
     refreshApplied();          // v6.1.0：套用后右栏「已套用」立刻显示这一条
   }
@@ -3994,16 +4481,16 @@ function buildPanel(node) {
     persist();
     if (ui.tab === "weights") renderTree();
     else if (ui.tab === "chars") renderChars();
-    else if (ui.tab === "near") renderNear();
-    else if (ui.tab === "scenes" || ui.tab === "art" || ui.tab === "pose"
-             || ui.tab === "weapon") renderScenes();
+    // v6.9.4：取消套用同样留在原处（理由见 applyScene 末尾）
+    else repaintScenesKeepTop();
     setStatus((restored
       ? "已取消套用，并把段权重 / 字段权重 / 人数袋 / 角色选择 / 锁定字段全部还回去"
       : "已取消场景套用（预设回到随机）") + lvBack, "");
     refreshApplied();          // v6.1.0：取消后右栏那行跟着消失
   }
 
-  /** v3.23.0：「套用时自动同步等级」开关 —— 场景页与特写页共用同一条。 */
+  /** v3.23.0：「套用时自动同步等级」开关 —— 场景页 / 特写页 / 服装库页共用同一条。
+   *  （v6.25.0 起服装库也走它：套用一套 L3 服装同样会把等级抬到 hardcore） */
   function autoLevelBar() {
     const bar = document.createElement("div");
     bar.className = "av3-levelbar";      // 独立 class：不抢「🎭 角色来源」那条 charbar 的位置
@@ -4031,8 +4518,8 @@ function buildPanel(node) {
       persist();
       paint();
       setStatus(cb.checked
-        ? "已开启：套用场景时自动把等级抬到场景档位（只升不降，随机抽中不动）"
-        : "已关闭：套用场景不再改动等级", "");
+        ? "已开启：套用场景 / 服装时自动把等级抬到该条目的档位（只升不降，随机抽中不动）"
+        : "已关闭：套用场景 / 服装都不再改动等级", "");
     };
     paint();
     bar.appendChild(lb);
@@ -4128,10 +4615,10 @@ function buildPanel(node) {
         ui.sceneFavLoading = false;
         // ⚠️ v5.1.0："pose" 也必须在这里重绘 —— 少了它，切到姿势库后数据回来了
         //    界面却永远停在「正在加载姿势库…」（前端冒烟抓到的真 bug）。
-        if (ui.tab === "scenes" || ui.tab === "art" || ui.tab === "pose"
-            || ui.tab === "weapon") {
-          renderScenes();
-        } else if (ui.tab === "near") renderNear();
+        // v6.9.4：**必须保位置** —— 这条请求是面板打开后第二次异步到达的，
+        //    重绘会把 restoreUiScroll 刚设好的 scrollTop 清零，
+        //    用户看到的就是"重开后又回到顶部"。
+        repaintScenesKeepTop();
       })
       .catch((e) => {
         // 拉不到收藏不该挡住浏览 —— 降级成空集合，点 ☆ 时再报错
@@ -4253,6 +4740,24 @@ function buildPanel(node) {
       repaintScenePage(which);
     };
     bar.appendChild(cb);
+
+    /* v6.19.0：「▣ 预览图」开关。
+       默认开（用户 2026-11-13：「增加预览图，目的是方便预览」）。
+       保留关闭的理由：3 列 × 60 条时，44px 的图会把标题行撑高约 14px，
+       一屏少看一条半 —— 只想快速扫标题的时候关掉更利索。
+       ⚠️ 只影响渲染，不动盘上的图；重开立刻回来（无重新请求，走缓存）。 */
+    const tmb = document.createElement("button");
+    tmb.className = "av3-btn" + (ui.sceneThumb ? " pri" : "");
+    tmb.id = prefix + "-thumb";
+    tmb.textContent = ui.sceneThumb ? "▣ 预览图" : "▢ 预览图";
+    tmb.title = ui.sceneThumb
+      ? "关掉缩略图：一屏能扫更多条（不删图，只是不显示）"
+      : "打开缩略图：标题行出 44×44 小图，展开看大图";
+    tmb.onclick = () => {
+      ui.sceneThumb = !ui.sceneThumb;
+      repaintScenePage(which);
+    };
+    bar.appendChild(tmb);
 
     /* v5.0.1（用户 2026-11-01）：「增加竖屏和通用比例、横屏和通用比例筛选功能，
        目的是快速筛选对应比例。」
@@ -4450,7 +4955,52 @@ function buildPanel(node) {
       body: JSON.stringify({ id: id || "" }),
     }).then((r) => r.json()).then((d) => {
       if (d && d.library) ui.outfitLib = d.library;
+      /* v6.25.0（用户 2026-11-14 16:46「套用服装后自动根据服装等级改变设置的等级」）：
+         套用 → 按这套的档位抬等级（**只升不降**，与场景 v3.23.0 同一口径、同一个开关）。
+         为什么必须做：服装库也有档位闸门（`_outfit_triplet()` 里 `lv < item.level`
+         直接返回空三元组），套了 L3 服装却停在 sfw，表现就是"点了没反应"。
+         为什么不做"降"：选一件 L0 日常装不该把用户手动调到的 extreme 悄悄拉回 0。
+         停用 → 只还原"自己升上去"的那一档（见 `restoreLibLevel()`）。 */
+      if (d && !d.error) {
+        if (id) {
+          const it = ((ui.outfitLib && ui.outfitLib.outfits) || [])
+            .find((o) => o.id === id);
+          const note = it ? syncLevelFor(it, "_libLevelBase") : "";
+          if (note) {
+            persist();                   // 基线要落进 weights_json，刷新后才知道该还原
+            setStatus(`👗 已套用「${it.zh}」· ${note}`, "ok");
+            syncLevel();                 // 档位条 / 左侧页签跟着刷新
+          }
+        } else {
+          const back = restoreLibLevel();
+          // 无条件 persist：基线可能已被用户的手动改档作废（restoreLibLevel 内部只 delete），
+          // 但"delete 这件事"同样要落盘，否则刷新后基线复活、误还原一次。
+          persist();
+          if (back) {
+            setStatus(`👗 服装库已关闭 · ${back}`, "ok");
+            syncLevel();
+          }
+        }
+      }
       refreshApplied();          // v6.1.0：启用/停用后右栏「已套用」同步
+      return d;
+    });
+  }
+
+  /* v6.23.0：服装库池化随机（用户 2026-11-14 14:15「先做 C」）。
+     `patch` 只带要改的键（`{on:true}` / `{cats:[...]}` …），后端按 `None=不动` 合并。
+     ⚠️ 开池化时后端会**清掉 active**（互斥），所以回来后必须重画列表 ——
+        否则卡片上还打着"已启用"的勾。
+     ⚠️ 池子状态是服务端全局态：这里不写 localStorage，也不进 weights_json。 */
+  function outfitPoolSet(patch) {
+    return api.fetchApi(`/${NS}/outfit-library/pool`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(patch || {}),
+    }).then((r) => r.json()).then((d) => {
+      if (d && d.error) { setStatus("池化设置失败：" + d.error, "no"); return d; }
+      if (d && d.library) ui.outfitLib = d.library;
+      refreshApplied();
       return d;
     });
   }
@@ -4480,33 +5030,95 @@ function buildPanel(node) {
     left.innerHTML = "";
 
     /* 1) 启用态：一句话说清"现在穿什么"，并给一个显式的关闭入口。
-          ⚠️ 必须能关 —— 不然用户想回到随机服装时无处可去。 */
+          ⚠️ 必须能关 —— 不然用户想回到随机服装时无处可去。
+       v6.23.0：改成**三态** —— 未启用 / 钉一套 / 池化随机。
+         池化与「钉一套」互斥（开池化后端清 active，反之亦然），
+         所以状态条只需要按 `pool.on` 分叉，不用同时展示两种。 */
+    const pool = (d.pool || {});
+    const poolOn = !!pool.on;
+    const poolCats = Array.isArray(pool.cats) ? pool.cats : [];
+    const catLabel = (cid) => {
+      const c = cats.find((x) => x.id === cid);
+      return (c && (c.zh || c.id)) || cid;
+    };
     const st = document.createElement("div");
     st.className = "av3-charbar";
     st.id = "av3-outfitlib-state";
     const badge = document.createElement("span");
     badge.className = "av3-meta";
-    badge.textContent = activeItem
-      ? `👗 当前启用：${activeItem.zh}（${(cats.find((c) => c.id === activeItem.cat) || {}).zh || activeItem.cat}）`
-      : "👗 当前未启用 —— 服装走随机；角色启用了自己的预设时按角色预设";
-    if (activeItem) badge.style.color = "#e8c98a";
+    if (poolOn) {
+      const scope = poolCats.length
+        ? poolCats.map(catLabel).join(" + ")
+        : "全部分类";
+      badge.textContent = `🎲 池化随机：${scope} · ${pool.count || 0} 套 · 每次运行换一套`;
+      badge.style.color = "#e8c98a";
+    } else {
+      badge.textContent = activeItem
+        ? `👗 当前启用：${activeItem.zh}（${(cats.find((c) => c.id === activeItem.cat) || {}).zh || activeItem.cat}）`
+        : "👗 当前未启用 —— 服装走随机；角色启用了自己的预设时按角色预设";
+      if (activeItem) badge.style.color = "#e8c98a";
+    }
     st.appendChild(badge);
-    if (activeItem) {
+
+    /* 池化开关。用了就说明"不想每张图都手动点一套"，所以放在最显眼的位置。 */
+    const poolLab = document.createElement("label");
+    poolLab.className = "av3-meta";
+    poolLab.style.cssText = "display:inline-flex;align-items:center;gap:5px;"
+      + "cursor:pointer;margin-left:6px";
+    const poolCb = document.createElement("input");
+    poolCb.type = "checkbox";
+    poolCb.id = "av3-outfitlib-pool";
+    poolCb.checked = poolOn;
+    poolCb.title = "勾上后**每次运行**都从服装库抽一套（按下面勾选的分类 + 当前档位）\n"
+      + "与「钉一套」互斥：勾上会取消当前启用的那一套。\n"
+      + "⚠️ seed 固定时抽到的那套是确定的；seed=-1 才每次换。";
+    poolCb.onchange = async () => {
+      poolCb.disabled = true;
+      const r = await outfitPoolSet({
+        on: poolCb.checked,
+        cats: poolCb.checked ? poolCats : [],
+      });
+      poolCb.disabled = false;
+      if (r && r.error) { setStatus("池化设置失败：" + r.error, "no"); return; }
+      setStatus(poolCb.checked
+        ? "🎲 服装库池化已开启：每次运行换一套（分类在下面选，不选 = 全部）"
+        : "👗 服装库池化已关闭：服装回到随机", "ok");
+      renderOutfitLibrary();
+    };
+    poolLab.appendChild(poolCb);
+    poolLab.appendChild(document.createTextNode("每次运行随机一套"));
+    st.appendChild(poolLab);
+
+    if (poolOn && pool._last) {
+      const lastEl = document.createElement("span");
+      lastEl.className = "av3-meta";
+      lastEl.id = "av3-outfitlib-last";
+      lastEl.style.cssText = "margin-left:8px;opacity:.8";
+      const li = items.find((o) => o.id === pool._last);
+      lastEl.textContent = `上次抽到：${(li && li.zh) || pool._last}`;
+      st.appendChild(lastEl);
+    }
+    if (activeItem || poolOn) {
       const off = document.createElement("button");
       off.className = "av3-btn";
       off.id = "av3-outfitlib-off";
-      off.textContent = "关闭（回到随机）";
+      off.textContent = poolOn ? "关闭池化" : "关闭（回到随机）";
       off.onclick = async () => {
         off.disabled = true;
-        const r = await outfitLibEnable("");
+        if (poolOn) await outfitPoolSet({ on: false, cats: [] });
+        else await outfitLibEnable("");
         off.disabled = false;
-        if (r && r.error) setStatus("关闭失败：" + r.error, "no");
-        else setStatus("👗 服装库已关闭：服装回到随机", "ok");
+        setStatus("👗 服装库已关闭：服装回到随机", "ok");
         renderOutfitLibrary();
       };
       st.appendChild(off);
     }
     left.appendChild(st);
+
+    /* v6.25.0：等级自动同步开关（服装库也吃这条）——
+       与场景页 / 特写页**共用同一个值** `weights_json._autoLevel`，
+       所以这里不再新开一套状态，只是把入口摆到看得见的地方。 */
+    left.appendChild(autoLevelBar());
 
     /* v5.5.0（用户 2026-11-05 21:27）：袜子 / 鞋子覆盖栏。
        「可以指定选择丝袜与鞋子款式以及是否穿丝袜与鞋子，两个可以分别指定也可
@@ -4514,18 +5126,45 @@ function buildPanel(node) {
        「不穿」不是特殊值 —— 写词库里的 `barefoot` / `bare feet`。 */
     left.appendChild(outfitOverrideBar(d));
 
-    /* 2) 分类条（9 类 + 全部），计数按整库算 */
+    /* 2) 分类条（11 类 + 全部），计数按整库算
+       v6.23.0：池化态下这条变**多选「参与抽签」** —— 点一下把该类加进/移出 `pool.cats`，
+       与「筛选」是两件事（筛选只影响浏览，池子影响出图）。空池 = 全部参与，
+       与后端 `cats: []` 的语义一致。 */
     const cbar = document.createElement("div");
     cbar.className = "av3-charbar";
     cbar.id = "av3-outfitlib-cats";
+    if (poolOn) {
+      const tag = document.createElement("span");
+      tag.className = "av3-meta";
+      tag.id = "av3-outfitlib-cats-mode";
+      tag.style.cssText = "opacity:.75;font-size:11px;align-self:center";
+      tag.textContent = "参与池：";
+      cbar.appendChild(tag);
+    }
     const mkCat = (cid, label, n) => {
+      const on = poolOn ? (cid ? poolCats.indexOf(cid) >= 0 : poolCats.length === 0)
+        : ui.outfitCat === cid;
       const b = document.createElement("button");
-      b.className = "av3-btn" + (ui.outfitCat === cid ? " pri" : "");
+      b.className = "av3-btn" + (on ? " pri" : "");
       b.dataset.cat = cid;
       b.textContent = `${label} ${n}`;
+      b.title = poolOn
+        ? (cid ? "点一下把这个分类加入 / 移出抽签池" : "清空池子分类 = 全部分类参与")
+        : "";
       b.onclick = () => {
-        ui.outfitCat = cid;
-        renderOutfitLibrary();
+        if (!poolOn) { ui.outfitCat = cid; renderOutfitLibrary(); return; }
+        let next;
+        if (!cid) next = [];                       // 「全部」= 清空 = 全参与
+        else next = poolCats.indexOf(cid) >= 0
+          ? poolCats.filter((x) => x !== cid)
+          : poolCats.concat([cid]);
+        b.disabled = true;
+        outfitPoolSet({ cats: next }).then(() => {
+          setStatus(next.length
+            ? `🎲 池子分类：${next.map(catLabel).join(" + ")}`
+            : "🎲 池子分类：全部分类参与", "ok");
+          renderOutfitLibrary();
+        });
       };
       cbar.appendChild(b);
     };
@@ -4538,6 +5177,11 @@ function buildPanel(node) {
     const curCat = ui.outfitCat || "";
     if (ui.outfitCatOpen) {
       for (const c of cats) mkCat(c.id, c.zh || c.id, (d.counts || {})[c.id] || 0);
+    } else if (poolOn) {
+      // 池化态收起时，把所有**参与池**的分类都留在条上 —— 少一个用户就看不全
+      for (const cid of poolCats) {
+        mkCat(cid, catLabel(cid), (d.counts || {})[cid] || 0);
+      }
     } else if (curCat) {
       // 收起时必须保留当前选中项 —— 否则用户看不出自己正在筛什么
       const c = cats.find((x) => x.id === curCat);
@@ -4575,6 +5219,22 @@ function buildPanel(node) {
     };
     q.oninput = applyQ;
     sbar.appendChild(q);
+    /* v6.21.0：「▣ 预览图」全局开关（用户 2026-11-14）。
+       只切渲染、不动盘上的图；状态随 rememberUi 记忆，重开面板保持上次。
+       与场景页 #av3-scene-thumb 同款手感和文案。 */
+    const ltmb = document.createElement("button");
+    ltmb.className = "av3-btn" + (ui.outfitThumb !== false ? " pri" : "");
+    ltmb.id = "av3-outfitlib-thumb";
+    ltmb.textContent = ui.outfitThumb !== false ? "▣ 预览图" : "▢ 预览图";
+    ltmb.title = ui.outfitThumb !== false
+      ? "收起全部预览图：只扫标题，一屏能看更多套"
+      : "展开全部预览图：全年龄 / 轻露（L0–L1）套装在标题下显示竖屏全身图";
+    ltmb.onclick = () => {
+      const nowOn = ui.outfitThumb !== false;
+      ui.outfitThumb = !nowOn;
+      renderOutfitLibrary();
+    };
+    sbar.appendChild(ltmb);
     if (ui.outfitQuery) {
       const clr = document.createElement("button");
       clr.className = "av3-btn";
@@ -4588,7 +5248,10 @@ function buildPanel(node) {
     const toks = String(ui.outfitQuery || "").toLowerCase()
       .split(/\s+/).filter(Boolean);
     const shown = items.filter((o) => {
-      if (ui.outfitCat && o.cat !== ui.outfitCat) return false;
+      /* 池化态：列表跟着池子分类收窄（与出图口径一致，看见的就是会抽到的） */
+      if (poolOn) {
+        if (poolCats.length && poolCats.indexOf(o.cat) < 0) return false;
+      } else if (ui.outfitCat && o.cat !== ui.outfitCat) return false;
       if (!toks.length) return true;
       const hay = [o.zh, o.cat, String(o.note || "")]
         .concat(o.tags || [])
@@ -4600,8 +5263,11 @@ function buildPanel(node) {
     note.className = "av3-meta";
     note.id = "av3-outfitlib-note";
     note.style.margin = "0 0 8px";
-    note.innerHTML = `共 <b>${shown.length}</b> 套 · 点卡片即<b>启用</b>（再点取消）；`
-      + `▶ 看这套锁了哪些词。档位不够的套装不会生效。`;
+    note.innerHTML = poolOn
+      ? `池内 <b>${shown.length}</b> 套 · 每次运行从池里<b>换一套</b>；`
+        + `点卡片 = <b>钉住</b>这一套并退出池化；▶ 看这套锁了哪些词。`
+      : `共 <b>${shown.length}</b> 套 · 点卡片即<b>启用</b>（再点取消）；`
+        + `▶ 看这套锁了哪些词。档位不够的套装不会生效。`;
     left.appendChild(note);
 
     const list = document.createElement("div");
@@ -4793,6 +5459,25 @@ function buildPanel(node) {
     };
     box.appendChild(hd);
 
+    /* v6.21.0：套装预览图，标题行下方等比显示、不裁剪。
+       v6.25.0：挂图范围放宽到 L0+L1（用户 2026-11-14 16:44）。
+       只在 o.thumb 且总开关打开时发请求（后端已按 `level <= OUTFIT_THUMB_MAX_LEVEL`
+       + 盘上有图判定），前端不重复判档位 —— 判据只有一份，免得两边漂移。
+       关掉开关就是纯文字卡片，不留破图标也不留空白框。 */
+    if (o.thumb && ui.outfitThumb !== false) {
+      const fig = document.createElement("div");
+      fig.className = "av3-limg";
+      const im = document.createElement("img");
+      im.loading = "lazy";
+      im.alt = o.zh || o.id;
+      im.src = outfitThumbURL(o.id);
+      im.title = "点一下在新标签页看原图";
+      im.onclick = () => window.open(im.src, "_blank");
+      im.onerror = () => fig.remove();
+      fig.appendChild(im);
+      box.appendChild(fig);
+    }
+
     const bd = document.createElement("div");
     bd.className = "bd";
     if (o.note) {
@@ -4942,6 +5627,8 @@ function buildPanel(node) {
       setStatus(pcb.checked
         ? "🎬 随机场景已开启：本次按当前档位抽一条场景搭配"
         : "🎬 随机场景已关闭：本次不套用任何自动场景", "ok");
+      // v6.22.0：右栏「已套用」里那行「🎬 随机抽取」跟着开关走
+      refreshApplied();
       repaintScenePage("scenes");
     };
     const pickTxt = document.createElement("span");
@@ -5122,6 +5809,30 @@ function buildPanel(node) {
     }
     const bgKeys = ["纯色棚拍", "双色对角", "花园俯拍", "室内实景", "黑底逆光"]
       .filter((k) => bgCnt[k]);
+    /* v6.19.1：**推荐工作流备注**（用户 2026-11-13 20:47「备注可以直接标注在上方，
+       不用每个卡片都标注」）。
+       需求本质是"整页推荐哪个工作流"，不是"逐张判断" —— 而且 art 卡本来就有
+       5 个徽标（题材/档位/画幅/字段数/仅手动），再加一个会把名称压成 0 宽。
+       文案里的模型名仍来自后端 `tpl_hint`（取当前列表里第一条非空的），
+       前端不写死 group —— 将来别的页签要标别的模型，只改 nodes.py 一处。 */
+    if (onlyArt) {
+      const hint = (base.find((s) => s.tpl_hint) || {}).tpl_hint || "";
+      if (hint) {
+        const tp = document.createElement("div");
+        tp.className = "av3-tplhint";
+        tp.id = "av3-scene-tplhint";
+        const ic = document.createElement("span");
+        ic.textContent = "⚙";
+        const tx = document.createElement("span");
+        tx.textContent = `本页 ${base.length} 条场景推荐用 ${hint} 工作流出图 —— `
+          + `巨构道具主导 + 横构图 + 人物极小，12B 撑不住体量与细节。`;
+        tp.appendChild(ic);
+        tp.appendChild(tx);
+        tp.title = "插件自带的这批预览图就是 29B（16 步 + 二采）跑出来的";
+        left.appendChild(tp);
+      }
+    }
+
     // v5.0.21：背景分类只属于艺术构图（只有 art 组有 bg 字段），
     // 在「场景搭配」页不渲染 —— 用户 2026-11-04 20:38 报的就是这条串页了。
     if (onlyArt && bgKeys.length) {
@@ -5217,8 +5928,14 @@ function buildPanel(node) {
         /* v6.4.0：姿势库与武器场景的标题长（《作品名》+ 武器名），三列时被
            ellipsis 截成「瑜…」。这两个页签改成一行两列，列宽翻倍。
            其它页签（场景搭配 / 艺术构图 / 特写）保持三列不变。 */
+        /* v6.19.1：**艺术构图也改两列**。原来 3 列（每列 280px）时，art 卡上的
+           五个徽标（题材/档位/画幅/字段数/仅手动）+ 星标把 `.t`（名称）压成
+           0 宽 —— 用户 2026-11-13 20:47 截图里标题整个消失。
+           两列后列宽翻倍，标题有位置；顺带 art 本来就是 16:9 大图，
+           560px 宽比 280px 能看清得多。 */
         grid.className = "av3-scenegrid"
-          + ((ui.tab === "pose" || ui.tab === "weapon") ? " two" : "");
+          + ((ui.tab === "pose" || ui.tab === "weapon" || ui.tab === "art")
+            ? " two" : "");
         left.appendChild(grid);
       }
       grid.appendChild(sceneCard(sc, sc.id === applied));
@@ -5594,7 +6311,16 @@ function buildPanel(node) {
       h.dataset.part = p;
       h.textContent = `${p}（${list.length}）`;
       left.appendChild(h);
-      for (const sc of list) left.appendChild(sceneCard(sc, sc.id === applied));
+      /* v6.19.1：特写页改**一行两列**（用户 2026-11-13 18:45「特写搭配场景 UI
+         界面一行改为显示俩列」）。
+         原来是一个部位标题下面单列竖直排 —— 特写卡片的标题本来就短
+         （部位 + 名称），单列把右半边全空着。两列之后同屏能多扫一屏的量。
+         ⚠️ 网格**按部位分组各建一个**，不是全页一个大网格 —— 否则展开态
+            `grid-column:1/-1` 会跨过部位标题，视觉上分不清哪张属于哪一组。 */
+      const g = document.createElement("div");
+      g.className = "av3-scenegrid two";
+      for (const sc of list) g.appendChild(sceneCard(sc, sc.id === applied));
+      left.appendChild(g);
     }
   }
 
@@ -5611,7 +6337,10 @@ function buildPanel(node) {
     const onFav = (ui.sceneFav || new Set()).has(sc.id);
     const box = document.createElement("div");
     box.className = "av3-sec" + (on ? " on" : "") + (open ? " open" : "")
-      + (ui.sceneCompact ? " compact" : "");
+      + (ui.sceneCompact ? " compact" : "")
+      // v6.19.0：「▣ 预览图」关掉时整卡带 notmb —— 小图与大图都由 CSS 收起，
+      // 卡片回到 v6.18 的高度（一屏能扫更多条）。
+      + (ui.sceneThumb === false ? " notmb" : "");
     box.dataset.scene = sc.id;
 
     const hd = document.createElement("div");
@@ -5646,6 +6375,8 @@ function buildPanel(node) {
     const arw = document.createElement("span");
     arw.className = "arw";
     arw.textContent = open ? "▼" : "▶";
+    hd.appendChild(arw);
+
     const t = document.createElement("span");
     t.className = "t";
     // v5.11.0：IP 武器条目前缀《作品名》—— 一眼看出「哪个作品的什么武器」
@@ -5742,8 +6473,48 @@ function buildPanel(node) {
     }
     box.appendChild(hd);
 
+    /* v6.19.1：场景预览图 —— **整条放在标题行下面、动作行上面**。
+       用户 2026-11-13 看图后定的：「缩略图不裁剪，直接在卡片下面展示」。
+       首版是标题行里 44×44 + `object-fit:cover`，竖构图被裁成中间一块，
+       而场景最要紧的恰恰是构图 —— 裁了就失去意义。
+       现在 `max-width/max-height` 双向限制 + `width/height:auto`，
+       浏览器等比缩放：竖图 168×300 居中、横图 300×169，两侧留空也不裁。
+       ⚠️ 只在 `sc.thumb` 为真时发请求（后端已把缺图和 nsfw 组标成 false），
+          否则补图前会有 500+ 次必然 404 的往返。 */
+    if (sc.thumb && ui.sceneThumb !== false) {
+      const fig = document.createElement("div");
+      fig.className = "av3-simg";
+      const im = document.createElement("img");
+      im.loading = "lazy";
+      im.alt = sc.zh || sc.id;
+      im.src = sceneThumbURL(sc.id);
+      im.title = "点一下在新标签页看原图";
+      im.onclick = () => window.open(im.src, "_blank");
+      // 图在盘上但坏了 / 被删了：整条摘掉，不留破图标
+      im.onerror = () => fig.remove();
+      fig.appendChild(im);
+      box.appendChild(fig);
+    } else if (!sc.thumb && ui.sceneThumb !== false && !(Number(sc.level) >= 1)) {
+      /* 缺图给一条虚线提示，而不是什么都不放 —— 781 条里必然有还没出图的
+         新场景，一条空白会让人以为「这条本来就没有图」还是「加载失败」。
+         ⚠️ **L1 及以上不出这条**（用户 2026-11-13 定：NSFW L1 及以上都
+            不加预览图）。它们不是"缺"，是"不做" —— 写「暂无预览图」会被
+            当成待补的缺图，而且擦边卡片上挂一条提示本身也不合适。
+            判据用 level 不用 group：sfw 组里也有 70 条 L1+。 */
+      const miss = document.createElement("div");
+      miss.className = "av3-simg miss";
+      miss.textContent = "暂无预览图";
+      miss.title = "tools/make_scene_thumbs.py 可以从批量出图补";
+      box.appendChild(miss);
+    }
+
     const bd = document.createElement("div");
     bd.className = "bd";
+
+    /* v6.19.1：这里**不再放大图** —— 图已经移到卡片主体（标题行下面），
+       折叠态就看得见，展开只是多出字段 chips。同一张图放两处只会让
+       展开后的卡片长得奇怪（图 + 图 + 字段）。 */
+
     if (sc.desc) {
       const de = document.createElement("div");
       de.className = "av3-meta";
@@ -6551,38 +7322,145 @@ function buildPanel(node) {
     return out;
   }
 
+  /* ── v6.22.0：右栏「已开启的随机抽取」状态行（用户 2026-11-14）─────────
+     用户：「在 UI 界面右边增加已启用随机抽取场景的显示，目的是方便取消与查看」。
+     当面确认的口径：
+       · 只显示**开着的随机通道**，不记录「上次抽到哪一条」（要的是状态，不是历史）；
+       · ✕ = 直接关掉那条通道，等价于左列复选框 / 工具条取消勾选；
+       · 并入「已套用」卡片当第 N 类行，不新开卡片；
+       · 覆盖全部通道 —— scene_pick（整库）+ pick_pool_mode（姿势/构图/特写勾选池）。
+     为什么必须并进这块：这些开关都在**左列**、随页签滚走，而右栏原来那句
+     「当前没有固定覆盖 —— 服装与场景都走随机」在随机开着时**是错的**
+     （场景正在被随机塞，只是没钉进权重），用户据此排查会一路跑偏。
+     点行内文字 = 跳到对应页签看池子 / 勾选集（"查看"那条需求）。
+     ⚠️ 三条通道都是**节点控件态**（不是服务端全局态）：关掉只需 wset + 重绘，
+        不请求后端、不碰权重表，所以零迁移、关掉立刻生效。 */
+  const RANDOM_CH_LABEL = { pose: "姿势库", art: "艺术构图", near: "特写搭配" };
+
+  function randomChannels() {
+    const out = [];
+    /* ① 整库随机：场景搭配页那条「随机抽取场景搭配（按当前 NSFW 档位）」 */
+    if (wget(node, "scene_pick", false)) {
+      out.push({
+        ch: "scene", icon: "🎬", label: "随机抽取",
+        text: `整库 · 当前 ${ui.level || "sfw"} 档 · 每次运行换一条`,
+        tab: "scenes",
+        tip: "点这一行去「场景搭配」页看候选池与那条复选框\n✕ = 关掉随机抽取场景",
+        clearTip: "关掉「随机抽取场景搭配」（等同上页取消勾选，本次起不再自动出场景）",
+        clear: () => {
+          wset(node, "scene_pick", false);
+          app.graph.setDirtyCanvas(true, true);
+          setStatus("🎬 已关闭随机抽取场景：本次不再自动套用场景搭配", "warn");
+          // 只在场景页重绘 —— 停在角色库/服装库时重绘会把左列刷成场景列表
+          if (ui.tab === "scenes") repaintScenePage("scenes");
+        },
+      });
+    }
+    /* ② 勾选池自动随机：姿势库 / 艺术构图 / 特写搭配，三组互斥（pick_pool_mode） */
+    const mode = poolMode();
+    if (mode) {
+      const n = String(wget(node, "pick_pool_ids", "") || "")
+        .split(",").filter((x) => x.trim()).length;
+      out.push({
+        ch: mode, icon: "🎯", label: "勾选池随机",
+        text: `${RANDOM_CH_LABEL[mode] || mode} · ${n} 条 · 每次运行换一条`,
+        tab: (mode === "pose" || mode === "art" || mode === "near") ? mode : "scenes",
+        tip: "点这一行去该页看勾选集\n✕ = 关掉「每次运行自动随机」（勾选集保留）",
+        clearTip: "关掉「每次运行自动随机」（勾选集保留，手动「🎲 从勾选随机」仍可用）",
+        clear: () => setPoolMode(""),
+      });
+    }
+    /* ③ 服装库池化随机（v6.23.0）—— 与前两条同一族：都是"每次运行换一条"的通道 */
+    const _libPool = (ui.outfitLib && ui.outfitLib.pool) || {};
+    if (_libPool.on) {
+      const _cats = Array.isArray(_libPool.cats) ? _libPool.cats : [];
+      const _catZh = {};
+      for (const c of ((ui.outfitLib && ui.outfitLib.categories) || [])) {
+        _catZh[c.id] = c.zh || c.id;
+      }
+      const _scope = _cats.length
+        ? _cats.map((c) => _catZh[c] || c).join(" + ")
+        : "全部分类";
+      out.push({
+        ch: "outfit", icon: "👗", label: "服装池随机",
+        text: `${_scope} · ${_libPool.count || 0} 套 · 每次运行换一套`,
+        tab: "outfits",
+        tip: "点这一行去「服装库」页看池子与上次抽到的那套\n✕ = 关掉池化（服装回到随机词库）",
+        clearTip: "关掉服装池随机（服装回到随机词库；勾选的分类会一起清空）",
+        clear: () => {
+          const p = outfitPoolSet({ on: false, cats: [] });
+          // 左列那颗开关不会自己变 —— 停在服装库页时必须重画，否则勾还留着
+          if (ui.tab === "outfits") p.then(() => renderOutfitLibrary());
+          return p;
+        },
+      });
+    }
+    return out;
+  }
+
+  /** 跳到指定页签（右栏状态行点文字用）。与页签按钮同一套动作：
+   *  清掉只属于艺术页的背景分类 / 左列回顶 / 重绘。`left.scrollTop = 0` 不能省 ——
+   *  否则会带着上一页的滚动位置停在中段，看着像"列表缺了前半截"（v6.9.4 同款）。 */
+  function jumpTab(key) {
+    if (!key || ui.tab === key) return;
+    if (key !== "art") ui.sceneBg = "";
+    ui.tab = key;
+    left.scrollTop = 0;
+    syncTabs();
+  }
+
   function renderAppliedInto(box) {
     box.innerHTML = "<h4>已套用</h4>";
     const sc = appliedSceneObj();
     const lo = activeLibOutfit();
     const ro = activeRoleOutfits();
+    const rc = randomChannels();
 
-    if (!sc && !lo && !ro.length) {
+    /* ⚠️ mkRow 原来写在 else 分支里 —— 随机通道行也要用，提到外面。
+       `opt` 是 v6.22.0 新增：{ ch } 打 data-ch 供冒烟定位；
+       { tab, tip } 让行内文字可点跳页（"查看"入口）。 */
+    const mkRow = (icon, label, text, clearFn, clearTitle, opt) => {
+      const o = opt || {};
+      const row = document.createElement("div");
+      row.className = "av3-applied-row";
+      if (o.ch) row.dataset.ch = o.ch;
+      const t = document.createElement("span");
+      t.className = "tx";
+      t.appendChild(document.createTextNode(icon + " "));
+      const b = document.createElement("b");
+      b.textContent = label;          // 角色 tag / 场景名一律走 textContent，不拼 HTML
+      t.appendChild(b);
+      t.appendChild(document.createTextNode(" · " + text));
+      if (o.tab) {
+        t.style.cursor = "pointer";
+        t.title = o.tip || "点一下跳到对应页签";
+        t.onclick = () => jumpTab(o.tab);
+      }
+      row.appendChild(t);
+      const x = document.createElement("button");
+      x.className = "av3-btn av3-applied-x";
+      x.textContent = "✕";
+      x.title = clearTitle;
+      x.onclick = async () => { await clearFn(); refreshApplied(); };
+      row.appendChild(x);
+      box.appendChild(row);
+    };
+
+    if (!sc && !lo && !ro.length && !rc.length) {
       const e = document.createElement("div");
       e.className = "av3-meta";
       e.id = "av3-applied-empty";
       e.textContent = "当前没有固定覆盖 —— 服装与场景都走随机。";
       box.appendChild(e);
     } else {
-      const mkRow = (icon, label, text, clearFn, clearTitle) => {
-        const row = document.createElement("div");
-        row.className = "av3-applied-row";
-        const t = document.createElement("span");
-        t.className = "tx";
-        t.appendChild(document.createTextNode(icon + " "));
-        const b = document.createElement("b");
-        b.textContent = label;          // 角色 tag / 场景名一律走 textContent，不拼 HTML
-        t.appendChild(b);
-        t.appendChild(document.createTextNode(" · " + text));
-        row.appendChild(t);
-        const x = document.createElement("button");
-        x.className = "av3-btn av3-applied-x";
-        x.textContent = "✕";
-        x.title = clearTitle;
-        x.onclick = async () => { await clearFn(); refreshApplied(); };
-        row.appendChild(x);
-        box.appendChild(row);
-      };
+      if (!sc && !lo && !ro.length) {
+        // 没有固定覆盖、但随机开着：旧文案在这里会误导，改成点名"随机通道开着"
+        const e = document.createElement("div");
+        e.className = "av3-meta";
+        e.id = "av3-applied-empty";
+        e.textContent = "当前没有固定覆盖（服装走随机）；随机抽取已开启：";
+        box.appendChild(e);
+      }
       if (lo) {
         mkRow("👗", "服装库", (lo.zh || lo.id),
           async () => {
@@ -6607,11 +7485,22 @@ function buildPanel(node) {
           async () => { clearScene(); },
           "取消场景套用（被固定的字段全部恢复）");
       }
+      /* v6.22.0：随机通道排在固定覆盖之后 —— 上面是"被钉死的"，下面是"开着的" */
+      for (const r of rc) {
+        mkRow(r.icon, r.label, r.text, r.clear, r.clearTip,
+          { ch: r.ch, tab: r.tab, tip: r.tip });
+      }
     }
     const hint = document.createElement("div");
     hint.className = "av3-meta";
     hint.style.cssText = "margin-top:5px;font-size:11px;opacity:.7";
-    hint.textContent = "这三项是服务端/节点里的固定覆盖，与「随机」互斥。";
+    const hasPinned = !!(sc || lo || ro.length);
+    /* v6.22.0：提示行按"有没有随机通道"分叉 —— 只有固定覆盖时保留原话 */
+    hint.textContent = rc.length
+      ? (hasPinned
+        ? "上面是固定覆盖（与随机互斥）；🎬/🎯 是开着的随机通道，每次运行换一条，✕ 直接关掉。"
+        : "🎬/🎯 是开着的随机通道：每次运行换一条，✕ 直接关掉（点行内文字可跳到该页）。")
+      : "这三项是服务端/节点里的固定覆盖，与「随机」互斥。";
     box.appendChild(hint);
   }
 

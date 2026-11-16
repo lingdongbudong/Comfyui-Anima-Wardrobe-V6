@@ -34,9 +34,7 @@ BASE = "http://127.0.0.1:8188"
 HERE = os.path.dirname(os.path.abspath(__file__))
 PLUGIN = os.path.dirname(HERE)
 
-# 12B 工作流：用环境变量 ANIMA_WF_12B 指定；不指定就用仓库里归档的 8 步版
-WF_12B = os.environ.get("ANIMA_WF_12B") or os.path.join(
-    PLUGIN, "workflows", "Anima_V6_角色面板_miaomiaoHarem_anima12_8步.json")
+WF_12B = r"C:/Users/VGBFC/Desktop/V5-Anima_miaomiaoHarem_anima12-16步-1080.json"
 WF_29B = os.path.join(PLUGIN, "workflows", "Anima-艺术构图_哑光人物_29B_16x9_api.json")
 
 # ⚠️ 本机有 http_proxy 环境变量（工具链代理）；访问 127.0.0.1 必须绕开。

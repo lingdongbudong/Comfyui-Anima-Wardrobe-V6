@@ -54,6 +54,8 @@ def main():
         ("场景搭配预设库基线", [PY, "tests/check_v3_scenes.py"]),
         ("高等级保底（到位率 / 不越档 / 人数相容）",
          [PY, "tests/check_v3_levelfloor.py", rounds]),
+        ("姿势库按档内容包（到位 / 姿势不被动 / 文案同步）",
+         [PY, "tests/check_v3_poselevel.py"]),
         ("场景档位分层（命中率 / 不越档 / 显式优先）",
          [PY, "tests/check_v3_scenelevel.py", rounds]),
         ("特写搭配基线（随机隔离 + 零影响对拍）", [PY, "tests/check_v3_near.py"]),
@@ -70,12 +72,16 @@ def main():
         ("角色服装预设基线（锁定 / 零影响）", [PY, "tests/check_v3_outfits.py"]),
         ("全局服装库基线（90 套 / 优先级 / 零影响）",
          [PY, "tests/check_v3_outfitlib.py"]),
+        ("服装库池化随机（关闭零漂移 / 复现 / 分类档位 / 泳装 / 互斥）",
+         [PY, "tests/check_v3_outfitpick.py"]),
         ("皮肤干爽过滤（词表 / 白名单 / 零漂移 / 全通道）",
          [PY, "tests/check_v3_dryskin.py"]),
         ("双女自动补位（同作品优先 / 不乱补 / 零漂移）",
          [PY, "tests/check_v3_duofill.py"]),
         ("勾选池自动随机（复现 / 特写收紧 / 抬档 / 指纹）",
          [PY, "tests/check_v3_pickpool.py"]),
+        ("非泳装场景硬禁整套泳装（锚点 / 零漂移）",
+         [PY, "tests/check_v3_swimban.py"]),
     ]:
         rc, _ = run(title, cmd)
         results.append((title, rc))

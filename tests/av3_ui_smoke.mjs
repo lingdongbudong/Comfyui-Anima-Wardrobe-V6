@@ -106,25 +106,17 @@ const RAW_BY_TAG = new Map(RAW_CHARS.characters.map((c) => [c.tag, c]));
   }
 }
 
-/* jsdom 从哪来：优先 JSDOM_PATH 环境变量，其次仓库内 node_modules、上一级 node_modules。
-   ⚠️ 别写死绝对路径 —— 别人 clone 下来必然 ENOENT。 */
-const JSDOM_ENTRY = (() => {
-  const cands = [
-    process.env.JSDOM_PATH,
-    path.join(process.cwd(), "node_modules/jsdom/lib/api.js"),
-    path.join(process.cwd(), "..", "node_modules/jsdom/lib/api.js"),
-  ].filter(Boolean);
-  for (const c of cands) if (fs.existsSync(c)) return c;
-  console.error("找不到 jsdom：先 `npm i jsdom`，或用 JSDOM_PATH 指向 jsdom/lib/api.js");
-  process.exit(4);
-})();
-const { JSDOM } = await import(pathToFileURL(JSDOM_ENTRY).href);
+const { JSDOM } = await import(
+  pathToFileURL(path.join("C:/Users/VGBFC/.workbuddy/binaries/node/workspace/node_modules/jsdom/lib/api.js")).href
+);
 
 /* ── 1. jsdom 环境 ───────────────────────────────────────────────── */
 // ⚠️ 必须挂 virtualConsole：jsdom 里事件处理函数抛的异常会被吞进
 //    virtual console，不接出来的话用例只会看到"元素没出现"，
 //    完全不知道是代码报错了。
-const vc = new (await import(pathToFileURL(JSDOM_ENTRY).href)).VirtualConsole();
+const vc = new (await import(
+  pathToFileURL(path.join("C:/Users/VGBFC/.workbuddy/binaries/node/workspace/node_modules/jsdom/lib/api.js")).href
+)).VirtualConsole();
 vc.on("jsdomError", (e) => console.error("[jsdomError]", e.detail || e));
 vc.on("error", (...a) => console.error("[jsdom console.error]", ...a));
 const dom = new JSDOM("<!doctype html><html><head></head><body></body></html>", {
@@ -166,7 +158,13 @@ fs.copyFileSync(SRC_JS, path.join(PLUG_DIR, "anima_wardrobe_v4_studio.js"));
 fs.writeFileSync(path.join(TMP, "scripts", "app.js"), `
 export const app = {
   canvas: { },
-  graph: { setDirtyCanvas() {} },
+  /* v6.26.0：画幅联动要遍历整张图找比例节点。
+     桩里用 getter 读 globalThis.__AV3_GRAPH_NODES —— 用例可以随时换一批假节点，
+     不用重新 import 模块。默认空数组 = "图里没有比例节点"（降级路径）。 */
+  graph: {
+    setDirtyCanvas() { globalThis.__AV3_DIRTY = (globalThis.__AV3_DIRTY || 0) + 1; },
+    get _nodes() { return globalThis.__AV3_GRAPH_NODES || []; },
+  },
   registerExtension(ext) { globalThis.__AV3_EXT = ext; },
 };
 `, "utf8");
@@ -215,9 +213,22 @@ let LIB_ACTIVE = "";
 let LIB_OV = { socks: "", shoes: "" };
 // v5.9.0：是否覆盖场景推荐服装（模拟 _meta.scene_override，默认关闭 = 场景优先）
 let LIB_SCENE_OV = false;
+// v6.23.0：服装库池化随机（模拟 _meta.pool）。与 LIB_ACTIVE 互斥 ——
+// 桩里也照后端语义实现，否则"开池化清 active"这条用例测不出来。
+let LIB_POOL = { on: false, cats: [], max_level: 4, ids: [], _last: "" };
+const poolCount = () => {
+  const it = (LIB_FIX.outfits || []);
+  return it.filter((o) => {
+    if (Number(o.level || 0) > Number(LIB_POOL.max_level)) return false;
+    if (LIB_POOL.ids.length) return LIB_POOL.ids.includes(o.id);
+    if (LIB_POOL.cats.length) return LIB_POOL.cats.includes(o.cat);
+    return true;
+  }).length;
+};
 const libPayload = () => Object.assign({}, LIB_FIX,
   { active: LIB_ACTIVE, overrides: Object.assign({}, LIB_OV),
-    scene_override: LIB_SCENE_OV });
+    scene_override: LIB_SCENE_OV,
+    pool: Object.assign({}, LIB_POOL, { count: poolCount() }) });
 function outfitsStub(role) {
   const k = String(role || "").toLowerCase();
   if (!OUTFIT_STUB[k]) {
@@ -315,7 +326,25 @@ globalThis.__AV3_FETCH = async (url, opts) => {
       return { ok: false, status: 400, json: async () => ({ error: "找不到这套服装" }) };
     }
     LIB_ACTIVE = oid;
+    if (oid) LIB_POOL = Object.assign({}, LIB_POOL, { on: false });   // v6.23.0 互斥
     return body({ ok: true, active: oid, library: libPayload() });
+  }
+  /* v6.23.0：/outfit-library/pool —— 必须排在 `/outfit-library` 之前（endsWith 前缀）。
+     语义照后端：`undefined` 的键不动；`on:true` 清 active；`ids` 非空则忽略 cats。 */
+  if (url.endsWith("/outfit-library/pool")) {
+    const b = arg();
+    const next = Object.assign({}, LIB_POOL);
+    if (b.on !== undefined && b.on !== null) next.on = !!b.on;
+    if (Array.isArray(b.cats)) next.cats = b.cats.slice();
+    if (b.max_level !== undefined && b.max_level !== null) {
+      next.max_level = Math.max(0, Math.min(4, Number(b.max_level) || 0));
+    }
+    if (Array.isArray(b.ids)) next.ids = b.ids.slice();
+    if (next.ids.length) next.cats = [];
+    LIB_POOL = next;
+    if (next.on) LIB_ACTIVE = "";
+    return body({ ok: true, pool: Object.assign({}, LIB_POOL, { count: poolCount() }),
+      library: libPayload() });
   }
   if (url.endsWith("/outfit-library")) return body(libPayload());
   // ── v5.0.5：角色服装预设（桩里默认启用「常服」，用来测取消启用）──
@@ -1093,6 +1122,39 @@ ck("切换作品后卡片确实换了（不是残留上一批）",
     const rec = CHAR_FIX.characters.find((x) => x.tag === c.dataset.tag);
     return rec && rec.work_id === small.id;
   }));
+
+/* ── v6.7.1 BUG 回归（用户 2026-11-08「点下面的作品 IP 会强制显示到置顶 IP 作品」）
+   根因：作品行 onclick 走 renderChars() 整列重建 → `left.innerHTML = ""`
+   → `.av3-works` 换新节点、scrollTop 归零 → 列表自己跳回顶部
+   （顶部正是「全部作品 / ⭐我的收藏 / 收藏置顶的作品 IP」）。
+
+   ⚠️ jsdom 没有布局引擎，scrollTop 恒为 0，直接断言滚动值测不出来。
+      所以这里钉**节点身份**：不重建 ⇒ 作品行与搜索框都还是同一个对象，
+      滚动位置自然不会被清（这条是那条 bug 的可测代理）。 */
+{
+  const rowSmall = rowOf(workLabel(small));
+  const rowZzz = rowOf(workLabel(zzz));
+  const qBefore = panel.querySelector(".av3-charbar input[type=text]");
+  // jsdom 不排版，但 scrollTop 是可读写的属性（实测存得住）—— 所以能直接钉滚动值
+  const worksBox = panel.querySelector(".av3-works");
+  worksBox.scrollTop = 300;
+  rowZzz.click();
+  ck("v6.7.1 点作品行后作品列表滚动位置不变（不再跳回置顶 IP）",
+    panel.querySelector(".av3-works").scrollTop === 300,
+    `${panel.querySelector(".av3-works").scrollTop}（0 = 已跳回顶部）`);
+  ck("v6.7.1 点作品行不重建左栏（作品行节点保持不变）",
+    rowOf(workLabel(small)) === rowSmall && rowOf(workLabel(zzz)) === rowZzz,
+    rowOf(workLabel(zzz)) === rowZzz ? "" : "作品行被重建 → scrollTop 归零、列表跳回置顶");
+  ck("v6.7.1 点作品行不重建搜索框（输入焦点/滚动都保得住）",
+    panel.querySelector(".av3-charbar input[type=text]") === qBefore,
+    panel.querySelector(".av3-charbar input[type=text]") === qBefore ? "" : "搜索框被重建");
+  ck("v6.7.1 就地切换后高亮只落在被点的那一行",
+    rowOf(workLabel(zzz)).classList.contains("on")
+    && !rowOf(workLabel(small)).classList.contains("on"));
+  ck("v6.7.1 就地切换后网格仍是该作品的 count",
+    cards().length === Math.min(PAGE, zzz.count),
+    `${cards().length} vs ${Math.min(PAGE, zzz.count)}`);
+}
 
 // 回全部 + 搜索
 rowOf("全部作品").click();
@@ -2108,6 +2170,59 @@ ck("首屏只渲染 60 条（懒加载生效）",
   `${sceneCards().length} 张 / more=${!!panel.querySelector("#av3-scene-more")}`);
 await loadAllScenes();
 
+/* ── 场景预览图（v6.19.1）───────────────────────────────────────
+   用户 2026-11-13 看图后改版：图从标题行的 44×44（cover 裁切）挪到
+   **卡片主体**（标题行之下、动作行之上），宽度自适应、不裁剪。
+   四条容易回归的点：
+     · 图必须在卡片主体、不能在标题行（放回去就又是裁剪）；
+     · 缺图要有一条 .miss 提示，不能空白（否则分不清「本来没有」
+       和「加载失败」）；但 nsfw 组连提示都不出 —— 它不是缺图，是不做；
+     · NSFW 组一张图都不能有（后端 thumb=false + 工具不生成）；
+     · 开关关掉后整卡带 notmb（CSS 收起，jsdom 不跑 CSS 只能验 class）。 */
+const sceneImgEls = () => [...panel.querySelectorAll(".av3-sec[data-scene] > .av3-simg")];
+const thumbWithImg = sceneImgEls().filter((e) => e.querySelector("img"));
+ck("有图的卡片在卡片主体里出图，标题行不再放缩略图",
+  thumbWithImg.length > 0
+  && !panel.querySelector(".av3-sec[data-scene] .hd .av3-sthumb"),
+  `${thumbWithImg.length} 张带图`);
+ck("图请求走 /scene-thumb/ 路由",
+  thumbWithImg.every((e) => String(e.querySelector("img").src || "").includes("/scene-thumb/")));
+
+const nsfwSceneIds = new Set(SCENE_FIX.scenes
+  .filter((s) => s.group === "nsfw").map((s) => s.id));
+const nsfwSceneCards = sceneCards().filter((c) => nsfwSceneIds.has(c.dataset.scene));
+
+const missEls = [...panel.querySelectorAll(".av3-sec[data-scene] > .av3-simg.miss")];
+/* ⚠️ 不写 `missEls.length > 0`：图补满之后（全库 561 条 L0 都有图）这条会变成
+   「必须先有缺图才能通过」，纯属给未来加锁。判据只对"提示与图不能同时出现"负责。 */
+ck("有图的卡不出「暂无预览图」提示，出提示的必须是没图的",
+  missEls.every((e) => e.textContent.includes("暂无"))
+  && thumbWithImg.every((e) => !e.classList.contains("miss")),
+  `${missEls.length} 条提示 / ${thumbWithImg.length} 张带图`);
+const sceneLevelOf = new Map(SCENE_FIX.scenes.map((s) => [s.id, Number(s.level) || 0]));
+const l0ThumbCards = sceneCards().filter((c) => (sceneLevelOf.get(c.dataset.scene) || 0) === 0);
+const l1ThumbCards = sceneCards().filter((c) => (sceneLevelOf.get(c.dataset.scene) || 0) >= 1);
+ck("L0 卡片都有图槽，L1 及以上卡片一个都没有",
+  l0ThumbCards.length > 0 && l1ThumbCards.length > 0
+  && l0ThumbCards.every((c) => !!c.querySelector(".av3-simg"))
+  && l1ThumbCards.every((c) => !c.querySelector(".av3-simg")),
+  `L0 ${l0ThumbCards.length} 张（带槽 ${l0ThumbCards.filter((c) => c.querySelector(".av3-simg")).length}）`
+  + ` / L1+ ${l1ThumbCards.length} 张（带槽 ${l1ThumbCards.filter((c) => c.querySelector(".av3-simg")).length}）`);
+ck("NSFW 场景卡一张图都不出（后端 thumb=false + 前端不渲染）",
+  nsfwSceneCards.length > 0
+  && nsfwSceneCards.every((c) => !c.querySelector(".av3-simg img")),
+  `${nsfwSceneCards.length} 张 nsfw 卡，带图 ${nsfwSceneCards.filter((c) => c.querySelector(".av3-simg img")).length}`);
+
+// 开关：关掉 → 每张卡带 notmb；再开 → 全部摘掉
+panel.querySelector("#av3-scene-thumb").click();
+await sleep(20);
+ck("关掉「▣ 预览图」后每张卡都带 notmb",
+  sceneCards().length > 0 && sceneCards().every((c) => c.classList.contains("notmb")));
+panel.querySelector("#av3-scene-thumb").click();
+await sleep(20);
+ck("再打开后 notmb 全部摘掉（不残留）",
+  !sceneCards().some((c) => c.classList.contains("notmb")));
+
 // v3.18.0：这一页只列**场景搭配**；特写搭配在第五个页签，不混排。
 // v5.0.21：艺术构图（manual_only）也已独立成页签，本页不再收录 → 判据回到 `!manual`。
 // v5.1.0：姿势已独立成页签 —— 场景搭配页只剩 sfw + nsfw
@@ -2162,6 +2277,25 @@ ck("艺术构图页改为「勾选后随机」工具条",
 ck("艺术构图卡都带勾选框",
   sceneCards().length > 0
   && sceneCards().every((c) => !!c.querySelector("input.av3-pick")));
+
+/* v6.19.1（用户 2026-11-13 18:44「再给艺术构图场景标注使用推荐的 29B 工作流」）：
+   art 组是巨构道具 + 16:9 + 人物极小，12B 撑不住体量与细节。
+   徽标由后端 `tpl_hint` 驱动（不是前端写死 group），所以这里同时验两件事：
+   艺术构图卡都有 ⚠️ 且文案对，别的页签不该有这个徽标。 */
+/* v6.19.1 改版（用户 2026-11-13 20:47「备注可以直接标注在上方，不用每个卡片
+   都标注」+「现在场景名称看不到了」）：
+   29B 提示从**卡片徽标**挪到**页面顶部一条常驻说明**；art 页同时从 3 列改 2 列
+   —— 原来 3 列 280px 时，五个徽标把 `.t`（名称）压成 0 宽，标题整个看不见。 */
+const tplHintEl = panel.querySelector("#av3-scene-tplhint");
+ck("艺术构图页顶部有「29B · 16:9」推荐工作流备注",
+  !!tplHintEl && /29B/.test(tplHintEl.textContent) && /16:9/.test(tplHintEl.textContent),
+  tplHintEl ? tplHintEl.textContent.slice(0, 42) : "（没有备注条）");
+ck("艺术构图卡上不再逐张挂 29B 徽标（否则又挤掉标题）",
+  sceneCards().every((c) => !c.querySelector(".av3-tpl")));
+ck("艺术构图改一行两列（列宽翻倍，标题才显示得下）",
+  sceneCards().length > 0
+  && sceneCards().every((c) => !!c.closest(".av3-scenegrid.two")),
+  `${sceneCards().length} 张卡 / ${panel.querySelectorAll(".av3-scenegrid.two").length} 个两列网格`);
 /* v6.7.0：勾选池「每次运行自动随机」—— 三组互斥，同时只能开一组 */
 const wPool = (k) => String((node.widgets.find((w) => w.name === k) || {}).value || "");
 const artAutoCb = () => panel.querySelector("#av3-pick-auto-art");
@@ -2222,8 +2356,8 @@ tabBtns[6].click();
 await sleep(80);
 const weaponTotal = SCENE_FIX.scenes.filter((s) => s.group === "weapon").length;
 await loadAllScenes();
-ck("武器场景页只列 group=weapon 的 80 条",
-  sceneCards().length === weaponTotal && weaponTotal === 80,
+ck("武器场景页只列 group=weapon 的场景（数量动态）",
+  sceneCards().length === weaponTotal && weaponTotal >= 80,
   `${sceneCards().length} vs ${weaponTotal}`);
 ck("武器场景卡片 id 全是 sc_wp_ 前缀",
   sceneCards().every((c) => (c.dataset.scene || "").startsWith("sc_wp_")));
@@ -2464,8 +2598,12 @@ const pickLibCat = async (cat) => {
   await sleep(50);
 };
 await pickLibCat("swim");
-ck("点「泳装内衣」只留该类 10 套", libCards().length === 10,
-  `${libCards().length}`);
+/* v6.24.0：条数改动态 —— 夹具由 `dump_ui_fixtures` 从真后端导，写死 10 一加套就红
+   （v6.18.0 武器页踩过同一个坑）。判据改成"等于夹具里该分类的条数且 > 0"。 */
+ck("点「泳装内衣」只留该类的套（条数随库变）",
+  libCards().length === (LIB_FIX.outfits || []).filter((o) => o.cat === "swim").length
+  && libCards().length > 0,
+  `${libCards().length} vs ${(LIB_FIX.outfits || []).filter((o) => o.cat === "swim").length}`);
 await pickLibCat("");
 ck("点「全部」恢复全量", libCards().length === LIB_FIX.outfits.length,
   `${libCards().length}`);
@@ -2493,11 +2631,16 @@ libCards()[0].querySelector(".arw").click();
 await sleep(40);
 ck("再点 ▶ 收起", !/\bopen\b/.test(libCards()[0].className),
   libCards()[0].className);
-/* 两列网格：jsdom 不算 grid 布局，但样式表里必须有这条规则（否则真浏览器是单列） */
-ck("服装库列表是两列网格（样式表里有 grid-template-columns:repeat(2…）",
+/* 三列网格（v6.25.1 从两列改三列）：jsdom 不算 grid 布局，但样式表里必须有这条规则
+   （否则真浏览器会退回单列，一屏只能看两张）。 */
+ck("服装库列表是一行三列网格（样式表里有 grid-template-columns:repeat(3…）",
   [...document.querySelectorAll("style")].some((st) =>
-    /#av3-outfitlib-list\{[^}]*grid-template-columns:repeat\(2/.test(st.textContent || "")),
-  "找不到两列规则");
+    /#av3-outfitlib-list\{[^}]*grid-template-columns:repeat\(3/.test(st.textContent || "")),
+  "找不到三列规则");
+ck("展开的卡片跨整行（三列下不挤成一条窄柱）",
+  [...document.querySelectorAll("style")].some((st) =>
+    /#av3-outfitlib-list>\.av3-sec\.open\{grid-column:1 \/ -1/.test(st.textContent || "")),
+  "找不到跨行规则");
 ck("启用态条显示当前启用的那一套",
   /当前启用/.test(panel.querySelector("#av3-outfitlib-state")?.textContent || ""),
   panel.querySelector("#av3-outfitlib-state")?.textContent || "");
@@ -2512,6 +2655,94 @@ ck("点「关闭」后回到未启用",
 ck("关闭后右栏「已套用」的服装库行跟着消失",
   !/服装库/.test(panel.querySelector("#av3-applied")?.textContent || ""),
   panel.querySelector("#av3-applied")?.textContent || "");
+
+/* ── v6.23.0：服装库池化随机（用户 2026-11-14「先做 C」）──────────────
+   守五件事：① 开关默认不勾；② 勾上后状态条变「池化随机」并给出套数；
+            ③ 池化态点分类 = 加入抽签池（多选，不是筛选）；
+            ④ 点卡片钉一套 → 池化自动关闭（互斥）；
+            ⑤ 右栏「已套用」出现「👗 服装池随机」行，✕ 能关掉。 */
+const poolCb = () => panel.querySelector("#av3-outfitlib-pool");
+const libState = () => panel.querySelector("#av3-outfitlib-state")?.textContent || "";
+ck("服装库页有「每次运行随机一套」开关，默认不勾",
+  !!poolCb() && poolCb().checked === false);
+poolCb().checked = true;
+poolCb().dispatchEvent(new dom.window.Event("change"));
+await sleep(120);
+ck("勾上后状态条变「池化随机」并给出套数",
+  /池化随机/.test(libState()) && /套/.test(libState()), libState());
+ck("勾上后发出 /outfit-library/pool 且桩里的 on = true",
+  CALLS.some((c) => c.url.endsWith("/outfit-library/pool")) && LIB_POOL.on === true,
+  String(LIB_POOL.on));
+ck("开池化会清掉「钉的那套」（互斥）", LIB_ACTIVE === "", LIB_ACTIVE);
+const outfitPoolRow = () => panel.querySelector('#av3-applied .av3-applied-row[data-ch="outfit"]');
+ck("右栏「已套用」出现「👗 服装池随机」行（带分类与套数）",
+  !!outfitPoolRow() && /每次运行换一套/.test(outfitPoolRow()?.textContent || ""),
+  outfitPoolRow()?.textContent || "");
+
+// ⚠️ 分类按钮每次点完都会整页重绘 → 必须重新 query，旧节点已脱离 DOM（click 无效）
+const catBtnNow = () => [...panel.querySelectorAll("#av3-outfitlib-cats button[data-cat]")]
+  .find((b) => b.dataset.cat);
+ck("池化态分类条带「参与池」提示", !!catBtnNow()
+  && /参与池/.test(panel.querySelector("#av3-outfitlib-cats")?.textContent || ""));
+const _catId = catBtnNow().dataset.cat;
+catBtnNow().click();
+await sleep(120);
+ck("点分类 = 加进抽签池（不是切换筛选）",
+  LIB_POOL.cats.length === 1 && LIB_POOL.cats[0] === _catId,
+  JSON.stringify(LIB_POOL.cats));
+catBtnNow().click();
+await sleep(120);
+ck("再点一次 = 移出抽签池（移空 = 全部分类）", LIB_POOL.cats.length === 0,
+  JSON.stringify(LIB_POOL.cats));
+
+/* 点卡片 = 钉住这套（点击区域是标题行 `.hd`，不是整个卡片框） */
+libCards()[0].querySelector(".hd").click();
+await sleep(160);
+ck("池化态点卡片 = 钉住这套并退出池化（互斥）",
+  LIB_POOL.on === false && LIB_ACTIVE !== "", `pool=${LIB_POOL.on} active=${LIB_ACTIVE}`);
+
+/* 再开一次池化，验右栏 ✕ */
+poolCb().checked = true;
+poolCb().dispatchEvent(new dom.window.Event("change"));
+await sleep(120);
+ck("重新勾上 → 右栏那行回来", !!outfitPoolRow());
+outfitPoolRow()?.querySelector(".av3-applied-x")?.click();
+await sleep(140);
+ck("点右栏 ✕ 关掉池化：行消失、开关回未勾、桩里 on = false",
+  !outfitPoolRow() && poolCb().checked === false && LIB_POOL.on === false,
+  `row=${!!outfitPoolRow()} cb=${poolCb().checked} on=${LIB_POOL.on}`);
+
+/* ── v6.25.0：套用服装 → 按套的档位自动抬等级（用户 2026-11-14 16:46）──────
+   口径与场景 v3.23.0 一致：**只升不降**、只认手动套用、停用时只还原
+   "自己升上去的那一档"。服装库也有档位闸门，不抬档就是"点了没反应"。 */
+const lvWidget = () => node.widgets.find((w) => w.name === "nsfw_level");
+const lvNow = () => String(lvWidget()?.value || "");
+const offNow = () => panel.querySelector("#av3-outfitlib-off");
+if (offNow()) { offNow().click(); await sleep(140); }   // 清干净：先确保没启用任何套
+lvWidget().value = "sfw";
+ck("服装库页有「套用时自动同步 NSFW 等级」开关",
+  !!panel.querySelector("#av3-autolevel"));
+const l1Card = libCards().find((c) => /L1/.test(c.textContent || ""));
+ck("夹具里有 L1 套装（用于验抬档）", !!l1Card);
+l1Card.querySelector(".hd").click();
+await sleep(200);
+ck("套用 L1 服装 → 等级自动抬到 suggestive",
+  lvNow() === "suggestive", lvNow());
+ck("抬档基线记在 _libLevelBase（与场景的 _levelBase 分开）",
+  !!(JSON.parse(node.widgets.find((w) => w.name === "weights_json").value || "{}")
+    ._libLevelBase), "没写入");
+offNow().click();
+await sleep(200);
+ck("停用服装 → 等级还原为 sfw（只还原自己升上去的那一档）",
+  lvNow() === "sfw", lvNow());
+ck("停用后基线被清掉", !(JSON.parse(
+  node.widgets.find((w) => w.name === "weights_json").value || "{}")._libLevelBase));
+/* 挂图闸门：v6.25.0 放宽到 L0+L1，但 L2+ 仍然一张都不许挂 */
+ck("带预览图的套档位都在 L0–L1（L2+ 不挂图）",
+  (LIB_FIX.outfits || []).filter((o) => o.thumb)
+    .every((o) => Number(o.level || 0) <= 1),
+  String((LIB_FIX.outfits || []).filter((o) => o.thumb && Number(o.level || 0) > 1)
+    .map((o) => o.id)));
 /* v6.1.1：角色库网格的行高必须钉在内容上 —— 只断言 CSS 规则存在
    （jsdom 不做布局，真浏览器里少了 max-content 就会被压成扁条）。 */
 ck("角色库网格显式钉住行高（align-content:start + grid-auto-rows:max-content）",
@@ -2752,6 +2983,57 @@ pickCb().dispatchEvent(new dom.window.Event("change"));
 await sleep(30);
 ck("取消勾选后写回 false", spVal() === false, String(spVal()));
 
+/* ── v6.22.0：右栏「已套用」里显示开着的随机通道（用户 2026-11-14）──
+   口径：只显示状态、不记历史；✕ = 关掉那条通道；点行内文字跳到该页。 */
+const appliedCh = (ch) => panel.querySelector(`#av3-applied .av3-applied-row[data-ch="${ch}"]`);
+const pickCb2 = () => panel.querySelector("#av3-scene-pick-cb");
+ck("随机场景关着时右栏没有 scene 随机行", !appliedCh("scene"),
+  panel.querySelector("#av3-applied")?.textContent || "");
+pickCb2().checked = true;
+pickCb2().dispatchEvent(new dom.window.Event("change"));
+await sleep(60);
+ck("勾上随机场景 → 右栏立刻出现「🎬 随机抽取」行（含当前档位）",
+  !!appliedCh("scene") && /当前 \w+ 档/.test(appliedCh("scene")?.textContent || ""),
+  appliedCh("scene")?.textContent || panel.querySelector("#av3-applied")?.textContent || "");
+ck("有随机通道但无固定覆盖时，空态文案不再说「场景都走随机」",
+  !/服装与场景都走随机/.test(panel.querySelector("#av3-applied")?.textContent || ""),
+  panel.querySelector("#av3-applied")?.textContent || "");
+appliedCh("scene")?.querySelector(".av3-applied-x")?.click();
+await sleep(60);
+ck("点 ✕ 关掉随机通道 → 该行消失且 scene_pick 回 false",
+  !appliedCh("scene") && spVal() === false,
+  `${!!appliedCh("scene")} / ${String(spVal())}`);
+
+/* 勾选池通道（pick_pool_mode，三组互斥）同样出一行，✕ 关掉但勾选集留在内存里 */
+const tabByText = (t) => [...panel.querySelectorAll(".av3-tabs button")]
+  .find((b) => (b.textContent || "").includes(t));
+tabByText("姿势库").click();
+await sleep(80);
+const autoPoseCb = () => panel.querySelector("#av3-pick-auto-pose");
+ck("姿势库工具条有「每次运行自动随机」复选框", !!autoPoseCb());
+autoPoseCb().checked = true;
+autoPoseCb().dispatchEvent(new dom.window.Event("change"));
+await sleep(60);
+const poseRow = () => appliedCh("pose");
+ck("勾上池子自动随机 → 右栏出现「🎯 勾选池随机」行（带条数）",
+  !!poseRow() && /姿势库 · \d+ 条/.test(poseRow()?.textContent || ""),
+  poseRow()?.textContent || panel.querySelector("#av3-applied")?.textContent || "");
+poseRow()?.querySelector(".av3-applied-x")?.click();
+await sleep(60);
+ck("点 ✕ 关掉池子随机 → 行消失、pick_pool_mode 回空",
+  !poseRow() && wPool("pick_pool_mode") === "", wPool("pick_pool_mode"));
+autoPoseCb().checked = true;
+autoPoseCb().dispatchEvent(new dom.window.Event("change"));
+await sleep(60);
+ck("重新勾上时 ids 从内存勾选集重建（✕ 只关开关、不丢勾选）",
+  wPool("pick_pool_ids").split(",").filter(Boolean).length > 0,
+  wPool("pick_pool_ids").slice(0, 60));
+autoPoseCb().checked = false;
+autoPoseCb().dispatchEvent(new dom.window.Event("change"));
+await sleep(60);
+tabByText("场景搭配").click();
+await sleep(80);
+
 // ② 题材快捷筛选条
 const themeBar = () => panel.querySelector("#av3-scene-themes");
 ck("有题材快捷筛选条", !!themeBar());
@@ -2767,7 +3049,7 @@ ck("题材条里有 BDSM", !!themeBtn("BDSM"),
 themeBtn("BDSM").click();
 await sleep(30);
 ck("选题材后只剩该题材的卡",
-  sceneCards().length === 18 && sceneCards().every((c) => /【BDSM】/.test(c.textContent)),
+  sceneCards().length === 19 && sceneCards().every((c) => /【BDSM】/.test(c.textContent)),
   `${sceneCards().length} 张`);
 ck("选中的题材按钮高亮",
   /pri/.test(themeBtn("BDSM")?.className || ""), themeBtn("BDSM")?.className);
@@ -2815,8 +3097,8 @@ ck("收起后题材 chip 全部消失",
 ck("收起后仍显示当前题材（不会筛掉一半却看不出原因）",
   /当前：BDSM/.test(panel.querySelector("#av3-scene-themesum")?.textContent || ""),
   panel.querySelector("#av3-scene-themesum")?.textContent || "（没有摘要）");
-ck("收起后筛选仍然生效（卡片还是那 18 条 BDSM）",
-  sceneCards().length === 18 && sceneCards().every((c) => /【BDSM】/.test(c.textContent)),
+ck("收起后筛选仍然生效（卡片还是那 19 条 BDSM）",
+  sceneCards().length === 19 && sceneCards().every((c) => /【BDSM】/.test(c.textContent)),
   `${sceneCards().length} 张`);
 ck("收起态箭头变 ▸",
   /▸/.test(themeTog()?.textContent || ""), themeTog()?.textContent);
@@ -3110,6 +3392,14 @@ ck("特写页卡片数 == 载荷里的 manual 条数",
 ck("特写卡都带「🔍 仅手动」角标",
   nearCards().every((c) => c.textContent.includes("仅手动")),
   nearCards().filter((c) => !c.textContent.includes("仅手动")).map((c) => c.dataset.scene).join("/"));
+/* v6.19.1（用户 2026-11-13 18:45「特写搭配场景 UI 界面一行改为显示俩列」）：
+   原来按部位分组、每组下面单列竖排 —— 特写标题本来就短，右半边全空着。
+   改法是**每个部位分组各建一个 .av3-scenegrid.two**（不是全页一个大网格，
+   否则展开态 grid-column:1/-1 会跨过部位标题）。 */
+ck("特写卡片都挂在两列网格里（按部位分组各一个 .two 容器）",
+  nearCards().length > 0
+  && nearCards().every((c) => !!c.closest(".av3-scenegrid.two")),
+  `${nearCards().length} 张卡 / ${panel.querySelectorAll(".av3-scenegrid.two").length} 个两列网格`);
 const LOCAL_PARTS = ["腿部", "脚部", "手部", "臀部"];
 const wOfRW = () => String(node.widgets.find((w) => w.name === "role_works").value || "");
 const roleSrc = panel.querySelector("#av3-near-rolesrc");
@@ -3663,6 +3953,189 @@ ck("重开后停在艺术构图（v5.0.23 修的 bug）",
   onTab4 ? onTab4.textContent : "无");
 ck("重开到艺术构图时没有分组条（页签即分组）",
   !panel4?.querySelector("#av3-scene-groups"));
+[...document.body.querySelectorAll(".av3-mask .av3-btn")]
+  .filter((b) => b.textContent === "关闭").forEach((b) => b.click());
+
+/* ── v6.9.4：懒加载条数要随界面记忆 ────────────────────────────────
+   用户 2026-11-09：「场景搭配选套用后关闭 UI，再打开不是上次浏览的位置」。
+   场景页首屏只渲染 60 条（滚到底 /「再显示」各 +60），而滚动位置存的是**比例**；
+   比例只有在"内容总高度相同"时才等价 —— 关闭时已加载 120+ 条、重开只渲染 60 条，
+   同一个比例换算出来只剩一截（真浏览器实测 4021 → 801，正好 1/4）。
+   这一轮完整走一遍「场景页 → 再显示 → 关闭 → 重开」，钉住 limit 进了 _ui 并被使用。
+   ⚠️ 必须停在场景页关闭：切页签会按设计把 limit 重置回首屏（列表换了）。 */
+openBtn.callback();
+for (let i = 0; i < 80 && !document.body.querySelector(".av3-panel"); i++) {
+  await new Promise((r) => setTimeout(r, 10));
+}
+const panel5 = document.body.querySelector(".av3-panel");
+[...panel5.querySelectorAll(".av3-tabs button")]
+  .find((b) => b.textContent.includes("场景搭配")).click();
+await sleep(250);
+const cards5a = panel5.querySelectorAll(".av3-sceneact").length;
+const more5 = [...panel5.querySelectorAll("button")]
+  .find((b) => /再显示 \d+ 条/.test(b.textContent));
+if (more5) more5.click();
+await sleep(150);
+const cards5b = panel5.querySelectorAll(".av3-sceneact").length;
+ck("场景页「再显示」能追加卡片（懒加载基线）",
+  !!more5 && cards5b > cards5a, `${cards5a} → ${cards5b}`);
+
+[...panel5.querySelectorAll(".av3-btn")].find((b) => b.textContent === "关闭").click();
+await sleep(80);
+ck("懒加载条数写进了 _ui.sceneLimit（v6.9.4）",
+  Number(wjson()._ui?.sceneLimit) === cards5b,
+  `${wjson()._ui?.sceneLimit} vs ${cards5b}`);
+
+openBtn.callback();
+for (let i = 0; i < 80 && !document.body.querySelector(".av3-panel"); i++) {
+  await new Promise((r) => setTimeout(r, 10));
+}
+const panel6 = document.body.querySelector(".av3-panel");
+for (let i = 0; i < 120 && !(panel6 && panel6.querySelector(".av3-sceneact")); i++) {
+  await sleep(10);
+}
+const cards5c = panel6 ? panel6.querySelectorAll(".av3-sceneact").length : 0;
+ck("重开后按记忆的懒加载条数渲染（比例才有意义）", cards5c === cards5b,
+  `${cards5c} vs ${cards5b}`);
+[...document.body.querySelectorAll(".av3-mask .av3-btn")]
+  .filter((b) => b.textContent === "关闭").forEach((b) => b.click());
+
+/* ── v6.26.0：标题栏画幅按钮 + 套用场景联动（用户 2026-11-17 三次追加）────
+   ① 要竖屏/横屏比例切换；② 1:1 也要；③ 平铺在标题栏右侧、方便直接调整。
+   落定口径：五个比例全平铺在标题栏（不设下拉）；只在**手动套用**场景时联动，
+   推荐 both 不动；写进 _ui 记住，重开面板还是那条。 */
+
+/* 假的比例节点：真机里是 XB_ImageParamsMaster（宽高由它喂 EmptyLatentImage）。
+   初值故意设成 4:3 / 1152×864 —— 用来验证"打开面板不动工作流"。 */
+const XB_W = [
+  { name: "aspect_ratio", value: "4:3" },
+  { name: "width", value: 1152 },
+  { name: "height", value: 864 },
+];
+const xbNode = { comfyClass: "XB_ImageParamsMaster", widgets: XB_W };
+/* 模拟 XB 参数主控的**真实回调联动**（`XB_ToolBox/js/xb_video.js` 的 nodeCreated）：
+   比例/宽/高任一变化就按"当前宽度"反算另一个，且第一行就查 `_xb_syncing` 守卫。
+   装上它，下面那些"点完值对不对"的断言才真的在测写入顺序 ——
+   不装的话，无论怎么乱写都能过（旧版就是先写宽后写比例，真机算出 648×864）。 */
+{
+  const rm = { "1:1": 1, "16:9": 16 / 9, "9:16": 9 / 16, "4:3": 4 / 3, "3:4": 3 / 4 };
+  const num = (v, d) => parseInt(v, 10) || d;
+  const sW = () => {
+    if (xbNode._xb_syncing || xbNode._xb_from_polling) return;
+    const cr = rm[XB_W[0].value];
+    if (!cr) return;
+    const w = Math.max(16, Math.round(num(XB_W[1].value, 16) / 16) * 16);
+    XB_W[2].value = Math.max(16, Math.round((w / cr) / 16) * 16);
+  };
+  const sH = () => {
+    if (xbNode._xb_syncing || xbNode._xb_from_polling) return;
+    const cr = rm[XB_W[0].value];
+    if (!cr) return;
+    const h = Math.max(16, Math.round(num(XB_W[2].value, 16) / 16) * 16);
+    XB_W[1].value = Math.max(16, Math.round((h * cr) / 16) * 16);
+  };
+  XB_W[0].callback = sW;
+  XB_W[1].callback = sW;
+  XB_W[2].callback = sH;
+}
+globalThis.__AV3_GRAPH_NODES = [xbNode];
+
+openBtn.callback();
+for (let i = 0; i < 80 && !document.body.querySelector(".av3-panel"); i++) await sleep(10);
+const panel7 = document.body.querySelector(".av3-panel");
+for (let i = 0; i < 120 && !(panel7 && panel7.querySelector(".av3-tabs")); i++) await sleep(10);
+
+ck("打开面板**不碰**工作流比例（只在你点按钮时才写）",
+  XB_W[0].value === "4:3" && XB_W[1].value === 1152 && XB_W[2].value === 864,
+  `${XB_W[0].value} ${XB_W[1].value}×${XB_W[2].value}`);
+
+const head7 = panel7.querySelector(".av3-head");
+const frameBox = head7 ? head7.querySelector("#av3-frames") : null;
+ck("标题栏里有画幅按钮组（#av3-frames）", !!frameBox);
+const frameBtns7 = frameBox ? [...frameBox.querySelectorAll(".av3-frame-btn")] : [];
+ck("五个比例全平铺（9:16 / 3:4 / 1:1 / 16:9 / 4:3）",
+  frameBtns7.map((b) => b.textContent).join("|") === "9:16|3:4|1:1|16:9|4:3",
+  frameBtns7.map((b) => b.textContent).join("|"));
+const disc7 = [...head7.querySelectorAll(".av3-btn")]
+  .find((b) => b.textContent.includes("免责声明"));
+ck("画幅按钮排在「免责声明」左边（就是标题栏那块空白）",
+  !!frameBox && !!disc7
+  && [...head7.children].indexOf(frameBox) >= 0
+  && [...head7.children].indexOf(frameBox) < [...head7.children].indexOf(disc7));
+ck("画幅按钮**不在**右栏设置框里（同一个设置只留一个入口）",
+  !panel7.querySelector(".av3-box #av3-frames"));
+
+const btnR = (r) => frameBtns7.find((b) => b.dataset.ratio === r);
+ck("高亮的按钮 == 记忆里的比例",
+  !!btnR(wjson()._ui?.frameRatio || "")
+  && btnR(wjson()._ui?.frameRatio).classList.contains("on"),
+  String(wjson()._ui?.frameRatio));
+
+btnR("1:1").click();
+ck("点 1:1 → 工作流写成 1:1 / 1024×1024",
+  XB_W[0].value === "1:1" && XB_W[1].value === 1024 && XB_W[2].value === 1024,
+  `${XB_W[0].value} ${XB_W[1].value}×${XB_W[2].value}`);
+ck("点完高亮跟着走、并写进 _ui.frameRatio",
+  btnR("1:1").classList.contains("on") && wjson()._ui?.frameRatio === "1:1",
+  String(wjson()._ui?.frameRatio));
+ck("同步了 XB 的轮询缓存（不同步它会把高度按旧宽度算回去）",
+  xbNode._xb_last_ratio === "1:1" && xbNode._xb_last_width === 1024
+  && xbNode._xb_last_height === 1024,
+  `${xbNode._xb_last_ratio} ${xbNode._xb_last_width}×${xbNode._xb_last_height}`);
+ck("写完把 XB 的回调守卫复原（不能一直关着人家）",
+  xbNode._xb_syncing === false);
+btnR("3:4").click();
+ck("点 3:4 → 864×1152，并记进竖屏记忆 _ui.frameMemo.p",
+  XB_W[1].value === 864 && XB_W[2].value === 1152
+  && wjson()._ui?.frameMemo?.p === "3:4",
+  `${XB_W[1].value}×${XB_W[2].value} / ${JSON.stringify(wjson()._ui?.frameMemo)}`);
+
+/* 场景联动：横 → 回横记忆（默认 16:9）；竖 → 回竖记忆（刚点过的 3:4）；both → 不动 */
+if (!panel7.querySelector(".av3-sec[data-scene]")) {
+  const tab7 = [...panel7.querySelectorAll(".av3-tabs button")]
+    .find((b) => b.textContent.includes("场景搭配"));
+  if (tab7) tab7.click();
+}
+for (let i = 0; i < 150
+     && !panel7.querySelector(".av3-sec[data-scene]"); i++) await sleep(10);
+
+const sceneAspect7 = (id) =>
+  (SCENE_FIX.scenes.find((s) => s.id === id) || {}).aspect || "";
+const applyOf7 = (card) => [...card.querySelectorAll(".av3-btn")]
+  .find((b) => b.textContent.includes("套用") && !b.textContent.includes("预演"));
+const cards7 = () => [...panel7.querySelectorAll(".av3-sec[data-scene]")]
+  .filter((c) => applyOf7(c) && !applyOf7(c).disabled);
+
+const land7 = cards7().find((c) => sceneAspect7(c.dataset.scene) === "landscape");
+ck("场景页里有推荐横屏的卡片可测", !!land7);
+if (land7) applyOf7(land7).click();
+ck("套用推荐横屏的场景 → 工作流自动切到 16:9 · 1280×720",
+  XB_W[0].value === "16:9" && XB_W[1].value === 1280 && XB_W[2].value === 720,
+  `${XB_W[0].value} ${XB_W[1].value}×${XB_W[2].value}`);
+ck("状态条写明了画幅联动",
+  /画幅已切到 16:9/.test(panel7.querySelector("#av3-status")?.textContent || ""),
+  panel7.querySelector("#av3-status")?.textContent || "");
+
+const port7 = cards7().find((c) => sceneAspect7(c.dataset.scene) === "portrait");
+if (port7) applyOf7(port7).click();
+ck("套用竖屏场景 → 回到竖屏记忆里的 3:4（不是硬拉回 9:16）",
+  XB_W[0].value === "3:4" && XB_W[1].value === 864 && XB_W[2].value === 1152,
+  `${XB_W[0].value} ${XB_W[1].value}×${XB_W[2].value}`);
+
+const both7 = cards7().find((c) => sceneAspect7(c.dataset.scene) === "both");
+const beforeBoth = [XB_W[0].value, XB_W[1].value, XB_W[2].value].join();
+if (both7) applyOf7(both7).click();
+ck("套用「通用 both」场景 → 画幅保持不动",
+  [XB_W[0].value, XB_W[1].value, XB_W[2].value].join() === beforeBoth, beforeBoth);
+
+/* 降级：图里没有比例节点 → 只改面板状态，状态条说明原因（不乱改别的节点） */
+globalThis.__AV3_GRAPH_NODES = [];
+btnR("9:16").click();
+ck("图里没有比例节点 → 只改面板状态并在状态条说明",
+  /没找到比例节点/.test(panel7.querySelector("#av3-status")?.textContent || "")
+  && wjson()._ui?.frameRatio === "9:16",
+  panel7.querySelector("#av3-status")?.textContent || "");
+globalThis.__AV3_GRAPH_NODES = [xbNode];
 [...document.body.querySelectorAll(".av3-mask .av3-btn")]
   .filter((b) => b.textContent === "关闭").forEach((b) => b.click());
 

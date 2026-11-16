@@ -2545,10 +2545,13 @@ def main():
     art = [x for x in scenes if x.get("group") == "art"]
     # v5.0.14：原 90 条单色底不变，另加 12 条「双色对角」变体（sc_art_duo_*）
     duo = [x for x in art if x["id"].startswith("sc_art_duo_")]
-    ck("艺术构图 102 条（90 单色 + 12 双色变体）且全部 manual_only",
-       len(art) == 103 and len(duo) == 12
+    # v6.8.0：条数不再写死 —— 夜间新增会往这组加条目，硬编码每次都要跟着改。
+    #   真正的契约是这三条：单色 >= 90、双色变体恰好 12、全部 manual_only。
+    _single = [x for x in art if not x["id"].startswith("sc_art_duo_")]
+    ck(f"艺术构图 {len(art)} 条（单色 {len(_single)} + 双色变体 {len(duo)}）且全部 manual_only",
+       len(_single) >= 90 and len(duo) == 12
        and all(x.get("manual_only") for x in art),
-       f"{len(art)} 条 / duo {len(duo)} / "
+       f"{len(art)} 条 / 单色 {len(_single)} / duo {len(duo)} / "
        f"manual={sum(1 for x in art if x.get('manual_only'))}")
     ck("艺术构图：每条都写死 pose_base + viewpoint",
        all({"pose_base", "viewpoint"} <= set(x.get("tags") or {}) for x in art),
@@ -2660,7 +2663,7 @@ def main():
     # ── v5.0.20：背景五分类 / 玻璃球 / 花园俯拍 / 唯美表情 ──────────────
     BG_OK = {"纯色棚拍", "双色对角", "花园俯拍", "室内实景", "黑底逆光"}
     _no_bg = [x["id"] for x in art if x.get("bg") not in BG_OK]
-    ck("艺术构图：103 条全部归入背景五分类（纯色棚拍/双色对角/花园俯拍/室内实景/黑底逆光）",
+    ck(f"艺术构图：{len(art)} 条全部归入背景五分类（纯色棚拍/双色对角/花园俯拍/室内实景/黑底逆光）",
        not _no_bg, str(_no_bg[:3]))
     _bgcnt = {}
     for x in art:
@@ -2889,13 +2892,16 @@ def main():
             t = x.get("theme") or ""
             _gen_theme[t] = _gen_theme.get(t, 0) + 1
     _ips = {k: v for k, v in _wp_work.items() if k != "general"}
-    ck("武器场景 80 条 / 9 作品（通用 48 + 8 个 IP 各 4 条），全部 manual_only",
-       len(wp) == 80 and _wp_work.get("general") == 48
-       and len(_ips) == 8 and sorted(_ips.values()) == [4] * 8
+    # v6.18.0：条数不再写死 —— K2 母题也会往这组加条目（work=general，
+    #   归进既有 8 类武器），硬编码 80 / 48 每次都跟着改，且会误报。
+    #   真正的契约是：通用 >= 48、8 个 IP 各 >= 4、全部 manual_only。
+    ck("武器场景：通用 >= 48 + 8 个 IP 各 >= 4，全部 manual_only",
+       _wp_work.get("general", 0) >= 48
+       and len(_ips) >= 8 and min(_ips.values()) >= 4
        and all(x.get("manual_only") is True for x in wp),
        f"{len(wp)} 条 / {_wp_work}")
-    ck("通用 48 条仍是 8 类 × 6 构图",
-       len(_gen_theme) == 8 and sorted(_gen_theme.values()) == [6] * 8,
+    ck("通用武器仍是 8 类（每类 >= 6 构图）",
+       len(_gen_theme) == 8 and min(_gen_theme.values()) >= 6,
        str(_gen_theme))
     # 4 个元数据齐全且自动派生（weapon = zh 首段 / weapon_en = extra 首标签）
     _wp_meta_bad = []
@@ -2964,8 +2970,9 @@ def main():
     _asp_w = {x["id"]: R.scene_aspect(x["id"]) for x in wp}
     _aw = list(_asp_w.values()).count("landscape")
     _pw = list(_asp_w.values()).count("portrait")
-    ck("武器场景按构图混合画幅：40 竖 / 40 横",
-       _aw == 40 and _pw == 40 and len(_asp_w) == 80,
+    # v6.18.0：条数不写死（K2 会继续加），只守"竖横大致对半"这条构图口径。
+    ck("武器场景按构图混合画幅（竖横各 >= 40 且相差 <= 20%）",
+       _aw >= 40 and _pw >= 40 and abs(_aw - _pw) <= max(_aw, _pw) * 0.2,
        f"竖{_pw} 横{_aw} 通用{len(_asp_w) - _aw - _pw}")
     ck("武器场景正文确实写了武器（extra 与 scene_nl 都非空）",
        all(str(x.get("extra") or "").strip()

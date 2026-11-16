@@ -331,6 +331,13 @@ STYLE_OF: dict[str, dict[str, str]] = {
         "pantyhose, garter straps": "office",
         "latex thighhighs": "night",
         "gradient thighhighs": "night",
+        # v6.20.0：三段渐变过膝袜 5 色（用户 2026-11-14 实拍图）—— 与
+        # `gradient thighhighs` 同归「夜店」（渐变材质 = 夜场单品），不另开风格
+        "aqua gradient thighhighs": "night",
+        "black gradient thighhighs": "night",
+        "white gradient thighhighs": "night",
+        "purple gradient thighhighs": "night",
+        "pink gradient thighhighs": "night",
         "shiny pantyhose": "night",
         # v3.42.23：织入亮丝细碎星点的三色连裤袜 —— 与 `shiny pantyhose`
         # 同归「夜店」（闪亮材质 = 夜场单品），不另开风格
@@ -604,6 +611,17 @@ PLACE_STYLE = {
     "garden": "casual", "forest": "casual", "field": "casual",
     "flower field": "casual", "mountain": "casual", "hill": "casual",
     "road": "casual", "bridge": "casual",
+    # v6.16.0：补齐 18 个缺口。改前 61 个 place 只覆盖 43 个，
+    # 缺锚点 = 服装没有风格约束 = 纯随机（实测「修道院回廊」抽出比基尼）。
+    # 影响 51 条现有场景。
+    "hallway": "home", "changing room": "home", "fitting room": "home",
+    "cafe": "casual", "alley": "casual", "train interior": "casual",
+    "car interior": "casual", "convenience store": "casual",
+    "amusement park": "casual", "ferris wheel": "casual",
+    "bus stop": "casual", "train station": "casual",
+    "bicycle": "casual", "on motorcycle": "casual",
+    "desert": "casual", "aquarium": "casual", "stairwell": "casual",
+    "movie theater": "night",
 }
 
 
@@ -653,11 +671,33 @@ def style_bans(state: dict, field_key: str, choice: str = "随机") -> set:
     if not anchor:
         return out
     out |= set(STYLE_BANS.get((anchor, field_key)) or ())
+    # v6.16.0：**非泳装锚点禁止整套泳装**。
+    # 实测：补完地点锚点后，`fantasy`（修道院/废墟）与 `casual`（沙丘）下
+    # 仍有 1/3 抽到 bikini —— 因为泳装只是被软降到 0.4×，池子里 10 条泳装
+    # 仍然压得过 60 条其它整套。整套是"定调单品"，错了整张图就错了，
+    # 所以这里改成硬剔除（fail-open：池子被剔空时由调用方回原池）。
+    if field_key == "outfit" and anchor != "swim":
+        out |= _swim_outfits()
     # 具体单品的铁律：无论是自动锚定还是控件指定，都按"实际抽到的整套"判
     outfit = str(state.get("outfit") or "").strip().lower()
     if outfit:
         out |= set((ANCHOR_BANS.get(outfit) or {}).get(field_key) or ())
     return out
+
+
+_SWIM_OUTFITS_CACHE = None
+
+
+def _swim_outfits() -> set:
+    """所有风格里带 `swim` 的整套服装原文（惰性构建 + 缓存）。"""
+    global _SWIM_OUTFITS_CACHE
+    if _SWIM_OUTFITS_CACHE is None:
+        from . import anima_v4_rules as R
+        _sec, fld = R.field_by_key("outfit")
+        _SWIM_OUTFITS_CACHE = {
+            en for _zh, en in (fld or {}).get("opts", [])
+            if "swim" in _styles_of("outfit", en)}
+    return _SWIM_OUTFITS_CACHE
 
 
 def allowed_outfit(pool: list, choice: str) -> list:

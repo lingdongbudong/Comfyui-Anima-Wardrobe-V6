@@ -109,13 +109,27 @@ def _global_state_fingerprint() -> str:
        PNG 像素与第一次逐字节相同，连 PNG 元数据注入都被跳过。
     这里用文件的 `mtime_ns + size` 而不是读内容：任何写操作都会让指纹变化，
     状态没变时又保持恒定（缓存仍然有效，不会每次白白重跑）。
-    ⚠️ 只列「通过 HTTP 路由写、且会进正文」的文件；词库 / 场景 / 角色内置库
-       改盘本来就要重启（进程缓存自然清空），不必纳入。
+
+    ⚠️⚠️ v6.8.0：**内置库也纳入**（词库 / 场景 / 场景画幅 / 角色库）。
+       原先这里写的是"词库 / 场景 / 角色内置库改盘本来就要重启（进程缓存自然
+       清空），不必纳入"—— 自从 v5.9.0 有了免重启的 `clear_cache()` 路径
+       （`POST /outfit-library/scene-override` 发同值即可），这句话就不成立了：
+       实测改完 scenes.json + clear_cache，引擎侧读到的是新数据（`/roll` 已变），
+       但**同一个 seed 的工作流仍命中节点缓存、拿回旧正文** —— 用户看到的就是
+       "场景改了却没生效"，而且越查越像引擎没读到盘（2026-11-08 雪原场景就是这样）。
+       纳入之后：改任何一本库 → 指纹变 → seed>=0 也会重算，与"改完立刻生效"一致。
+       `os.stat` 只查元数据，10 个文件的开销可以忽略。
     """
     try:
         from . import anima_v4_store as _S
+        _preset = _S.PRESET_DIR
         files = (_S.LIBRARY_FILE, _S.OUTFITS_FILE, _S.USER_CHARS_FILE,
-                 _S.FAVORITES_FILE, _S.SCENE_FAV_FILE, _S.WORK_FAV_FILE)
+                 _S.FAVORITES_FILE, _S.SCENE_FAV_FILE, _S.WORK_FAV_FILE,
+                 # v6.8.0：内置库（改盘即生效，别再靠"重启"兜底）
+                 os.path.join(_preset, "anima_v4_pools.json"),
+                 os.path.join(_preset, "anima_v4_scenes.json"),
+                 os.path.join(_preset, "anima_v4_scene_aspects.json"),
+                 os.path.join(_preset, "anima_v4_characters.json"))
         bits = []
         for p in files:
             try:
@@ -740,6 +754,21 @@ def _variant_items_of(sc: dict) -> list:
     return out
 
 
+def scene_thumb_exists(sid: str) -> bool:
+    """这条场景有没有预览图（`presets/scene_thumbs/<id>.webp`）。
+
+    给 `/scenes` 载荷用（v6.19.0）—— 面板据此决定要不要发图片请求，
+    没有图的条目直接不渲染 `<img>`，省掉 400+ 次必定 404 的往返。
+
+    ⚠️ **现查、不缓存**：补图是「本地脚本跑完 → 刷新面板」的节奏，
+       加一层缓存反而要求用户重启后端。781 次 stat 在本机 SSD 上 <5ms。
+    """
+    if not sid:
+        return False
+    from . import anima_v4_store as _S
+    return os.path.isfile(os.path.join(_S.SCENE_THUMB_DIR, f"{sid}.webp"))
+
+
 def scenes_payload() -> dict:
     """场景搭配库（按 NSFW 档位分组 + 预设明细），给面板的「🎬 场景搭配」页签。
 
@@ -803,6 +832,26 @@ def scenes_payload() -> dict:
             # 来源是 presets/anima_v4_scene_aspects.json（旁挂映射，不是 scenes.json），
             # 缺席时一律 both。前端用它画徽标 + 做「竖屏·通用 / 横屏·通用」筛选。
             "aspect": R.scene_aspect(sc["id"]),
+            # v6.19.1：**推荐工作流提示**（用户 2026-11-13 18:44「再给艺术构图
+            # 场景标注使用推荐的 29B 工作流」）。
+            # art 组是「巨构道具主导 + 16:9 横构图 + 人物极小」，12B 撑不住
+            # 体量和细节 —— 29B 的 16 步 + 二采才成立（本轮 151 张全是 29B 出的）。
+            # 空串 = 没有特殊要求（走默认 12B 竖屏），前端不出徽标。
+            "tpl_hint": ("29B · 16:9" if str(sc.get("group") or "") == "art" else ""),
+            # v6.19.0：有没有预览图。面板据此决定是否渲染 <img> ——
+            # 缺图的条目不请求 `/scene-thumb/`，避免一大批必然 404 的往返。
+            # 图本身是旁挂文件（presets/scene_thumbs/），不在 scenes.json 里，
+            # 所以重建场景库不会把它抹掉，补图也不用重新跑 build_scenes。
+            #
+            # ⚠️ **L1 及以上一概不挂图**（用户 2026-11-13 二次收口：
+            #    先是「NSFW 组不加」，后明确成「NSFW L1 及以上都不加」）。
+            #    判据用 `level` 而不是 `group` —— 擦边内容散落在各组里：
+            #    sfw 组有 70 条 L1+（含「擦边 L2」12 条）、near 26 条、
+            #    pose 15 条、art 2 条。按 group 卡会漏掉这 113 条。
+            #    闸放后端、不只靠工具不生成 —— 万一盘上有历史残留文件，
+            #    前端也不会显示出来。
+            "thumb": (int(sc.get("level", 0) or 0) == 0
+                      and scene_thumb_exists(sc["id"])),
             # v3.22.0：套用时**强制清零**的字段（不是"写成某个值"）。
             # 典型用法：特写要保持画框纯净，但某字段写任何值都会把多余部位拉进来
             #（口交特写的 `pose_base` —— 写 `kneeling` 就出全身，不写则随机抽一个姿势）。

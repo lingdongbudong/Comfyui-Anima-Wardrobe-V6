@@ -68,6 +68,14 @@ def guess(sc):
     ])
 
     both_shot = shot in BOTH_SHOT
+    # v6.9.1：**人工指定通道**。场景自己写了 `aspect` 就以它为准，压过下面所有启发式。
+    #    为什么要这个：多人（hetero）与 wide shot 会被规则 3/4 判成横屏，但
+    #    "竖屏更贴脸、冲击力更强"是内容取向，启发式推不出来（用户 2026-11-08 23:31
+    #    要求把 7 条夜间双人场景改成竖屏）。以前只能手改 aspects 文件，而本脚本
+    #    每次全量重算会把手工值冲掉 —— 所以留一个写在 scenes.json 里的正式通道。
+    forced = str(sc.get("aspect") or "").strip()
+    if forced in ("portrait", "landscape", "both"):
+        return forced, "场景自带 aspect=" + forced
     # ⚠️ v5.0.13（用户 2026-11-04）：艺术构图（group=art）**一律横屏**，且压过下面
     #    所有启发式。这一组的立意是"巨物压边 + 大量留白"的横向平面设计，
     #    组描述写的就是"全部 16:9 横向"；但按下面的规则跑，

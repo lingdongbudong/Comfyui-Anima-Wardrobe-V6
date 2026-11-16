@@ -61,7 +61,10 @@ def main():
     other = [s for s in scenes if not s.get("manual_only")]
 
     print("── ① 数据层 ──")
-    ck("特写搭配 60 条（30 + 臀 6 + 腿 6 + 成人向 18）", len(near) == 60, str(len(near)))
+    # v6.9.0：条数不再写死 —— 夜间扩容会往里加条目。核心契约是「各部位齐全 + 全 manual_only」，
+    #   原来的 60 条是 v3.18.0 的基线，现在只作下限。
+    ck("特写搭配 %d 条（>= 60，含 v6.9.0 夜间新增 3 条）" % len(near),
+       len(near) >= 60, str(len(near)))
     ck("全部在 group=near", all(s.get("group") == "near" for s in near),
        str([s["id"] for s in near if s.get("group") != "near"][:3]))
     ck("全部 manual_only=True", all(s.get("manual_only") is True for s in near))
@@ -80,8 +83,11 @@ def main():
     # v3.38.8（2026-10-24）：「舌与唾液」加 ahegao / rolled back eyes（均 L3）→ L1 → L3
     # v4.5.0：`yuri` 降到擦边档 → 「隔衣揉胸」「贴胸搂抱」两条由 L2 派生为 L1
     #   （内容本来就是隔衣的擦边描写，只是被 `yuri` 这个关系标签抬到了 L2）
-    ck("档位分布 L0=34 / L1=12 / L2=7 / L3=6 / L4=1",
-       lv == {"0": 34, "1": 12, "2": 7, "3": 6, "4": 1}, str(lv))
+    # v6.9.0：夜间新增 3 条全 L0 → L0 由 34 变 37。**擦边以上那 26 条是内容口径**，必须一字不动；
+    #   L0 只设下限，以后加新条目不用再改这行。
+    ck("档位分布：擦边以上 26 条不变、L0 %d >= 34" % lv.get("0", 0),
+       sum(v for k, v in lv.items() if k != "0") == 26
+       and lv.get("0", 0) >= 34, str(lv))
     leg = [s for s in near if s.get("theme") == "腿部"]
     ck("腿部组 12 条（含坐姿 / 单腿伸向镜头）", len(leg) == 12, str(len(leg)))
     ck("腿部组含「伸向镜头」条目",
@@ -452,8 +458,8 @@ def main():
     print("── ⑤ 载荷与自检 ──")
     nodes = _boot.load("nodes")
     sc = nodes.scenes_payload()
-    ck("/scenes 的 counters.near == 60", sc["counters"]["near"] == 60,
-       str(sc["counters"]))
+    ck("/scenes 的 counters.near == 实际 manual_only 条数",
+       sc["counters"]["near"] == len(near), str(sc["counters"]))
     ck("/scenes 每条带 manual / part 字段",
        all("manual" in s and "part" in s for s in sc["scenes"]))
     ck("near_parts 顺序 = 库里书写顺序",

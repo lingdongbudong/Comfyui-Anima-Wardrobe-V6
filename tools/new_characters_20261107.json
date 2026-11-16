@@ -1,0 +1,1252 @@
+{
+ "_meta": {
+  "schema": "anima-v6/character-additions@1",
+  "created": "2026-11-07",
+  "decision": "终末地 16 人 + 鬼灭 7 人；预览图用 12B 工作流生成；预设全部写一套初稿",
+  "trial_note": "12B 试跑：终末地 16 人全部画出可辨识形象；鬼灭 kochou_kanae/kanao/tamayo/kanzaki_aoi/susamaru 可辨，daki 与 makomo 两种 tag 写法均不像本人（标注 verified=false）"
+ },
+ "works": [
+  {
+   "id": "arknights_endfield",
+   "en": "arknights: endfield",
+   "zh": "明日方舟：终末地"
+  }
+ ],
+ "characters": [
+  {
+   "tag": "perlica_(arknights)",
+   "name": "perlica (arknights)",
+   "zh": "佩丽卡",
+   "work": "arknights: endfield",
+   "trigger": "perlica, arknights: endfield",
+   "pop": 0,
+   "hair": "white",
+   "eyes": "blue",
+   "tags": [
+    "1girl",
+    "white hair",
+    "animal ears",
+    "blue eyes",
+    "white dress",
+    "mechanical arms"
+   ],
+   "src": "manual",
+   "thumb": "perlica_arknights"
+  },
+  {
+   "tag": "chen_qianyu",
+   "name": "chen qianyu",
+   "zh": "陈千语",
+   "work": "arknights: endfield",
+   "trigger": "chen qianyu, arknights: endfield",
+   "pop": 0,
+   "hair": "black",
+   "eyes": "red",
+   "tags": [
+    "1girl",
+    "black hair",
+    "very long hair",
+    "red eyes",
+    "hair ornament",
+    "red dress"
+   ],
+   "src": "manual",
+   "thumb": "chen_qianyu"
+  },
+  {
+   "tag": "laevatain_(arknights)",
+   "name": "laevatain (arknights)",
+   "zh": "莱万汀",
+   "work": "arknights: endfield",
+   "trigger": "laevatain, arknights: endfield",
+   "pop": 0,
+   "hair": "blonde",
+   "eyes": "red",
+   "tags": [
+    "1girl",
+    "blonde hair",
+    "long hair",
+    "red eyes",
+    "black coat",
+    "sword"
+   ],
+   "src": "manual",
+   "thumb": "laevatain_arknights"
+  },
+  {
+   "tag": "yvonne_(arknights)",
+   "name": "yvonne (arknights)",
+   "zh": "伊冯",
+   "work": "arknights: endfield",
+   "trigger": "yvonne, arknights: endfield",
+   "pop": 0,
+   "hair": "pink",
+   "eyes": "red",
+   "tags": [
+    "1girl",
+    "pink hair",
+    "long hair",
+    "red eyes",
+    "black dress",
+    "mechanical arms"
+   ],
+   "src": "manual",
+   "thumb": "yvonne_arknights"
+  },
+  {
+   "tag": "gilberta_(arknights)",
+   "name": "gilberta (arknights)",
+   "zh": "洁尔佩塔",
+   "work": "arknights: endfield",
+   "trigger": "gilberta, arknights: endfield",
+   "pop": 0,
+   "hair": "blonde",
+   "eyes": "blue",
+   "tags": [
+    "1girl",
+    "blonde hair",
+    "blue eyes",
+    "blue dress",
+    "white coat"
+   ],
+   "src": "manual",
+   "thumb": "gilberta_arknights"
+  },
+  {
+   "tag": "ardelia_(arknights)",
+   "name": "ardelia (arknights)",
+   "zh": "艾尔黛拉",
+   "work": "arknights: endfield",
+   "trigger": "ardelia, arknights: endfield",
+   "pop": 0,
+   "hair": "blonde",
+   "eyes": "red",
+   "tags": [
+    "1girl",
+    "blonde hair",
+    "red eyes",
+    "black dress",
+    "sword"
+   ],
+   "src": "manual",
+   "thumb": "ardelia_arknights"
+  },
+  {
+   "tag": "ember_(arknights)",
+   "name": "ember (arknights)",
+   "zh": "余烬",
+   "work": "arknights: endfield",
+   "trigger": "ember, arknights: endfield",
+   "pop": 0,
+   "hair": "white",
+   "eyes": "red",
+   "tags": [
+    "1girl",
+    "white hair",
+    "long hair",
+    "red eyes",
+    "black coat",
+    "fire"
+   ],
+   "src": "manual",
+   "thumb": "ember_arknights"
+  },
+  {
+   "tag": "last_rite_(arknights)",
+   "name": "last rite (arknights)",
+   "zh": "别礼",
+   "work": "arknights: endfield",
+   "trigger": "last rite, arknights: endfield",
+   "pop": 0,
+   "hair": "black",
+   "eyes": "red",
+   "tags": [
+    "1girl",
+    "black hair",
+    "red eyes",
+    "black coat",
+    "dual wielding"
+   ],
+   "src": "manual",
+   "thumb": "last_rite_arknights"
+  },
+  {
+   "tag": "arclight_(arknights)",
+   "name": "arclight (arknights)",
+   "zh": "弧光",
+   "work": "arknights: endfield",
+   "trigger": "arclight, arknights: endfield",
+   "pop": 0,
+   "hair": "silver",
+   "eyes": "blue",
+   "tags": [
+    "1girl",
+    "silver hair",
+    "long hair",
+    "blue eyes",
+    "black coat",
+    "ice"
+   ],
+   "src": "manual",
+   "thumb": "arclight_arknights"
+  },
+  {
+   "tag": "avywenna",
+   "name": "avywenna",
+   "zh": "艾维文娜",
+   "work": "arknights: endfield",
+   "trigger": "avywenna, arknights: endfield",
+   "pop": 0,
+   "hair": "blue",
+   "eyes": "blue",
+   "tags": [
+    "1girl",
+    "blue hair",
+    "long hair",
+    "blue eyes",
+    "blue dress",
+    "mechanical"
+   ],
+   "src": "manual",
+   "thumb": "avywenna"
+  },
+  {
+   "tag": "snowshine",
+   "name": "snowshine",
+   "zh": "昼雪",
+   "work": "arknights: endfield",
+   "trigger": "snowshine, arknights: endfield",
+   "pop": 0,
+   "hair": "white",
+   "eyes": "blue",
+   "tags": [
+    "1girl",
+    "white hair",
+    "blue eyes",
+    "blue dress",
+    "ice"
+   ],
+   "src": "manual",
+   "thumb": "snowshine"
+  },
+  {
+   "tag": "xaihi",
+   "name": "xaihi",
+   "zh": "赛希",
+   "work": "arknights: endfield",
+   "trigger": "xaihi, arknights: endfield",
+   "pop": 0,
+   "hair": "white",
+   "eyes": "blue",
+   "tags": [
+    "1girl",
+    "white hair",
+    "blue eyes",
+    "blue dress",
+    "hair ornament"
+   ],
+   "src": "manual",
+   "thumb": "xaihi"
+  },
+  {
+   "tag": "akekuri",
+   "name": "akekuri",
+   "zh": "秋栗",
+   "work": "arknights: endfield",
+   "trigger": "akekuri, arknights: endfield",
+   "pop": 0,
+   "hair": "red",
+   "eyes": "red",
+   "tags": [
+    "1girl",
+    "red hair",
+    "long hair",
+    "red eyes",
+    "mechanical",
+    "gun"
+   ],
+   "src": "manual",
+   "thumb": "akekuri"
+  },
+  {
+   "tag": "estella_(arknights)",
+   "name": "estella (arknights)",
+   "zh": "埃特拉",
+   "work": "arknights: endfield",
+   "trigger": "estella, arknights: endfield",
+   "pop": 0,
+   "hair": "red",
+   "eyes": "red",
+   "tags": [
+    "1girl",
+    "red hair",
+    "long hair",
+    "red eyes",
+    "white dress",
+    "ice"
+   ],
+   "src": "manual",
+   "thumb": "estella_arknights"
+  },
+  {
+   "tag": "fluorite_(arknights)",
+   "name": "fluorite (arknights)",
+   "zh": "萤石",
+   "work": "arknights: endfield",
+   "trigger": "fluorite, arknights: endfield",
+   "pop": 0,
+   "hair": "white",
+   "eyes": "blue",
+   "tags": [
+    "1girl",
+    "white hair",
+    "blue eyes",
+    "white dress",
+    "animal ears"
+   ],
+   "src": "manual",
+   "thumb": "fluorite_arknights"
+  },
+  {
+   "tag": "endministrator_(arknights)",
+   "name": "endministrator (arknights)",
+   "zh": "管理员",
+   "work": "arknights: endfield",
+   "trigger": "endministrator, arknights: endfield",
+   "pop": 0,
+   "hair": "black",
+   "eyes": "red",
+   "tags": [
+    "1girl",
+    "black hair",
+    "red eyes",
+    "white coat",
+    "gold trim"
+   ],
+   "src": "manual",
+   "thumb": "endministrator_arknights"
+  },
+  {
+   "tag": "kochou_kanae",
+   "name": "kochou kanae",
+   "zh": "胡蝶香奈惠",
+   "work": "kimetsu no yaiba",
+   "trigger": "kochou kanae, kimetsu no yaiba",
+   "pop": 0,
+   "hair": "black",
+   "eyes": "purple",
+   "tags": [
+    "1girl",
+    "black hair",
+    "long hair",
+    "purple eyes",
+    "butterfly hair ornament",
+    "haori"
+   ],
+   "src": "manual",
+   "thumb": "kochou_kanae"
+  },
+  {
+   "tag": "tsuyuri_kanao",
+   "name": "tsuyuri kanao",
+   "zh": "栗花落香奈乎",
+   "work": "kimetsu no yaiba",
+   "trigger": "tsuyuri kanao, kimetsu no yaiba",
+   "pop": 0,
+   "hair": "black",
+   "eyes": "purple",
+   "tags": [
+    "1girl",
+    "black hair",
+    "ponytail",
+    "purple eyes",
+    "butterfly hair ornament",
+    "demon slayer uniform"
+   ],
+   "src": "manual",
+   "thumb": "tsuyuri_kanao"
+  },
+  {
+   "tag": "tamayo_(kimetsu_no_yaiba)",
+   "name": "tamayo (kimetsu no yaiba)",
+   "zh": "珠世",
+   "work": "kimetsu no yaiba",
+   "trigger": "tamayo, kimetsu no yaiba",
+   "pop": 0,
+   "hair": "black",
+   "eyes": "purple",
+   "tags": [
+    "1girl",
+    "black hair",
+    "purple eyes",
+    "kimono",
+    "hair bun"
+   ],
+   "src": "manual",
+   "thumb": "tamayo_kimetsu_no_yaiba"
+  },
+  {
+   "tag": "daki_(kimetsu_no_yaiba)",
+   "name": "daki (kimetsu no yaiba)",
+   "zh": "堕姬",
+   "work": "kimetsu no yaiba",
+   "trigger": "daki, kimetsu no yaiba",
+   "pop": 0,
+   "hair": "black",
+   "eyes": "green",
+   "tags": [
+    "1girl",
+    "black hair",
+    "long hair",
+    "green eyes",
+    "kimono",
+    "oiran"
+   ],
+   "src": "manual",
+   "thumb": "daki_kimetsu_no_yaiba"
+  },
+  {
+   "tag": "susamaru",
+   "name": "susamaru",
+   "zh": "朱纱丸",
+   "work": "kimetsu no yaiba",
+   "trigger": "susamaru, kimetsu no yaiba",
+   "pop": 0,
+   "hair": "black",
+   "eyes": "red",
+   "tags": [
+    "1girl",
+    "black hair",
+    "twin tails",
+    "red eyes",
+    "red kimono",
+    "temari"
+   ],
+   "src": "manual",
+   "thumb": "susamaru"
+  },
+  {
+   "tag": "kanzaki_aoi_(kimetsu_no_yaiba)",
+   "name": "kanzaki aoi (kimetsu no yaiba)",
+   "zh": "神崎葵",
+   "work": "kimetsu no yaiba",
+   "trigger": "kanzaki aoi, kimetsu no yaiba",
+   "pop": 0,
+   "hair": "black",
+   "eyes": "purple",
+   "tags": [
+    "1girl",
+    "black hair",
+    "twin tails",
+    "purple eyes",
+    "demon slayer uniform",
+    "white haori"
+   ],
+   "src": "manual",
+   "thumb": "kanzaki_aoi_kimetsu_no_yaiba"
+  },
+  {
+   "tag": "makomo_(kimetsu_no_yaiba)",
+   "name": "makomo (kimetsu no yaiba)",
+   "zh": "真菰",
+   "work": "kimetsu no yaiba",
+   "trigger": "makomo, kimetsu no yaiba",
+   "pop": 0,
+   "hair": "black",
+   "eyes": "blue",
+   "tags": [
+    "1girl",
+    "black hair",
+    "blue eyes",
+    "kimono",
+    "fox mask"
+   ],
+   "src": "manual",
+   "thumb": "makomo_kimetsu_no_yaiba"
+  }
+ ],
+ "outfits": {
+  "perlica_(arknights)": {
+   "enabled": "",
+   "list": [
+    {
+     "id": "default",
+     "zh": "原作 · 白色工程师装",
+     "level": 0,
+     "tags": [
+      "white dress",
+      "black thighhighs",
+      "boots",
+      "hairband",
+      "mechanical arms"
+     ],
+     "fields": {},
+     "drop": [
+      "outfit",
+      "top",
+      "bottom",
+      "socks",
+      "sock_color",
+      "shoes",
+      "accessory",
+      "cloth_color",
+      "cloth_mat",
+      "cloth_state_sfw",
+      "cloth_nsfw",
+      "n_fabric",
+      "n_shoes_keep"
+     ],
+     "verified": false,
+     "note": "2026-11-07 新增角色，按官方造型写的初稿；未真机验收"
+    }
+   ]
+  },
+  "chen_qianyu": {
+   "enabled": "",
+   "list": [
+    {
+     "id": "default",
+     "zh": "原作 · 红蓝战斗服",
+     "level": 0,
+     "tags": [
+      "red dress",
+      "blue skirt",
+      "white coat",
+      "hair ornament",
+      "boots"
+     ],
+     "fields": {},
+     "drop": [
+      "outfit",
+      "top",
+      "bottom",
+      "socks",
+      "sock_color",
+      "shoes",
+      "accessory",
+      "cloth_color",
+      "cloth_mat",
+      "cloth_state_sfw",
+      "cloth_nsfw",
+      "n_fabric",
+      "n_shoes_keep"
+     ],
+     "verified": false,
+     "note": "2026-11-07 新增角色，按官方造型写的初稿；未真机验收"
+    }
+   ]
+  },
+  "laevatain_(arknights)": {
+   "enabled": "",
+   "list": [
+    {
+     "id": "default",
+     "zh": "原作 · 黑大衣火焰剑",
+     "level": 0,
+     "tags": [
+      "black coat",
+      "black pants",
+      "boots",
+      "sword"
+     ],
+     "fields": {},
+     "drop": [
+      "outfit",
+      "top",
+      "bottom",
+      "socks",
+      "sock_color",
+      "shoes",
+      "accessory",
+      "cloth_color",
+      "cloth_mat",
+      "cloth_state_sfw",
+      "cloth_nsfw",
+      "n_fabric",
+      "n_shoes_keep"
+     ],
+     "verified": false,
+     "note": "2026-11-07 新增角色，按官方造型写的初稿；未真机验收"
+    }
+   ]
+  },
+  "yvonne_(arknights)": {
+   "enabled": "",
+   "list": [
+    {
+     "id": "default",
+     "zh": "原作 · 黑红机械装",
+     "level": 0,
+     "tags": [
+      "black dress",
+      "red skirt",
+      "mechanical arms",
+      "boots"
+     ],
+     "fields": {},
+     "drop": [
+      "outfit",
+      "top",
+      "bottom",
+      "socks",
+      "sock_color",
+      "shoes",
+      "accessory",
+      "cloth_color",
+      "cloth_mat",
+      "cloth_state_sfw",
+      "cloth_nsfw",
+      "n_fabric",
+      "n_shoes_keep"
+     ],
+     "verified": false,
+     "note": "2026-11-07 新增角色，按官方造型写的初稿；未真机验收"
+    }
+   ]
+  },
+  "gilberta_(arknights)": {
+   "enabled": "",
+   "list": [
+    {
+     "id": "default",
+     "zh": "原作 · 蓝白支援装",
+     "level": 0,
+     "tags": [
+      "blue dress",
+      "white coat",
+      "thighhighs",
+      "boots"
+     ],
+     "fields": {},
+     "drop": [
+      "outfit",
+      "top",
+      "bottom",
+      "socks",
+      "sock_color",
+      "shoes",
+      "accessory",
+      "cloth_color",
+      "cloth_mat",
+      "cloth_state_sfw",
+      "cloth_nsfw",
+      "n_fabric",
+      "n_shoes_keep"
+     ],
+     "verified": false,
+     "note": "2026-11-07 新增角色，按官方造型写的初稿；未真机验收"
+    }
+   ]
+  },
+  "ardelia_(arknights)": {
+   "enabled": "",
+   "list": [
+    {
+     "id": "default",
+     "zh": "原作 · 黑红长裙",
+     "level": 0,
+     "tags": [
+      "black dress",
+      "red skirt",
+      "boots",
+      "sword"
+     ],
+     "fields": {},
+     "drop": [
+      "outfit",
+      "top",
+      "bottom",
+      "socks",
+      "sock_color",
+      "shoes",
+      "accessory",
+      "cloth_color",
+      "cloth_mat",
+      "cloth_state_sfw",
+      "cloth_nsfw",
+      "n_fabric",
+      "n_shoes_keep"
+     ],
+     "verified": false,
+     "note": "2026-11-07 新增角色，按官方造型写的初稿；未真机验收"
+    }
+   ]
+  },
+  "ember_(arknights)": {
+   "enabled": "",
+   "list": [
+    {
+     "id": "default",
+     "zh": "原作 · 黑大衣重装",
+     "level": 0,
+     "tags": [
+      "black coat",
+      "black pants",
+      "boots",
+      "mechanical arms"
+     ],
+     "fields": {},
+     "drop": [
+      "outfit",
+      "top",
+      "bottom",
+      "socks",
+      "sock_color",
+      "shoes",
+      "accessory",
+      "cloth_color",
+      "cloth_mat",
+      "cloth_state_sfw",
+      "cloth_nsfw",
+      "n_fabric",
+      "n_shoes_keep"
+     ],
+     "verified": false,
+     "note": "2026-11-07 新增角色，按官方造型写的初稿；未真机验收"
+    }
+   ]
+  },
+  "last_rite_(arknights)": {
+   "enabled": "",
+   "list": [
+    {
+     "id": "default",
+     "zh": "原作 · 黑红双刀",
+     "level": 0,
+     "tags": [
+      "black coat",
+      "black skirt",
+      "boots",
+      "dual wielding"
+     ],
+     "fields": {},
+     "drop": [
+      "outfit",
+      "top",
+      "bottom",
+      "socks",
+      "sock_color",
+      "shoes",
+      "accessory",
+      "cloth_color",
+      "cloth_mat",
+      "cloth_state_sfw",
+      "cloth_nsfw",
+      "n_fabric",
+      "n_shoes_keep"
+     ],
+     "verified": false,
+     "note": "2026-11-07 新增角色，按官方造型写的初稿；未真机验收"
+    }
+   ]
+  },
+  "arclight_(arknights)": {
+   "enabled": "",
+   "list": [
+    {
+     "id": "default",
+     "zh": "原作 · 银发冰蓝大衣",
+     "level": 0,
+     "tags": [
+      "black coat",
+      "black skirt",
+      "boots",
+      "ice"
+     ],
+     "fields": {},
+     "drop": [
+      "outfit",
+      "top",
+      "bottom",
+      "socks",
+      "sock_color",
+      "shoes",
+      "accessory",
+      "cloth_color",
+      "cloth_mat",
+      "cloth_state_sfw",
+      "cloth_nsfw",
+      "n_fabric",
+      "n_shoes_keep"
+     ],
+     "verified": false,
+     "note": "2026-11-07 新增角色，按官方造型写的初稿；未真机验收"
+    }
+   ]
+  },
+  "avywenna": {
+   "enabled": "",
+   "list": [
+    {
+     "id": "default",
+     "zh": "原作 · 青蓝军装",
+     "level": 0,
+     "tags": [
+      "blue dress",
+      "blue jacket",
+      "thighhighs",
+      "boots"
+     ],
+     "fields": {},
+     "drop": [
+      "outfit",
+      "top",
+      "bottom",
+      "socks",
+      "sock_color",
+      "shoes",
+      "accessory",
+      "cloth_color",
+      "cloth_mat",
+      "cloth_state_sfw",
+      "cloth_nsfw",
+      "n_fabric",
+      "n_shoes_keep"
+     ],
+     "verified": false,
+     "note": "2026-11-07 新增角色，按官方造型写的初稿；未真机验收"
+    }
+   ]
+  },
+  "snowshine": {
+   "enabled": "",
+   "list": [
+    {
+     "id": "default",
+     "zh": "原作 · 蓝白雪原装",
+     "level": 0,
+     "tags": [
+      "blue dress",
+      "white coat",
+      "boots",
+      "ice"
+     ],
+     "fields": {},
+     "drop": [
+      "outfit",
+      "top",
+      "bottom",
+      "socks",
+      "sock_color",
+      "shoes",
+      "accessory",
+      "cloth_color",
+      "cloth_mat",
+      "cloth_state_sfw",
+      "cloth_nsfw",
+      "n_fabric",
+      "n_shoes_keep"
+     ],
+     "verified": false,
+     "note": "2026-11-07 新增角色，按官方造型写的初稿；未真机验收"
+    }
+   ]
+  },
+  "xaihi": {
+   "enabled": "",
+   "list": [
+    {
+     "id": "default",
+     "zh": "原作 · 蓝白辅助装",
+     "level": 0,
+     "tags": [
+      "blue dress",
+      "white coat",
+      "hair ornament",
+      "boots"
+     ],
+     "fields": {},
+     "drop": [
+      "outfit",
+      "top",
+      "bottom",
+      "socks",
+      "sock_color",
+      "shoes",
+      "accessory",
+      "cloth_color",
+      "cloth_mat",
+      "cloth_state_sfw",
+      "cloth_nsfw",
+      "n_fabric",
+      "n_shoes_keep"
+     ],
+     "verified": false,
+     "note": "2026-11-07 新增角色，按官方造型写的初稿；未真机验收"
+    }
+   ]
+  },
+  "akekuri": {
+   "enabled": "",
+   "list": [
+    {
+     "id": "default",
+     "zh": "原作 · 红发持械",
+     "level": 0,
+     "tags": [
+      "red jacket",
+      "black shorts",
+      "boots",
+      "gun"
+     ],
+     "fields": {},
+     "drop": [
+      "outfit",
+      "top",
+      "bottom",
+      "socks",
+      "sock_color",
+      "shoes",
+      "accessory",
+      "cloth_color",
+      "cloth_mat",
+      "cloth_state_sfw",
+      "cloth_nsfw",
+      "n_fabric",
+      "n_shoes_keep"
+     ],
+     "verified": false,
+     "note": "2026-11-07 新增角色，按官方造型写的初稿；未真机验收"
+    }
+   ]
+  },
+  "estella_(arknights)": {
+   "enabled": "",
+   "list": [
+    {
+     "id": "default",
+     "zh": "原作 · 白裙冰枪",
+     "level": 0,
+     "tags": [
+      "white dress",
+      "red hair",
+      "boots",
+      "ice"
+     ],
+     "fields": {},
+     "drop": [
+      "outfit",
+      "top",
+      "bottom",
+      "socks",
+      "sock_color",
+      "shoes",
+      "accessory",
+      "cloth_color",
+      "cloth_mat",
+      "cloth_state_sfw",
+      "cloth_nsfw",
+      "n_fabric",
+      "n_shoes_keep"
+     ],
+     "verified": false,
+     "note": "2026-11-07 新增角色，按官方造型写的初稿；未真机验收"
+    }
+   ]
+  },
+  "fluorite_(arknights)": {
+   "enabled": "",
+   "list": [
+    {
+     "id": "default",
+     "zh": "原作 · 白色兽耳装",
+     "level": 0,
+     "tags": [
+      "white dress",
+      "white coat",
+      "boots",
+      "animal ears"
+     ],
+     "fields": {},
+     "drop": [
+      "outfit",
+      "top",
+      "bottom",
+      "socks",
+      "sock_color",
+      "shoes",
+      "accessory",
+      "cloth_color",
+      "cloth_mat",
+      "cloth_state_sfw",
+      "cloth_nsfw",
+      "n_fabric",
+      "n_shoes_keep"
+     ],
+     "verified": false,
+     "note": "2026-11-07 新增角色，按官方造型写的初稿；未真机验收"
+    }
+   ]
+  },
+  "endministrator_(arknights)": {
+   "enabled": "",
+   "list": [
+    {
+     "id": "default",
+     "zh": "原作 · 白大衣金饰",
+     "level": 0,
+     "tags": [
+      "white coat",
+      "black skirt",
+      "gold trim",
+      "boots"
+     ],
+     "fields": {},
+     "drop": [
+      "outfit",
+      "top",
+      "bottom",
+      "socks",
+      "sock_color",
+      "shoes",
+      "accessory",
+      "cloth_color",
+      "cloth_mat",
+      "cloth_state_sfw",
+      "cloth_nsfw",
+      "n_fabric",
+      "n_shoes_keep"
+     ],
+     "verified": false,
+     "note": "2026-11-07 新增角色，按官方造型写的初稿；未真机验收"
+    }
+   ]
+  },
+  "kochou_kanae": {
+   "enabled": "",
+   "list": [
+    {
+     "id": "default",
+     "zh": "原作 · 黄紫蝴蝶羽织",
+     "level": 0,
+     "tags": [
+      "haori",
+      "kimono",
+      "demon slayer uniform",
+      "butterfly hair ornament"
+     ],
+     "fields": {},
+     "drop": [
+      "outfit",
+      "top",
+      "bottom",
+      "socks",
+      "sock_color",
+      "shoes",
+      "accessory",
+      "cloth_color",
+      "cloth_mat",
+      "cloth_state_sfw",
+      "cloth_nsfw",
+      "n_fabric",
+      "n_shoes_keep"
+     ],
+     "verified": false,
+     "note": "2026-11-07 新增角色，按官方造型写的初稿；未真机验收"
+    }
+   ]
+  },
+  "tsuyuri_kanao": {
+   "enabled": "",
+   "list": [
+    {
+     "id": "default",
+     "zh": "原作 · 鬼杀队制服白羽织",
+     "level": 0,
+     "tags": [
+      "demon slayer uniform",
+      "white haori",
+      "butterfly hair ornament"
+     ],
+     "fields": {},
+     "drop": [
+      "outfit",
+      "top",
+      "bottom",
+      "socks",
+      "sock_color",
+      "shoes",
+      "accessory",
+      "cloth_color",
+      "cloth_mat",
+      "cloth_state_sfw",
+      "cloth_nsfw",
+      "n_fabric",
+      "n_shoes_keep"
+     ],
+     "verified": false,
+     "note": "2026-11-07 新增角色，按官方造型写的初稿；未真机验收"
+    }
+   ]
+  },
+  "tamayo_(kimetsu_no_yaiba)": {
+   "enabled": "",
+   "list": [
+    {
+     "id": "default",
+     "zh": "原作 · 紫色和服",
+     "level": 0,
+     "tags": [
+      "purple kimono",
+      "kimono",
+      "hair bun",
+      "obi"
+     ],
+     "fields": {},
+     "drop": [
+      "outfit",
+      "top",
+      "bottom",
+      "socks",
+      "sock_color",
+      "shoes",
+      "accessory",
+      "cloth_color",
+      "cloth_mat",
+      "cloth_state_sfw",
+      "cloth_nsfw",
+      "n_fabric",
+      "n_shoes_keep"
+     ],
+     "verified": false,
+     "note": "2026-11-07 新增角色，按官方造型写的初稿；未真机验收"
+    }
+   ]
+  },
+  "daki_(kimetsu_no_yaiba)": {
+   "enabled": "",
+   "list": [
+    {
+     "id": "default",
+     "zh": "原作 · 花魁和服",
+     "level": 0,
+     "tags": [
+      "kimono",
+      "floral print",
+      "obi",
+      "hair ornament",
+      "oiran"
+     ],
+     "fields": {},
+     "drop": [
+      "outfit",
+      "top",
+      "bottom",
+      "socks",
+      "sock_color",
+      "shoes",
+      "accessory",
+      "cloth_color",
+      "cloth_mat",
+      "cloth_state_sfw",
+      "cloth_nsfw",
+      "n_fabric",
+      "n_shoes_keep"
+     ],
+     "verified": false,
+     "note": "2026-11-07 新增角色，按官方造型写的初稿；未真机验收"
+    }
+   ]
+  },
+  "susamaru": {
+   "enabled": "",
+   "list": [
+    {
+     "id": "default",
+     "zh": "原作 · 红色和服手球",
+     "level": 0,
+     "tags": [
+      "red kimono",
+      "kimono",
+      "twin tails",
+      "temari"
+     ],
+     "fields": {},
+     "drop": [
+      "outfit",
+      "top",
+      "bottom",
+      "socks",
+      "sock_color",
+      "shoes",
+      "accessory",
+      "cloth_color",
+      "cloth_mat",
+      "cloth_state_sfw",
+      "cloth_nsfw",
+      "n_fabric",
+      "n_shoes_keep"
+     ],
+     "verified": false,
+     "note": "2026-11-07 新增角色，按官方造型写的初稿；未真机验收"
+    }
+   ]
+  },
+  "kanzaki_aoi_(kimetsu_no_yaiba)": {
+   "enabled": "",
+   "list": [
+    {
+     "id": "default",
+     "zh": "原作 · 鬼杀队制服",
+     "level": 0,
+     "tags": [
+      "demon slayer uniform",
+      "white haori",
+      "twin tails"
+     ],
+     "fields": {},
+     "drop": [
+      "outfit",
+      "top",
+      "bottom",
+      "socks",
+      "sock_color",
+      "shoes",
+      "accessory",
+      "cloth_color",
+      "cloth_mat",
+      "cloth_state_sfw",
+      "cloth_nsfw",
+      "n_fabric",
+      "n_shoes_keep"
+     ],
+     "verified": false,
+     "note": "2026-11-07 新增角色，按官方造型写的初稿；未真机验收"
+    }
+   ]
+  },
+  "makomo_(kimetsu_no_yaiba)": {
+   "enabled": "",
+   "list": [
+    {
+     "id": "default",
+     "zh": "原作 · 花纹和服狐狸面具",
+     "level": 0,
+     "tags": [
+      "kimono",
+      "floral print",
+      "fox mask"
+     ],
+     "fields": {},
+     "drop": [
+      "outfit",
+      "top",
+      "bottom",
+      "socks",
+      "sock_color",
+      "shoes",
+      "accessory",
+      "cloth_color",
+      "cloth_mat",
+      "cloth_state_sfw",
+      "cloth_nsfw",
+      "n_fabric",
+      "n_shoes_keep"
+     ],
+     "verified": false,
+     "note": "2026-11-07 新增角色，按官方造型写的初稿；未真机验收"
+    }
+   ]
+  }
+ }
+}

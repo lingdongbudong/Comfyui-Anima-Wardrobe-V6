@@ -1,8 +1,8 @@
 {
  "_meta": {
   "schema": "anima-v5/outfit-library@1",
-  "updated_at": "2026-11-08 00:38:44",
-  "count": 135,
+  "updated_at": "2026-11-16 21:48:11",
+  "count": 167,
   "active": "",
   "categories": [
    {
@@ -68,22 +68,29 @@
    "_meta.overrides / _meta.scene_override 是用户状态，重跑必须保留。"
   ],
   "overrides": {
-   "socks": "",
+   "socks": "aqua gradient thighhighs",
    "shoes": ""
   },
   "scene_override": false,
   "counts": {
-   "casual": 10,
+   "casual": 16,
    "school": 13,
    "office": 13,
-   "traditional": 10,
-   "formal": 12,
-   "home": 10,
-   "swim": 10,
+   "traditional": 13,
+   "formal": 15,
+   "home": 15,
+   "swim": 12,
    "combat": 10,
    "cosplay": 10,
    "hosiery": 12,
-   "nsfw_outfit": 25
+   "nsfw_outfit": 38
+  },
+  "pool": {
+   "on": false,
+   "cats": [],
+   "max_level": 4,
+   "ids": [],
+   "_last": ""
   }
  },
  "outfits": [
@@ -4850,6 +4857,1142 @@
     "n_fabric",
     "n_shoes_keep"
    ]
+  },
+  {
+   "id": "ol_l1_tube_velvet",
+   "zh": "黑丝绒抹胸长裙",
+   "cat": "formal",
+   "level": 1,
+   "tags": [
+    "black tube top",
+    "black velvet evening gown",
+    "black high heels",
+    "off shoulder",
+    "bare shoulders"
+   ],
+   "fields": {
+    "top": "tube top",
+    "bottom": "long skirt",
+    "cloth_color": "black",
+    "cloth_mat": "velvet",
+    "cloth_state_sfw": "off shoulder",
+    "shoes": "high heels"
+   },
+   "verified": true,
+   "note": "黑丝绒抹胸配长裙，肩颈线完整露出，礼服向",
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ]
+  },
+  {
+   "id": "ol_l1_tube_pleated",
+   "zh": "白抹胸 · 高腰百褶裙",
+   "cat": "formal",
+   "level": 1,
+   "tags": [
+    "white tube top",
+    "high-waist pleated skirt",
+    "white high heels",
+    "backless",
+    "bare arms"
+   ],
+   "fields": {
+    "top": "tube top",
+    "bottom": "pleated skirt",
+    "cloth_color": "white",
+    "cloth_state_sfw": "backless",
+    "shoes": "high heels"
+   },
+   "verified": true,
+   "note": "白色抹胸配高腰百褶裙，露背设计，轻礼服",
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ]
+  },
+  {
+   "id": "ol_l1_tube_bustier",
+   "zh": "酒红束身抹胸",
+   "cat": "formal",
+   "level": 1,
+   "tags": [
+    "red tube top",
+    "red bustier",
+    "long skirt",
+    "sleeveless",
+    "bare shoulders"
+   ],
+   "fields": {
+    "top": "tube top",
+    "bottom": "bustier",
+    "cloth_color": "red",
+    "shoes": "stiletto heels"
+   },
+   "verified": true,
+   "note": "酒红缎面束身抹胸配长裙，舞台感",
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ]
+  },
+  {
+   "id": "ol_l1_center_lace",
+   "zh": "黑缎中缝绑带上衣",
+   "cat": "nsfw_outfit",
+   "level": 1,
+   "tags": [
+    "black center front slit",
+    "laced center placket",
+    "front opening",
+    "black satin blouse",
+    "bare collarbone"
+   ],
+   "fields": {
+    "top": "camisole",
+    "bottom": "bustier",
+    "cloth_color": "black",
+    "cloth_mat": "silk"
+   },
+   "verified": true,
+   "note": "黑缎上衣沿中缝开衩，靠交叉绑带合拢，中缝露出一条皮肤",
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ]
+  },
+  {
+   "id": "ol_l1_center_placket",
+   "zh": "白衬衫中缝合襟",
+   "cat": "nsfw_outfit",
+   "level": 1,
+   "tags": [
+    "white center front opening",
+    "unbuttoned center placket",
+    "front slit",
+    "white pleated skirt",
+    "sleeveless"
+   ],
+   "fields": {
+    "top": "sleeveless shirt",
+    "bottom": "pleated skirt",
+    "cloth_color": "white",
+    "cloth_state_sfw": "unbuttoned collar"
+   },
+   "verified": true,
+   "note": "白衬衫中缝敞开、领口解开，靠扣带合襟",
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ]
+  },
+  {
+   "id": "ol_l1_center_velvet",
+   "zh": "藏青绒面中缝开衩长裙",
+   "cat": "nsfw_outfit",
+   "level": 1,
+   "tags": [
+    "blue center front slit",
+    "laced center seam",
+    "blue velvet dress",
+    "front opening",
+    "bare shoulders"
+   ],
+   "fields": {
+    "outfit": "sleeveless dress",
+    "cloth_color": "blue",
+    "cloth_mat": "velvet",
+    "cloth_state_sfw": "backless",
+    "shoes": "high heels"
+   },
+   "verified": true,
+   "note": "藏青丝绒长裙正面中缝开衩，系带收口，露肩露背",
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ]
+  },
+  {
+   "id": "tr_qipao_jade",
+   "zh": "墨绿旗袍 · 传统长款",
+   "cat": "traditional",
+   "level": 0,
+   "tags": [
+    "china dress",
+    "green qipao",
+    "mandarin collar",
+    "gold embroidery",
+    "ankle length"
+   ],
+   "fields": {
+    "outfit": "china dress",
+    "cloth_color": "green",
+    "cloth_mat": "silk"
+   },
+   "verified": true,
+   "note": "及踝立领传统长旗袍，墨绿丝绸配金线刺绣",
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ]
+  },
+  {
+   "id": "tr_qipao_moonwhite",
+   "zh": "月白改良短旗袍",
+   "cat": "traditional",
+   "level": 0,
+   "tags": [
+    "china dress",
+    "white qipao",
+    "knee length qipao",
+    "short sleeves",
+    "short side vent"
+   ],
+   "fields": {
+    "outfit": "china dress",
+    "cloth_color": "white",
+    "cloth_mat": "silk"
+   },
+   "verified": true,
+   "note": "及膝改良短款，月白丝绸短袖，侧摆小开气",
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ]
+  },
+  {
+   "id": "tr_qipao_wine_stage",
+   "zh": "酒红舞台旗袍",
+   "cat": "traditional",
+   "level": 1,
+   "tags": [
+    "china dress",
+    "red qipao",
+    "high slit",
+    "backless",
+    "gold embroidery"
+   ],
+   "fields": {
+    "outfit": "china dress",
+    "cloth_color": "red",
+    "cloth_mat": "velvet",
+    "cloth_state_sfw": "backless"
+   },
+   "verified": true,
+   "note": "酒红丝绒高开衩舞台款，露背，金线纹样",
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ]
+  },
+  {
+   "id": "ol_white_shirt_wide",
+   "zh": "白衬衫 · 阔腿裤",
+   "level": 0,
+   "tags": [
+    "white shirt",
+    "beige wide-leg pants",
+    "brown loafers",
+    "canvas tote bag",
+    "tucked in shirt"
+   ],
+   "fields": {
+    "top": "shirt",
+    "bottom": "wide-leg pants",
+    "shoes": "loafers",
+    "cloth_color": "white"
+   },
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ],
+   "verified": true,
+   "note": "通勤 / 咖啡厅向，白衬衫扎进阔腿裤的干净线条",
+   "cat": "casual"
+  },
+  {
+   "id": "ol_polo_tennis",
+   "zh": "Polo · 网球裙",
+   "level": 0,
+   "tags": [
+    "white polo shirt",
+    "white tennis skirt",
+    "white sneakers",
+    "ankle socks",
+    "sports wristband"
+   ],
+   "fields": {
+    "top": "polo shirt",
+    "bottom": "tennis skirt",
+    "shoes": "sneakers",
+    "socks": "ankle socks",
+    "cloth_color": "white"
+   },
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ],
+   "verified": true,
+   "note": "公园 / 街道运动休闲向，网球裙不露、polo 领口收着",
+   "cat": "casual"
+  },
+  {
+   "id": "ol_turtleneck_long",
+   "zh": "高领针织 · 长裙",
+   "level": 0,
+   "tags": [
+    "brown turtleneck",
+    "cream long skirt",
+    "brown ankle boots",
+    "knitwear",
+    "shoulder bag"
+   ],
+   "fields": {
+    "top": "turtleneck",
+    "bottom": "long skirt",
+    "shoes": "ankle boots",
+    "cloth_mat": "knitwear",
+    "cloth_color": "brown"
+   },
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ],
+   "verified": true,
+   "note": "秋日林道 / 桥边向，针织与长裙的棕米配色",
+   "cat": "casual"
+  },
+  {
+   "id": "ol_tee_overalls",
+   "zh": "T恤 · 背带裤",
+   "level": 0,
+   "tags": [
+    "grey t-shirt",
+    "denim overalls",
+    "white sneakers",
+    "canvas backpack",
+    "rolled up sleeves"
+   ],
+   "fields": {
+    "top": "t-shirt",
+    "bottom": "overalls",
+    "shoes": "sneakers",
+    "cloth_mat": "denim",
+    "cloth_color": "grey"
+   },
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ],
+   "verified": true,
+   "note": "骑车 / 郊外向，背带裤不写露肤，靠工装轮廓撑画面",
+   "cat": "casual"
+  },
+  {
+   "id": "ol_denim_jacket_dress",
+   "zh": "牛仔外套 · 白裙",
+   "level": 0,
+   "tags": [
+    "blue denim jacket",
+    "white a-line skirt",
+    "white sandals",
+    "straw hat",
+    "crossbody bag"
+   ],
+   "fields": {
+    "top": "denim jacket",
+    "bottom": "a-line skirt",
+    "shoes": "sandals",
+    "accessory": "straw hat",
+    "cloth_mat": "denim",
+    "cloth_color": "blue"
+   },
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ],
+   "verified": true,
+   "note": "花田 / 海边步道向，外套敞开但里面是完整白裙",
+   "cat": "casual"
+  },
+  {
+   "id": "ol_parka_cargo",
+   "zh": "短羽绒 · 工装裤",
+   "level": 0,
+   "tags": [
+    "black down jacket",
+    "khaki cargo pants",
+    "black sneakers",
+    "fur trim hood",
+    "knit scarf"
+   ],
+   "fields": {
+    "top": "down jacket",
+    "bottom": "cargo pants",
+    "shoes": "sneakers",
+    "cloth_color": "black"
+   },
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ],
+   "verified": true,
+   "note": "山道 / 公路向的冬季外套，不写湿冷氛围（那是场景的事）",
+   "cat": "casual"
+  },
+  {
+   "id": "hm_tee_shorts",
+   "zh": "家居T · 短裤",
+   "level": 0,
+   "tags": [
+    "cream t-shirt",
+    "grey shorts",
+    "white slippers",
+    "ribbed socks",
+    "messy hair"
+   ],
+   "fields": {
+    "top": "t-shirt",
+    "bottom": "shorts",
+    "shoes": "slippers",
+    "socks": "ribbed socks"
+   },
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ],
+   "verified": true,
+   "note": "厨房 / 客厅向的日常家居，短裤选 `shorts` 不是 `short shorts`（那是 L1）",
+   "cat": "home"
+  },
+  {
+   "id": "hm_tank_wide",
+   "zh": "背心 · 阔腿裤",
+   "level": 0,
+   "tags": [
+    "white tank top",
+    "grey wide-leg pants",
+    "barefoot",
+    "hair clip",
+    "loose hair"
+   ],
+   "fields": {
+    "top": "tank top",
+    "bottom": "wide-leg pants",
+    "shoes": "bare feet"
+   },
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ],
+   "verified": true,
+   "note": "阳台 / 卧室向，背心用 `tank top`（`camisole` 是 L1，别用）",
+   "cat": "home"
+  },
+  {
+   "id": "hm_sweater_dress",
+   "zh": "针织连衣裙 · 毛袜",
+   "level": 0,
+   "tags": [
+    "beige sweater dress",
+    "white slippers",
+    "white ribbed socks",
+    "knitwear",
+    "long sleeves"
+   ],
+   "fields": {
+    "outfit": "sweater dress",
+    "shoes": "slippers",
+    "socks": "ribbed socks",
+    "cloth_mat": "knitwear"
+   },
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ],
+   "verified": true,
+   "note": "冬季卧室向，整套只写 `outfit` 一次，避免与 top/bottom 重复描述",
+   "cat": "home"
+  },
+  {
+   "id": "ns_leather_corset",
+   "zh": "皮质束腰 · 短裙",
+   "level": 3,
+   "tags": [
+    "black leather corset",
+    "black miniskirt",
+    "thigh boots",
+    "front zipper",
+    "glossy"
+   ],
+   "fields": {
+    "bottom": "corset",
+    "cloth_mat": "leather",
+    "shoes": "thigh boots"
+   },
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ],
+   "verified": true,
+   "note": "皮革束腰压腰线 + 短裙，靠材质与轮廓撑档（latex/leather 判定表只给 L1）",
+   "cat": "nsfw_outfit"
+  },
+  {
+   "id": "ns_half_slip_shirt",
+   "zh": "半脱衬衫 · 蕾丝内里",
+   "level": 3,
+   "tags": [
+    "unbuttoned white shirt",
+    "black lace bra",
+    "panties",
+    "bare shoulders",
+    "one shoulder slip"
+   ],
+   "fields": {
+    "top": "shirt",
+    "shoes": "bare feet"
+   },
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ],
+   "verified": true,
+   "note": "衬衫半褪 + 内里可见，写清「露在哪」而不是只写 nude",
+   "cat": "nsfw_outfit"
+  },
+  {
+   "id": "ns_wet_lace",
+   "zh": "湿身蕾丝 · 半透",
+   "level": 3,
+   "tags": [
+    "wet clothes",
+    "white lingerie",
+    "soaked fabric",
+    "clinging fabric",
+    "see-through"
+   ],
+   "fields": {
+    "cloth_state_sfw": "wet clothes",
+    "shoes": "bare feet"
+   },
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ],
+   "verified": true,
+   "note": "湿透贴身的白色蕾丝 —— v6.24.0 首验写成 white lace lingerie 被读成白纱裙，改成 soaked/clinging 强调湿感",
+   "cat": "nsfw_outfit"
+  },
+  {
+   "id": "ns_corset_garter",
+   "zh": "束腰 · 吊袜带",
+   "level": 3,
+   "tags": [
+    "black corset",
+    "garter belt",
+    "black stockings",
+    "thigh strap",
+    "lace trim"
+   ],
+   "fields": {
+    "bottom": "corset",
+    "socks": "black thighhighs, garter straps",
+    "shoes": "bare feet"
+   },
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ],
+   "verified": true,
+   "note": "经典束腰 + 吊袜带三件套，与「酒红星点」那套区分在黑系无星点",
+   "cat": "nsfw_outfit"
+  },
+  {
+   "id": "sw_sheer_onepiece",
+   "zh": "半透连体泳衣",
+   "level": 3,
+   "tags": [
+    "sheer one-piece swimsuit",
+    "high leg",
+    "wet skin",
+    "poolside",
+    "barefoot"
+   ],
+   "fields": {
+    "outfit": "one-piece swimsuit",
+    "socks": "barefoot",
+    "shoes": "bare feet"
+   },
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ],
+   "verified": true,
+   "note": "半透连体泳衣；含泳装词根 → 池化在非泳装锚点会整条剔除（预期行为）",
+   "cat": "swim"
+  },
+  {
+   "id": "hm_open_robe",
+   "zh": "露背浴袍 · 半褪",
+   "level": 3,
+   "tags": [
+    "white bathrobe",
+    "open back",
+    "slipping off shoulders",
+    "bare legs",
+    "bath towel around waist"
+   ],
+   "fields": {
+    "top": "bathrobe",
+    "shoes": "bare feet"
+   },
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ],
+   "verified": true,
+   "note": "浴袍从肩头滑落、露出背脊；居家场景的 L3 载体",
+   "cat": "home"
+  },
+  {
+   "id": "hs_fishnet_bodysuit",
+   "zh": "网袜连体",
+   "level": 3,
+   "tags": [
+    "fishnet bodystocking",
+    "black bodysuit",
+    "garter straps",
+    "thigh strap",
+    "barefoot"
+   ],
+   "fields": {
+    "socks": "fishnet bodystocking",
+    "shoes": "bare feet"
+   },
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ],
+   "verified": true,
+   "note": "渔网连体袜当外穿，配吊袜带；`fishnet bodystocking` 本身只判 L2。⚠ 归 nsfw_outfit 而不是 hosiery —— 后者契约是「全部含亮丝星点袜」",
+   "cat": "nsfw_outfit"
+  },
+  {
+   "id": "ns_shibari_kimono",
+   "zh": "缚 · 和服半脱",
+   "level": 4,
+   "tags": [
+    "kimono",
+    "pulled down kimono",
+    "shibari",
+    "rope marks",
+    "suspension bondage"
+   ],
+   "fields": {
+    "outfit": "kimono",
+    "shoes": "bare feet"
+   },
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ],
+   "verified": true,
+   "note": "和服被绳索吊起半褪 —— v6.24.0 首验绳压过了和服（图里只剩绳），把 kimono 提到 tag 首位重验",
+   "cat": "nsfw_outfit"
+  },
+  {
+   "id": "ns_full_harness",
+   "zh": "全束具 · 皮装",
+   "level": 4,
+   "tags": [
+    "full body harness",
+    "leather straps",
+    "blindfold",
+    "ball gag",
+    "barefoot"
+   ],
+   "fields": {
+    "cloth_mat": "leather",
+    "shoes": "bare feet"
+   },
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ],
+   "verified": true,
+   "note": "全身束具 + 口球 + 蒙眼三件套，极端档的「装备流」",
+   "cat": "nsfw_outfit"
+  },
+  {
+   "id": "ns_apron_leash",
+   "zh": "裸围裙 · 项圈",
+   "level": 4,
+   "tags": [
+    "apron only",
+    "naked apron",
+    "collar and leash",
+    "long gloves",
+    "from behind"
+   ],
+   "fields": {
+    "outfit": "apron only",
+    "accessory": "choker",
+    "shoes": "bare feet"
+   },
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ],
+   "verified": true,
+   "note": "裸围裙 + 项圈牵引 + 长手套；与 L3「裸围裙」区分在多两件配饰与 L4 准入",
+   "cat": "nsfw_outfit"
+  },
+  {
+   "id": "ns_collar_gown",
+   "zh": "项圈 · 开衩长裙",
+   "level": 4,
+   "tags": [
+    "collar and leash",
+    "evening gown",
+    "high slit",
+    "long gloves",
+    "thigh strap"
+   ],
+   "fields": {
+    "outfit": "evening gown",
+    "accessory": "choker",
+    "shoes": "stiletto heels"
+   },
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ],
+   "verified": true,
+   "note": "穿得住礼服的极端档：长裙高开衩 + 项圈，画面仍「有衣服」",
+   "cat": "nsfw_outfit"
+  },
+  {
+   "id": "sw_side_tie_micro",
+   "zh": "侧系带微型比基尼",
+   "level": 4,
+   "tags": [
+    "micro bikini",
+    "side-tie bikini",
+    "bare legs",
+    "navel",
+    "wet skin"
+   ],
+   "fields": {
+    "outfit": "micro bikini",
+    "socks": "barefoot",
+    "shoes": "bare feet"
+   },
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ],
+   "verified": true,
+   "note": "侧系带微型比基尼，比现有「微型比基尼」更少布料（L3→L4）",
+   "cat": "swim"
+  },
+  {
+   "id": "hm_shibari_shirt",
+   "zh": "缚 · 男友衬衫",
+   "level": 4,
+   "tags": [
+    "shibari",
+    "oversized shirt",
+    "rope",
+    "bare legs",
+    "blushing"
+   ],
+   "fields": {
+    "top": "shirt",
+    "shoes": "bare feet"
+   },
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ],
+   "verified": true,
+   "note": "绳缚 + 男友衬衫，居家场景的极端档载体",
+   "cat": "home"
+  },
+  {
+   "id": "ns_latex_catsuit",
+   "zh": "全包乳胶 · 前开口",
+   "level": 4,
+   "tags": [
+    "latex catsuit",
+    "full coverage",
+    "front zipper open",
+    "glossy",
+    "barefoot"
+   ],
+   "fields": {
+    "cloth_mat": "latex",
+    "shoes": "bare feet"
+   },
+   "drop": [
+    "outfit",
+    "top",
+    "bottom",
+    "socks",
+    "sock_color",
+    "shoes",
+    "accessory",
+    "cloth_color",
+    "cloth_mat",
+    "cloth_state_sfw",
+    "cloth_nsfw",
+    "n_fabric",
+    "n_shoes_keep"
+   ],
+   "verified": true,
+   "note": "全包乳胶连体、前拉链拉开；判定表不认识 catsuit，必须人工标 L4",
+   "cat": "nsfw_outfit"
   }
  ]
 }
