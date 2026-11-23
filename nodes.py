@@ -927,6 +927,22 @@ def characters_payload() -> dict:
     id_of_work = {}
     for w in works:
         id_of_work.setdefault(w.get("en", ""), w.get("id", ""))
+
+    # v6.29.0（用户 2026-11-23）：卡片上显示「官方服装套数」。
+    # 只发一个整数，不发整套 tags —— 这份载荷本来就有 780KB（2400+ 角色），
+    # 把服装条目一起塞进来要多 400KB，而卡片只需要数字；
+    # 完整条目仍走 `GET /outfits`（点开 👗 弹窗时才拉）。
+    # 只读 `outfits_data()` 的缓存，不额外读盘。
+    try:
+        _outfit_map = R.outfits_data() or {}
+    except Exception:
+        _outfit_map = {}
+
+    def _outfit_n(tag: str) -> int:
+        _t = str(tag or "")
+        rec = _outfit_map.get(_t) or _outfit_map.get(_t.lower()) or {}
+        return len(rec.get("list") or []) if isinstance(rec, dict) else 0
+
     return {
         "available": R.has_character_library(),
         "meta": data.get("_meta", {}),
@@ -952,6 +968,8 @@ def characters_payload() -> dict:
                 # 决定弹窗里给「删除」还是「恢复默认」。内置记录的 src 是
                 # `wardrobe`（构建产物），用户新增的才被写成 `user`。
                 "user": str(c.get("src") or "") == "user",
+                # v6.29.0：这个角色有几套服装预设（卡片角标用）。
+                "outfits": _outfit_n(c.get("tag", "")),
             }
             for c in data.get("characters", [])
         ],

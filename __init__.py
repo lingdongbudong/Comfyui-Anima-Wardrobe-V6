@@ -36,16 +36,6 @@ v6.0.0 起前缀升为 /anima-wardrobe-v6/，**同时保留 v6 + v5 + v4 + v3 �
     GET  /anima-wardrobe-v6/characters/detail      单个角色完整记录 + 内置标签（v3.5.0）
     GET  /anima-wardrobe-v6/health    自检
 （以上每条都另外挂了一份 /anima-wardrobe-v4/ 与 /anima-wardrobe-v3/ 的同名副本。）
-
-v6 新增的路由（细节与参数见 docs/MAINTAINERS.md「二、对外 HTTP 路由」）：
-    GET  /scene-thumb/{name}                  场景预览图（v6.19.0，只挂 L0）
-    GET  /outfit-thumb/{name}                 服装预览图（v6.21.0，只挂 L0+L1）
-    GET  /outfits  POST /outfits/{enable,save,delete,import}
-                                              角色服装预设（按角色存）
-    GET  /outfit-library                      全局服装库载荷
-    POST /outfit-library/{enable,pool,save,delete,override,scene-override}
-                                              钉一套 / 池化随机 / 场景优先开关
-                                              （同值重发 = clear_cache，纯数据改动免重启）
 """
 from .nodes import (NODE_CLASS_MAPPINGS, NODE_DISPLAY_NAME_MAPPINGS,
                     character_detail_payload, characters_payload,
@@ -57,7 +47,7 @@ WEB_DIRECTORY = "./js"
 
 # 插件版本。改动记在 README 的「版本历史」里，health 路由也会回它 ——
 # 排查"装的是哪一版"时比翻文件可靠。
-__version__ = "6.26.0"
+__version__ = "6.30.0"
 
 # 角色缩略图目录（约 2000 张 webp）。由 tools/fetch_character_thumbs.py 生成，
 # 缺席时面板退化成首字母色块 —— 不阻塞任何功能。
@@ -514,6 +504,32 @@ def _register_routes():
         except ValueError as exc:
             return web.json_response({"error": str(exc)}, status=400)
         return web.json_response({"favorites": items})
+
+    # ── 场景默认画幅（v6.28.0）──────────────────────────────────────
+    # 用户 2026-11-18：「点击卡片内的竖与横能够切换默认比例，在竖/横/通
+    # 3 种比例循环切换，目的是更改场景默认比例。」
+    #
+    # 写的是**独立用户覆盖层**（presets/scene_aspect_user.json），不动
+    # presets/anima_v4_scene_aspects.json —— 后者是 build_scene_aspects.py
+    # 的生成产物，重跑构建会整份覆盖。
+    # ⚠️ 写完必须 clear_cache()：scene_aspect_user 是进程级缓存，
+    #    不清的话下一次 /scenes 仍回旧画幅（表现：点了没反应）。
+    @_dual_post("/scenes/aspect")
+    async def _scene_aspect_set(request):
+        from . import anima_v4_rules as R
+        from . import anima_v4_store as S
+        body = await _json_body(request)
+        sid = str(body.get("id") or "").strip()
+        try:
+            S.set_scene_aspect(sid, body.get("a"))
+        except ValueError as exc:
+            return web.json_response({"error": str(exc)}, status=400)
+        R.clear_cache()
+        return web.json_response({
+            "ok": True,
+            "id": sid,
+            "aspect": R.scene_aspect(sid),   # 回**合流后**的值，前端直接拿去用
+        })
 
     # ── 作品 IP 收藏（v5.0.4）──────────────────────────────────────
     # 值域是**作品 slug**（kantai_collection 这种），与角色 tag / 场景 id 分开存。

@@ -63,8 +63,10 @@ desktop.ini
 # ── 用户数据：跟踪的是空模板，往里写的真实数据不要提交 ─────────────
 # presets/user_*.json 这五份**必须入库**（运行必需 + schema 参照），所以下面
 # 不加 pattern —— 加了也没用，gitignore 管不到已跟踪文件。
+# v6.28.0 起多一份 presets/scene_aspect_user.json（面板里点场景画幅徽标写下的
+# 覆盖表），同一套口径：入库存空骨架，本地真实覆盖不要提交。
 # 它们入库时是空骨架（0 条）；你本地跑过之后会变成真实数据：
-# 收藏 / 自定义角色 / 命名预设。**提交前先还原**：
+# 收藏 / 自定义角色 / 命名预设 / 场景画幅覆盖。**提交前先还原**：
 #   git checkout -- presets/user_characters.json presets/user_favorites.json \
 #                   presets/user_presets.json presets/user_scene_favorites.json \
-#                   presets/user_work_favorites.json
+#                   presets/user_work_favorites.json presets/scene_aspect_user.json

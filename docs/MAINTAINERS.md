@@ -35,7 +35,8 @@ Comfyui-Anima-Wardrobe-V6/
 │   ├── anima_v4_scene_aspects.json 每条场景的画幅（**别写进 scenes.json**）
 │   ├── outfit_library.json        服装库 167 套 / 11 类
 │   ├── outfit_library_last.json   池化随机的「上次抽到哪套」游标（**本机生成、不入库**）
-│   ├── character_outfits.json     角色 → 服装预设映射（2447 套 / 覆盖 2434 位）
+│   ├── character_outfits.json     角色 → 服装预设映射（2800 套 / 覆盖 2434 位，297 位多套）
+│   ├── scene_aspect_user.json     场景画幅的用户覆盖层（v6.28.0）—— 入库存空模板，**别写生成映射**
 │   ├── char_hair_style.json       角色官方发型对齐表
 │   ├── char_output_tags.json      角色输出标签（按 Anima 官方写法核验）
 │   ├── thumbs/                    角色缩略图 2432 张 / 29 MB（与角色 1:1，作者本地生成）
@@ -190,7 +191,7 @@ python tests/run_all.py 500      # 更狠
 | `check_v3_role_output.py` | 角色正文 tag 走官方写法 `texas, arknights`（两个独立 tag、空格、零下划线） |
 | `check_v3_workfav.py` | 作品 IP 收藏：slug 归一 / 上限 / 与角色收藏值域隔离 |
 | `check_v3_duofill.py` | 双女自动补位：同作品优先 / 不乱补 / 关闭时零漂移 |
-| `av3_ui_smoke.mjs` | jsdom 真跑面板：**672 条**断言（权重树 / 角色浏览器 / **🎲 按 IP 随机抽角色** / **🔁 随机池** / **🎬 场景搭配页（档位分组 + **默认折叠** + **全部展开** + **👁 非破坏性预览**）** / 收藏 / 预设 / 免责声明 / 巨乳开关 / **角色编辑与自定义角色** / **特征标签增删改** / **段「本档不参与」判据** / **预演请求带 selected_roles+lock_fields** / **场景与服装预览图挂载与档位闸门** / **池化随机的分类多选与右栏 ✕** / **标题栏五比例按钮 + 画面联动（含 XB 缓存同步、both 不动、无节点降级）**） |
+| `av3_ui_smoke.mjs` | jsdom 真跑面板：**687 条**断言（权重树 / 角色浏览器 / **🎲 按 IP 随机抽角色** / **🔁 随机池** / **🎬 场景搭配页（档位分组 + **默认折叠** + **全部展开** + **👁 非破坏性预览**）** / 收藏 / 预设 / 免责声明 / 巨乳开关 / **角色编辑与自定义角色** / **特征标签增删改** / **段「本档不参与」判据** / **预演请求带 selected_roles+lock_fields** / **场景与服装预览图挂载与档位闸门** / **池化随机的分类多选与右栏 ✕** / **标题栏五比例按钮 + 画面联动（含 XB 缓存同步、both 不动、无节点降级）** / **场景画幅徽标三态（含写盘失败回退、不展开卡片）** / **角色卡官方套数角标** / **官方预设 🔒 不可删** / **官方预设压掉场景推荐服装** / **裸体场景与「衣物即主体」场景仍让路**） |
 
 > `av3_ui_smoke.mjs` 的 fetch 桩喂的是 `tools/dump_ui_fixtures.py` 从**真后端**
 > 导出的夹具 —— 接口改了字段名，冒烟立刻红。它抓到过 4 个真 bug：
@@ -231,7 +232,7 @@ python tests/run_all.py 500      # 更狠
 
 ### 6.5 测试基线
 
-`tests/run_all.py` **31 项全绿**（0 失败），UI 冒烟 `tests/av3_ui_smoke.mjs` **672 条**断言。
+`tests/run_all.py` **31 项全绿**（0 失败），UI 冒烟 `tests/av3_ui_smoke.mjs` **687 条**断言。
 **只增不减**：新增功能要补断言，但不许为了让红的变绿去改既有断言
 （历史上有几条断言依赖当时的条数 —— 那种要改成动态口径，并在 CHANGELOG 里写明）。
 `run_all` 默认每档 200 次抽样；`python tests/run_all.py 500` 抽更狠。

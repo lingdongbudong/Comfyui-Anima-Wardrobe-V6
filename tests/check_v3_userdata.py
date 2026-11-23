@@ -395,11 +395,70 @@ def main():
     after = hashlib.sha256(open(BUILTIN, "rb").read()).hexdigest()
     ck("presets/anima_v4_characters.json 逐字节未变", after == BUILTIN_SHA_BEFORE)
 
+    # ── ⑬ 场景默认画幅覆盖层（v6.28.0）──────────────────────────────
+    # 用户 2026-11-18：点场景卡片上的 竖/横/通 徽标 → 三态循环改默认画幅。
+    # 这一层与角色覆盖层同一族，纪律相同：
+    #   ① 写前校验（非法值/非法 id 一律 ValueError，不静默降级成 both）；
+    #   ② 原子写（不留 .tmp）；
+    #   ③ 写后**必须 clear_cache** 才看得到变化；
+    #   ④ 生成产物 anima_v4_scene_aspects.json **逐字节不动**
+    #      （那是我用 build_scene_aspects.py 生成、要进 git 的构图标注）。
+    print("\n── ⑬ 场景默认画幅覆盖层 ──")
+    GEN_ASPECT = os.path.join(PLUGIN, "presets", "anima_v4_scene_aspects.json")
+    gen_sha_before = hashlib.sha256(open(GEN_ASPECT, "rb").read()).hexdigest()
+    S.SCENE_ASPECT_USER_FILE = os.path.join(TMP, "scene_aspect_user.json")
+    R.clear_cache()
+
+    gen = R.scene_aspects()
+    sid0 = next((k for k, v in gen.items()
+                 if (v or {}).get("a") == "landscape"), None)
+    ck("生成映射里能找到横屏条目（后续用例的前提）", bool(sid0), str(len(gen)))
+    if sid0:
+        ck("合流前：未覆盖 → 取生成映射的值", R.scene_aspect(sid0) == "landscape",
+           R.scene_aspect(sid0))
+        S.set_scene_aspect(sid0, "portrait")
+        ck("写完**没清缓存**时仍读旧值（证明缓存这层真的在起作用）",
+           R.scene_aspect(sid0) == "landscape", R.scene_aspect(sid0))
+        R.clear_cache()
+        ck("清缓存后用户覆盖生效（portrait）", R.scene_aspect(sid0) == "portrait",
+           R.scene_aspect(sid0))
+        ck("覆盖表只存 id → 画幅",
+           S.list_scene_aspect_user() == {sid0: "portrait"},
+           str(S.list_scene_aspect_user()))
+
+        S.set_scene_aspect(sid0, "Both")
+        R.clear_cache()
+        ck("大小写不一致的输入归一为小写（Both → both）",
+           R.scene_aspect(sid0) == "both", R.scene_aspect(sid0))
+
+        before_txt = open(S.SCENE_ASPECT_USER_FILE, encoding="utf-8").read()
+        bad_ok = []
+        for bad in ("", "vertical", "portrait!", "竖"):
+            try:
+                S.set_scene_aspect(sid0, bad)
+                bad_ok.append(False)
+            except ValueError:
+                bad_ok.append(True)
+        ck("非法画幅一律 ValueError（不静默写成 both）", all(bad_ok), str(bad_ok))
+        try:
+            S.set_scene_aspect("not_a_scene", "portrait")
+            ck("非法场景 id 被拒", False)
+        except ValueError:
+            ck("非法场景 id 被拒", True)
+        ck("被拒的请求**不落盘**（文件逐字节未变）",
+           open(S.SCENE_ASPECT_USER_FILE, encoding="utf-8").read() == before_txt)
+        ck("没有 .tmp 残留（原子写）",
+           not os.path.exists(S.SCENE_ASPECT_USER_FILE + ".tmp"))
+
+    gen_sha_after = hashlib.sha256(open(GEN_ASPECT, "rb").read()).hexdigest()
+    ck("生成映射 anima_v4_scene_aspects.json 逐字节未变",
+       gen_sha_after == gen_sha_before)
+
     print("\n" + "=" * 64)
     if FAILS:
         print(f"[check_v3_userdata] 失败 {len(FAILS)} 项：" + " · ".join(FAILS))
         return 1
-    print("[check_v3_userdata] 通过：11 组语义全部符合预期")
+    print("[check_v3_userdata] 通过：13 组语义全部符合预期")
     return 0
 
 

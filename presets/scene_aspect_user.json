@@ -1,0 +1,9 @@
+{
+  "_meta": {
+    "schema": "anima-wardrobe-v6/scene-aspects-user@1",
+    "updated_at": "",
+    "count": 0,
+    "note": "面板里点场景卡片的 竖/横/通 徽标写入；优先于 tools/build_scene_aspects.py 的生成映射"
+  },
+  "aspects": {}
+}

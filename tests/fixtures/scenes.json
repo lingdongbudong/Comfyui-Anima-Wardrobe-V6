@@ -189,7 +189,7 @@
    "role_ok": false,
    "no_role": false,
    "count_lock": "1girl, solo",
-   "aspect": "both",
+   "aspect": "portrait",
    "tpl_hint": "",
    "thumb": true,
    "drop": [],
@@ -2449,7 +2449,7 @@
    "role_ok": true,
    "no_role": false,
    "count_lock": "1girl, solo",
-   "aspect": "landscape",
+   "aspect": "portrait",
    "tpl_hint": "",
    "thumb": true,
    "drop": [
@@ -39349,7 +39349,7 @@
    "role_ok": false,
    "no_role": false,
    "count_lock": "1girl, solo",
-   "aspect": "landscape",
+   "aspect": "portrait",
    "tpl_hint": "",
    "thumb": true,
    "drop": [

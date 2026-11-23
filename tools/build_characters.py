@@ -66,6 +66,26 @@ TARGET_WORKS = {
     "wuthering waves": "鸣潮",
 }
 
+# ── 角色库条目纠正表（v6.28.1，2026-11-23）──────────────────────────
+#
+# 为什么需要：造型台 / safebooru 的 tags 是**多张图的并集**，同一维度会同时出现
+#   两个值。sparkle_(honkai:_star_rail) 就是典型 —— pink eyes 与 red eyes、
+#   black hair 与 brown hair 并存，面板上自相矛盾。
+#
+# 出图侧原本不致命：appearance_for() 第①优先读的是 pools.json 的 APPEAR 表，
+#   花火在表里（red hair / golden eyes），角色库这两个字段从头到尾没被读过。
+#   但「数据自洽」本身是这套库的可维护性底线，而且一旦 APPEAR 表条目被删，
+#   错值就会立刻顶上来。
+#
+# ⚠️ `set` 会把字段对齐 APPEAR 表，不要反过来改 APPEAR —— pools.json 是源 HTML
+#   的零漂移导出物，动它会让 run_all 基线整片漂移。
+CHAR_FIX = {
+    "sparkle_(honkai:_star_rail)": {
+        "drop_tags": ["black hair", "brown hair", "pink eyes", "red eyes", "long hair"],
+        "set": {"hair": "black", "eyes": "pink"},
+    },
+}
+
 # ── 角色「形态」白名单（v3.12.0）──────────────────────────────────
 #
 # 背景：canonical_of() 只保留**基础角色 tag**，任何 `角色_(形态)_(作品)` 一律丢弃 ——
@@ -1439,6 +1459,18 @@ def render(picked, all_chars):
             "thumb": m.get("thumb") or slug_of(m["tag"]),
         })
         have.add(m["tag"])
+
+    # v6.28.1：套用角色库条目纠正表（见 CHAR_FIX）。必须排在 sort 之前 ——
+    # 纠正可能改 tags/字段，但不改 pop，顺序不受影响；放前面只是让后面所有
+    # 下游（作品聚合、计数）看到的都是纠正后的最终值。
+    for c in chars:
+        fix = CHAR_FIX.get(c["tag"])
+        if not fix:
+            continue
+        drop = {str(t).strip().lower() for t in (fix.get("drop_tags") or [])}
+        c["tags"] = [t for t in c["tags"] if str(t).strip().lower() not in drop]
+        for k, v in (fix.get("set") or {}).items():
+            c[k] = v
 
     chars.sort(key=lambda x: -x["pop"])
 

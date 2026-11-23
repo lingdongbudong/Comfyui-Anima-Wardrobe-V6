@@ -2589,7 +2589,12 @@ def main():
             _dup.append((x["id"], sorted({t for t in ts if ts.count(t) > 1})))
     ck("艺术构图：extra 无重复标签（密度二分不被虚高标数带偏）",
        not _dup, str(_dup[:3]))
-    _asp = {x["id"]: R.scene_aspect(x["id"]) for x in art}
+    # v6.28.0：读**生成映射**（R.scene_aspects()），不读合流后的
+    # R.scene_aspect() —— 用户在面板里点徽标手改的比例存进
+    # presets/scene_aspect_user.json，那是"用户偏好"，不该把
+    # "构图分类是否正确"这一项判红。
+    _asp = {x["id"]: (R.scene_aspects().get(x["id"]) or {}).get("a") or "both"
+            for x in art}
     ck("艺术构图：画幅全部横屏（16:9）",
        all(v == "landscape" for v in _asp.values()),
        str([(k, v) for k, v in _asp.items() if v != "landscape"][:5]))
@@ -2967,7 +2972,9 @@ def main():
        all(not any(w in str(x.get("extra") or "").lower()
                    for w in ("camera", "lens", "foreground", "closest"))
            for x in wp))
-    _asp_w = {x["id"]: R.scene_aspect(x["id"]) for x in wp}
+    # v6.28.0：同上一处 —— 验的是生成映射的构图分类，用户覆盖层不参与。
+    _asp_w = {x["id"]: (R.scene_aspects().get(x["id"]) or {}).get("a") or "both"
+              for x in wp}
     _aw = list(_asp_w.values()).count("landscape")
     _pw = list(_asp_w.values()).count("portrait")
     # v6.18.0：条数不写死（K2 会继续加），只守"竖横大致对半"这条构图口径。

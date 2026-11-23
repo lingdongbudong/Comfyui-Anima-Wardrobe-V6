@@ -26,7 +26,7 @@ const NS = "anima-wardrobe-v6";
 //    给 URL 带一个版本参数后，版本一变就是新 URL，浏览器必然重新拉取。
 //    **换图后如果想让所有人立刻看到，把这里加一版即可**（同时后端
 //    Cache-Control 已经是 no-cache，双保险）。
-const THUMB_VER = "5.0.12";
+const THUMB_VER = "6.28.1";
 const thumbURL = (slug) => `/${NS}/thumb/${slug}?v=${THUMB_VER}`;
 
 /** 场景预览图（v6.19.0）。
@@ -103,6 +103,25 @@ function frameModeOfRatio(r) {
   const s = String(r || "");
   for (const m of FRAME_MODES) if (FRAME_RATIOS[m].includes(s)) return m;
   return "";
+}
+
+/* v6.28.0（用户 2026-11-18 22:17）：「点击卡片内的竖与横能够切换默认比例，
+   交互后能够在竖/横/通 3 种比例循环切换。目的是更改场景默认比例。」
+   · 循环顺序：竖 → 横 → 通 → 竖（竖屏是绝大多数人物场景的默认，放在第一跳）；
+   · 点一下**同时**把当前工作流画幅切过去（用户当面确认），"通"= 不干预画幅；
+   · 写进 presets/scene_aspect_user.json（独立覆盖层，抗 rebuild 覆盖）。 */
+const ASPECT_CYCLE = ["portrait", "landscape", "both"];
+const ASPECT_ZH = { portrait: "竖", landscape: "横", both: "通" };
+/** 徽标文案（竖/横/通）→ 鼠标悬停解释。 */
+const ASPECT_WHY = {
+  portrait: "推荐竖屏：人物独大 / 竖向动作（站、悬吊、靠墙）—— 竖构图 3:4",
+  landscape: "推荐横屏：多人并排 / 躺卧贴地 / 宽景 —— 横构图（如 16:9 或 3:2）",
+  both: "比例通用：特写或没有强空间关系，竖横都成立",
+};
+/** 下一档（for 徽标提示"点一下改成 X"）。 */
+function nextAspect(a) {
+  const i = ASPECT_CYCLE.indexOf(a);
+  return ASPECT_CYCLE[(i < 0 ? ASPECT_CYCLE.length - 1 : i + 1) % ASPECT_CYCLE.length];
 }
 
 /** 读工作流当前画幅（只读，不改）。找不到比例节点返回 null。
@@ -385,10 +404,17 @@ const CSS = `
 #av3-outfitlib-list>.av3-sec>.hd .t{font-size:12px;white-space:nowrap;
   overflow:hidden;text-overflow:ellipsis;}
 #av3-outfitlib-list>.av3-sec>.hd .th{font-size:10.5px;}
-/* v5.0.1：推荐画幅徽标（竖 / 横 / 通）—— 与档位、字段数同排，折叠时也看得见 */
-.av3-aspect{flex:0 0 auto;font-size:10px;line-height:1;padding:2px 5px;
+/* v5.0.1：推荐画幅徽标（竖 / 横 / 通）—— 与档位、字段数同排，折叠时也看得见
+   v6.28.0：徽标改成可点按钮（三态循环）。font:inherit 放在 font-size 之前 ——
+   button 默认用系统字体，不继承会让"竖/横/通"跟旁边标签不同字形。 */
+.av3-aspect{flex:0 0 auto;font:inherit;font-size:10px;line-height:1;
+  margin:0;padding:2px 5px;cursor:pointer;
   border-radius:4px;border:1px solid #444;color:#a9a9a9;
-  background:rgba(255,255,255,.04);user-select:none;}
+  background:rgba(255,255,255,.04);user-select:none;
+  transition:filter .12s,transform .12s;}
+.av3-aspect:hover{filter:brightness(1.4);}
+.av3-aspect:active{transform:translateY(1px);}
+.av3-aspect:focus-visible{outline:1px solid #6aa9e0;outline-offset:1px;}
 .av3-aspect-portrait{color:#86b7ea;border-color:#31506e;background:rgba(86,150,214,.14);}
 .av3-aspect-landscape{color:#8ed49b;border-color:#2f5238;background:rgba(90,186,120,.14);}
 .av3-aspect-both{color:#b0b0b0;border-color:#4a4a4a;background:rgba(255,255,255,.05);}
@@ -656,6 +682,17 @@ const CSS = `
   align-items:center;justify-content:center;font-size:12px;line-height:1;color:#9a9a9a;
   cursor:pointer;border-radius:50%;background:rgba(0,0,0,.55);user-select:none;}
 .av3-card .edit:hover{color:#e8c98a;background:rgba(0,0,0,.75);}
+/* v6.29.0：卡片上的「官方服装套数」（用户 2026-11-23 指定位置 —— 排在 👗 按钮左边）。
+   只显示数字，不写「套」：卡片宽度就 100 多 px，多一个汉字就把 en 行挤歪。
+   >1 套时才点亮成金色，1 套的绝大多数角色保持灰，扫视时一眼看出谁有多套。 */
+.av3-card .av3-ocount{position:absolute;right:47px;bottom:4px;font-size:9.5px;line-height:1;
+  padding:1px 3px;border-radius:3px;background:rgba(0,0,0,.55);color:#8f8a80;
+  user-select:none;pointer-events:none;z-index:3;}
+.av3-card .av3-ocount.multi{color:#f5c451;background:rgba(0,0,0,.72);font-weight:700;}
+/* 官方预设行尾的锁（替代 ✕ 删除按钮），占位宽度与 .av3-btn 一致 */
+.av3-outfit-lock{width:19px;height:19px;display:flex;align-items:center;justify-content:center;
+  font-size:10px;line-height:1;opacity:.55;flex:0 0 auto;cursor:help;}
+.av3-outfit-lock:hover{opacity:1;}
 .av3-card .av3-badge{position:absolute;left:3px;bottom:3px;font-size:9.5px;line-height:1;
   padding:2px 4px;border-radius:4px;background:rgba(126,201,139,.92);color:#12301c;
   user-select:none;}
@@ -1083,6 +1120,75 @@ function buildPanel(node) {
       return `推荐画幅${FRAME_LABEL[m]}，但工作流里没找到比例节点（未改）`;
     }
     return changed ? `画幅已切到 ${res.ratio} · ${res.w}×${res.h}` : "";
+  }
+
+  /** v6.28.0：刷新一枚画幅徽标（文案 / 配色 / 悬停说明）。
+   *  初次渲染与点击后就地更新都走这里，避免两处写法漂移。 */
+  function paintAspectBadge(el, key) {
+    const a = ASPECT_CYCLE.includes(key) ? key : "both";
+    el.className = "av3-aspect av3-aspect-" + a;
+    el.dataset.aspect = a;          // 冒烟断言用（文案会因为"竖/横/通"三种而混淆）
+    el.textContent = ASPECT_ZH[a];
+    el.title = ASPECT_WHY[a]
+      + `\n点一下改成「${ASPECT_ZH[nextAspect(a)]}」`
+      + "（竖 / 横 / 通 三态循环 = 改这条场景的默认画幅，"
+      + "同时把当前工作流画幅切过去；「通」不改画幅）";
+  }
+
+  /** v6.28.0（用户 2026-11-18）：点徽标 → 竖/横/通 循环 → 改场景默认画幅。
+   *
+   *  与 v6.26.0「套用场景联动画幅」同一口径，直接复用 syncAspectFor：
+   *    · portrait  → 竖记忆（默认 9:16，点过 3:4 就回 3:4）
+   *    · landscape → 横记忆（默认 16:9，点过 4:3 就回 4:3）
+   *    · both      → 画幅不动（"通用"就是不干预）
+   *
+   *  ⚠️ 必须 stopPropagation —— 标题行的 onclick 是「展开 / 收起卡片」，
+   *     不拦的话点一下徽标会顺手把卡片展开。
+   *  ⚠️ 写盘失败必须把徽标退回原值：只改 DOM 不改数据，下次打开面板
+   *     又变回去，等于骗用户点了一次。
+   */
+  async function cycleSceneAspect(sc, badge, ev) {
+    if (ev) ev.stopPropagation();
+    if (!sc || !sc.id || badge.dataset.busy === "1") return;
+    const cur = ASPECT_CYCLE.includes(sc.aspect) ? sc.aspect : "both";
+    const next = nextAspect(cur);
+    badge.dataset.busy = "1";
+    let ok = false;
+    try {
+      const r = await api.fetchApi(`/${NS}/scenes/aspect`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: sc.id, a: next }),
+      });
+      const d = (r && r.json) ? await r.json().catch(() => ({})) : {};
+      if (!r || !r.ok || (d && d.error)) {
+        throw new Error((d && d.error) || `HTTP ${r && r.status}`);
+      }
+      const got = ASPECT_CYCLE.includes(d && d.aspect) ? d.aspect : next;
+      // ① 就地改数据源 —— 比例筛选与后续任何重绘都读 ui.scenes.scenes
+      sc.aspect = got;
+      const arr = (ui.scenes && ui.scenes.scenes) || [];
+      const hit = arr.find((x) => x && x.id === sc.id);
+      if (hit) hit.aspect = got;
+      // ② 徽标就地换色换字（不整页重绘，列表不跳动）
+      paintAspectBadge(badge, got);
+      // ③ 同时切当前工作流画幅（both 不动）
+      const note = syncAspectFor(sc);
+      const tail = got === "both" ? "套用这条时不动画幅" : (note || "");
+      setStatus(`「${sc.zh || sc.id}」默认画幅 → ${ASPECT_ZH[got]}`
+        + (tail ? " · " + tail : ""), "ok");
+      ok = true;
+      // ④ 比例筛选开着 → 列表重算（这条可能已不符合当前筛选）。
+      //    重绘会保滚动位置（v6.9.4），不会把人甩回顶部。
+      if (ui.sceneAspect && ui.sceneAspect !== "all") {
+        repaintScenePage(ui.tab === "near" ? "near" : "scenes");
+      }
+    } catch (e) {
+      setStatus(`改场景默认画幅失败：${(e && e.message) || e}`, "no");
+    } finally {
+      badge.dataset.busy = "";
+      if (!ok) paintAspectBadge(badge, cur);
+    }
   }
 
   /* ── 头部 ── */
@@ -2365,23 +2471,38 @@ function buildPanel(node) {
         eb.className = "av3-btn";
         eb.id = "av3-outfit-edit-" + o.id;
         eb.textContent = "\u270E";
-        eb.title = "编辑这套";
+        eb.title = o.official
+          ? "编辑这套（官方预设，改的是本机数据）"
+          : "编辑这套";
         eb.onclick = () => form(o);
         r2.appendChild(eb);
 
-        const db = document.createElement("button");
-        db.className = "av3-btn";
-        db.id = "av3-outfit-del-" + o.id;
-        db.textContent = "\u2715";
-        db.title = "删除这套";
-        db.onclick = async () => {
-          const d = await outfitOp(role, "delete", { id: o.id });
-          if (d.error) return setStatus(d.error, "warn");
-          ui.outfits = d.outfits;
-          setStatus(`已删除服装「${o.zh || o.id}」`, "ok");
-          repaint();
-        };
-        r2.appendChild(db);
+        /* v6.29.0（用户 2026-11-23）：「官方预设服装不支持通过手动删除按钮删除，
+           避免误删」。官方那套不给 ✕，改成一个锁图标占位 —— 行内按钮数量变了，
+           但每行的右边界仍然对齐（锁和 ✕ 都是 19px 宽）。 */
+        if (o.official) {
+          const lk = document.createElement("span");
+          lk.className = "av3-outfit-lock";
+          lk.id = "av3-outfit-lock-" + o.id;
+          lk.textContent = "\uD83D\uDD12";
+          lk.title = "官方服装预设不提供删除（可编辑覆盖，或直接启用）；"
+            + "想恢复出厂设置就重装插件 / 从备份恢复 character_outfits.json";
+          r2.appendChild(lk);
+        } else {
+          const db = document.createElement("button");
+          db.className = "av3-btn";
+          db.id = "av3-outfit-del-" + o.id;
+          db.textContent = "\u2715";
+          db.title = "删除这套";
+          db.onclick = async () => {
+            const d = await outfitOp(role, "delete", { id: o.id });
+            if (d.error) return setStatus(d.error, "warn");
+            ui.outfits = d.outfits;
+            setStatus(`已删除服装「${o.zh || o.id}」`, "ok");
+            repaint();
+          };
+          r2.appendChild(db);
+        }
 
         bd.appendChild(r2);
       }
@@ -2411,6 +2532,17 @@ function buildPanel(node) {
       cl.onclick = () => mask.remove();
       ft.appendChild(cl);
       box.appendChild(ft);
+
+      /* v6.29.0：卡片上的套数角标跟着弹窗里的增 / 删实时变 ——
+         不然加完一套关掉弹窗，卡片还停在旧数字上，只能重开面板才准。 */
+      const ocEl = document.getElementById("av3-ocount-" + role);
+      if (ocEl) {
+        const n = (rec.list || []).length;
+        ocEl.textContent = String(n);
+        ocEl.className = "av3-ocount" + (n > 1 ? " multi" : "");
+        ocEl.title = `这个角色有 ${n} 套官方服装预设（点 👗 查看 / 切换）`;
+        ocEl.style.display = n > 0 ? "" : "none";
+      }
     }
 
     loadOutfits(true).then(repaint);
@@ -3662,6 +3794,24 @@ function buildPanel(node) {
           openOutfitDialog(c);
         };
         card.appendChild(outfitBtn);
+
+        /* v6.29.0：服装套数（用户 2026-11-23 指定位置：👗 左边那格）。
+           数据来自 `/characters` 每条自带的 `outfits`（后端数 list 长度，
+           省得为了一个数字把整本 2400+ 条预设再拉一遍）；老后端没这个字段时
+           退回已缓存的 ui.outfits。0 套（自定义角色常见）不显示角标。 */
+        const ocN = Number(
+          (c.outfits !== undefined && c.outfits !== null)
+            ? c.outfits
+            : (((ui.outfits || {})[String(c.tag || "").toLowerCase()] || {}).list || []).length
+        ) || 0;
+        if (ocN > 0) {
+          const oc = document.createElement("span");
+          oc.className = "av3-ocount" + (ocN > 1 ? " multi" : "");
+          oc.id = "av3-ocount-" + String(c.tag || "").toLowerCase();
+          oc.textContent = String(ocN);
+          oc.title = `这个角色有 ${ocN} 套官方服装预设（点 👗 查看 / 切换）`;
+          card.appendChild(oc);
+        }
 
         if (c.user) {
           const bd = document.createElement("span");
@@ -6395,18 +6545,15 @@ function buildPanel(node) {
     hd.appendChild(arw); hd.appendChild(t); hd.appendChild(th);
     hd.appendChild(lv);
     /* v5.0.1：推荐画幅徽标。数据来自 presets/anima_v4_scene_aspects.json
-       （旁挂映射，重跑 build_scenes 不会丢）；缺省 both。 */
-    const apKey = sc.aspect === "portrait" || sc.aspect === "landscape"
-      ? sc.aspect : "both";
-    const apTag = document.createElement("span");
-    apTag.className = "av3-aspect av3-aspect-" + apKey;
-    apTag.textContent = apKey === "portrait" ? "竖"
-      : apKey === "landscape" ? "横" : "通";
-    apTag.title = apKey === "portrait"
-      ? "推荐竖屏：人物独大 / 竖向动作（站、悬吊、靠墙）—— 竖构图 3:4"
-      : apKey === "landscape"
-        ? "推荐横屏：多人并排 / 躺卧贴地 / 宽景 —— 横构图（如 16:9 或 3:2）"
-        : "比例通用：特写或没有强空间关系，竖横都成立";
+       （旁挂映射，重跑 build_scenes 不会丢）；缺省 both。
+       v6.28.0（用户 2026-11-18）：改成**可点按钮** —— 竖 → 横 → 通 循环，
+       改的是这条场景的默认画幅（写 presets/scene_aspect_user.json）。
+       用 <button> 而不是 span：能拿到焦点与键盘操作，样式沿用 .av3-aspect。 */
+    const apKey = ASPECT_CYCLE.includes(sc.aspect) ? sc.aspect : "both";
+    const apTag = document.createElement("button");
+    apTag.type = "button";
+    paintAspectBadge(apTag, apKey);
+    apTag.onclick = (ev) => cycleSceneAspect(sc, apTag, ev);
     hd.appendChild(apTag);
     hd.appendChild(nf);
     /* v3.43.0：收藏星标常驻标题行（折叠也看得见、点得到）。
@@ -6429,46 +6576,80 @@ function buildPanel(node) {
       }
     };
     hd.appendChild(sfav);
-    // v3.18.0：特写搭配的角标 —— 「只允许手动套用」+ 该部位会收紧什么，
-    // 都在点之前就看得见，不靠事后解释。
+    /* v6.27.0（用户 2026-11-17 20:22「特写搭配场景卡片名称无法完全显示」）：
+       根因不是数据 —— 名称最长才 10 字（如「教室午后 · 脸特写」），完全排得下；
+       是标题行 12 个元素在两列里固定占用就超 470px，.t 被 flex 挤到 0 宽，
+       只剩「膝…」「臀…」一个字。
+       按「精简徽标保单行」方案：**只动特写页**，把**说明性徽标**
+       （🔍仅手动 / ✂收紧取景 / 🧹清角色 / 🎭角色生效 / 👥人数锁）
+       收进 hd.title 悬停提示；标题行只留核心识别信息
+       （勾选框 / 箭头 / 名称 / 题材 / 档位 / 画幅 / 字段数 / 收藏星），
+       名称即单行完整显示。其它页签元素少、本来没被挤，保持原样。 */
     if (sc.manual) {
-      const mb = document.createElement("span");
-      mb.className = "av3-meta";
-      mb.textContent = "🔍 仅手动";
-      mb.title = "特写搭配不进随机池：只能在这里点「套用」，抽卡时不会突然出现";
-      hd.appendChild(mb);
+      const nearPage = ui.tab === "near";
+      const tips = [];
+      const mbText = "🔍 仅手动";
+      const mbTip = "特写搭配不进随机池：只能在这里点「套用」，抽卡时不会突然出现";
+      if (nearPage) tips.push(mbText + "：" + mbTip);
+      else {
+        const mb = document.createElement("span");
+        mb.className = "av3-meta";
+        mb.textContent = mbText;
+        mb.title = mbTip;
+        hd.appendChild(mb);
+      }
       const prof = nearSlim(sc);
       if (prof) {
-        const fb = document.createElement("span");
-        fb.className = "av3-meta";
-        fb.textContent = "✂ 收紧取景";
         const secLab = prof.sections.length
           ? `关 ${prof.sections.map((k) => SECTION_SHORT[k] || k).join("/")} 段` : "不动段";
-        fb.title = `套用时按「${sc.part}」收紧：${secLab}；`
+        const fbTip = `套用时按「${sc.part}」收紧：${secLab}；`
           + `并把 ${prof.fields.length} 个竞争字段权重设为 0；取消套用时恢复`;
-        hd.appendChild(fb);
+        if (nearPage) tips.push("✂ 收紧取景：" + fbTip);
+        else {
+          const fb = document.createElement("span");
+          fb.className = "av3-meta";
+          fb.textContent = "✂ 收紧取景";
+          fb.title = fbTip;
+          hd.appendChild(fb);
+        }
         if (prof.dropRole) {
-          const rb = document.createElement("span");
-          rb.className = "av3-meta";
-          rb.textContent = "🧹 清角色";
-          rb.title = "套用时临时清空「已选角色 / 手填角色 / 限定作品」并锁住 role"
+          const rbTip = "套用时临时清空「已选角色 / 手填角色 / 限定作品」并锁住 role"
             + "（角色 tag 会把画框拉回脸）；取消套用时原样恢复";
-          hd.appendChild(rb);
+          if (nearPage) tips.push("🧹 清角色：" + rbTip);
+          else {
+            const rb = document.createElement("span");
+            rb.className = "av3-meta";
+            rb.textContent = "🧹 清角色";
+            rb.title = rbTip;
+            hd.appendChild(rb);
+          }
         } else if (prof.roleOk) {
-          const rb = document.createElement("span");
-          rb.className = "av3-meta";
-          rb.textContent = "🎭 角色生效";
-          rb.title = "这一条画框里看得见脸/头发 → 保留角色与 ②③ 段，"
+          const rbTip = "这一条画框里看得见脸/头发 → 保留角色与 ②③ 段，"
             + "支持全库随机或限定作品 IP 内随机";
-          hd.appendChild(rb);
+          if (nearPage) tips.push("🎭 角色生效：" + rbTip);
+          else {
+            const rb = document.createElement("span");
+            rb.className = "av3-meta";
+            rb.textContent = "🎭 角色生效";
+            rb.title = rbTip;
+            hd.appendChild(rb);
+          }
         }
         if (sc.count_lock) {
-          const cb2 = document.createElement("span");
-          cb2.className = "av3-meta";
-          cb2.textContent = /^2girls/.test(sc.count_lock) ? "👭 双女" : `👥 ${sc.count_lock}`;
-          cb2.title = `套用时人数钉死为「${sc.count_lock}」`;
-          hd.appendChild(cb2);
+          const cbText = /^2girls/.test(sc.count_lock) ? "👭 双女" : `👥 ${sc.count_lock}`;
+          const cbTip = `套用时人数钉死为「${sc.count_lock}」`;
+          if (nearPage) tips.push(cbText + "：" + cbTip);
+          else {
+            const cb2 = document.createElement("span");
+            cb2.className = "av3-meta";
+            cb2.textContent = cbText;
+            cb2.title = cbTip;
+            hd.appendChild(cb2);
+          }
         }
+      }
+      if (nearPage && tips.length) {
+        hd.title += "\n── 套用说明（原角标已收进这里，给名称腾位置）──\n" + tips.join("\n");
       }
     }
     box.appendChild(hd);

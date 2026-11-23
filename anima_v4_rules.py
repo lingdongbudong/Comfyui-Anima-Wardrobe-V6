@@ -1275,9 +1275,34 @@ def scene_aspects() -> dict:
     return _CACHE["scene_aspects"]
 
 
+def scene_aspect_user() -> dict:
+    """用户手改的场景画幅覆盖层（v6.28.0）：`{id: "portrait"|"landscape"|"both"}`。
+
+    优先于 `scene_aspects()`（build_scene_aspects.py 的生成产物）——
+    用户 2026-11-18 要求「点卡片徽标循环切换场景默认比例」，而生成映射
+    重跑构建会整份覆盖，所以手改另存一层（`presets/scene_aspect_user.json`）。
+
+    缓存；写操作后必须 `clear_cache()`，否则面板读到的仍是旧值
+    （与角色覆盖层、收藏同一套纪律）。
+    """
+    if "scene_aspect_user" not in _CACHE:
+        from . import anima_v4_store as S
+        _CACHE["scene_aspect_user"] = S.list_scene_aspect_user()
+    return _CACHE["scene_aspect_user"]
+
+
 def scene_aspect(preset_id: str) -> str:
-    """单个场景的推荐画幅；没标注的按 `both`（= 竖横都行）。"""
-    return (scene_aspects().get(str(preset_id)) or {}).get("a") or "both"
+    """单个场景的画幅：**用户覆盖 → 生成映射 → both**。
+
+    ⚠️ 校验收据（tests/check_v3_scenes.py）必须读 `scene_aspects()` 而不是
+       本函数 —— 那几项验的是"生成映射的构图分类是否正确"，用户手改
+       （比如把 art 改成竖）不该把测试判红。
+    """
+    pid = str(preset_id)
+    a = scene_aspect_user().get(pid)
+    if a:
+        return a
+    return (scene_aspects().get(pid) or {}).get("a") or "both"
 
 
 def scene_list() -> list:
@@ -3752,6 +3777,124 @@ OUTFIT_FIELDS = ("outfit", "top", "bottom", "socks", "sock_color", "shoes",
 GARMENT_FIELDS = ("outfit", "top", "bottom", "socks", "shoes", "accessory")
 
 
+# ── v6.30.0：官方服装预设「最高权重」（用户 2026-11-23 13:39）────────────
+# 口径（同一次对话拍板）：官方预设**启用后**，场景自带的推荐服装一律失效 ——
+# 但「场景点名裸体」仍然让路。
+#
+# 为什么要分这两种：v6.6.1 的让路判据是「场景闭麦了 outfit/top/bottom」，
+# 而这条判据把两件完全不同的事混成一件：
+#   · `sc_under_shower`  → `outfit=bath towel`，是**推荐服装**（该让给预设）；
+#   · `sc_ccc_afterglow` → `n_state=completely nude`，是**不穿**（不能让，
+#     否则正文里「全裸」和「白裙」会同时出现，实测出图一半穿一半裸）。
+# 所以让路判据改成「闭麦 + n_state 真的是裸」，其余全部让给预设。
+NUDE_STATES = ("completely nude", "topless", "bottomless",
+               "nude with accessories only")
+
+# 场景文本（`n_extra` / `scene_nl`）里的服装词。只在「预设压过场景」时用，
+# 目的是把描述衣服的部分清掉 —— 漏一个词就等于正文里两套衣服并存。
+# 宁可宽：被误删的最多是「snow on boots」这种细节，留着的是「两件衣服打架」。
+CLOTHING_WORDS = (
+    "dress", "skirt", "shirt", "blouse", "jacket", "coat", "cape", "cloak",
+    "kimono", "yukata", "hanfu", "qipao", "china dress", "swimsuit", "bikini",
+    "uniform", "towel", "veil", "apron", "leotard", "bodysuit", "lingerie",
+    "pantyhose", "thighhighs", "stockings", "socks", "boots", "heels",
+    "shoes", "sneakers", "sandals", "sarong", "robe", "gown", "clothes",
+    "clothing", "outfit", "attire", "undress", "stripped", "half off",
+    "sweater", "cardigan", "hoodie", "jersey", "tracksuit", "pajamas",
+    "nightgown", "shorts", "pants", "jeans", "gloves", "scarf", "necktie",
+    "armor", "corset", "negligee", "babydoll",
+)
+
+
+def state_is_nude(state) -> bool:
+    """这一轮是不是真的「不穿」。只认 `n_state` 的四个裸体档。
+
+    ⚠️ `partially undressed`（半脱）**不算** —— 半脱与"穿着一套"可以同时成立，
+       把它算成裸会把用户显式选的预设整批废掉。
+    """
+    return str((state or {}).get("n_state") or "").strip().lower() in NUDE_STATES
+
+
+# ── 「场景主体就是某件衣物」的场景（v6.30.0，用户 2026-11-23 拍板「这类让路」）
+# 这类场景的**画面主体就是那块布料**，清掉之后场景本身就不成立：
+#   · `sc_near_foot_heel`「鞋跟特写」→ 清了鞋只剩脚脖子；
+#   · `sc_sock_*` 丝袜组 → 清了袜子就没有主体；
+#   · 换装 / 更衣 / 衣着自慰 → 动作对象就是那件衣服。
+# 所以它们与「裸体场景」同一处理：**官方预设让路**，场景照旧。
+# 判据是白名单 + 两个机械规则（`sc_sock_` 前缀、`near` 组），避免漏。
+# ⚠️ 加条目要写清理由 —— 这张表决定"预设什么时候不生效"，不能靠猜。
+GARMENT_SUBJECT_SCENES = frozenset({
+    # 换装 / 更衣（动作对象 = 那件衣服）
+    "sc_changing_room", "sc_changing_room_peek", "sc_fitting_room",
+    "sc_n2_fitting_undressing", "sc_sock_change_legup",
+    # 衣着 / 湿衣 / 围裙（服装本身是情节点）
+    "sc_msb_clothed", "sc_ccc_clothed_sex", "sc_msb_office_night",
+    "sc_rain_wetshirt", "sc_kitchen_apron", "sc_balcony_laundry",
+    # 制服 / 睡衫 / 丝袜（场景名就写着那件衣服）
+    "sc_nurse_rounds", "sc_bedroom_sleepshirt", "sc_ccc_footjob",
+    "sc_sock_hallway_nopanty",
+    # 掀裙 / 踩裙角（裙摆是主体）
+    "sc_pose_skirt_lift_disdain", "sc_pose_sole_stomp_disdain",
+})
+
+
+def scene_clothing_is_subject(preset_id) -> bool:
+    """这个场景的**主体**是不是某件衣物（是 → 官方预设让路，与裸体场景同一档）。"""
+    sid = str(preset_id or "").strip()
+    if not sid:
+        return False
+    if sid in GARMENT_SUBJECT_SCENES:
+        return True
+    if sid.startswith("sc_sock_"):
+        return True
+    return ((scene_index().get(sid) or {}).get("group") or "") == "near"
+
+
+def mentions_clothing(text) -> bool:
+    """这段文本里有没有服装词（只看整词边界，避免 `shorts` 命中 `short hair`）。"""
+    t = " " + str(text or "").lower() + " "
+    for w in CLOTHING_WORDS:
+        if " " + w in t or "(" + w in t:
+            return True
+    return False
+
+
+def strip_scene_clothing(state) -> list:
+    """把场景里「描述衣服」的部分清掉（官方预设压过场景时调用）。
+
+    返回被清掉的东西（给报告用，空列表 = 场景本来就没提衣服）。
+
+    两处要清，缺一不可：
+      · `n_extra` 是场景自带的标签串（`bath towel` / `winter clothes`），
+        它走 tail 通道进正文，不清就与预设标签并存；
+      · `scene_nl` 是场景的自然语言整句（"she stands in a white wedding dress…"），
+        **按句**清 —— 只删含服装词的那一句，保留构图 / 动作 / 光线。
+    ⚠️ 改过 `_scene_nl` 必须登记进 `_nl_dynamic`：F11 会拿它判"超长未登记标签"，
+       不登记的话每张图都会挂一条致命项（见 nl_sentences 的说明）。
+    """
+    removed = []
+    extra = str(state.get("n_extra") or "")
+    if extra:
+        items = [t.strip() for t in extra.split(",") if t.strip()]
+        keep = [t for t in items if not mentions_clothing(t)]
+        drop = [t for t in items if mentions_clothing(t)]
+        if drop:
+            state["n_extra"] = ", ".join(keep)
+            removed.extend(drop)
+    nl = str(state.get("_scene_nl") or "").strip()
+    if nl and mentions_clothing(nl):
+        parts = [p for p in re.split(r"(?<=[.!?])\s+", nl) if p.strip()]
+        keep = [p for p in parts if not mentions_clothing(p)]
+        if len(keep) != len(parts):
+            new = " ".join(keep).strip()
+            state["_scene_nl"] = new
+            removed.append("场景句" if new else "场景整句")
+            if new:
+                state["_nl_dynamic"] = (set(state.get("_nl_dynamic") or ())
+                                        | {new.lower()})
+    return removed
+
+
 def outfits_data() -> dict:
     """角色服装预设 `{role_tag: {enabled, list}}`。
 
@@ -3803,20 +3946,65 @@ def outfit_rec(role_trigger: str) -> dict:
         u = "user_" + c.replace(" ", "_")
         if u not in cands:
             cands.append(u)
+    # v6.29.1（真机联调踩到）：先按**角色库的 trigger → tag** 反查一次。
+    #
+    # 根因：库里同时存在「基础角色」和「换装版角色」两条记录时
+    # （`chisa_(wuthering_waves)` 与 `chisa_(peach_parfait)_(wuthering_waves)`），
+    # 引擎拿到的是 trigger `chisa, wuthering waves`，上面那几种归一化都拼不出
+    # `chisa_(wuthering_waves)`（作品名在 trigger 里是全称、在 tag 里是短名），
+    # 于是落到下面的前缀兜底 —— 而兜底取的是**字典里第一个** `chisa_(` 开头的键，
+    # 实测撞上了换装版条目，服装预设静默不生效（出图穿的是随机浴衣）。
+    # 这里用角色库自身维护的 trigger→tag 映射直接命中，绕开前缀猜测。
+    _tag = _role_tag_of(trig)
+    if _tag and _tag not in cands:
+        cands.insert(0, _tag)
     for c in cands:
         rec = d.get(c)
         if isinstance(rec, dict):
             return rec
     # 兜底：`furina` → `furina_(genshin_impact)`、`castorice` → `castorice_(honkai:...)`
     # 只认「裸名 + 作品后缀」这一种形态，避免 `souryuu` 误命中 `souryuu_(kancolle)`
+    #
+    # ⚠️ v6.29.1：命中多个时取**括号最少、键最短**的那个（= 基础角色条目）。
+    #   原版 `for k in d` 取第一个，撞上换装版条目就整条预设失效。
     for c in cands:
         for suffix in ("_(", " ("):
-            for k in d:
-                if k.startswith(c + suffix):
-                    rec = d.get(k)
-                    if isinstance(rec, dict):
-                        return rec
+            hits = [k for k in d if k.startswith(c + suffix)]
+            if hits:
+                k = min(hits, key=lambda x: (x.count("_("), len(x)))
+                rec = d.get(k)
+                if isinstance(rec, dict):
+                    return rec
     return {}
+
+
+def _role_tag_of(trigger: str) -> str:
+    """trigger（`chisa, wuthering waves`）→ 角色库里的 tag（`chisa_(wuthering_waves)`）。
+
+    只做一次全表映射并缓存；角色库改盘后 `clear_cache()` 会一并清掉。
+    查不到返回空串（调用方继续走原来的归一化路径，零漂移）。
+    """
+    t = (trigger or "").strip().lower()
+    if not t:
+        return ""
+    if "role_tag_idx" not in _CACHE:
+        idx = {}
+        try:
+            for c in characters_data().get("characters") or []:
+                tag = str(c.get("tag") or "")
+                if not tag:
+                    continue
+                idx.setdefault(tag.lower(), tag)
+                trg = str(c.get("trigger") or "").strip().lower()
+                if trg:
+                    idx.setdefault(trg, tag)
+                nm = str(c.get("name") or "").strip().lower()
+                if nm:
+                    idx.setdefault(nm, tag)
+        except Exception:
+            pass
+        _CACHE["role_tag_idx"] = idx
+    return _CACHE["role_tag_idx"].get(t, "")
 
 
 def outfit_item(role_trigger: str) -> dict:
@@ -5509,14 +5697,18 @@ def draw(level="suggestive", seed=None, *, base_prob=DEFAULT_BASE_PROB,
         st["_scene_has_outfit"] = bool(
             st.get("n_canon")
             and (set(st.get("_preset_fields") or ()) & set(GARMENT_FIELDS)))
-        # ── v6.6.1：场景**点名不要衣服**（全裸 / 换装中途）────────────────
+        # ── v6.6.1：场景**点名不要衣服**（闭麦 outfit / top / bottom）──────
         # 判据只认"主体衣物"三件（outfit / top / bottom）—— 只闭麦 socks /
         # shoes / accessory 不算（赤足或摘配饰的场景，整套预设照样成立），
         # 否则"沙滩赤足"这类场景会把白背心黑裙一起废掉，属于误伤。
-        # 命中时**角色服装预设让路**：否则正文会同时写
-        # `white tank top / black skirt` 和 `completely nude`，模型二选一，
-        # 实测出现过"上半身穿衬衫、下半身全裸"的崩坏图。
         # 这条原先只影响单人路径，v6.6.1 让双人也遵守（同一判据，不分人数）。
+        #
+        # ⚠️ v6.30.0（用户 2026-11-23 13:39）：**本标志不再单独决定让路**。
+        #    它把两件事混成一件 —— `sc_under_shower`（outfit=bath towel）是
+        #    「推荐服装」，`sc_ccc_afterglow`（n_state=completely nude）是「不穿」。
+        #    真正的让路判据改成 `state_is_nude()`（见两处调用）：裸体让路，
+        #    浴巾 / 浴衣 / 婚纱 / 校服 / 泳装一律让给官方预设。
+        #    本标志只保留「场景确实闭麦过衣物」这个事实，供报告与诊断用。
         _sc_drop = set((scene_index().get(str(st.get("n_canon") or "")) or {})
                        .get("drop_fields") or ())
         st["_scene_no_outfit"] = bool(
@@ -5804,13 +5996,17 @@ def draw(level="suggestive", seed=None, *, base_prob=DEFAULT_BASE_PROB,
                 #（用户 2026-11-02 实测）。这里补成按人绑定的整句。
                 # v6.6.1：场景点名闭麦衣物时双人也让路（与单人同一判据）——
                 # 裸体场景里写"谁穿什么"会让模型一半穿衣一半裸。
-                _do = "" if st.get("_scene_no_outfit") else duo_outfit_text(
+                # v6.30.0：让路判据换成「裸体 / 场景主体就是衣物」两种
+                # （理由见单人路径那段注释）。
+                _nude = state_is_nude(st) or scene_clothing_is_subject(
+                    st.get("n_canon"))
+                _do = "" if _nude else duo_outfit_text(
                     triggers, lv, bool(st.get("_scene_has_outfit")), _lib_pick)
-                if st.get("_scene_no_outfit") \
+                if _nude \
                         and any(outfit_item(_t) for _t in triggers[:3]) \
                         and not any("角色服装预设让路" in _n for _n in nt):
-                    nt.append("角色服装预设让路：本场景点名闭麦衣物"
-                              "（全裸 / 换装中），双人也按此处理")
+                    nt.append("角色服装预设让路：本轮点名裸体或场景主体就是衣物，"
+                              "双人也按此处理")
                 if _do:
                     st["_duo_outfit"] = _do
                     _dyn.add(_do.strip().lower())
@@ -5829,6 +6025,17 @@ def draw(level="suggestive", seed=None, *, base_prob=DEFAULT_BASE_PROB,
                     for _k in sorted(_duo_drop):
                         if _k not in _forced_keys and st.get(_k):
                             st[_k] = ""
+                    # v6.30.0：官方预设压过场景推荐服装 → 场景文本里的衣服描述
+                    # 也要清（与单人同一函数）。只在**这一轮所有人都有预设**时清：
+                    # 有人没预设时，场景那套是那人唯一的衣服来源，清了就没衣服。
+                    if all(outfit_item(_t) for _t in triggers[:3]):
+                        _rm = strip_scene_clothing(st)
+                        if _rm:
+                            st["_scene_has_outfit"] = False
+                            if not any("压过场景推荐服装" in _n for _n in nt):
+                                nt.append("官方预设压过场景推荐服装 → 已清掉场景里的"
+                                          "服装描述：" + "、".join(_rm[:4])
+                                          + ("…" if len(_rm) > 4 else ""))
                     nt.append("多位角色：服装按人绑定（各自启用中的预设）")
                 elif any(outfit_item(_t) for _t in triggers[:3]):
                     # v6.6.1：有人启用预设却写不出整句（预设没有可写标签 /
@@ -6033,13 +6240,35 @@ def draw(level="suggestive", seed=None, *, base_prob=DEFAULT_BASE_PROB,
                 st.get("role") or "", lv,
                 bool(st.get("_scene_has_outfit")),
                 st.get("_lib_pick"))
-            if _oex and st.get("_scene_no_outfit"):
+            # v6.30.0（用户 2026-11-23 13:39）：官方预设启用后**最高权重** ——
+            # 场景自带的推荐服装（浴衣 / 婚纱 / 校服 / 泳装 / 浴巾 / 只穿一件）
+            # 一律失效。两种例外，都是「场景要的就是不穿 / 只穿那一件」：
+            #   ① `state_is_nude()` —— 点名裸体（含 L3/L4 姿势内容包补进来的）；
+            #   ② `scene_clothing_is_subject()` —— 鞋跟特写 / 丝袜 / 换装中这类，
+            #      主体就是那块布料，压掉之后场景本身不成立。
+            _yield = state_is_nude(st) or scene_clothing_is_subject(
+                st.get("n_canon"))
+            if _oex and _yield:
                 _oex, _odrop, _oset = [], [], {}
                 # 密度重试每轮都会走到这里 —— 只报一次（按 notes 去重，
                 # 不能只靠 st 上的 flag：每轮 _one_pass 都是新 state）
                 if not any("角色服装预设让路" in _n for _n in notes):
-                    notes.append("角色服装预设让路：本场景点名闭麦衣物"
-                                 "（全裸 / 换装中），穿与不穿不能同时成立")
+                    notes.append("角色服装预设让路：本轮%s"
+                                 % ("点名裸体（场景或档位内容包），穿与不穿不能同时成立"
+                                    if state_is_nude(st) else
+                                    "的主体就是衣物（特写 / 丝袜 / 换装中），"
+                                    "压掉之后场景不成立"))
+            elif _oex:
+                # 预设赢下这一轮 → 场景自己的衣服描述必须同步清掉：
+                # 结构化字段由下面的 `_odrop` 清，文本（`n_extra` / `scene_nl`）
+                # 走这里，否则「她把白婚纱穿在身上」会和预设标签一起进正文。
+                _rm = strip_scene_clothing(st)
+                if _rm:
+                    st["_scene_has_outfit"] = False
+                    if not any("压过场景推荐服装" in _n for _n in notes):
+                        notes.append("官方预设压过场景推荐服装 → 已清掉场景里的"
+                                     "服装描述：" + "、".join(_rm[:4])
+                                     + ("…" if len(_rm) > 4 else ""))
             if _oex:
                 _obody = ", ".join(_oex)
                 st["_outfit_tags"] = _obody

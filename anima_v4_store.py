@@ -286,6 +286,77 @@ def toggle_scene_favorite(sid, on=None):
 
 
 # ============================================================================
+# 场景默认画幅 · 用户覆盖层（v6.28.0）
+# ============================================================================
+#
+# 用户 2026-11-18：「点击卡片内的竖与横能够切换默认比例，在竖/横/通 3 种
+# 比例循环切换，目的是更改场景默认比例。」
+#
+# 为什么不直接改 presets/anima_v4_scene_aspects.json：
+#   那份是 tools/build_scene_aspects.py 的**生成产物**，重跑构建（新增场景后
+#   必跑）会整份覆盖 —— 手改的比例会静默消失。这与 v5.0.1 把画幅"旁挂"出来
+#   是同一个理由，所以再旁挂一层用户覆盖，生成产物保持只读。
+#
+# 读取顺序（合流在 anima_v4_rules.scene_aspect）：
+#   用户覆盖 → 生成映射 → both
+#
+# ⚠️ 值域只有三种，校验放在**写之前**（脏值进了缓存会同时污染徽标与筛选）。
+
+SCENE_ASPECT_USER_FILE = os.path.join(PRESET_DIR, "scene_aspect_user.json")
+SCENE_ASPECT_USER_SCHEMA = "anima-wardrobe-v6/scene-aspects-user@1"
+SCENE_ASPECT_VALUES = ("portrait", "landscape", "both")
+
+
+def list_scene_aspect_user() -> dict:
+    """用户手改的场景画幅：`{场景 id: "portrait"|"landscape"|"both"}`。
+
+    坏条目（id 不合规 / 值不在值域）**静默滤掉** —— 手改坏了文件时，
+    面板退化成"按生成映射显示"，而不是整页报错。
+    """
+    doc = _read(SCENE_ASPECT_USER_FILE)
+    raw = doc.get("aspects")
+    if not isinstance(raw, dict):
+        return {}
+    out = {}
+    for sid, rec in raw.items():
+        sid = str(sid or "")
+        if isinstance(rec, dict):
+            a = str(rec.get("a") or "")
+        else:
+            a = str(rec or "")
+        a = a.strip().lower()
+        if _scene_id_ok(sid) and a in SCENE_ASPECT_VALUES and sid not in out:
+            out[sid] = a
+    return out
+
+
+def set_scene_aspect(sid, aspect) -> dict:
+    """写一条用户覆盖，返回**最新完整覆盖表**（写操作的返回值才是权威）。
+
+    与收藏同一条约定：写操作不回布尔，直接回全量 —— 前端拿它就地更新，
+    不必再发一次 GET，也不会读到"写了一半"的中间态。
+    """
+    sid = str(sid or "").strip()
+    if not _scene_id_ok(sid):
+        raise ValueError(f"场景 id 不合法：{sid!r}")
+    a = str(aspect or "").strip().lower()
+    if a not in SCENE_ASPECT_VALUES:
+        raise ValueError("画幅只能是 " + " / ".join(SCENE_ASPECT_VALUES) + f"：{aspect!r}")
+    with _lock:
+        cur = list_scene_aspect_user()
+        cur[sid] = a
+        stamp = _now()
+        _atomic_write(SCENE_ASPECT_USER_FILE, {
+            "_meta": {"schema": SCENE_ASPECT_USER_SCHEMA, "updated_at": stamp,
+                      "count": len(cur),
+                      "note": "面板里点场景卡片的 竖/横/通 徽标写入；"
+                              "优先于 tools/build_scene_aspects.py 的生成映射"},
+            "aspects": {k: {"a": v, "updated_at": stamp} for k, v in cur.items()},
+        })
+    return cur
+
+
+# ============================================================================
 # 作品 IP 收藏（v5.0.4）
 # ============================================================================
 #
@@ -1046,6 +1117,10 @@ def _clean_outfit(raw):
         "drop": drop,
         "verified": bool(raw.get("verified")),
         "note": _clean_text(raw.get("note"), 400).strip(),
+        # v6.29.0（用户 2026-11-23）：「官方预设」= 内置的原作服装，
+        # **不允许手动删除**（只有一条，删了就没法一键还原）。
+        # 自定义 / 日常模板不带这个标记，照旧可删。
+        "official": bool(raw.get("official")),
     }
 
 
@@ -1088,6 +1163,12 @@ def save_outfit(role_tag, outfit, new=False):
     lst = [x for x in (bucket.get("list") or []) if isinstance(x, dict)]
     if new:
         rec["id"] = _unique_outfit_id(lst, rec["id"])
+    # v6.29.0：面板编辑官方预设时不会回传 `official`，这里补回原值 ——
+    # 否则改一次标签，官方那套就变成"可删"的自定义条目了。
+    if "official" not in (outfit or {}):
+        prev = next((x for x in lst if str(x.get("id") or "") == rec["id"]), None)
+        if isinstance(prev, dict) and prev.get("official"):
+            rec["official"] = True
     replaced = False
     for i, x in enumerate(lst):
         if str(x.get("id") or "") == rec["id"]:
@@ -1112,6 +1193,13 @@ def delete_outfit(role_tag, outfit_id):
     bucket = data.get(role)
     if not isinstance(bucket, dict):
         raise ValueError("这个角色没有服装预设")
+    # v6.29.0（用户 2026-11-23）：「官方预设服装不支持手动删除，避免误删」。
+    # 后端也要拦 —— 前端藏掉 ✕ 只是防手滑，直接 POST 仍能删（面板之外还有
+    # curl / 老版本缓存的前端）。要改官方这套请用「保存」覆盖，删除一律拒绝。
+    for x in (bucket.get("list") or []):
+        if isinstance(x, dict) and str(x.get("id") or "") == oid and x.get("official"):
+            raise ValueError("「%s」是官方服装预设，不支持删除（可直接启用 / 编辑覆盖）"
+                             % (x.get("zh") or oid))
     lst = [x for x in (bucket.get("list") or [])
            if isinstance(x, dict) and str(x.get("id") or "") != oid]
     if len(lst) == len(bucket.get("list") or []):

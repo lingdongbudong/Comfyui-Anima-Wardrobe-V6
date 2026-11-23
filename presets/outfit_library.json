@@ -1,7 +1,7 @@
 {
  "_meta": {
   "schema": "anima-v5/outfit-library@1",
-  "updated_at": "2026-11-16 21:48:11",
+  "updated_at": "2026-11-21 20:40:42",
   "count": 167,
   "active": "",
   "categories": [
@@ -68,7 +68,7 @@
    "_meta.overrides / _meta.scene_override 是用户状态，重跑必须保留。"
   ],
   "overrides": {
-   "socks": "aqua gradient thighhighs",
+   "socks": "",
    "shoes": ""
   },
   "scene_override": false,

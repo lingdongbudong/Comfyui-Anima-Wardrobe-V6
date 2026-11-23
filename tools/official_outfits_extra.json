@@ -1,0 +1,2896 @@
+{
+ "_meta": {
+  "schema": "anima-v6/official-outfits-extra@1",
+  "updated_at": "2026-11-23",
+  "purpose": "手工补「有官方皮肤、但库里没有对应换装角色条目」的那批（--auto 抓不到）。由 tools/expand_char_outfits.py --extra 合并进 presets/character_outfits.json。",
+  "source": "官方公告 / 官方时装展示 / 官方衣装描述（版本号写在每条的 note 里）。safebooru 已被 Cloudflare 全站挑战，无法自动取 tag。",
+  "rule": "verified 一律 false —— 这些 tags 是按公告描述写的，没在真机上跑过。跑过一批、看对了再改 true。",
+  "garment_whitelist": "tags 仍要过 expand_char_outfits.GARMENT_WORDS，命中不了「穿什么」的词（如 halo / horns）会被丢掉；写之前先想清楚这条 tag 是不是衣服。"
+ },
+ "outfits": {
+  "barbara_(genshin_impact)": [
+   {
+    "id": "summertime_sparkle",
+    "zh": "闪耀协奏",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white sailor top",
+     "blue skirt",
+     "white beret",
+     "bare shoulders",
+     "bare legs",
+     "sandals",
+     "thigh strap"
+    ],
+    "note": "原神 1.6「回声轻叙」。已看官方立绘：白水手服上衣 + 蓝短裙 + 白色贝雷帽 + 凉鞋（此前写成连体泳装，已改）。未真机。"
+   }
+  ],
+  "jean_(genshin_impact)": [
+   {
+    "id": "sea_breeze_dandelion",
+    "zh": "海风之梦",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white shorts",
+     "blue and white top",
+     "off-shoulder",
+     "bare shoulders",
+     "blue bow",
+     "thigh strap",
+     "sandals"
+    ],
+    "note": "原神 1.6。官方：夏日装束、清凉优雅。实机为蓝白渐变露肩半长袖 + 白短裤 + 蓝玫瑰腿环 + 凉鞋高跟。待真机验收。"
+   },
+   {
+    "id": "gunnhildrs_legacy",
+    "zh": "古恩希尔德的传承",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white military uniform",
+     "blue cape",
+     "epaulettes",
+     "white gloves",
+     "thigh boots",
+     "gold trim"
+    ],
+    "note": "原神 2.4 闲替衣装。官方：典雅干练的骑士礼服，适用于多种场合。待真机验收。"
+   }
+  ],
+  "ningguang_(genshin_impact)": [
+   {
+    "id": "orchids_evening_gown",
+    "zh": "纱中幽兰",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "dark blue long dress",
+     "backless",
+     "bare shoulders",
+     "butterfly hair ornament",
+     "high heels"
+    ],
+    "note": "原神 2.4「飞彩镌流年」。官方原文：绀蓝长裙勾勒曲线，脚踝上的蝶翼。待真机验收。"
+   }
+  ],
+  "mona_(genshin_impact)": [
+   {
+    "id": "pact_of_stars_and_moon",
+    "zh": "星与月之约",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "blue dress",
+     "dark blue cape",
+     "star hair ornament",
+     "white thighhighs",
+     "evening gloves",
+     "high heels"
+    ],
+    "note": "原神 2.4 闲替衣装。已看官方立绘：深蓝礼裙 + 深色披风 + 星饰。未真机。"
+   }
+  ],
+  "fischl_(genshin_impact)": [
+   {
+    "id": "ein_immernachtstraum",
+    "zh": "极夜真梦",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "blue purple dress",
+     "white thighhighs",
+     "crown",
+     "eyepatch",
+     "frilled dress",
+     "black gloves"
+    ],
+    "note": "原神 2.8「幻声留形」。官方 + 实机：紫黑礼服变浅蓝紫、黑丝换白丝、加皇冠。待真机验收。"
+   }
+  ],
+  "lisa_(genshin_impact)": [
+   {
+    "id": "scholar_dress",
+    "zh": "叶隐芳名",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "green dress",
+     "white blouse",
+     "wide-brimmed hat",
+     "white gloves",
+     "hair ornament"
+    ],
+    "note": "原神 3.4「蔷薇再开时」。已看官方立绘：绿白配色裙装 + 宽檐帽（此前写成紫色，已改）。未真机。"
+   }
+  ],
+  "klee_(genshin_impact)": [
+   {
+    "id": "blossoming_starlight",
+    "zh": "琪花星烛",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "red dress",
+     "witch hat",
+     "frilled dress",
+     "red shoes",
+     "cape"
+    ],
+    "note": "原神 3.8。官方：明丽如蛋糕、点缀奶油花朵与明红蜡烛；实机为大红裙 + 魔女帽。待真机验收。"
+   }
+  ],
+  "ganyu_(genshin_impact)": [
+   {
+    "id": "jade_blossom",
+    "zh": "玄玉瑶芳",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "china dress",
+     "bare legs",
+     "high heels",
+     "flower hair ornament",
+     "large bow",
+     "thigh strap"
+    ],
+    "note": "原神 4.4 海灯节。官方/实机：西式小礼服与旗袍结合、后腰大蝴蝶结小拖尾、盘发点缀清心花瓣、光腿高跟。待真机验收。"
+   }
+  ],
+  "shenhe_(genshin_impact)": [
+   {
+    "id": "frostflower_dew",
+    "zh": "冷花幽露",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "china dress",
+     "high slit",
+     "red rope",
+     "bare shoulders",
+     "high heels"
+    ],
+    "note": "原神 4.4 海灯节。官方/实机：高开叉旗袍、保留红绳、裙子花纹与大腿点缀。待真机验收。"
+   }
+  ],
+  "nilou_(genshin_impact)": [
+   {
+    "id": "sabaa_breeze",
+    "zh": "莎邦之息",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white dress",
+     "flower hair ornament",
+     "bare shoulders",
+     "armlet",
+     "sandals",
+     "veil"
+    ],
+    "note": "原神 4.8 希穆兰卡。官方：千花编织般的轻盈裙装。待真机验收。"
+   }
+  ],
+  "kirara_(genshin_impact)": [
+   {
+    "id": "cat_swordswoman",
+    "zh": "倩影游侠",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "japanese clothes",
+     "shorts",
+     "cat tail",
+     "sandals",
+     "hair ornament"
+    ],
+    "note": "原神 4.8「欢夏！邪龙？童话国！」免费。官方：猫猫剑客样式。待真机验收。"
+   }
+  ],
+  "hu_tao_(genshin_impact)": [
+   {
+    "id": "snow_peach",
+    "zh": "宿雪桃红",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "red dress",
+     "sunglasses",
+     "white jacket",
+     "thighhighs",
+     "hair ornament"
+    ],
+    "note": "原神 5.3 海灯节。官方：与往生堂风格截然不同、墨镜是胡桃自己的收藏。待真机验收。"
+   }
+  ],
+  "xiangling_(genshin_impact)": [
+   {
+    "id": "new_year_cheer",
+    "zh": "岁夜欢哗",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "red china dress",
+     "hat",
+     "apron",
+     "hair ornament"
+    ],
+    "note": "原神 5.3「春曦画桃符」免费。官方：冷风中的一抹红色灶火，帽子按锅巴形象设计。待真机验收。"
+   }
+  ],
+  "yelan_(genshin_impact)": [
+   {
+    "id": "quiet_banquet",
+    "zh": "静暇雅宴",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "evening gown",
+     "fur trim",
+     "high heels",
+     "earrings",
+     "hair ornament"
+    ],
+    "note": "原神 5.8。官方：为枫丹拍卖会与假日准备，与平日皮裤反差极大、优雅利落。配色未在公告里写明，只写款式。待真机验收。"
+   }
+  ],
+  "rosaria_(genshin_impact)": [
+   {
+    "id": "church_freewoman",
+    "zh": "致教会自由人",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "black dress",
+     "white collar",
+     "cross",
+     "thighhighs",
+     "headdress"
+    ],
+    "note": "原神 2.4 闲替衣装。官方：教会为她专门定制的礼物。待真机验收。"
+   }
+  ],
+  "remielle_dan": [
+   {
+    "id": "shadow_pool_solo",
+    "zh": "影池独舞",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white and purple swimsuit",
+     "pearl headdress",
+     "sheer skirt",
+     "wing ornament",
+     "high heels"
+    ],
+    "note": "绝区零官方立绘（biligame wiki 时装页）已看图，tags 按画面写；未真机验收。"
+   },
+   {
+    "id": "moonlit_whisper",
+    "zh": "月夜密语",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "black evening gown",
+     "lace",
+     "veil",
+     "black thigh boots",
+     "ribbon"
+    ],
+    "note": "绝区零官方立绘（biligame wiki 时装页）已看图，tags 按画面写；未真机验收。"
+   }
+  ],
+  "phoenix_reffaella": [
+   {
+    "id": "fantasy_syndrome",
+    "zh": "空想症候",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "sailor collar",
+     "white jacket",
+     "dark shorts",
+     "red necktie",
+     "white thighhighs",
+     "medical eyepatch",
+     "armband"
+    ],
+    "note": "绝区零官方立绘（biligame wiki 时装页）已看图，tags 按画面写；未真机验收。"
+   },
+   {
+    "id": "illness_named_life",
+    "zh": "病名为生",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "dark shirt",
+     "red sailor collar",
+     "red necktie",
+     "shorts",
+     "white thighhighs",
+     "eyepatch"
+    ],
+    "note": "按官方公告文案写，**未看图**（biligame 时装页无该套立绘条目）；未真机验收。"
+   }
+  ],
+  "ukinami_yuzuha": [
+   {
+    "id": "clear_sky_tanuki",
+    "zh": "晴空化狸",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white bikini",
+     "white shorts",
+     "tanuki tail",
+     "bare shoulders",
+     "sandals",
+     "transparent umbrella"
+    ],
+    "note": "绝区零官方立绘（biligame wiki 时装页）已看图，tags 按画面写；未真机验收。 画面：白色比基尼上衣 + 白色短裤 + 狸猫尾，此前写了草帽（实际没有）已改。"
+   }
+  ],
+  "alice_thymefield": [
+   {
+    "id": "thyme_sea",
+    "zh": "百里香之海",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white bikini",
+     "pink skirt",
+     "frilled skirt",
+     "large bow",
+     "bare shoulders",
+     "sandals"
+    ],
+    "note": "绝区零官方立绘（biligame wiki 时装页）已看图，tags 按画面写；未真机验收。 画面：白色荷叶边比基尼上衣 + 粉白层叠短裙 + 大蝴蝶结，此前写成连体白裙已改。"
+   }
+  ],
+  "sigrid_de_l'azur": [
+   {
+    "id": "swan_wave",
+    "zh": "惊鸿逐浪",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "blue swimsuit",
+     "high heel sandals",
+     "bare shoulders",
+     "gold armlet"
+    ],
+    "note": "绝区零官方立绘（biligame wiki 时装页）已看图，tags 按画面写；未真机验收。"
+   }
+  ],
+  "belle_(zenless_zone_zero)": [
+   {
+    "id": "summer_sky",
+    "zh": "夏日晴空",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "sun hat",
+     "swimsuit",
+     "bare shoulders",
+     "sandals"
+    ],
+    "note": "按官方公告文案写，**未看图**（biligame 时装页无该套立绘条目）；未真机验收。"
+   }
+  ],
+  "sunna_(zenless_zone_zero)": [
+   {
+    "id": "afternoon_tea",
+    "zh": "午后茶歇",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white apron dress",
+     "black trim",
+     "white thighhighs",
+     "white shoes",
+     "sleeveless"
+    ],
+    "note": "绝区零官方立绘（biligame wiki 时装页）已看图，tags 按画面写；未真机验收。 画面：白底黑边的围裙式连衣裙 + 白色过膝袜，此前写成白衬衫褐裙已改。"
+   }
+  ],
+  "aria_(zenless_zone_zero)": [
+   {
+    "id": "dissonance",
+    "zh": "不协和音",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "black gothic dress",
+     "pink accents",
+     "corset",
+     "black thighhighs",
+     "black boots",
+     "frilled dress"
+    ],
+    "note": "绝区零官方立绘（biligame wiki 时装页）已看图，tags 按画面写；未真机验收。 画面：黑粉哥特束身短裙 + 黑色过膝袜与长靴，此前写成白裙黑翼已改。"
+   }
+  ],
+  "march_7th_(honkai:_star_rail)": [
+   {
+    "id": "winter_greetings",
+    "zh": "冬去煦至",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "crown",
+     "white dress",
+     "puffy skirt",
+     "white thighhighs",
+     "garter straps",
+     "high heels",
+     "strapless",
+     "snowflake hair ornament"
+    ],
+    "note": "星铁 3.0「银河潮流指南·冬韵特辑」免费。官方/实机：皇冠 + 蓬松短裙 + 白色吊带袜 + 丝带高跟鞋、抹胸露肩、雪花主饰。待真机验收。"
+   }
+  ],
+  "ruan_mei_(honkai:_star_rail)": [
+   {
+    "id": "snow_plum_letter",
+    "zh": "雪绽梅笺",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "blue and white china dress",
+     "plum blossom hair ornament",
+     "pink bow",
+     "hair stick",
+     "long sleeves"
+    ],
+    "note": "星铁 4.0 登录免费。官方/实机：保留蓝白主调与梅花元素、发饰放大、珍珠项链换成粉色蝴蝶结、裙摆袖口冰晶梅花纹。待真机验收。"
+   }
+  ],
+  "firefly_(honkai:_star_rail)": [
+   {
+    "id": "spring_souvenir",
+    "zh": "春日手信",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "school uniform",
+     "sailor collar",
+     "white shirt",
+     "pleated skirt",
+     "black thighhighs",
+     "loafers"
+    ],
+    "note": "星铁 4.0 付费款。官方/实机：校园 JK 制服，金色纽扣、裙摆随风。待真机验收。"
+   }
+  ],
+  "sparkle_(honkai:_star_rail)": [
+   {
+    "id": "sweet_dream_wave",
+    "zh": "甜梦电波",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "pink dress",
+     "black leather jacket",
+     "fishnet thighhighs",
+     "boots",
+     "heart hair ornament",
+     "stuffed toy"
+    ],
+    "note": "星铁（火花私服款）。媒体实测描述：粉色系 + 心形 + 兔子玩偶 vs 黑皮 + 马丁靴 + 渔网袜。待真机验收。"
+   }
+  ],
+  "castorice_(honkai:_star_rail)": [
+   {
+    "id": "butterfly_dream",
+    "zh": "幽梦翩跹",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "asymmetrical dress",
+     "butterfly wings",
+     "purple dress",
+     "blue dress",
+     "white lace",
+     "choker"
+    ],
+    "note": "星铁（遐蝶夜宴礼服）。媒体实测描述：不对称蝶翼裙、深紫与天蓝渐变、内侧白色薄纱。待真机验收。"
+   }
+  ],
+  "velvet_(nikke)": [
+   {
+    "id": "sensual_rabbit",
+    "zh": "性感兔女郎",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "playboy bunny",
+     "bunny ears",
+     "leotard",
+     "pink thighhighs",
+     "black gloves",
+     "high heels",
+     "harness"
+    ],
+    "note": "Sensual Rabbit。妮姬时装官方立绘（nikke.gg/costumes）已逐张看过，tags 按画面写；未真机验收。 画面：黑粉拼色兔女郎连体衣 + 粉色兔耳 + 粉色长筒袜 + 黑手套（此前按名字猜成黑色长袜，已按图改）。"
+   }
+  ],
+  "bay_(nikke)": [
+   {
+    "id": "radiant_rabbit",
+    "zh": "光辉兔女郎",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "playboy bunny",
+     "bunny ears",
+     "leotard",
+     "white thighhighs",
+     "black high heels",
+     "garter straps"
+    ],
+    "note": "Radiant Rabbit。妮姬时装官方立绘（nikke.gg/costumes）已逐张看过，tags 按画面写；未真机验收。 画面：白底黑绑带兔女郎衣 + 黑色兔耳 + 白色长筒袜吊袜带 + 黑高跟。"
+   }
+  ],
+  "flora_(nikke)": [
+   {
+    "id": "purple_wing_armor",
+    "zh": "紫翼装甲",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white bodysuit",
+     "armor",
+     "purple wings",
+     "bare shoulders"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "ade_(nikke)": [
+   {
+    "id": "maid_in_spring",
+    "zh": "春之女仆",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white sweater",
+     "off shoulder",
+     "brown skirt",
+     "beige cardigan",
+     "black boots",
+     "glasses"
+    ],
+    "note": "Maid In Spring。妮姬时装官方立绘（nikke.gg/costumes）已逐张看过，tags 按画面写；未真机验收。 画面：白色一字肩针织上衣 + 褐色短裙 + 米色开衫 + 黑短靴 + 眼镜（**不是**女仆装，此前按名字猜错，已按图改）。"
+   }
+  ],
+  "noir_(nikke)": [
+   {
+    "id": "baseball_cheerleader",
+    "zh": "棒球啦啦队",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "baseball uniform",
+     "jersey",
+     "white kneehighs",
+     "sneakers",
+     "bunny ears"
+    ],
+    "note": "Baseball Cheerleader。妮姬时装官方立绘（nikke.gg/costumes）已逐张看过，tags 按画面写；未真机验收。 画面：白底黑金条纹棒球球衣（长款）+ 白色及膝袜 + 白运动鞋。"
+   }
+  ],
+  "clay_(nikke)": [
+   {
+    "id": "cheer_up_training",
+    "zh": "加油训练",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "pink tracksuit",
+     "pink leggings",
+     "white socks",
+     "sneakers",
+     "whistle"
+    ],
+    "note": "Cheer Up Training。妮姬时装官方立绘（nikke.gg/costumes）已逐张看过，tags 按画面写；未真机验收。 画面：粉色运动外套 + 粉色紧身运动长裤 + 白袜 + 粉白运动鞋 + 跳绳（此前猜成短裤，已按图改）。"
+   }
+  ],
+  "tia_(nikke)": [
+   {
+    "id": "casual_denim",
+    "zh": "牛仔日常",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white crop top",
+     "denim skirt",
+     "denim jacket",
+     "sneakers"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   },
+   {
+    "id": "pink_pajamas",
+    "zh": "粉色睡衣",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "pink pajamas",
+     "silk",
+     "white socks"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   },
+   {
+    "id": "white_beach",
+    "zh": "白色沙滩装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white bikini",
+     "sarong",
+     "sunglasses",
+     "sandals"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "mast_(nikke)": [
+   {
+    "id": "pink_bikini",
+    "zh": "粉色比基尼",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "pink bikini",
+     "sandals"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   },
+   {
+    "id": "diving_suit",
+    "zh": "深潜装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "wetsuit",
+     "diving helmet",
+     "flippers"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "marciana_(nikke)": [
+   {
+    "id": "school_days",
+    "zh": "校园日常",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white shirt",
+     "black pencil skirt",
+     "sneakers",
+     "glasses"
+    ],
+    "note": "School Days。妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。 画面是白衬衫 + 黑色铅笔裙 + 眼镜的职场/教师风（此前按名字写成校服，已按图改）。"
+   }
+  ],
+  "red_hood_(nikke)": [
+   {
+    "id": "nonsense_red",
+    "zh": "妄红",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "red dress",
+     "halterneck",
+     "cleavage",
+     "high slit",
+     "long dress",
+     "black jacket",
+     "off shoulder",
+     "black high heels",
+     "black choker",
+     "garter straps",
+     "horns"
+    ],
+    "note": "Nonsense Red。妮姬时装官方立绘（nikke.gg/costumes）已逐张看过，tags 按画面写；未真机验收。 画面：红色丝绸吊带长裙深 V + 高开叉 + 拖地裙摆、黑色短外套滑肩、黑高跟、黑角。"
+   },
+   {
+    "id": "retro_days",
+    "zh": "复古日常",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white bikini top",
+     "crop top",
+     "denim shorts",
+     "black jacket",
+     "off shoulder",
+     "white socks",
+     "sneakers",
+     "midriff"
+    ],
+    "note": "Retro Days。妮姬时装官方立绘（nikke.gg/costumes）已逐张看过，tags 按画面写；未真机验收。 画面：白色短款比基尼上衣 + 牛仔热裤 + 深色宽松外套半脱 + 白袜厚底运动鞋。"
+   }
+  ],
+  "crown_(nikke)": [
+   {
+    "id": "naked_king",
+    "zh": "裸王",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white robe",
+     "long dress",
+     "bare shoulders",
+     "side slit",
+     "barefoot",
+     "gold halo",
+     "wide sleeves"
+    ],
+    "note": "Naked King。妮姬时装官方立绘（nikke.gg/costumes）已逐张看过，tags 按画面写；未真机验收。 画面：白色宽松仪式长袍、开衩到大腿、赤足、身后金色轮状光晕。"
+   },
+   {
+    "id": "glorious_flower",
+    "zh": "荣花",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white china dress",
+     "black dress",
+     "gold embroidery",
+     "high slit",
+     "black gloves",
+     "black high heels",
+     "hair stick",
+     "halo"
+    ],
+    "note": "Glorious Flower。妮姬时装官方立绘（nikke.gg/costumes）已逐张看过，tags 按画面写；未真机验收。 画面：白底黑裙摆的中式礼服 + 金线刺绣、金色发饰光轮、黑色高跟。"
+   }
+  ],
+  "moran_(nikke)": [
+   {
+    "id": "off_duty_queen",
+    "zh": "下班女王",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white crop top",
+     "off shoulder",
+     "denim shorts",
+     "white socks",
+     "striped socks",
+     "sneakers",
+     "midriff"
+    ],
+    "note": "Off-Duty Queen。妮姬时装官方立绘（nikke.gg/costumes）已逐张看过，tags 按画面写；未真机验收。 画面：白色一字肩短上衣 + 浅色牛仔短裤 + 白底蓝条纹及膝袜 + 白紫运动鞋。"
+   },
+   {
+    "id": "king_of_flowers",
+    "zh": "花之王",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "black china dress",
+     "floral print",
+     "side slit",
+     "halterneck",
+     "black high heels",
+     "bare shoulders",
+     "gold embroidery"
+    ],
+    "note": "King of Flowers。妮姬时装官方立绘（nikke.gg/costumes）已逐张看过，tags 按画面写；未真机验收。 画面：黑色挂脖旗袍式长裙、侧开衩、暗金鱼纹刺绣、黑色高跟。"
+   }
+  ],
+  "naga_(nikke)": [
+   {
+    "id": "elegant_date",
+    "zh": "优雅约会",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "china dress",
+     "pink dress",
+     "short sleeves",
+     "white lace thighhighs",
+     "white high heels",
+     "handbag"
+    ],
+    "note": "Elegant Date。妮姬时装官方立绘（nikke.gg/costumes）已逐张看过，tags 按画面写；未真机验收。 画面：粉白改良旗袍短连衣裙 + 泡泡短袖 + 白色蕾丝过膝袜 + 白高跟。"
+   },
+   {
+    "id": "last_girlhood",
+    "zh": "少女终章",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "japanese clothes",
+     "kimono",
+     "floral print",
+     "obi",
+     "parasol"
+    ],
+    "note": "Last Girlhood。妮姬时装官方立绘（nikke.gg/costumes）已逐张看过，tags 按画面写；未真机验收。 画面：紫蓝花纹和服 + 腰带 + 纸伞。"
+   },
+   {
+    "id": "ring_ensemble",
+    "zh": "环之合奏",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white bikini",
+     "sarong",
+     "straw hat",
+     "sandals",
+     "fringe"
+    ],
+    "note": "Ring Ensemble。妮姬时装官方立绘（nikke.gg/costumes）已逐张看过，tags 按画面写；未真机验收。 画面：白色比基尼 + 白色流苏沙滩围裙 + 向日葵草帽 + 凉鞋。"
+   }
+  ],
+  "nayuta_(nikke)": [
+   {
+    "id": "wu_wei",
+    "zh": "无为",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "leotard",
+     "purple leotard",
+     "translucent",
+     "barefoot",
+     "wings"
+    ],
+    "note": "Wu Wei。妮姬时装官方立绘（nikke.gg/costumes）已逐张看过，tags 按画面写；未真机验收。 画面：深紫近黑的连体紧身衣 + 半透明纱片 + 背后蓝色发光翼、赤足。"
+   }
+  ],
+  "liberalio_(nikke)": [
+   {
+    "id": "dreaming_lake",
+    "zh": "梦湖",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "black dress",
+     "lace",
+     "black pantyhose",
+     "black boots",
+     "gothic"
+    ],
+    "note": "Dreaming Lake。妮姬时装官方立绘（nikke.gg/costumes）已逐张看过，tags 按画面写；未真机验收。 画面：黑色哥特蕾丝短裙 + 黑色裤袜 + 黑靴。"
+   }
+  ],
+  "blanc_(nikke)": [
+   {
+    "id": "black_kimono",
+    "zh": "黑金和服",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "black kimono",
+     "gold floral print",
+     "short kimono",
+     "black pantyhose",
+     "black high heels"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   },
+   {
+    "id": "white_track",
+    "zh": "白色运动装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white crop top",
+     "white pants",
+     "black leg warmers",
+     "sneakers",
+     "cap"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   },
+   {
+    "id": "white_fur",
+    "zh": "白色毛边外套",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white jacket",
+     "white crop top",
+     "black shorts",
+     "black pantyhose",
+     "fur-trimmed boots"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "modernia_(nikke)": [
+   {
+    "id": "white_slip",
+    "zh": "白色吊带睡裙",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white slip dress",
+     "nightgown",
+     "barefoot"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   },
+   {
+    "id": "black_gothic",
+    "zh": "黑紫机械礼服",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "black dress",
+     "black pantyhose",
+     "black boots",
+     "mechanical wings"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "grave_(nikke)": [
+   {
+    "id": "black_blazer",
+    "zh": "黑西装出场",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "black blazer",
+     "white bra",
+     "black pants",
+     "high heels"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "guilty_(nikke)": [
+   {
+    "id": "white_bikini",
+    "zh": "白色比基尼",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white bikini",
+     "sunglasses",
+     "sandals"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "viper_(nikke)": [
+   {
+    "id": "red_bodysuit",
+    "zh": "红色金属紧身衣",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "red bodysuit",
+     "leotard",
+     "white gloves",
+     "pink high heels"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   },
+   {
+    "id": "white_wedding",
+    "zh": "白色婚纱",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white dress",
+     "wedding dress",
+     "wings",
+     "barefoot"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   },
+   {
+    "id": "pink_loungewear",
+    "zh": "粉色居家",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "pink jacket",
+     "white bikini",
+     "garter straps",
+     "white thighhighs",
+     "sneakers"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "little_mermaid_(nikke)": [
+   {
+    "id": "dark_swimsuit",
+    "zh": "暗色泳装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "black one-piece swimsuit",
+     "translucent",
+     "wings"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   },
+   {
+    "id": "white_dress",
+    "zh": "白色短裙",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white dress",
+     "short sleeves",
+     "black shoes"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   },
+   {
+    "id": "white_bikini",
+    "zh": "白色比基尼",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white bikini",
+     "translucent",
+     "shell"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "bready_(nikke)": [
+   {
+    "id": "maid_apron",
+    "zh": "黑白女仆裙",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "black dress",
+     "white apron",
+     "maid headdress",
+     "white thighhighs"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "rouge_(nikke)": [
+   {
+    "id": "red_bunny",
+    "zh": "红白兔女郎",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white shirt",
+     "red skirt",
+     "red thighhighs",
+     "white high heels",
+     "bunny ears"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "sin_(nikke)": [
+   {
+    "id": "leather_jacket",
+    "zh": "黑皮夹克",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "black leather jacket",
+     "white crop top",
+     "black skirt",
+     "black pantyhose",
+     "black boots"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "volume_(nikke)": [
+   {
+    "id": "witch",
+    "zh": "魔女装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "witch hat",
+     "black corset",
+     "black thigh boots"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "exia_(nikke)": [
+   {
+    "id": "animal_pajamas",
+    "zh": "动物睡衣",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "animal pajamas",
+     "kigurumi",
+     "hood"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   },
+   {
+    "id": "purple_hoodie",
+    "zh": "紫色卫衣",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "purple jacket",
+     "hoodie",
+     "black shorts",
+     "sneakers"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   },
+   {
+    "id": "black_lingerie",
+    "zh": "黑色情趣内衣",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "black lingerie",
+     "babydoll",
+     "black pantyhose",
+     "high heels"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "jackal_(nikke)": [
+   {
+    "id": "oversized_shirt",
+    "zh": "宽松衬衫",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white shirt",
+     "blue jacket",
+     "shorts",
+     "white socks",
+     "sneakers"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "dorothy_(nikke)": [
+   {
+    "id": "pink_lingerie",
+    "zh": "粉色内衣白翼",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "pink lingerie",
+     "white wings",
+     "white thighhighs"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   },
+   {
+    "id": "white_blue_dress",
+    "zh": "白蓝礼裙",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white dress",
+     "blue accents",
+     "silver boots"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   },
+   {
+    "id": "serendipity",
+    "zh": "不期而遇",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white bikini",
+     "translucent dress",
+     "lace",
+     "parasol",
+     "white sandals",
+     "frilled bikini"
+    ],
+    "note": "妮姬官方立绘（nikke.gg, id 234）已看图：白色荷叶边比基尼 + 半透明白纱 + 蕾丝阳伞 + 白凉鞋。未真机。"
+   }
+  ],
+  "yuni_(nikke)": [
+   {
+    "id": "pink_jacket",
+    "zh": "粉色外套",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "pink jacket",
+     "plaid skirt",
+     "white socks"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "poli_(nikke)": [
+   {
+    "id": "police_skirt",
+    "zh": "警服短裙",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "black jacket",
+     "white pleated skirt",
+     "black pantyhose",
+     "sneakers",
+     "glasses"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   },
+   {
+    "id": "cheerleader",
+    "zh": "啦啦队",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "cheerleader",
+     "blue pleated skirt",
+     "crop top",
+     "sneakers"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "liter_(nikke)": [
+   {
+    "id": "blue_swimsuit",
+    "zh": "蓝色泳装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "blue one-piece swimsuit",
+     "white thighhighs"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   },
+   {
+    "id": "yellow_dress",
+    "zh": "黄色连衣裙",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "yellow dress",
+     "black trim",
+     "white socks"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "phantom_(nikke)": [
+   {
+    "id": "translucent_leotard",
+    "zh": "半透紧身衣",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white leotard",
+     "translucent",
+     "black thigh boots",
+     "veil"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "sugar_(nikke)": [
+   {
+    "id": "black_mini",
+    "zh": "黑色皮裙",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "black mini dress",
+     "leather jacket",
+     "black pantyhose"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   },
+   {
+    "id": "black_coat",
+    "zh": "黑色长外套",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "black coat",
+     "black dress",
+     "black pantyhose"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "noise_(nikke)": [
+   {
+    "id": "white_robe",
+    "zh": "白色缎裙",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white dress",
+     "black thigh boots"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   },
+   {
+    "id": "fur_jacket",
+    "zh": "毛领外套",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white fur jacket",
+     "black lingerie",
+     "black pantyhose",
+     "high heels"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "centi_(nikke)": [
+   {
+    "id": "crop_shorts",
+    "zh": "短上衣牛仔短裤",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white crop top",
+     "denim shorts",
+     "white socks",
+     "sneakers"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   },
+   {
+    "id": "white_bikini",
+    "zh": "白色比基尼",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white bikini",
+     "sandals"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "frima_(nikke)": [
+   {
+    "id": "hawaiian",
+    "zh": "夏威夷衬衫",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "straw hat",
+     "hawaiian shirt",
+     "white crop top",
+     "denim shorts"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "ein_(nikke)": [
+   {
+    "id": "blue_kimono",
+    "zh": "蓝色和风外套",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "kimono",
+     "blue kimono",
+     "black pantyhose",
+     "white boots"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "miranda_(nikke)": [
+   {
+    "id": "idol_dress",
+    "zh": "偶像礼服",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "blue dress",
+     "frilled dress",
+     "idol costume",
+     "white thighhighs"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "isabel_(nikke)": [
+   {
+    "id": "white_gown",
+    "zh": "白色长裙",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white dress",
+     "translucent",
+     "bare shoulders"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "tove_(nikke)": [
+   {
+    "id": "racing_suit",
+    "zh": "赛车服",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "orange crop top",
+     "white pants",
+     "cap",
+     "sneakers"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   },
+   {
+    "id": "yellow_bikini",
+    "zh": "黄色比基尼",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "yellow bikini",
+     "sandals"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "folkwang_(nikke)": [
+   {
+    "id": "navy_leotard",
+    "zh": "深蓝紧身衣",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "blue leotard",
+     "bodysuit",
+     "brown pantyhose",
+     "bunny ears"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "dolla_(nikke)": [
+   {
+    "id": "black_gown",
+    "zh": "黑色高开叉长裙",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "black dress",
+     "high slit",
+     "fur stole",
+     "high heels"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "pepper_(nikke)": [
+   {
+    "id": "white_bikini",
+    "zh": "白色比基尼",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white bikini",
+     "sandals"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "k_(nikke)": [
+   {
+    "id": "vest_shorts",
+    "zh": "黑马甲短装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white shirt",
+     "black vest",
+     "black shorts",
+     "black pantyhose",
+     "top hat"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "yan_(nikke)": [
+   {
+    "id": "red_bikini",
+    "zh": "红色比基尼",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "red bikini",
+     "high heels"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "zwei_(nikke)": [
+   {
+    "id": "black_kimono",
+    "zh": "黑底红花和服",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "black kimono",
+     "floral print",
+     "obi",
+     "japanese clothes"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   },
+   {
+    "id": "white_ruffle",
+    "zh": "白色荷叶边上衣",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white top",
+     "off shoulder",
+     "denim skirt",
+     "sandals"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "novel_(nikke)": [
+   {
+    "id": "sailor_uniform",
+    "zh": "水手制服",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "sailor collar",
+     "white jacket",
+     "blue pleated skirt",
+     "white thighhighs",
+     "cap"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   },
+   {
+    "id": "purple_idol",
+    "zh": "紫色偶像装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "purple dress",
+     "frilled dress",
+     "purple thighhighs",
+     "sneakers"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "harran_(nikke)": [
+   {
+    "id": "purple_corset",
+    "zh": "紫色紧身裙",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "purple dress",
+     "corset",
+     "black pantyhose",
+     "high heels"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "biscuit_(nikke)": [
+   {
+    "id": "overalls",
+    "zh": "背带短裤",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "overalls",
+     "denim shorts",
+     "t-shirt",
+     "yellow shoes"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "julia_(nikke)": [
+   {
+    "id": "black_gown",
+    "zh": "黑色长礼服",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "black dress",
+     "long dress",
+     "white shoes"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   },
+   {
+    "id": "grey_crop",
+    "zh": "灰白短上衣",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "grey crop top",
+     "black skirt",
+     "white kneehighs"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "signal_(nikke)": [
+   {
+    "id": "blue_jacket",
+    "zh": "蓝外套短裤",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "blue jacket",
+     "white shorts",
+     "white socks"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "shiroko_(blue_archive)": [
+   {
+    "id": "riding",
+    "zh": "骑行",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white cycling jersey",
+     "black shorts",
+     "white socks",
+     "blue shoes",
+     "bicycle"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：白子（骑行）\n"
+   },
+   {
+    "id": "swimsuit",
+    "zh": "泳装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "black one-piece swimsuit",
+     "white shirt",
+     "black sandals"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：白子（泳装）\n"
+   }
+  ],
+  "mika_(blue_archive)": [
+   {
+    "id": "swimsuit",
+    "zh": "泳装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white bikini",
+     "pink frills",
+     "white sandals"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：未花（泳装）\n"
+   }
+  ],
+  "kisaki_(blue_archive)": [
+   {
+    "id": "swimsuit",
+    "zh": "泳装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "black bikini",
+     "black coat",
+     "paper parasol",
+     "sandals"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：妃咲（泳装）\n"
+   }
+  ],
+  "rio_(blue_archive)": [
+   {
+    "id": "armed",
+    "zh": "武装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "black bodysuit",
+     "red accents",
+     "mechanical arms"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：莉音（武装）\n"
+   }
+  ],
+  "aru_(blue_archive)": [
+   {
+    "id": "new_year",
+    "zh": "新年",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "dark red kimono",
+     "floral print",
+     "fur stole",
+     "obi",
+     "geta"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：爱露（新年）\n"
+   },
+   {
+    "id": "dress",
+    "zh": "礼服",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "red dress",
+     "red coat",
+     "black gloves",
+     "high heels"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：爱露（礼服）\n"
+   }
+  ],
+  "momoi_(blue_archive)": [
+   {
+    "id": "maid",
+    "zh": "女仆",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "maid",
+     "apron",
+     "maid headdress",
+     "blue dress",
+     "white socks"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：桃（女仆）\n"
+   }
+  ],
+  "noa_(blue_archive)": [
+   {
+    "id": "pajamas",
+    "zh": "睡衣",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white nightgown",
+     "long dress",
+     "cardigan",
+     "slippers"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：诺亚（睡衣）\n"
+   }
+  ],
+  "miyu_(blue_archive)": [
+   {
+    "id": "swimsuit",
+    "zh": "泳装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white bikini",
+     "blue ribbon",
+     "frilled bikini",
+     "sun hat"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：美游（泳装）\n"
+   }
+  ],
+  "midori_(blue_archive)": [
+   {
+    "id": "maid",
+    "zh": "女仆",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "maid",
+     "apron",
+     "navy dress",
+     "black pantyhose",
+     "maid headdress"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：绿（女仆）\n"
+   }
+  ],
+  "saori_(blue_archive)": [
+   {
+    "id": "swimsuit",
+    "zh": "泳装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "green jacket",
+     "black bikini",
+     "denim shorts",
+     "cap",
+     "sandals"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：纱织（泳装）\n"
+   },
+   {
+    "id": "dress",
+    "zh": "礼服",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white dress",
+     "long dress",
+     "bare shoulders",
+     "high heels"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：纱织（礼服）\n"
+   }
+  ],
+  "mutsuki_(blue_archive)": [
+   {
+    "id": "new_year",
+    "zh": "新年",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white kimono",
+     "floral print",
+     "fur stole",
+     "obi",
+     "japanese clothes"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：睦月（新年）\n"
+   },
+   {
+    "id": "dress",
+    "zh": "礼服",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "red dress",
+     "frilled dress",
+     "patterned pantyhose",
+     "high heels"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：睦月（礼服）\n"
+   }
+  ],
+  "hifumi_(blue_archive)": [
+   {
+    "id": "swimsuit",
+    "zh": "泳装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white bikini",
+     "hawaiian shirt",
+     "sandals"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：日富美（泳装）\n"
+   }
+  ],
+  "yuzu_(blue_archive)": [
+   {
+    "id": "maid",
+    "zh": "女仆",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "maid",
+     "apron",
+     "white dress",
+     "white socks",
+     "black shoes"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：柚子（女仆）\n"
+   },
+   {
+    "id": "armed",
+    "zh": "武装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "red bodysuit",
+     "mechanical arms",
+     "armor"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：柚子（武装）\n"
+   }
+  ],
+  "azusa_(blue_archive)": [
+   {
+    "id": "swimsuit",
+    "zh": "泳装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "floral kimono",
+     "bikini",
+     "straw hat",
+     "sandals"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：梓（泳装）\n"
+   }
+  ],
+  "iroha_(blue_archive)": [
+   {
+    "id": "swimsuit",
+    "zh": "泳装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "pink lingerie",
+     "pink thighhighs",
+     "sandals"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：伊吕波（泳装）\n"
+   }
+  ],
+  "ichika_(blue_archive)": [
+   {
+    "id": "swimsuit",
+    "zh": "泳装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "black bikini",
+     "red jacket",
+     "black shorts",
+     "sandals"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：一花（泳装）\n"
+   }
+  ],
+  "seia_(blue_archive)": [
+   {
+    "id": "swimsuit",
+    "zh": "泳装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white one-piece swimsuit",
+     "yellow jacket",
+     "barefoot"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：圣娅（泳装）\n"
+   }
+  ],
+  "ibuki_(blue_archive)": [
+   {
+    "id": "swimsuit",
+    "zh": "泳装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "pink one-piece swimsuit",
+     "frilled swimsuit",
+     "yellow shoes"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：伊吹（泳装）\n"
+   }
+  ],
+  "shun_(blue_archive)": [
+   {
+    "id": "swimsuit",
+    "zh": "泳装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "black bikini",
+     "white sarong",
+     "high heels"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：瞬（泳装）\n"
+   }
+  ],
+  "wakamo_(blue_archive)": [
+   {
+    "id": "swimsuit",
+    "zh": "泳装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white kimono",
+     "bikini",
+     "parasol",
+     "floral print"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：若藻（泳装）\n"
+   }
+  ],
+  "natsu_(blue_archive)": [
+   {
+    "id": "band",
+    "zh": "乐队",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "beige jacket",
+     "white shirt",
+     "shorts",
+     "white socks",
+     "white boots"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：夏（乐队）\n"
+   }
+  ],
+  "haruna_(blue_archive)": [
+   {
+    "id": "new_year",
+    "zh": "新年",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "navy kimono",
+     "floral print",
+     "fur stole",
+     "obi"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：晴奈（新年）\n"
+   },
+   {
+    "id": "gym_uniform",
+    "zh": "体操服",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white shirt",
+     "red bloomers",
+     "white socks",
+     "sneakers"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：晴奈（体操服）\n"
+   }
+  ],
+  "haruka_(blue_archive)": [
+   {
+    "id": "new_year",
+    "zh": "新年",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "purple kimono",
+     "floral print",
+     "parasol",
+     "obi"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：春香（新年）\n"
+   },
+   {
+    "id": "dress",
+    "zh": "礼服",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "navy dress",
+     "off shoulder",
+     "high heels"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：春香（礼服）\n"
+   }
+  ],
+  "kikyou_(blue_archive)": [
+   {
+    "id": "swimsuit",
+    "zh": "泳装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "black bikini",
+     "sheer cover-up",
+     "sandals"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：桔梗（泳装）\n"
+   }
+  ],
+  "himari_(blue_archive)": [
+   {
+    "id": "armed",
+    "zh": "武装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white mechanical wings",
+     "bodysuit",
+     "flight unit"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：日鞠（武装）\n"
+   }
+  ],
+  "tsubaki_(blue_archive)": [
+   {
+    "id": "guide",
+    "zh": "导游",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "grey suit",
+     "necktie",
+     "pantyhose",
+     "dress shoes"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：椿（导游）\n"
+   }
+  ],
+  "eimi_(blue_archive)": [
+   {
+    "id": "swimsuit",
+    "zh": "泳装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "pink jacket",
+     "black bikini",
+     "sandals"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：艾米（泳装）\n"
+   },
+   {
+    "id": "armed",
+    "zh": "武装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "black combat suit",
+     "red skirt",
+     "visor",
+     "mechanical arms"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：艾米（武装）\n"
+   }
+  ],
+  "nagisa_(blue_archive)": [
+   {
+    "id": "swimsuit",
+    "zh": "泳装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "black bikini",
+     "white wings",
+     "sunglasses"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：渚（泳装）\n"
+   }
+  ],
+  "reisa_(blue_archive)": [
+   {
+    "id": "magical",
+    "zh": "魔法",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white dress",
+     "frilled dress",
+     "magical girl",
+     "purple ribbons"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：玲纱（魔法）\n"
+   }
+  ],
+  "atsuko_(blue_archive)": [
+   {
+    "id": "swimsuit",
+    "zh": "泳装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white dress",
+     "straw hat",
+     "sandals"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：亚津子（泳装）\n"
+   }
+  ],
+  "moe_(blue_archive)": [
+   {
+    "id": "swimsuit",
+    "zh": "泳装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "blue cropped hoodie",
+     "white bikini",
+     "sandals"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：萌绘（泳装）\n"
+   }
+  ],
+  "yoshimi_(blue_archive)": [
+   {
+    "id": "band",
+    "zh": "乐队",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "red jacket",
+     "graphic t-shirt",
+     "striped skirt",
+     "boots"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：好美（乐队）\n"
+   }
+  ],
+  "fubuki_(blue_archive)": [
+   {
+    "id": "swimsuit",
+    "zh": "泳装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white jacket",
+     "shirt",
+     "shorts",
+     "sneakers"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：吹雪（泳装）\n"
+   }
+  ],
+  "tsurugi_(blue_archive)": [
+   {
+    "id": "swimsuit",
+    "zh": "泳装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "black bikini"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：鹤城（泳装）\n"
+   }
+  ],
+  "airi_(blue_archive)": [
+   {
+    "id": "band",
+    "zh": "乐队",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "blue shirt",
+     "oversized shirt",
+     "white dress",
+     "black shoes"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：爱理（乐队）\n"
+   }
+  ],
+  "ayane_(blue_archive)": [
+   {
+    "id": "swimsuit",
+    "zh": "泳装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white bikini",
+     "cap",
+     "sandals"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：绫音（泳装）\n"
+   }
+  ],
+  "koyuki_(blue_archive)": [
+   {
+    "id": "pajamas",
+    "zh": "睡衣",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "pink kigurumi",
+     "animal pajamas",
+     "hood"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：小雪（睡衣）\n"
+   }
+  ],
+  "shigure_(blue_archive)": [
+   {
+    "id": "hot_spring",
+    "zh": "温泉",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "yukata",
+     "blue yukata",
+     "red obi",
+     "geta"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：时雨（温泉）\n"
+   }
+  ],
+  "hiyori_(blue_archive)": [
+   {
+    "id": "swimsuit",
+    "zh": "泳装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "orange bikini",
+     "beige cardigan",
+     "sandals"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：日和（泳装）\n"
+   }
+  ],
+  "fuuka_(blue_archive)": [
+   {
+    "id": "new_year",
+    "zh": "新年",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "pink kimono",
+     "floral print",
+     "obi",
+     "geta"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：风香（新年）\n"
+   }
+  ],
+  "maki_(blue_archive)": [
+   {
+    "id": "camping",
+    "zh": "露营",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "puffer jacket",
+     "hoodie",
+     "leggings",
+     "fur boots",
+     "backpack"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：真纪（露营）\n"
+   }
+  ],
+  "hinata_(blue_archive)": [
+   {
+    "id": "swimsuit",
+    "zh": "泳装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white one-piece swimsuit",
+     "straw hat",
+     "sandals"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：日向（泳装）\n"
+   }
+  ],
+  "serina_(blue_archive)": [
+   {
+    "id": "christmas",
+    "zh": "圣诞",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "santa costume",
+     "red coat",
+     "white fur trim",
+     "boots"
+    ],
+    "note": "蔚蓝档案官方换装立绘（SchaleDB portrait）已逐张看过，tags 按画面写；未真机验收。 官方名：芹娜（圣诞）"
+   }
+  ],
+  "alice_margatroid": [
+   {
+    "id": "puppeteer_hieda",
+    "zh": "稗田邸的人偶师",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "red dress",
+     "white apron",
+     "white headdress",
+     "red hair bow",
+     "puffed short sleeves"
+    ],
+    "note": "东方官方换装（LostWord 官方服装 / PC-98 旧作造型，据 safebooru.org 同 tag 样图）；同 tag 样图多为同人，细节可能与官方立绘有出入，未真机验收。"
+   }
+  ],
+  "flandre_scarlet": [
+   {
+    "id": "vampire_hunter",
+    "zh": "猎手吸血鬼",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "red dress",
+     "black hat",
+     "bat wings",
+     "black gloves",
+     "boots"
+    ],
+    "note": "东方官方换装（LostWord 官方服装 / PC-98 旧作造型，据 safebooru.org 同 tag 样图）；同 tag 样图多为同人，细节可能与官方立绘有出入，未真机验收。"
+   },
+   {
+    "id": "vibrant_sister",
+    "zh": "元气姐妹",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "pink dress",
+     "white frills",
+     "pink bow",
+     "red shoes"
+    ],
+    "note": "东方官方换装（LostWord 官方服装 / PC-98 旧作造型，据 safebooru.org 同 tag 样图）；同 tag 样图多为同人，细节可能与官方立绘有出入，未真机验收。"
+   }
+  ],
+  "cirno": [
+   {
+    "id": "siyumu_design",
+    "zh": "希乌姆设计",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white sailor collar",
+     "blue skirt",
+     "white socks",
+     "blue shoes"
+    ],
+    "note": "东方官方换装（LostWord 官方服装 / PC-98 旧作造型，据 safebooru.org 同 tag 样图）；同 tag 样图多为同人，细节可能与官方立绘有出入，未真机验收。"
+   }
+  ],
+  "inubashiri_momiji": [
+   {
+    "id": "death_watch_nurse",
+    "zh": "守夜护士",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "nurse",
+     "white dress",
+     "nurse cap",
+     "white thighhighs",
+     "syringe"
+    ],
+    "note": "东方官方换装（LostWord 官方服装 / PC-98 旧作造型，据 safebooru.org 同 tag 样图）；同 tag 样图多为同人，细节可能与官方立绘有出入，未真机验收。"
+   }
+  ],
+  "izayoi_sakuya": [
+   {
+    "id": "white_flower_knight",
+    "zh": "白花骑士",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white maid dress",
+     "blue trim",
+     "white thighhighs",
+     "blue boots",
+     "sword"
+    ],
+    "note": "东方官方换装（LostWord 官方服装 / PC-98 旧作造型，据 safebooru.org 同 tag 样图）；同 tag 样图多为同人，细节可能与官方立绘有出入，未真机验收。"
+   }
+  ],
+  "kaenbyou_rin": [
+   {
+    "id": "pawsome_helper",
+    "zh": "地灵殿帮手",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "maid",
+     "apron",
+     "black dress",
+     "white apron",
+     "maid headdress"
+    ],
+    "note": "东方官方换装（LostWord 官方服装 / PC-98 旧作造型，据 safebooru.org 同 tag 样图）；同 tag 样图多为同人，细节可能与官方立绘有出入，未真机验收。"
+   }
+  ],
+  "kawashiro_nitori": [
+   {
+    "id": "pseudo_shikigami",
+    "zh": "拟似式神",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "blue dress",
+     "white apron",
+     "mechanical parts",
+     "goggles"
+    ],
+    "note": "东方官方换装（LostWord 官方服装 / PC-98 旧作造型，据 safebooru.org 同 tag 样图）；同 tag 样图多为同人，细节可能与官方立绘有出入，未真机验收。"
+   }
+  ],
+  "kazami_yuuka": [
+   {
+    "id": "pc_98",
+    "zh": "PC-98",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "pink plaid vest",
+     "pink plaid skirt",
+     "white shirt",
+     "boots"
+    ],
+    "note": "东方官方换装（LostWord 官方服装 / PC-98 旧作造型，据 safebooru.org 同 tag 样图）；同 tag 样图多为同人，细节可能与官方立绘有出入，未真机验收。"
+   }
+  ],
+  "kirisame_marisa": [
+   {
+    "id": "pc_98",
+    "zh": "PC-98",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "purple dress",
+     "white apron",
+     "purple hat",
+     "white frills"
+    ],
+    "note": "东方官方换装（LostWord 官方服装 / PC-98 旧作造型，据 safebooru.org 同 tag 样图）；同 tag 样图多为同人，细节可能与官方立绘有出入，未真机验收。"
+   }
+  ],
+  "komeiji_koishi": [
+   {
+    "id": "heartless_swamp_lady",
+    "zh": "无心沼地贵妇",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "purple dress",
+     "witch hat",
+     "black cape",
+     "boots"
+    ],
+    "note": "东方官方换装（LostWord 官方服装 / PC-98 旧作造型，据 safebooru.org 同 tag 样图）；同 tag 样图多为同人，细节可能与官方立绘有出入，未真机验收。"
+   },
+   {
+    "id": "spontaneous_white_beauty",
+    "zh": "纯白美人",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white dress",
+     "white hat",
+     "blue ribbon",
+     "white gloves"
+    ],
+    "note": "东方官方换装（LostWord 官方服装 / PC-98 旧作造型，据 safebooru.org 同 tag 样图）；同 tag 样图多为同人，细节可能与官方立绘有出入，未真机验收。"
+   }
+  ],
+  "komeiji_satori": [
+   {
+    "id": "astrological_magical_girl",
+    "zh": "星象魔法少女",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "blue dress",
+     "white frills",
+     "star ornament",
+     "magical girl",
+     "white thighhighs"
+    ],
+    "note": "东方官方换装（LostWord 官方服装 / PC-98 旧作造型，据 safebooru.org 同 tag 样图）；同 tag 样图多为同人，细节可能与官方立绘有出入，未真机验收。"
+   },
+   {
+    "id": "tiny_underworld_queen",
+    "zh": "地底小女王",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "pink dress",
+     "black cape",
+     "heart hair ornament",
+     "white thighhighs"
+    ],
+    "note": "东方官方换装（LostWord 官方服装 / PC-98 旧作造型，据 safebooru.org 同 tag 样图）；同 tag 样图多为同人，细节可能与官方立绘有出入，未真机验收。"
+   }
+  ],
+  "moriya_suwako": [
+   {
+    "id": "tiny_god",
+    "zh": "小小神",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "purple dress",
+     "white apron",
+     "wide-brimmed hat",
+     "frilled dress"
+    ],
+    "note": "东方官方换装（LostWord 官方服装 / PC-98 旧作造型，据 safebooru.org 同 tag 样图）；同 tag 样图多为同人，细节可能与官方立绘有出入，未真机验收。"
+   }
+  ],
+  "patchouli_knowledge": [
+   {
+    "id": "maid_for_a_week",
+    "zh": "一周女仆",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "purple maid dress",
+     "white apron",
+     "maid headdress",
+     "white sleeves"
+    ],
+    "note": "东方官方换装（LostWord 官方服装 / PC-98 旧作造型，据 safebooru.org 同 tag 样图）；同 tag 样图多为同人，细节可能与官方立绘有出入，未真机验收。"
+   }
+  ],
+  "reisen_udongein_inaba": [
+   {
+    "id": "white_rabbit",
+    "zh": "白兔调查员",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "blue uniform",
+     "white cape",
+     "gold trim",
+     "peaked cap",
+     "white thighhighs"
+    ],
+    "note": "东方官方换装（LostWord 官方服装 / PC-98 旧作造型，据 safebooru.org 同 tag 样图）；同 tag 样图多为同人，细节可能与官方立绘有出入，未真机验收。"
+   }
+  ],
+  "reiuji_utsuho": [
+   {
+    "id": "third_eye_less",
+    "zh": "无第三眼",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white dress",
+     "green trim",
+     "black thighhighs",
+     "boots"
+    ],
+    "note": "东方官方换装（LostWord 官方服装 / PC-98 旧作造型，据 safebooru.org 同 tag 样图）；同 tag 样图多为同人，细节可能与官方立绘有出入，未真机验收。"
+   }
+  ],
+  "remilia_scarlet": [
+   {
+    "id": "tiny_devil_mistress",
+    "zh": "小恶魔主人",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white maid dress",
+     "blue ribbon",
+     "bat wings",
+     "white gloves",
+     "black thighhighs"
+    ],
+    "note": "东方官方换装（LostWord 官方服装 / PC-98 旧作造型，据 safebooru.org 同 tag 样图）；同 tag 样图多为同人，细节可能与官方立绘有出入，未真机验收。"
+   },
+   {
+    "id": "charisma_mistress",
+    "zh": "魅力主人",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "pink dress",
+     "white frills",
+     "bat wings",
+     "white gloves"
+    ],
+    "note": "东方官方换装（LostWord 官方服装 / PC-98 旧作造型，据 safebooru.org 同 tag 样图）；同 tag 样图多为同人，细节可能与官方立绘有出入，未真机验收。"
+   }
+  ],
+  "saigyouji_yuyuko": [
+   {
+    "id": "tiny_ghost_mistress",
+    "zh": "小幽灵主人",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "navy dress",
+     "pink accents",
+     "frilled dress",
+     "wide-brimmed hat"
+    ],
+    "note": "东方官方换装（LostWord 官方服装 / PC-98 旧作造型，据 safebooru.org 同 tag 样图）；同 tag 样图多为同人，细节可能与官方立绘有出入，未真机验收。"
+   }
+  ],
+  "yakumo_ran": [
+   {
+    "id": "vice_president",
+    "zh": "优雅副会长",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "blue suit",
+     "white shirt",
+     "necktie",
+     "sword",
+     "white gloves"
+    ],
+    "note": "东方官方换装（LostWord 官方服装 / PC-98 旧作造型，据 safebooru.org 同 tag 样图）；同 tag 样图多为同人，细节可能与官方立绘有出入，未真机验收。"
+   }
+  ],
+  "yakumo_yukari": [
+   {
+    "id": "scarlet",
+    "zh": "绯红",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "red dress",
+     "white apron",
+     "fox mask",
+     "black boots",
+     "frilled dress"
+    ],
+    "note": "东方官方换装（LostWord 官方服装 / PC-98 旧作造型，据 safebooru.org 同 tag 样图）；同 tag 样图多为同人，细节可能与官方立绘有出入，未真机验收。"
+   }
+  ],
+  "trina_(nikke)": [
+   {
+    "id": "white_veil_gown",
+    "zh": "白色纱裙",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white dress",
+     "translucent",
+     "bridal veil",
+     "flower ornament",
+     "barefoot"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "prika_(nikke)": [
+   {
+    "id": "casual_hoodie",
+    "zh": "休闲卫衣裤",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white hoodie",
+     "crop top",
+     "teal pants",
+     "wide-leg pants",
+     "sneakers"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "trony_(nikke)": [
+   {
+    "id": "lace_black",
+    "zh": "黑白蕾丝",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "black dress",
+     "white lace",
+     "white thigh boots",
+     "black gloves"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "sora_(nikke)": [
+   {
+    "id": "pink_beach",
+    "zh": "粉色沙滩装",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "pink bikini",
+     "pink jacket",
+     "white crop top",
+     "sandals",
+     "shoulder bag"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "leona_(nikke)": [
+   {
+    "id": "pink_armor",
+    "zh": "粉白装甲",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "pink bodysuit",
+     "white armor",
+     "mechanical arms",
+     "high heels",
+     "leotard"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "mint_(nikke)": [
+   {
+    "id": "white_summer",
+    "zh": "白色夏日",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white blouse",
+     "white pleated skirt",
+     "white kneehighs",
+     "white shoes",
+     "sleeveless"
+    ],
+    "note": "妮姬官方时装立绘（nikke.gg）已逐张看过，tags 按画面写；未真机验收。"
+   }
+  ],
+  "elegg_(nikke)": [
+   {
+    "id": "boom_and_shock",
+    "zh": "轰鸣与震撼",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "yellow bikini",
+     "yellow shorts",
+     "yellow jacket",
+     "harness",
+     "safety goggles",
+     "white sneakers",
+     "mechanical arms"
+    ],
+    "note": "妮姬官方立绘（nikke.gg, id 502）已看图：黄色比基尼上衣 + 黄短裤 + 黄外套系腰 + 黑色安全带 + 护目镜。未真机。"
+   }
+  ],
+  "neon_(nikke)": [
+   {
+    "id": "vision_eye",
+    "zh": "幻视之眼",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "peaked cap",
+     "white crop top",
+     "black pleated skirt",
+     "black pantyhose",
+     "sandals",
+     "mechanical arms"
+    ],
+    "note": "妮姬官方立绘（nikke.gg, id 18）已看图：黑色军帽 + 白色短上衣 + 黑百褶裙 + 黑丝袜 + 凉鞋。未真机。"
+   }
+  ],
+  "chisa_(wuthering_waves)": [
+   {
+    "id": "peach_parfait",
+    "zh": "蜜桃冰",
+    "level": 0,
+    "verified": false,
+    "tags": [
+     "white beret",
+     "plaid bikini",
+     "white swimsuit",
+     "ribbon",
+     "flower hair ornament",
+     "sandals"
+    ],
+    "note": "鸣潮 3.5「蜜桃冰」（Peach Parfait）。按**官方服饰文案**写：格纹布料贴合腰侧、白色贝雷帽、长发用缎带束起、花瓣缀于鬓发。未看图、未真机。"
+   }
+  ]
+ }
+}

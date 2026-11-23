@@ -4963,6 +4963,25 @@
         "hair_acc"
       ],
       "drop_reason": "闭麦 hair_acc：随机头饰会与本体兽耳叠成两对"
+    },
+    "sparkle_(honkai:_star_rail)": {
+      "note": "花火：狐狸面具**常驻在头侧**（用户 2026-11-23 拍板算身份符号，不随换装消失），眼下有红色 facial mark，瞳孔是蝴蝶形。⚠️ 角色库 tags 里本来就有 mask on head / fox mask / black gloves，但 appearance_for() 只取 hair/eyes/figure 三槽位，词库外标签全被丢掉 —— 所以必须在这里落 extra，否则身体上永远缺面具。黑手套属于官服配件（已在 character_outfits 的 default 套里），此条目不重复。瞳孔与面部花纹是近景强识别符，远景画面看不出，属正常。",
+      "extras": [
+        "fox mask",
+        "mask on head",
+        "butterfly-shaped pupils",
+        "facial mark"
+      ],
+      "body": true,
+      "drop": [
+        "hair_acc"
+      ],
+      "drop_reason": "hair_acc 会随机抽出 animal ears / rabbit ears / maid headdress，与头侧的狐狸面具叠成两套头饰",
+      "gset_note": "2026-11-23 二次修正：APPEAR 表把花火写成 red hair / golden eyes，实测官方立绘是**黑褐发（发梢偏红）+ 粉红瞳**，danbooru wiki 原文也写 long **black** hair / **pink** eyes with butterfly-shaped pupils。APPEAR 优先级最高、改 pools.json 会破坏零漂移基线，所以按 phoebe 的先例在这里用 set 强盖。",
+      "set": {
+        "hair_color": "black hair",
+        "eyes_color": "pink eyes"
+      }
     }
   }
 }

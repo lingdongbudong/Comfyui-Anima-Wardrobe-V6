@@ -1,17 +1,17 @@
 {
  "schema": "anima-v5/outfit-library@1",
- "updated_at": "2026-11-16 21:48:11",
+ "updated_at": "2026-11-21 20:40:42",
  "active": "",
  "pool": {
   "on": false,
   "cats": [],
   "max_level": 4,
   "ids": [],
-  "_last": "",
+  "_last": "tr_qipao_moonwhite",
   "count": 167
  },
  "overrides": {
-  "socks": "aqua gradient thighhighs",
+  "socks": "",
   "shoes": ""
  },
  "scene_override": false,

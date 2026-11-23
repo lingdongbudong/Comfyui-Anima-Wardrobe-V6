@@ -202,6 +202,8 @@ const presetList = () => Object.entries(STORE.presets)
 const USERCH = { edits: {}, custom: [], next: 1 };
 // v3.43.0：场景收藏（桩里用一个数组模拟后端的 user_scene_favorites.json）
 const SCENE_FAV = [];
+// v6.28.0：场景默认画幅的用户覆盖层（模拟 presets/scene_aspect_user.json）
+const SCENE_ASPECT_OV = {};
 // v5.0.4：作品 IP 收藏（值域是作品 slug，模拟 user_work_favorites.json）
 const WORK_FAV = [];
 // v5.0.5：角色服装预设（模拟 character_outfits.json）。按角色懒建 ——
@@ -270,7 +272,31 @@ globalThis.__AV3_FETCH = async (url, opts) => {
   const arg = () => JSON.parse((opts && opts.body) || "{}");
   if (url.endsWith("/pools")) return body(POOLS);
   if (url.endsWith("/contract")) return body(CONTRACT);
-  if (url.endsWith("/scenes")) return body(SCENE_FIX);
+  // ── v6.28.0：场景默认画幅（卡片徽标 竖/横/通 循环切换）──────────
+  // 与真后端同构：写入独立覆盖层，下一次 /scenes 就带上新值。
+  // ⚠️ 按"具体路径在前"排，虽然 endsWith("/scenes") 不会吞掉 "/scenes/aspect"。
+  if (url.endsWith("/scenes/aspect")) {
+    const b = arg();
+    const sid = String(b.id || "");
+    const a = String(b.a || "").trim().toLowerCase();
+    if (!/^sc_[a-z0-9_]+$/.test(sid)) {
+      return { ok: false, status: 400, json: async () => ({ error: "场景 id 不合法" }) };
+    }
+    if (!["portrait", "landscape", "both"].includes(a)) {
+      return { ok: false, status: 400, json: async () => ({ error: "画幅不合法" }) };
+    }
+    SCENE_ASPECT_OV[sid] = a;
+    return body({ ok: true, id: sid, aspect: a });
+  }
+  if (url.endsWith("/scenes")) {
+    // 覆盖层要**合流进返回**，否则筛选 / 重绘后徽标会退回夹具里的旧值。
+    const d = Object.assign({}, SCENE_FIX);
+    d.scenes = (SCENE_FIX.scenes || []).map((s) => (
+      SCENE_ASPECT_OV[s.id]
+        ? Object.assign({}, s, { aspect: SCENE_ASPECT_OV[s.id] })
+        : s));
+    return body(d);
+  }
   // ── v3.43.0：场景收藏（**独立文件**，值域是场景 id，不是角色 tag）──
   // ⚠️ 必须排在 "/scenes" 之前判断吗？不必（endsWith 不会混淆），
   //    但顺序写清楚，避免以后有人把它挪到通用分支后面。
@@ -1400,6 +1426,19 @@ ck("角色卡有 👗 服装入口",
     .some((b) => b.id && b.id.startsWith("av3-outfitbtn-")),
   "没有找到 av3-outfitbtn-*");
 
+/* ── v6.29.0：卡片套数角标 + 官方预设不可删（用户 2026-11-23）──────────
+   用户指定数字位置「👗 左边那格」；并要求「官方预设服装不支持通过手动删除
+   按钮删除，避免误删」。这里钉住三件事的实现位置（DOM 行为由后端用例
+   check_v3_outfits ⑥ 段兜住 —— 那是真数据、真抛错）。 */
+ck("卡片渲染套数角标 .av3-ocount（👗 左边）",
+  /av3-ocount/.test(jsSrc) && /right:47px/.test(jsSrc),
+  "角标丢了 / 位置被改到别处");
+ck("套数 >1 才点亮（multi 类）", /ocN > 1 \? " multi"/.test(jsSrc));
+ck("官方条目渲染 🔒 而不是 ✕ 删除按钮",
+  /o\.official/.test(jsSrc) && /av3-outfit-lock/.test(jsSrc)
+  && /else \{\s*const db = document\.createElement\("button"\)/.test(jsSrc),
+  "官方 / 自定义两条分支必须分开");
+
 /* ── v5.0.5：服装预设「取消启用」（用户 2026-11-02 截图反馈）────────
    反馈原文：「角色服装预设界面只有启用服装没有取消启用，请增加取消启用
    服装预设交互按钮」。根因：启用是 radio，radio 天然**只能换不能空** ——
@@ -2274,6 +2313,10 @@ ck("艺术构图页不显示「随机抽取场景搭配」开关（全 manual_on
 ck("艺术构图页改为「勾选后随机」工具条",
   !!panel.querySelector("#av3-pickbar-art"),
   [...panel.querySelectorAll("[id^='av3-pickbar-']")].map((e) => e.id).join("/"));
+ck("艺术构图卡仍保留「仅手动」角标（精简只限特写页，其它页零改动）",
+  sceneCards().length > 0
+  && sceneCards().every((c) => c.textContent.includes("仅手动")),
+  sceneCards().filter((c) => !c.textContent.includes("仅手动")).map((c) => c.dataset.scene).join("/"));
 ck("艺术构图卡都带勾选框",
   sceneCards().length > 0
   && sceneCards().every((c) => !!c.querySelector("input.av3-pick")));
@@ -3389,9 +3432,30 @@ for (let i = 0; i < 100 && !nearCards().length; i++) await sleep(10);
 ck("特写页卡片数 == 载荷里的 manual 条数",
   nearCards().length === manualScenes.length,
   `${nearCards().length} vs ${manualScenes.length}`);
-ck("特写卡都带「🔍 仅手动」角标",
-  nearCards().every((c) => c.textContent.includes("仅手动")),
-  nearCards().filter((c) => !c.textContent.includes("仅手动")).map((c) => c.dataset.scene).join("/"));
+/* v6.27.0（用户 2026-11-17 20:22「特写搭配场景卡片 UI 显示，现在场景名称
+   无法完全显示」）：两列卡宽约 550px，原来标题行 12 个元素固定占用超 470px，
+   .t 被 flex 挤到 0 宽，只剩「膝…」一个字。修法是把**说明性角标**
+   （仅手动 / 收紧取景 / 清角色 / 角色生效 / 人数锁）收进 hd.title 悬停提示，
+   标题行只留 8 个核心元素（勾选 / 箭头 / 名称 / 题材 / 档位 / 画幅 / 字段数 / 星）。 */
+ck("特写卡的「仅手动」说明收进标题悬停提示，不再占标题行",
+  nearCards().length > 0 && nearCards().every((c) =>
+    /仅手动/.test(c.querySelector(".hd")?.title || "")
+    && !c.querySelector(".hd")?.textContent.includes("仅手动")),
+  `${nearCards().length} 张 / 缺提示=${nearCards().filter((c) =>
+    !/仅手动/.test(c.querySelector(".hd")?.title || "")).length}`);
+ck("特写卡标题行只剩两个说明性以外的元信息角标（档位 + 字段数）",
+  nearCards().every((c) => c.querySelectorAll(".hd .av3-meta").length === 2),
+  nearCards().map((c) => c.querySelectorAll(".hd .av3-meta").length).join("/"));
+{
+  const nameOf = (sc) => (sc.work_zh && sc.work !== "general")
+    ? "《" + sc.work_zh + "》" + sc.zh : sc.zh;
+  const bad = nearCards().filter((c) => {
+    const sc = SCENE_FIX.scenes.find((s) => s.id === c.dataset.scene);
+    return !sc || c.querySelector(".hd .t")?.textContent !== nameOf(sc);
+  });
+  ck("特写卡 .t 里是完整场景名（不再被徽标挤成省略号）",
+    bad.length === 0, bad.map((c) => c.dataset.scene).join("/"));
+}
 /* v6.19.1（用户 2026-11-13 18:45「特写搭配场景 UI 界面一行改为显示俩列」）：
    原来按部位分组、每组下面单列竖排 —— 特写标题本来就短，右半边全空着。
    改法是**每个部位分组各建一个 .av3-scenegrid.two**（不是全页一个大网格，
@@ -3480,30 +3544,32 @@ node.widgets.find((w) => w.name === "lock_fields").value = "";   // 收尾，别
 
 // v5.0.6：标了 role_ok 的条目（手指抚唇）不再清角色，角标也该跟着变
 const roleOkIds = new Set(SCENE_FIX.scenes.filter((s) => s.role_ok).map((s) => s.id));
-ck("手/腿/脚/臀 卡片带「✂ 收紧取景」+「🧹 清角色」角标（role_ok 条目除外）",
+/* v6.27.0：这些说明已收进卡片标题的悬停提示，不再出现在 textContent 里。 */
+const tipOf = (c) => c.querySelector(".hd")?.title || "";
+ck("手/腿/脚/臀 卡片的提示带「收紧取景」+「清角色」（role_ok 条目除外）",
   nearCards().filter((c) => LOCAL_PARTS.includes(nearPartOf(c.dataset.scene))
       && !roleOkIds.has(c.dataset.scene))
-    .every((c) => c.textContent.includes("收紧取景") && c.textContent.includes("清角色")),
+    .every((c) => tipOf(c).includes("收紧取景") && tipOf(c).includes("清角色")),
   nearCards().filter((c) => LOCAL_PARTS.includes(nearPartOf(c.dataset.scene))
       && !roleOkIds.has(c.dataset.scene)
-      && !(c.textContent.includes("收紧取景") && c.textContent.includes("清角色")))
+      && !(tipOf(c).includes("收紧取景") && tipOf(c).includes("清角色")))
     .map((c) => c.dataset.scene).join("/"));
-ck("标了 role_ok 的条目改显示「角色生效」而不是「清角色」",
+ck("标了 role_ok 的条目提示改说「角色生效」而不是「清角色」",
   nearCards().filter((c) => roleOkIds.has(c.dataset.scene))
-    .every((c) => c.textContent.includes("角色生效")
-      && !c.textContent.includes("清角色")),
+    .every((c) => tipOf(c).includes("角色生效")
+      && !tipOf(c).includes("清角色")),
   nearCards().filter((c) => roleOkIds.has(c.dataset.scene)).map((c) => c.dataset.scene).join("/"));
-ck("成人向卡都带「收紧取景」，且「清角色 / 角色生效」二选一",
+ck("成人向卡提示都带「收紧取景」，且「清角色 / 角色生效」二选一",
   nearCards().filter((c) => nearPartOf(c.dataset.scene) === "🔞 成人向")
-    .every((c) => c.textContent.includes("收紧取景")
-      && (c.textContent.includes("清角色") || c.textContent.includes("角色生效"))));
-ck("面部卡带「收紧取景」但**不**带「清角色」（角色与表情要保留）",
+    .every((c) => tipOf(c).includes("收紧取景")
+      && (tipOf(c).includes("清角色") || tipOf(c).includes("角色生效"))));
+ck("面部卡提示带「收紧取景」但**不**带「清角色」（角色与表情要保留）",
   nearCards().filter((c) => nearPartOf(c.dataset.scene) === "面部")
-    .every((c) => c.textContent.includes("收紧取景")
-      && !c.textContent.includes("清角色")));
-ck("上半身与胸卡也不清角色",
+    .every((c) => tipOf(c).includes("收紧取景")
+      && !tipOf(c).includes("清角色")));
+ck("上半身与胸卡的提示也不清角色",
   nearCards().filter((c) => nearPartOf(c.dataset.scene) === "上半身与胸")
-    .every((c) => !c.textContent.includes("清角色")));
+    .every((c) => !tipOf(c).includes("清角色")));
 ck("按部位分组的小标题都在（八个部位，含臀部与成人向）",
   ["面部", "眼与唇", "上半身与胸", "手部", "腿部", "脚部", "臀部", "🔞 成人向"]
     .every((p) => [...panel.querySelectorAll(".av3-note")]
@@ -3748,16 +3814,17 @@ ck("成人向的角色来源标题写明「仅标了角色生效的条目」",
   /角色生效/.test(panel.querySelector("#av3-near-rolelabel")?.textContent || ""),
   panel.querySelector("#av3-near-rolelabel")?.textContent || "");
 const adultCard = (id) => panel.querySelector(`.av3-sec[data-scene="${id}"]`);
-ck("口交特写标了「🎭 角色生效」",
-  /角色生效/.test(adultCard("sc_near_nsfw_fellatio")?.textContent || ""),
-  adultCard("sc_near_nsfw_fellatio")?.textContent?.slice(0, 80));
-ck("乳首特写仍是「🧹 清角色」（无脸）",
-  /清角色/.test(adultCard("sc_near_nsfw_nipple")?.textContent || "")
-  && !/角色生效/.test(adultCard("sc_near_nsfw_nipple")?.textContent || ""),
-  adultCard("sc_near_nsfw_nipple")?.textContent?.slice(0, 80));
-ck("舔阴特写标了「👭 双女」",
-  /双女/.test(adultCard("sc_near_nsfw_cunnilingus")?.textContent || ""),
-  adultCard("sc_near_nsfw_cunnilingus")?.textContent?.slice(0, 80));
+const nearTip = (id) => adultCard(id)?.querySelector(".hd")?.title || "";
+ck("口交特写在标题悬停提示里标了「🎭 角色生效」",
+  /角色生效/.test(nearTip("sc_near_nsfw_fellatio")),
+  nearTip("sc_near_nsfw_fellatio").slice(0, 120));
+ck("乳首特写提示仍是「🧹 清角色」（无脸）",
+  /清角色/.test(nearTip("sc_near_nsfw_nipple"))
+  && !/角色生效/.test(nearTip("sc_near_nsfw_nipple")),
+  nearTip("sc_near_nsfw_nipple").slice(0, 120));
+ck("舔阴特写提示里标了「👭 双女」",
+  /双女/.test(nearTip("sc_near_nsfw_cunnilingus")),
+  nearTip("sc_near_nsfw_cunnilingus").slice(0, 120));
 
 /* 切到过激档才套得动 L3 的双女条目 */
 lvBtn("过激").click();
@@ -4127,6 +4194,61 @@ const beforeBoth = [XB_W[0].value, XB_W[1].value, XB_W[2].value].join();
 if (both7) applyOf7(both7).click();
 ck("套用「通用 both」场景 → 画幅保持不动",
   [XB_W[0].value, XB_W[1].value, XB_W[2].value].join() === beforeBoth, beforeBoth);
+
+/* ── v6.28.0（用户 2026-11-18）：点卡片徽标 → 竖/横/通 循环 ────────
+   这项验三件事：
+     ① 点一下真的写进覆盖层（桩里有 SCENE_ASPECT_OV）；
+     ② 循环顺序 竖 → 横 → 通 → 竖，且"通"不动画幅；
+     ③ 同时切当前工作流画幅（用户当面确认的交互），并且**不会顺手展开卡片**。 */
+const aspAllBtn = panel7.querySelector("#av3-scene-aspect-all");
+if (aspAllBtn && !/pri/.test(aspAllBtn.className)) aspAllBtn.click();
+await sleep(20);
+
+const aspBadge7 = (card) => card.querySelector(".av3-aspect");
+const portCard7 = cards7().find((c) => aspBadge7(c)
+  && aspBadge7(c).dataset.aspect === "portrait");
+ck("场景页里有推荐竖屏的卡片可测（徽标可点）", !!portCard7);
+if (portCard7) {
+  const sid7 = portCard7.dataset.scene;
+  const badge7 = aspBadge7(portCard7);
+  const wasOpen7 = portCard7.classList.contains("open");
+
+  badge7.click();
+  await sleep(20);
+  ck("点竖徽标 → 变横，并写进用户覆盖层",
+    badge7.dataset.aspect === "landscape" && SCENE_ASPECT_OV[sid7] === "landscape",
+    `${badge7.dataset.aspect} / ${SCENE_ASPECT_OV[sid7]}`);
+  ck("请求打到了 /scenes/aspect",
+    CALLS.some((x) => String(x.url).endsWith("/scenes/aspect")));
+  ck("同时把工作流画幅切到横记忆（16:9 · 1280×720）",
+    XB_W[0].value === "16:9" && XB_W[1].value === 1280 && XB_W[2].value === 720,
+    `${XB_W[0].value} ${XB_W[1].value}×${XB_W[2].value}`);
+  ck("点徽标不会顺手把卡片展开（stopPropagation）",
+    portCard7.classList.contains("open") === wasOpen7);
+  ck("状态条说明了默认画幅已改",
+    /默认画幅/.test(panel7.querySelector("#av3-status")?.textContent || ""),
+    panel7.querySelector("#av3-status")?.textContent || "");
+
+  const beforeBoth2 = [XB_W[0].value, XB_W[1].value, XB_W[2].value].join();
+  badge7.click();
+  await sleep(20);
+  ck("再点一次 → 通；「通」不改画幅",
+    badge7.dataset.aspect === "both"
+    && [XB_W[0].value, XB_W[1].value, XB_W[2].value].join() === beforeBoth2,
+    `${badge7.dataset.aspect} ${XB_W[0].value}`);
+
+  badge7.click();
+  await sleep(20);
+  ck("第三次 → 回到竖，并切回竖记忆（前面点过 3:4）",
+    badge7.dataset.aspect === "portrait"
+    && XB_W[0].value === "3:4" && XB_W[1].value === 864,
+    `${badge7.dataset.aspect} ${XB_W[0].value}`);
+
+  badge7.click();
+  await sleep(20);
+  ck("三态闭环：第 4 次又回到横",
+    badge7.dataset.aspect === "landscape", badge7.dataset.aspect);
+}
 
 /* 降级：图里没有比例节点 → 只改面板状态，状态条说明原因（不乱改别的节点） */
 globalThis.__AV3_GRAPH_NODES = [];
